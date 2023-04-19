@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Navbar from "components/navbar.jsx"
 import TopicCard from "components/topicCard.jsx"
+import Headstuff from "components/headstuff.jsx"
 import data from "public/papers.json"
 
     export async function getStaticPaths() {
@@ -29,6 +30,7 @@ export default function SubjectPage({paper}) {
       <Head>
         <title>{paper[0].slug}</title>
         <meta name="description" content={`${paper[0].slug} ${paper[0].subjectName} ${paper[0].year} Past Paper`}></meta>
+        <Headstuff />
       </Head>
       <Navbar />
       {paper.map(function(object, i){

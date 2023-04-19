@@ -91,6 +91,7 @@ const yearsArray = [2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 
         <Head>
           <title>{`Past Papers | A Levels | ${subjectData.name}`}</title>
           <meta name="description" content={`CAIE Past Papers for A-level ${subjectData.name}`}></meta>
+          <Headstuff />
         </Head>
         <Navbar />
         <div className="flex justify-center items-center mt-32 ">
