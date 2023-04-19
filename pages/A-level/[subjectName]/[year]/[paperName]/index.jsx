@@ -27,8 +27,8 @@ export default function SubjectPage({paper}) {
   return (
     <>
       <Head>
-        <title>{paper[i].slug}</title>
-        <meta name="description" content={`${paper[i].slug} ${paper[i].subjectName} ${paper[i].year} Past Paper`}></meta>
+        <title>{paper[0].slug}</title>
+        <meta name="description" content={`${paper[0].slug} ${paper[0].subjectName} ${paper[0].year} Past Paper`}></meta>
       </Head>
       <Navbar />
       {paper.map(function(object, i){
