@@ -6,10 +6,10 @@ const Table = ({ papers, letter }) => {
   return (
     <div className="mt-10 md:w-4/5 lg:w-2/5 w-5/6">
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 dark:bg-gray-700">
+        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 dark:bg-gray-500">
           <thead className="text-xs text-gray-700 bg-gray-50 dark:bg-slate-800 dark:text-gray-200">
             <tr>
-              <th scope="col" className="px-6 py-3 text-2xl lg:text-3xl">
+              <th scope="col" className="px-6 py-3 dark:bg-slate-600 text-2xl lg:text-3xl">
                 Paper Name
               </th>
             </tr>
