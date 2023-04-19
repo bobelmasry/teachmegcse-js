@@ -30,7 +30,8 @@ export default function SubjectPage({papers}) {
   return (
     <>
       <Head>
-        <title>A-level - teachmegcse</title>
+        <title>Past Papers | A Levels | {papers[0].subjectName} | {papers[0].year}</title>
+        <meta name="description" content={`CAIE Past Papers for A-level ${papers[0].subjectName} ${papers[0].year}`}></meta>
       </Head>
       <Navbar />
       <div className="sm:ml-8 ml-6 mt-32">

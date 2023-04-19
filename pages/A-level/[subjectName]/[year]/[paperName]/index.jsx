@@ -27,7 +27,8 @@ export default function SubjectPage({paper}) {
   return (
     <>
       <Head>
-        <title>A-level - teachmegcse</title>
+        <title>{paper[i].slug}</title>
+        <meta name="description" content={`${paper[i].slug} ${paper[i].subjectName} ${paper[i].year} Past Paper`}></meta>
       </Head>
       <Navbar />
       {paper.map(function(object, i){

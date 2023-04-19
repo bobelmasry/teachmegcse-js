@@ -9,6 +9,7 @@ export default function Home() {
   <>
   <Head>
     <title>teachmegcse</title>
+    <meta name="description" content="CAIE Past Papers for Cambridge O Level, Cambridge Int'l AS and A Level and Cambridge IGCSE subjects."></meta>
   </Head>
     <Navbar />
     <div className="mt-28 sm:ml-8 ml-2">
