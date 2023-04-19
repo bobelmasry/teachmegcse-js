@@ -3,6 +3,7 @@ import  Sidebar  from "../components/sidebar.jsx";
 import  Navbar  from "../components/navbar.jsx";
 import Head from "next/head.js";
 import Table from "../components/table.jsx";
+import Headstuff from "components/headstuff.jsx"
 
 export default function Home() {
   return (
@@ -10,6 +11,7 @@ export default function Home() {
   <Head>
     <title>teachmegcse</title>
     <meta name="description" content="CAIE Past Papers for Cambridge O Level, Cambridge Int'l AS and A Level and Cambridge IGCSE subjects."></meta>
+    <Headstuff />
   </Head>
     <Navbar />
     <div className="mt-28 sm:ml-8 ml-2">

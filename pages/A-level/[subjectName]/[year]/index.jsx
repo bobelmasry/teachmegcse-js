@@ -4,6 +4,7 @@ import Table from "components/table.jsx"
 import "flowbite"
 import papers2 from "public/papers.json"
 import data from "public/years.json"
+import Headstuff from "components/headstuff.jsx"
 
 
     export async function getStaticPaths() {
@@ -32,6 +33,7 @@ export default function SubjectPage({papers}) {
       <Head>
         <title>Past Papers | A Levels | {papers[0].subjectName} | {papers[0].year}</title>
         <meta name="description" content={`CAIE Past Papers for A-level ${papers[0].subjectName} ${papers[0].year}`}></meta>
+        <Headstuff />
       </Head>
       <Navbar />
       <div className="sm:ml-8 ml-6 mt-32">

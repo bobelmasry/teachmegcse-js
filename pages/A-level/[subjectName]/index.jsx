@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Navbar from "components/navbar.jsx"
 import YearCard from "components/yearCard.jsx"
+import Headstuff from "components/headstuff.jsx"
 
 const data = [
   {

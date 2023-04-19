@@ -2,6 +2,7 @@ import "flowbite";
 import YearCard from "components/yearCard.jsx"
 import Head from 'next/head';
 import Navbar from "components/navbar.jsx"
+import Headstuff from "components/headstuff.jsx"
 
 export default function Home() {
   return (
@@ -9,6 +10,7 @@ export default function Home() {
   <Head>
     <title>Past Papers | A Levels</title>
     <meta name="description" content="CAIE Past Papers for Cambridge Int'l AS and A Level"></meta>
+    <Headstuff />
   </Head>
   <Navbar />
   <div className="flex justify-center items-center mt-32">
