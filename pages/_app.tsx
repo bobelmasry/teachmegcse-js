@@ -20,6 +20,8 @@ export default function App({ Component, pageProps }: AppProps) {
           gtag('config', 'G-HN33M7M3RV');
         `}
       </Script>
+      <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4840148949688052"
+     crossOrigin="anonymous" strategy="afterInteractive"></Script>
       <ThemeProvider>
         <Component {...pageProps} />
       </ThemeProvider>

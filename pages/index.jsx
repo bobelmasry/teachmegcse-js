@@ -10,6 +10,8 @@ export default function Home() {
   <Head>
     <title>Past Papers | A Levels</title>
     <meta name="description" content="CAIE Past Papers for Cambridge Int'l AS and A Level"></meta>
+    <meta name="keywords" content="teachmegcse, teach me gcse, A-level revision notes, A-level past papers, A-level topic questions, 
+    A-level math past papers, A-level physics past papers, A-level chemistry past papers"></meta>
     <Headstuff />
   </Head>
   <Navbar />
