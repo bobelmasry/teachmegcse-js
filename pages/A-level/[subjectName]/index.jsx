@@ -17,12 +17,12 @@ const data = [
   {
     "slug": "arabic",
     "name" : "Arabic (9680)",
-    "years": {"actualYears" : [2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011]} ,
+    "years": {"actualYears" : [2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013]} ,
   },
   {
     "slug": "business",
     "name" : "Business (9609)",
-    "years": {"actualYears" : [2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011]} ,
+    "years": {"actualYears" : [2022, 2021, 2020, 2019, 2018, 2017, 2016]} ,
   },
   {
     "slug": "chemistry",
@@ -42,7 +42,7 @@ const data = [
   {
     "slug": "english-language",
     "name" : "English Language (9093)",
-    "years": {"actualYears" : [2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011]} ,
+    "years": {"actualYears" : [2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014]} ,
   },
   {
     "slug": "geography",
@@ -52,7 +52,7 @@ const data = [
   {
     "slug": "history",
     "name" : "History (9489)",
-    "years": {"actualYears" : [2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011]} ,
+    "years": {"actualYears" : [2022, 2021, 2020]} ,
   },
   {
     "slug": "physics",
