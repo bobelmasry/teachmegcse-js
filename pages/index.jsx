@@ -8,7 +8,7 @@ export default function Home() {
   return (
   <div>
   <Head>
-    <title>Past Papers | A Levels</title>
+    <title>teachmegcse | A-level and IGCSE Content</title>
     <meta name="description" content="CAIE Past Papers for Cambridge Int'l AS and A Level"></meta>
     <meta name="keywords" content="teachmegcse, teach me gcse, A-level revision notes, A-level past papers, A-level topic questions, 
     A-level math past papers, A-level physics past papers, A-level chemistry past papers"></meta>

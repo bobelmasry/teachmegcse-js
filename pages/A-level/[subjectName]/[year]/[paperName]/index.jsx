@@ -31,7 +31,7 @@ export default function SubjectPage({paper}) {
         <title>{paper[0].slug}</title>
         <meta name="description" content={`${paper[0].slug} ${paper[0].subjectName} ${paper[0].year} Past Paper`}></meta>
         <meta name="keywords" content={`teachmegcse, teach me gcse, A-level revision notes, A-level past papers, A-level topic questions, 
-    A-level ${paper[0].subjectName} ${paper[0].year} past papers, ${paper[0].slug}`}></meta>
+    A-level ${paper[0].subjectName} ${paper[0].year} past papers,${paper[0].slug},${paper[0].synonym}`}></meta>
         <Headstuff />
       </Head>
       <Navbar />
