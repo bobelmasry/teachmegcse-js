@@ -90,20 +90,20 @@ const yearsArray = [2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 
     return (
       <>
         <Head>
-          <title>{`Past Papers | A Levels | ${subjectData.name}`}</title>
-          <meta name="description" content={`CAIE Past Papers for A-level ${subjectData.name}`}></meta>
-          <meta name="keywords" content={`teachmegcse, teach me gcse, A-level revision notes, A-level past papers, A-level topic questions, 
-    A-level ${subjectData.name} past papers`}></meta>
+          <title>{`Past Papers | IGCSE | ${subjectData.name}`}</title>
+          <meta name="description" content={`CAIE Past Papers for IGCSE ${subjectData.name}`}></meta>
+          <meta name="keywords" content={`teachmegcse, teach me gcse, IGCSE revision notes, IGCSE past papers, IGCSE topic questions, 
+    IGCSE ${subjectData.name} past papers`}></meta>
           <Headstuff />
         </Head>
         <Navbar />
         <div className="flex justify-center items-center mt-32 ">
-          <h1 className="text-3xl sm:text-5xl font-bold dark:text-gray-100 tracking-tight">A-level {subjectData.name} Past Papers</h1>
+          <h1 className="text-3xl sm:text-5xl font-bold dark:text-gray-100">IGCSE {subjectData.name} Past Papers</h1>
         </div>
         <div className="flex justify-around items-center ">
             <div className="grid grid-flow-row gap-12 mt-36 mb-40 grid-cols-1 sm:grid-cols-2">
             {subjectData.years.actualYears.map(function(object, i){
-              return <YearCard header={yearsArray[i]} key={i} linkSrc={`/A-level/${subjectData.slug}/${yearsArray[i]}`} />;
+              return <YearCard header={yearsArray[i]} key={i} linkSrc={`${subjectData.slug}/${yearsArray[i]}`} />;
           })}
             </div>
         </div>

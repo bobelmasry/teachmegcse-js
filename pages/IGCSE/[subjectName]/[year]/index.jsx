@@ -32,14 +32,14 @@ export default function SubjectPage({papers}) {
     <>
       <Head>
         <title>Past Papers | A Levels | {papers[0].subjectName} | {papers[0].year}</title>
-        <meta name="description" content={`CAIE Past Papers for A-level ${papers[0].subjectName} ${papers[0].year}`}></meta>
-        <meta name="keywords" content={`teachmegcse, teach me gcse, A-level revision notes, A-level past papers, A-level topic questions, 
-    A-level ${papers[0].subjectName} ${papers[0].year} past papers`}></meta>
+        <meta name="description" content={`CAIE Past Papers for IGCSE ${papers[0].subjectName} ${papers[0].year}`}></meta>
+        <meta name="keywords" content={`teachmegcse, teach me gcse, IGCSE revision notes, IGCSE past papers, IGCSE topic questions, 
+    IGCSE ${papers[0].subjectName} ${papers[0].year} past papers`}></meta>
         <Headstuff />
       </Head>
       <Navbar />
       <div className="sm:ml-8 ml-6 mt-32">
-        <h1 className='text-2xl sm:text-5xl font-bold dark:text-gray-100 tracking-tight'>A-level {sName} {papers[0].year} Past Papers</h1>
+        <h1 className='text-2xl sm:text-5xl font-bold dark:text-gray-100'>IGCSE {sName} {papers[0].year} Past Papers</h1>
       </div>
       <div className="block ml-8 justify-center items-center sm:justify-start mt-16 mb-16 sm:ml-16">
         { (papers[0].year > 2015 ) && <><h1 className="text-xl sm:text-4xl font-bold dark:text-gray-100">February/March {papers[0].year}</h1>

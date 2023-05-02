@@ -5,7 +5,7 @@ function LargeLink({href, text}) {
     <li>
             <a
               href={href}
-              className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+              className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-500 dark:bg-gray-600"
             >
               <span className="flex-1 ml-3 whitespace-nowrap">{text}</span>
             </a>
@@ -25,10 +25,10 @@ function DrawerHeader({text}) {
 
 function Link2Dropdowns({headerText, link1, text1, link2, text2}) {
   return (
-    <li>
+        <li>
             <button
               type="button"
-              className="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+              className="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-400 dark:bg-gray-500"
               aria-controls="dropdown-example"
               data-collapse-toggle="dropdown-example"
             >
@@ -48,11 +48,11 @@ function Link2Dropdowns({headerText, link1, text1, link2, text2}) {
                 />
               </svg>
             </button>
-            <ul id="dropdown-example" className="hidden py-2 space-y-2">
+            <ul id="dropdown-example" className="hidden py-4 space-y-2">
               <li>
                 <a
                   href={link1}
-                  className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                  className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-500 dark:bg-gray-600"
                 >
                   {text1}
                 </a>
@@ -60,7 +60,7 @@ function Link2Dropdowns({headerText, link1, text1, link2, text2}) {
               <li>
                 <a
                   href={link2}
-                  className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                  className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-500 dark:bg-gray-600"
                 >
                   {text2}
                 </a>
@@ -73,21 +73,10 @@ function Link2Dropdowns({headerText, link1, text1, link2, text2}) {
 export default function SideBar() {
   return (
     <>
-    <div className="text-center">
-      <button
-        className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-        type="button"
-        data-drawer-target="drawer-navigation"
-        data-drawer-show="drawer-navigation"
-        aria-controls="drawer-navigation"
-      >
-        Show
-      </button>
-    </div>
     {/* drawer component */}
     <div
       id="drawer-navigation"
-      className="fixed top-0 left-0 z-40 h-screen p-4 overflow-y-auto transition-transform -translate-x-full bg-white w-80 dark:bg-gray-800"
+      className="fixed top-0 left-0 z-40 h-screen p-4 overflow-y-auto transition-transform -translate-x-full bg-white w-80 dark:bg-gray-700"
       tabIndex={-1}
       aria-labelledby="drawer-navigation-label"
     >
@@ -114,7 +103,7 @@ export default function SideBar() {
         <span className="sr-only">Close menu</span>
       </button>
       <div className="py-4 overflow-y-auto">
-        <ul className="space-y-2 font-medium">
+        <ul className="space-y-3 font-medium">
           <Link2Dropdowns headerText={"Data Representation"} link1={"#"} link2={"#"} text1={"User Defined Data Types"} text2={"Floating Point"} />
           <LargeLink href="#" text="Chapter1" />
           <LargeLink href="#" text="Chapter2" />
@@ -125,6 +114,15 @@ export default function SideBar() {
         </ul>
       </div>
     </div>
+    <button
+        className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+        type="button"
+        data-drawer-target="drawer-navigation"
+        data-drawer-show="drawer-navigation"
+        aria-controls="drawer-navigation"
+      >
+        Show
+      </button>
   </>
   
   )

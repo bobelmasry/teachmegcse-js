@@ -1,14 +1,45 @@
 import "flowbite";
 import Link from "next/link";
 
-export default function SubjectCard({linkSrc, header}) {
+export default function SubjectCard({header, revisionNotes, topicQuestions, link1, link2, link3}) {
     return (
       <div>
-      <Link href={`/A-level/${linkSrc}`}>
-      <div className="btn dark:shadow-[0_9px_0_rgb(3,175,261)] shadow-[0_9px_0_rgb(3,105,161)] hover:shadow-[0_4px_0px_rgb(3,105,161)] text-black bg-white ease-out hover:translate-y-1 transition-all rounded block w-72 p-6 bg-gray-50 border border-gray-200 rounded-xl shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 h-32">
-    <h5 className="text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">{header}</h5>
-    </div>
-    </Link>
+      <div className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-7 dark:bg-gray-700 dark:border-gray-700">
+  <h5 className="mb-3 font-semibold text-gray-900 text-4xl dark:text-white">
+    {header}
+  </h5>
+  <ul className="mt-12 space-y-5">
+    <li>
+      <Link
+        href={link1}
+        className="flex items-center hover:scale-[1.02] transition-all ease-out p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group dark:bg-gray-500 dark:hover:bg-gray-400 dark:text-white"
+      >
+        <span className="flex-1 text-xl ml-3 whitespace-nowrap">Past Papers</span>
+      </Link>
+    </li>
+    {revisionNotes && 
+    <li>
+      <Link
+        href={link2}
+        className="flex items-center p-3 text-base hover:scale-[1.02] transition-all ease-out font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-500 dark:hover:bg-gray-400 dark:text-white"
+      >
+        <span className="flex-1 text-xl ml-3 whitespace-nowrap">Revision Notes</span>
+      </Link>
+    </li>
+    }
+    {topicQuestions && 
+    <li>
+      <Link
+        href={link3}
+        className="flex items-center p-3 text-base hover:scale-[1.02] transition-all ease-out font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-500 dark:hover:bg-gray-400 dark:text-white"
+      >
+        <span className="flex-1 text-xl ml-3 whitespace-nowrap">Topic Questions</span>
+      </Link>
+    </li>
+    }
+  </ul>
+</div>
+
       </div>
     )
 };

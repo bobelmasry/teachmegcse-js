@@ -1,5 +1,5 @@
 import "flowbite";
-import YearCard from "components/yearCard.jsx"
+import SubjectCard from "components/subjectCard.jsx"
 import Head from 'next/head';
 import Navbar from "components/navbar.jsx"
 import Headstuff from "components/headstuff.jsx"
@@ -7,31 +7,31 @@ import Headstuff from "components/headstuff.jsx"
 export default function Home() {
   return (
   <div>
-  <Head>
-    <title>Past Papers | A Levels</title>
-    <meta name="description" content="CAIE Past Papers for Cambridge Int'l AS and A Level"></meta>
-    <meta name="keywords" content="teachmegcse, teach me gcse, A-level revision notes, A-level past papers, A-level topic questions, 
-    A-level math past papers, A-level physics past papers, A-level chemistry past papers"></meta>
-    <Headstuff />
-  </Head>
-  <Navbar />
-  <div className="flex justify-center items-center mt-32">
-  <h1 className="text-4xl sm:text-5xl font-bold dark:text-gray-100">A-level Past Papers</h1>
-  </div>
+    <Head>
+      <title>A Level Resources | teachmegcse</title>
+      <meta name="description" content="CAIE Past Papers for Cambridge Int'l AS and A Level"></meta>
+      <meta name="keywords" content="teachmegcse, teach me gcse, A-level revision notes, A-level past papers, A-level topic questions, 
+      A-level math past papers, A-level physics past papers, A-level chemistry past papers"></meta>
+      <Headstuff />
+    </Head>
+    <Navbar />
+    <div className="mt-36 flex justify-center">
+        <h1 className="text-4xl sm:text-6xl font-bold tracking-tight dark:text-gray-100">A-level Content</h1>
+      </div>
     <div className="flex justify-center items-center">
-      <div className="grid grid-flow-row gap-12 mt-24 sm:mt-36 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 mb-40">
-        <YearCard linkSrc={"accounting"} header={"Accounting (9706)"} />
-        <YearCard linkSrc={"arabic"} header={"Arabic (9680)"} />
-        <YearCard linkSrc={"business"} header={"Business (9609)"} />
-        <YearCard linkSrc={"biology"} header={"Biology (9700)"} />
-        <YearCard linkSrc={"chemistry"} header={"Chemistry (9701)"} />
-        <YearCard linkSrc={"computer-science"} header={"Computer Science (9618)"} />
-        <YearCard linkSrc={"economics"} header={"Economics (9708)"} />
-        <YearCard linkSrc={"english-language"} header={"English Language (9093)"} />
-        <YearCard linkSrc={"geography"} header={"Geography (9696)"} />
-        <YearCard linkSrc={"history"} header={"History (9489)"} />
-        <YearCard linkSrc={"math"} header={"Maths (9709)"} />
-        <YearCard linkSrc={"physics"} header={"Physics (9702)"} />
+      <div className="grid grid-flow-row gap-16 mt-24 sm:mt-36 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 sm:justify-center mb-40 w-11/12 md:w-4/6 lg:w-4/6">
+        <SubjectCard header={"Accounting (9706)"} link1={"/A-level/accounting/"} link2={"#"} link3={"#"} />
+        <SubjectCard header={"Arabic (9680)"} link1={"/A-level/arabic/"} link2={"#"} link3={"#"} />
+        <SubjectCard header={"Business (9609)"} link1={"/A-level/business/"} link2={"#"} link3={"#"} />
+        <SubjectCard header={"Biology (9700)"} link1={"/A-level/biology/"} link2={"#"} link3={"#"} />
+        <SubjectCard header={"Chemistry (9701)"} link1={"/A-level/chemistry/"} link2={"#"} link3={"#"} />
+        <SubjectCard header={"Computer Science (9618)"} link1={"/A-level/computer-science/"} link2={"#"} link3={"#"} />
+        <SubjectCard header={"Economics (9708)"} link1={"/A-level/economics/"} link2={"#"} link3={"#"} />
+        <SubjectCard header={"English Language (9093)"} link1={"/A-level/english-language/"} link2={"#"} link3={"#"} />
+        <SubjectCard header={"Geography (9696)"} link1={"/A-level/geography/"} link2={"#"} link3={"#"} />
+        <SubjectCard header={"History (9489)"} link1={"/A-level/history/"} link2={"#"} link3={"#"} />
+        <SubjectCard header={"Maths (9709)"} link1={"/A-level/math/"} link2={"/A-level/math-revision-notes"} link3={"#"}  />
+        <SubjectCard header={"Physics (9702)"} revisionNotes={true} link1={"/A-level/physics/"} link2={"/A-level/physics-revision-notes"} link3={"#"} />
       </div>
     </div>
   </div>

@@ -70,9 +70,6 @@ export default function Navbar() {
           />
         </svg>
       </button>
-      <button type="button" className="hidden sm:visible text-gray-200 dark:text-white hover:bg-gray-100 bg-green-600 dark:hover:bg-green-500 focus:outline-none focus:ring-4 focus:ring-green-200 dark:focus:ring-green-700 rounded-lg text-lg p-2">
-        Get Started
-      </button>
     </div>
     <div
       className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
@@ -81,7 +78,7 @@ export default function Navbar() {
       <ul className="flex flex-col text-xl p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0 dark:border-gray-600">
       <li>
           <Link
-            href="/A-level"
+            href="/IGCSE"
             className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
           >
             IGCSE
