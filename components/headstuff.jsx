@@ -1,7 +1,7 @@
 import Script from "next/script"
 import Head from "next/head"
 
-export default function Headstuff() {
+export default function Headstuff({session}) {
     return (
         <>
         <Script

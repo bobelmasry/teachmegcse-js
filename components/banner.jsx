@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Banner() {
     return (
         <>
@@ -14,18 +16,12 @@ export default function Banner() {
           topic along with our well known Revision Notes.
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-4">
-          <a
-            className="block w-full rounded border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-white focus:outline-none focus:ring active:text-opacity-75 sm:w-auto"
-            href="/get-started"
+          <Link
+            className="block w-full rounded border border-blue-600 bg-blue-600 px-12 py-3 text-xl font-medium text-white hover:bg-blue-500 transition-all ease-out hover:text-white focus:outline-none focus:ring active:text-opacity-75 sm:w-auto"
+            href="/login-or-signup"
           >
             Get Started
-          </a>
-          <a
-            className="block w-full rounded border border-blue-600 px-12 py-3 text-sm font-medium text-white hover:bg-blue-600 focus:outline-none focus:ring active:bg-blue-500 sm:w-auto"
-            href="/about"
-          >
-            Learn More
-          </a>
+          </Link>
         </div>
       </div>
     </div>

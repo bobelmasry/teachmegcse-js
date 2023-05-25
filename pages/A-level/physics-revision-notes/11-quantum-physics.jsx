@@ -12,7 +12,7 @@ export default function Home() {
       </div>
       <div className="flex justify-center mt-20 mb-24">
       <div className="lg:w-3/6 md:w-4/6 w-11/12 bg-slate-700 rounded-2xl p-5 md:p-10 shadow-gray-800 shadow shadow-2xl">
-      <div className="mt-20">
+      <div class="mt-4">
       <h2 class="text-2xl sm:text-3xl font-semibold dark:text-gray-100">
     22.1 Energy and momentum of a photon
 </h2>

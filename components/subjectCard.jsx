@@ -12,7 +12,7 @@ export default function SubjectCard({header, revisionNotes, topicQuestions, link
     <li>
       <Link
         href={link1}
-        className="flex items-center hover:scale-[1.02] transition-all ease-out p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group dark:bg-gray-500 dark:hover:bg-gray-400 dark:text-white"
+        className="flex items-center hover:scale-[1.02] transition-all ease-out p-3 text-base font-bold text-gray-900 rounded-lg bg-green-50 hover:bg-green-100 group dark:bg-green-500 dark:hover:bg-green-400 dark:text-white"
       >
         <span className="flex-1 text-xl ml-3 whitespace-nowrap">Past Papers</span>
       </Link>
@@ -21,7 +21,7 @@ export default function SubjectCard({header, revisionNotes, topicQuestions, link
     <li>
       <Link
         href={link2}
-        className="flex items-center p-3 text-base hover:scale-[1.02] transition-all ease-out font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-500 dark:hover:bg-gray-400 dark:text-white"
+        className="flex items-center hover:scale-[1.02] transition-all ease-out p-3 text-base font-bold text-gray-900 rounded-lg bg-green-50 hover:bg-green-100 group dark:bg-green-500 dark:hover:bg-green-400 dark:text-white"
       >
         <span className="flex-1 text-xl ml-3 whitespace-nowrap">Revision Notes</span>
       </Link>
@@ -31,7 +31,7 @@ export default function SubjectCard({header, revisionNotes, topicQuestions, link
     <li>
       <Link
         href={link3}
-        className="flex items-center p-3 text-base hover:scale-[1.02] transition-all ease-out font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-500 dark:hover:bg-gray-400 dark:text-white"
+        className="flex items-center hover:scale-[1.02] transition-all ease-out p-3 text-base font-bold text-gray-900 rounded-lg bg-green-50 hover:bg-green-100 group dark:bg-green-500 dark:hover:bg-green-400 dark:text-white"
       >
         <span className="flex-1 text-xl ml-3 whitespace-nowrap">Topic Questions</span>
       </Link>

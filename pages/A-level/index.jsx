@@ -3,8 +3,10 @@ import SubjectCard from "components/subjectCard.jsx"
 import Head from 'next/head';
 import Navbar from "components/navbar.jsx"
 import Headstuff from "components/headstuff.jsx"
+import { useSession } from '@supabase/auth-helpers-react'
 
 export default function Home() {
+  const session = useSession()
   return (
   <div>
     <Head>
@@ -14,7 +16,7 @@ export default function Home() {
       A-level math past papers, A-level physics past papers, A-level chemistry past papers"></meta>
       <Headstuff />
     </Head>
-    <Navbar />
+    <Navbar session={session} />
     <div className="mt-36 flex justify-center">
         <h1 className="text-4xl sm:text-6xl font-bold tracking-tight dark:text-gray-100">A-level Content</h1>
       </div>
@@ -24,7 +26,7 @@ export default function Home() {
         <SubjectCard header={"Arabic (9680)"} link1={"/A-level/arabic/"} link2={"#"} link3={"#"} />
         <SubjectCard header={"Business (9609)"} link1={"/A-level/business/"} link2={"#"} link3={"#"} />
         <SubjectCard header={"Biology (9700)"} link1={"/A-level/biology/"} link2={"#"} link3={"#"} />
-        <SubjectCard header={"Chemistry (9701)"} link1={"/A-level/chemistry/"} link2={"#"} link3={"#"} />
+        <SubjectCard header={"Chemistry (9701)"} link1={"/A-level/chemistry/"} topicQuestions={true} link2={"#"} link3={"/A-level/chemistry/topic-questions"} />
         <SubjectCard header={"Computer Science (9618)"} link1={"/A-level/computer-science/"} link2={"#"} link3={"#"} />
         <SubjectCard header={"Economics (9708)"} link1={"/A-level/economics/"} link2={"#"} link3={"#"} />
         <SubjectCard header={"English Language (9093)"} link1={"/A-level/english-language/"} link2={"#"} link3={"#"} />

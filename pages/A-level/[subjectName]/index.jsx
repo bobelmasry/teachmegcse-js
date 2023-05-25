@@ -2,6 +2,7 @@ import Head from 'next/head';
 import Navbar from "components/navbar.jsx"
 import YearCard from "components/yearCard.jsx"
 import Headstuff from "components/headstuff.jsx"
+import { useSession } from '@supabase/auth-helpers-react'
 
 const data = [
   {
@@ -87,6 +88,7 @@ const yearsArray = [2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 
 
 
   export default function SubjectPage({ subjectData }) {
+    const session = useSession()
     return (
       <>
         <Head>
@@ -96,7 +98,7 @@ const yearsArray = [2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 
     A-level ${subjectData.name} past papers`}></meta>
           <Headstuff />
         </Head>
-        <Navbar />
+        <Navbar session={session} />
         <div className="flex justify-center items-center mt-32 ">
           <h1 className="text-3xl sm:text-5xl font-bold dark:text-gray-100 tracking-tight">A-level {subjectData.name} Past Papers</h1>
         </div>

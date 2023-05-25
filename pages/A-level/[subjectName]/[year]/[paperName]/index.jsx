@@ -2,6 +2,7 @@ import Head from 'next/head';
 import Navbar from "components/navbar.jsx"
 import Headstuff from "components/headstuff.jsx"
 import data from "public/papers.json"
+import { useSession } from '@supabase/auth-helpers-react'
 
     export async function getStaticPaths() {
 
@@ -24,6 +25,7 @@ export async function getStaticProps({params}) {
 
 
 export default function SubjectPage({paper}) {
+  const session = useSession()
   return (
     <>
       <Head>
@@ -33,7 +35,7 @@ export default function SubjectPage({paper}) {
     A-level ${paper[0].subjectName} ${paper[0].year} past papers,${paper[0].slug},${paper[0].synonym}`}></meta>
         <Headstuff />
       </Head>
-      <Navbar />
+      <Navbar session={session} />
       {paper.map(function(object, i){
               return(<div key={1}>
               <div className="mt-24 mb-16">

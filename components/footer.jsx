@@ -4,7 +4,7 @@ import Image from "next/image"
 export default function Footer () {
     return (
         <>
-        <footer aria-label="Site Footer" className="mt-32 md:mt-40">
+        <footer aria-label="Site Footer" className="mt-32 md:mt-72">
         <hr className="h-px bg-gray-200 border-0 dark:bg-gray-500"></hr>
   <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
     <div className="flex justify-center text-teal-600">
@@ -29,20 +29,6 @@ export default function Footer () {
             About
           </Link>
         </li>
-
-        <li>
-          <Link className="text-gray-300 transition hover:text-gray-300/60" href="/">
-            History
-          </Link>
-        </li>
-
-
-        <li>
-          <Link className="text-gray-300 transition hover:text-gray-300/60" href="/">
-            Projects
-          </Link>
-        </li>
-
         <li>
           <Link className="text-gray-300 transition hover:text-gray-300/60" href="/">
             Blog
@@ -77,7 +63,7 @@ export default function Footer () {
 
       <li>
         <a
-          href="/"
+          href="https://www.instagram.com/igcse_.memes/"
           rel="noreferrer"
           target="_blank"
           className="text-gray-700 transition hover:text-gray-700/75"
@@ -100,7 +86,7 @@ export default function Footer () {
 
       <li>
         <a
-          href="/"
+          href="https://github.com/bobelmasry/teachmegcse-js"
           rel="noreferrer"
           target="_blank"
           className="text-gray-700 transition hover:text-gray-700/75"

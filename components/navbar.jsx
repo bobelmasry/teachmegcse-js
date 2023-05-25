@@ -1,37 +1,9 @@
 import "flowbite";
 import Image from "next/image";
 import Link from "next/link";
-import { useTheme } from '../contexts/ThemeContext.js';
 
 
-// DarkModeToggle.js
-
-function DarkModeToggle(){
-  const { darkMode, toggleDarkMode } = useTheme();
-  return (
-    <label htmlFor="darkModeToggle" className="flex items-center cursor-pointer">
-      <div className="relative">
-        <input
-          id="darkModeToggle"
-          type="checkbox"
-          className="hidden"
-          checked={darkMode}
-          onChange={toggleDarkMode}
-        />
-        <div className="toggle-path w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
-        <div
-          className={`toggle-circle absolute w-6 h-6 bg-white rounded-full shadow inset-y-0.5 ${
-            darkMode ? 'right-0.5' : 'left-0.5'
-          } transition-all duration-200 ease-in-out`}
-        ></div>
-      </div>
-    </label>
-  );
-}
-
-
-export default function Navbar() {
-  const { darkMode } = useTheme();
+export default function Navbar({session}) {
   return (
 <nav className="bg-white dark:bg-blue-900 fixed w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
   <div className="max-w-screen-xl flex flex-wrap items-center justify-around mx-auto p-4">
@@ -69,7 +41,22 @@ export default function Navbar() {
             clipRule="evenodd"
           />
         </svg>
+        </button>
+        {!session ? (
+          <>
+          <Link href={'/login-or-signup'}>
+      <button className="text-white transition-all ease-out bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-500 dark:focus:ring-green-800">
+          Sign In
       </button>
+      </Link>
+      </>
+        ) : (
+          <Link href={'/login-or-signup'}>
+          <button className="text-white transition-all ease-out bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-500 dark:focus:ring-red-800">
+          Sign Out
+          </button>
+          </Link>
+        )}
     </div>
     <div
       className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
@@ -79,7 +66,7 @@ export default function Navbar() {
       <li>
           <Link
             href="/IGCSE"
-            className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+            className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 transition-all dark:text-white dark:hover:bg-gray-700 md:dark:hover:bg-transparent dark:border-gray-700"
           >
             IGCSE
           </Link>
@@ -87,7 +74,7 @@ export default function Navbar() {
         <li>
           <Link
             href="/A-level"
-            className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+            className="block transition-all py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
           >
             A-level
           </Link>
