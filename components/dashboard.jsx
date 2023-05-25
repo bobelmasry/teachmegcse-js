@@ -14,7 +14,8 @@ export default function Dashboard({ session }) {
     useEffect(() => {
         getUserStats(),
         getProfile()
-      }, [session])
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      }, [session]);
 
       async function getProfile() {
         try {
@@ -69,7 +70,7 @@ export default function Dashboard({ session }) {
   
       
   return (
-    <div className="w-full sm:w-3/6 md:w-full lg:w-96">
+    <div className="w-full flex gap-8 sm:w-3/6 md:w-full lg:w-96">
       {username != null && 
       <div className="flex justify-start mb-6">
         <h2 className='text-5xl dark:text-gray-100'>Hi <span className='text-blue-500 font-semibold capitalize'>{username}</span>,</h2>

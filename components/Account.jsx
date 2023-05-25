@@ -12,8 +12,10 @@ export default function Account({ session }) {
   const [avatar_url, setAvatarUrl] = useState(null)
 
   useEffect(() => {
+    getUserStats(),
     getProfile()
-  }, [session])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session]);
 
   async function getProfile() {
     try {
