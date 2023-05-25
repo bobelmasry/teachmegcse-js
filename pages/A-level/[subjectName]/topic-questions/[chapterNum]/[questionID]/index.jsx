@@ -22,9 +22,6 @@ export const supabase = createClient('https://dgunybghtjqbawjpkcvg.supabase.co',
 
 
     useEffect(() => {
-        getProfile()
-      }, [session])
-
       async function getProfile() {
         try {
           setLoading(true)
@@ -48,6 +45,8 @@ export const supabase = createClient('https://dgunybghtjqbawjpkcvg.supabase.co',
           setLoading(false)
         }
       }
+        getProfile()
+      }, [session, user.id])
 
     return (
       <>

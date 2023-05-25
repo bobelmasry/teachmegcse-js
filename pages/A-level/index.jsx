@@ -3,10 +3,8 @@ import SubjectCard from "components/subjectCard.jsx"
 import Head from 'next/head';
 import Navbar from "components/navbar.jsx"
 import Headstuff from "components/headstuff.jsx"
-import { useSession } from '@supabase/auth-helpers-react'
 
 export default function Home() {
-  const session = useSession()
   return (
   <div>
     <Head>
@@ -16,7 +14,7 @@ export default function Home() {
       A-level math past papers, A-level physics past papers, A-level chemistry past papers"></meta>
       <Headstuff />
     </Head>
-    <Navbar session={session} />
+    <Navbar />
     <div className="mt-36 flex justify-center">
         <h1 className="text-4xl sm:text-6xl font-bold tracking-tight dark:text-gray-100">A-level Content</h1>
       </div>

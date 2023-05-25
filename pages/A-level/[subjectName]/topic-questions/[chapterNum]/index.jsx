@@ -7,12 +7,10 @@ import Link from 'next/link';
 import fs from 'fs/promises';
 import path from 'path';
 import { useRouter } from 'next/router';
-import { useSession } from '@supabase/auth-helpers-react'
 
     function SubjectPage({questionData}) {
         const router = useRouter();
         const { chapterNum } = router.query;
-        const session = useSession()
 
     return (
       <>
@@ -24,7 +22,7 @@ import { useSession } from '@supabase/auth-helpers-react'
     ${questionData.questionText}`}></meta>
           <Headstuff />
         </Head>
-        <Navbar session={session} />
+        <Navbar />
         <div className="flex flex-col items-center gap-32 mt-32 mb-20">
             <h1 className='text-3xl sm:text-5xl font-bold text-white mb-8'>CH : {chapterNum} Topic Questions</h1>
         {questionData.map((question) => (

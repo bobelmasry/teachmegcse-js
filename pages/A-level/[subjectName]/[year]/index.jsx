@@ -5,7 +5,6 @@ import "flowbite"
 import papers2 from "public/papers.json"
 import data from "public/years.json"
 import Headstuff from "components/headstuff.jsx"
-import { useSession } from '@supabase/auth-helpers-react'
 
 
     export async function getStaticPaths() {
@@ -29,7 +28,6 @@ export async function getStaticProps({params}) {
 
 export default function SubjectPage({papers}) {
   let sName = papers[0].subjectName.charAt(0).toUpperCase() + papers[0].subjectName.slice(1);
-  const session = useSession()
   return (
     <>
       <Head>
@@ -39,7 +37,7 @@ export default function SubjectPage({papers}) {
     A-level ${papers[0].subjectName} ${papers[0].year} past papers`}></meta>
         <Headstuff />
       </Head>
-      <Navbar session={session} />
+      <Navbar />
       <div className="sm:ml-8 ml-6 mt-32">
         <h1 className='text-2xl sm:text-5xl font-bold dark:text-gray-100 tracking-tight'>A-level {sName} {papers[0].year} Past Papers</h1>
       </div>

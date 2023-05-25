@@ -6,7 +6,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import fs from 'fs/promises';
 import path from 'path';
-import { useSession } from '@supabase/auth-helpers-react'
 import TopicCard from "components/topicCard.jsx"
 
 const chemistry = [
@@ -145,7 +144,6 @@ const chemistry = [
 ]
 
     function SubjectPage({questionData}) {
-      const session = useSession()
     return (
       <>
         <Head>
@@ -154,7 +152,7 @@ const chemistry = [
           <meta name="keywords" content={`teachmegcse, teach me gcse, A-level revision notes, A-level past papers, A-level topic questions,`}></meta>
           <Headstuff />
         </Head>
-        <Navbar session={session} />
+        <Navbar />
         <div className="flex justify-center mt-28">
         <Link href={'/'}>
         <TopicCard header={"Search For A Question"} linkSrc={`/A-level/chemistry/topic-questions/search`} />

@@ -7,7 +7,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import questions from "public/chemistry_db.json"
 import { useState } from 'react';
-import { useSession } from '@supabase/auth-helpers-react'
 
 
 export const supabase = createClient('https://dgunybghtjqbawjpkcvg.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRndW55YmdodGpxYmF3anBrY3ZnIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODMwMzA3NDcsImV4cCI6MTk5ODYwNjc0N30.YhH31WDmaWw9QZgx4cvu09g4aQojJ6fKer1B8gRnXGM')
@@ -24,7 +23,6 @@ export const supabase = createClient('https://dgunybghtjqbawjpkcvg.supabase.co',
             setquestionArray(filteredQuestions);
         }
         }
-        const session = useSession()
 
     return (
       <>
@@ -35,7 +33,7 @@ export const supabase = createClient('https://dgunybghtjqbawjpkcvg.supabase.co',
     `}></meta>
           <Headstuff />
         </Head>
-        <Navbar session={session} />
+        <Navbar />
         <div className="mt-40 mb-20">
             <div className='flex justify-center'>
                 <div className="w-5/6 sm:w-4/6 md:w-3/6 lg:w-2/6">
