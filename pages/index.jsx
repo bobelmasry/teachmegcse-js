@@ -26,7 +26,7 @@ export default function Home () {
     A-level math past papers, A-level physics past papers, A-level chemistry past papers"></meta>
     <Headstuff />
     </Head>
-    <Navbar />
+    <Navbar session={session} />
       <div>
       {!session ? (
         <>

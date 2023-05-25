@@ -9,8 +9,6 @@ import questions from "public/chemistry_db.json"
 import { useState } from 'react';
 
 
-export const supabase = createClient('https://dgunybghtjqbawjpkcvg.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRndW55YmdodGpxYmF3anBrY3ZnIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODMwMzA3NDcsImV4cCI6MTk5ODYwNjc0N30.YhH31WDmaWw9QZgx4cvu09g4aQojJ6fKer1B8gRnXGM')
-
     function SubjectPage() {
         const [questionArray, setquestionArray] = useState([]);
 
@@ -37,7 +35,7 @@ export const supabase = createClient('https://dgunybghtjqbawjpkcvg.supabase.co',
         <div className="mt-40 mb-20">
             <div className='flex justify-center'>
                 <div className="w-5/6 sm:w-4/6 md:w-3/6 lg:w-2/6">
-                    <h1 className='text-2xl mb-12 font-bold text-white'>Search for a question or a keyword ...</h1>
+                    <h1 className='text-3xl mb-12 font-bold text-white'>Search for a question or a keyword ...</h1>
                 <label
                     htmlFor="searchbar"
                     className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
@@ -76,8 +74,8 @@ export const supabase = createClient('https://dgunybghtjqbawjpkcvg.supabase.co',
         {questionArray.map((question) => (
         <>
             <div key={question.questionName} className='border border-8 border-green-600 p-2 rounded rounded-2xl'>
-                <Link href={`/A-level/${question.Subject}/topic-questions/${question.Chapter}/${question.questionName}`}>
-                <Image className='rounded rounded-md' src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/sortedp1/${question.Chapter}/${question.questionName}`} alt='image' height={800} width={800} />
+                <Link key={question.questionName} href={`/A-level/${question.Subject}/topic-questions/${question.Chapter}/${question.questionName}`}>
+                <Image key={question.questionName} className='rounded rounded-md' src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/sortedp1/${question.Chapter}/${question.questionName}`} alt='image' height={800} width={800} />
                 </Link>
             </div>
         </>

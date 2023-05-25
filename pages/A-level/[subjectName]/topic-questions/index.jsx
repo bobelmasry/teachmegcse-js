@@ -2,11 +2,9 @@ import Head from 'next/head';
 import Navbar from "components/navbar.jsx"
 import "flowbite"
 import Headstuff from "components/headstuff.jsx"
-import Image from 'next/image';
 import Link from 'next/link';
-import fs from 'fs/promises';
-import path from 'path';
 import TopicCard from "components/topicCard.jsx"
+import { useSession } from '@supabase/auth-helpers-react'
 
 const chemistry = [
   {
@@ -143,16 +141,17 @@ const chemistry = [
   },
 ]
 
-    function SubjectPage({questionData}) {
+    function SubjectPage() {
+      const session = useSession()
     return (
       <>
         <Head>
-          <title></title>
+          <title>A-level Chemistry Topic Questions</title>
           <meta name="description" content={`Find the Answer and maybe an Explanation`}></meta>
           <meta name="keywords" content={`teachmegcse, teach me gcse, A-level revision notes, A-level past papers, A-level topic questions,`}></meta>
           <Headstuff />
         </Head>
-        <Navbar />
+        <Navbar session={session} />
         <div className="flex justify-center mt-28">
         <Link href={'/'}>
         <TopicCard header={"Search For A Question"} linkSrc={`/A-level/chemistry/topic-questions/search`} />
@@ -172,31 +171,5 @@ const chemistry = [
     );
     
   }
-
-
-export async function getServerSideProps({ params }) {
-  try {
-    const filePath = path.join(process.cwd(), 'public', `${params.subjectName}_db.json`);
-    const fileData = await fs.readFile(filePath, 'utf-8');
-    const data = JSON.parse(fileData);
-
-    const filteredData = data.filter(item => item.Chapter === 1);
-
-    return {
-      props: {
-        questionData: filteredData
-      }
-    };
-  } catch (error) {
-    console.error(`Error reading JSON file: ${error}`);
-    return {
-      props: {
-        questionData: null
-      }
-    };
-  }
-}
-
-
 
 export default SubjectPage

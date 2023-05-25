@@ -20,7 +20,7 @@ const Home = () => {
     A-level math past papers, A-level physics past papers, A-level chemistry past papers"></meta>
     <Headstuff />
   </Head>
-    <Navbar />
+  <Navbar session={session} />
     <div className="flex justify-center">
       <div className="w-3/4 sm:w-2/4 md:w-1/4 mt-36">
       {!session ? (

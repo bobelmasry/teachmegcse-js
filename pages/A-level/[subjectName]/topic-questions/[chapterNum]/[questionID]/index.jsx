@@ -47,6 +47,7 @@ export const supabase = createClient('https://dgunybghtjqbawjpkcvg.supabase.co',
 
 
   export async function getStaticProps({ params }) {
+    console.log(params);
     try {
       const filePath = path.join(process.cwd(), 'public', `${params.subjectName}_db.json`);
       const fileData = await fs.readFile(filePath, 'utf-8');
