@@ -15,17 +15,17 @@ export default function Account({ session }) {
     async function getProfile() {
       try {
         setLoading(true)
-  
+        
         let { data, error, status } = await supabase
           .from('profiles')
           .select(`username, website, avatar_url`)
           .eq('id', user.id)
           .single()
-  
+
         if (error && status !== 406) {
           throw error
         }
-  
+
         if (data) {
           setUsername(data.username)
           setWebsite(data.website)
@@ -38,33 +38,33 @@ export default function Account({ session }) {
         setLoading(false)
       }
     }
-  
-    async function updateProfile({ username, website, avatar_url }) {
-      try {
-        setLoading(true)
-  
-        const updates = {
-          id: user.id,
-          username,
-          website,
-          avatar_url,
-          updated_at: new Date().toISOString(),
-        }
-  
-        let { error } = await supabase.from('profiles').upsert(updates)
-        if (error) throw error
-        alert('Profile updated!')
-      } catch (error) {
-        alert('Error updating the data!')
-        console.log(error)
-      } finally {
-        setLoading(false)
-      }
-    }
-    getProfile()
-  }, [session, supabase, user.id])
 
- 
+    getProfile()
+  }, [supabase, user.id])
+
+  async function updateProfile() {
+    try {
+      setLoading(true)
+
+      const updates = {
+        id: user.id,
+        username,
+        website,
+        avatar_url,
+        updated_at: new Date().toISOString(),
+      }
+
+      let { error } = await supabase.from('profiles').upsert(updates)
+      if (error) throw error
+      alert('Profile updated!')
+    } catch (error) {
+      alert('Error updating the data!')
+      console.log(error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <div className="mt-8">
       <div>
@@ -81,22 +81,24 @@ export default function Account({ session }) {
           onChange={(e) => setUsername(e.target.value)}
         />
       </div>
-    <div className="flex gap-4 mt-4">
-      <div>
-        <button
-          class="text-white bg-blue-700 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-500 transition-all ease-out dark:focus:ring-blue-800"
-          onClick={() => updateProfile({ username, website, avatar_url })}
-          disabled={loading}
-        >
-          {loading ? 'Loading ...' : 'Update'}
-        </button>
-      </div>
-
-      <div>
-        <button class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-700 dark:hover:bg-red-500 transition-all ease-out dark:focus:ring-red-800" onClick={() => supabase.auth.signOut()}>
-          Sign Out
-        </button>
-      </div>
+      <div className="flex gap-4 mt-4">
+        <div>
+          <button
+            className="text-white bg-blue-700 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-500 transition-all ease-out dark:focus:ring-blue-800"
+            onClick={updateProfile}
+            disabled={loading}
+          >
+            {loading ? 'Loading ...' : 'Update'}
+          </button>
+        </div>
+        <div>
+          <button
+            className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-700 dark:hover:bg-red-500 transition-all ease-out dark:focus:ring-red-800"
+            onClick={() => supabase.auth.signOut()}
+          >
+            Sign Out
+          </button>
+        </div>
       </div>
     </div>
   )
