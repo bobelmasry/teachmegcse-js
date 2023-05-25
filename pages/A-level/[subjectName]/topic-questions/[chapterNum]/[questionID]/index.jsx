@@ -14,39 +14,7 @@ import { useState, useEffect } from 'react'
 export const supabase = createClient('https://dgunybghtjqbawjpkcvg.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRndW55YmdodGpxYmF3anBrY3ZnIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODMwMzA3NDcsImV4cCI6MTk5ODYwNjc0N30.YhH31WDmaWw9QZgx4cvu09g4aQojJ6fKer1B8gRnXGM')
 
     function QuestionPage({questionData}) {
-      const user = useUser()
       const session = useSession()
-
-    const [isSubscribed, setIsSubscribed] = useState(false)
-    const [loading, setLoading] = useState(true)
-
-
-    useEffect(() => {
-      async function getProfile() {
-        try {
-          setLoading(true)
-    
-          let { data, error, status } = await supabase
-            .from('profile')
-            .select(`is_subscribed`)
-            .eq('user_id', user.id)
-            .single()
-    
-          if (error && status !== 406) {
-            throw error
-          }
-    
-          if (data) {
-            setIsSubscribed(data.is_subscribed)
-          }
-        } catch (error) {
-          console.log(error)
-        } finally {
-          setLoading(false)
-        }
-      }
-        getProfile()
-      }, [session, user.id])
 
     return (
       <>
@@ -69,11 +37,6 @@ export const supabase = createClient('https://dgunybghtjqbawjpkcvg.supabase.co',
                   <h1 className='dark:text-white text-xl sm:text-2xl mt-4'>Chapter: {questionData.Chapter}</h1>
                 </div>
                 <div>
-                 {isSubscribed ? (
-                    <h1 className='hidden dark:text-white text-xl sm:text-2xl mt-4'>subscribed</h1>
-                  ) : (
-                    <h1 className='hidden dark:text-white text-xl sm:text-2xl mt-4'> not subscribed</h1>
-                  )}
                 </div>
             </div>
         </div>
