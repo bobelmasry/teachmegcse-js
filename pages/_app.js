@@ -25,7 +25,6 @@ function MyApp({ Component, pageProps }) {
         `,
         }}
     />
-  <meta name="google-site-verification" content="ZPZaedV92LzUagW1ABnkJ35wh4Unm4fgVMAkkOQ2IRw" />
     <SessionContextProvider supabaseClient={supabase} initialSession={pageProps.initialSession}>
       <Component {...pageProps} />
     </SessionContextProvider>

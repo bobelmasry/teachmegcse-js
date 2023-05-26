@@ -25,6 +25,7 @@ export default function Home () {
     <meta name="keywords" content="teachmegcse, teach me gcse, A-level revision notes, A-level past papers, A-level topic questions, 
     A-level math past papers, A-level physics past papers, A-level chemistry past papers"></meta>
     <Headstuff />
+    <meta name="google-site-verification" content="ZPZaedV92LzUagW1ABnkJ35wh4Unm4fgVMAkkOQ2IRw" />
     </Head>
     <Navbar session={session} />
       <div>
