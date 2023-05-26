@@ -8,17 +8,20 @@ import fs from 'fs/promises';
 import path from 'path';
 import { useRouter } from 'next/router';
 import { useSession } from '@supabase/auth-helpers-react'
+import chapters from "public/chapters.json"
 
     function SubjectPage({questionData}) {
         const router = useRouter();
         const { chapterNum } = router.query;
         const session = useSession()
-        console.log(questionData);
+        const chapterString = chapters.filter(item => (item.id === questionData[0].Chapter) && (item.subject === questionData[0].Subject));
+        const chapterString2 = chapterString[0].name
+        console.log(chapterString2);
 
     return (
       <>
         <Head>
-          <title>A-level {questionData[0].Subject} Topic Questions Chapter: {questionData[0].Chapter} </title>
+          <title>A-level {questionData[0].Subject} Topic Questions {chapterString2} </title>
           <meta name="description" content={`Find the Answer and maybe an Explanation`}></meta>
           <meta name="keywords" content={`teachmegcse, teach me gcse, A-level revision notes, A-level past papers, A-level topic questions, 
     `}></meta>
@@ -26,12 +29,12 @@ import { useSession } from '@supabase/auth-helpers-react'
         </Head>
         <Navbar session={session} />
         <div className="flex flex-col items-center gap-32 mt-32 mb-20">
-            <h1 className='text-3xl sm:text-5xl font-bold text-white mb-8'>CH : {chapterNum} Topic Questions</h1>
+            <h1 className='text-3xl sm:text-5xl font-bold text-white mb-8'>{chapterString2} Topic Questions</h1>
         {questionData.map((question) => (
         <>
             <div className='border border-8 border-green-600 p-2 rounded rounded-2xl'>
                 <Link href={`/A-level/${question.Subject}/topic-questions/${question.Chapter}/${question.questionName}`}>
-                  <Image className='rounded rounded-md' src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/sortedp1/${chapterNum}/${question.questionName}`} alt='image' height={800} width={800} />
+                  <Image className='rounded rounded-md' src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/A-level/${question.Subject}/${chapterNum}/${question.questionName}`} alt='image' height={800} width={800} />
                 </Link>
             </div>
         </>
@@ -44,7 +47,6 @@ import { useSession } from '@supabase/auth-helpers-react'
 
 
   export async function getStaticProps({ params }) {
-    console.log(params);
     try {
       const filePath = path.join(process.cwd(), 'public', `${params.subjectName}_db.json`);
       const fileData = await fs.readFile(filePath, 'utf-8');
@@ -74,7 +76,7 @@ import { useSession } from '@supabase/auth-helpers-react'
   }
 
   export async function getStaticPaths() {
-    const filePath = path.join(process.cwd(), 'public', 'chemistry_db.json');
+    const filePath = path.join(process.cwd(), 'public', 'all.json');
     const fileData = await fs.readFile(filePath, 'utf-8');
     const data = JSON.parse(fileData);
 

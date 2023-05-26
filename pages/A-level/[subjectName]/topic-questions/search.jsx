@@ -2,20 +2,21 @@ import Head from 'next/head';
 import Navbar from "components/navbar.jsx"
 import "flowbite"
 import Headstuff from "components/headstuff.jsx"
-import { createClient } from '@supabase/supabase-js'
+import { useSession } from '@supabase/auth-helpers-react'
 import Image from 'next/image';
 import Link from 'next/link';
-import questions from "public/chemistry_db.json"
 import { useState } from 'react';
+import fs from 'fs/promises';
+import path from 'path';
 
-
-    function SubjectPage() {
+    function SubjectPage({searchArray}) {
+        const session = useSession()
         const [questionArray, setquestionArray] = useState([]);
 
         async function handleText(event) {
         event.preventDefault();
         if (event.target.value.length > 3) {
-            const filteredQuestions = questions.filter(question =>
+            const filteredQuestions = searchArray.filter(question =>
             question.questionText.includes(event.target.value)
             ).slice(0, 25);
             setquestionArray(filteredQuestions);
@@ -31,11 +32,11 @@ import { useState } from 'react';
     `}></meta>
           <Headstuff />
         </Head>
-        <Navbar />
+        <Navbar session={session} />
         <div className="mt-40 mb-20">
             <div className='flex justify-center'>
                 <div className="w-5/6 sm:w-4/6 md:w-3/6 lg:w-2/6">
-                    <h1 className='text-3xl mb-12 font-bold text-white'>Search for a question or a keyword ...</h1>
+                    <h1 className='text-3xl mb-12 font-bold text-white'>Search for a question or a keyword</h1>
                 <label
                     htmlFor="searchbar"
                     className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
@@ -75,7 +76,7 @@ import { useState } from 'react';
         <>
             <div key={question.questionName} className='border border-8 border-green-600 p-2 rounded rounded-2xl'>
                 <Link key={question.questionName} href={`/A-level/${question.Subject}/topic-questions/${question.Chapter}/${question.questionName}`}>
-                <Image key={question.questionName} className='rounded rounded-md' src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/sortedp1/${question.Chapter}/${question.questionName}`} alt='image' height={800} width={800} />
+                <Image key={question.questionName} className='rounded rounded-md' src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/A-level/${question.Subject}/${question.Chapter}/${question.questionName}`} alt='image' height={800} width={800} />
                 </Link>
             </div>
         </>
@@ -85,6 +86,45 @@ import { useState } from 'react';
       </>
     );
     
+  }
+  export async function getStaticProps({ params }) {
+    try {
+      const filePath = path.join(process.cwd(), 'public', `${params.subjectName}_db.json`);
+      const fileData = await fs.readFile(filePath, 'utf-8');
+      const data = JSON.parse(fileData);
+  
+      const filteredData = data.filter(item => item.Subject === params.subjectName);
+  
+      if (filteredData.length === 0) {
+        throw new Error('chapters not found');
+      }
+  
+      const searchArray = filteredData;
+  
+      return {
+        props: {
+            searchArray
+        }
+      };
+    } catch (error) {
+      console.error(`Error reading JSON file: ${error}`);
+      return {
+        props: {
+            searchArray: null
+        }
+      };
+    }
+  }
+
+  export async function getStaticPaths() {
+    const filePath = path.join(process.cwd(), 'public', 'chapters.json');
+    const fileData = await fs.readFile(filePath, 'utf-8');
+    const data = JSON.parse(fileData);
+
+    const paths = data.map(question => ({
+      params: { subjectName: question.subject.toString()}
+    }));
+    return { paths, fallback: false };
   }
 
 export default SubjectPage

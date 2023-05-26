@@ -9,12 +9,16 @@ import Link from 'next/link';
 import fs from 'fs/promises';
 import path from 'path';
 import { useState, useEffect } from 'react'
+import chapters from "public/chapters.json"
 
 
 export const supabase = createClient('https://dgunybghtjqbawjpkcvg.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRndW55YmdodGpxYmF3anBrY3ZnIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODMwMzA3NDcsImV4cCI6MTk5ODYwNjc0N30.YhH31WDmaWw9QZgx4cvu09g4aQojJ6fKer1B8gRnXGM')
 
     function QuestionPage({questionData}) {
       const session = useSession()
+      const chapterString = chapters.filter(item => (item.id === questionData.Chapter) && (item.subject === questionData.Subject));
+      const chapterString2 = chapterString[0].name
+      console.log(chapterString2);
 
     return (
       <>
@@ -30,11 +34,11 @@ export const supabase = createClient('https://dgunybghtjqbawjpkcvg.supabase.co',
         <Navbar session={session} />
         <div className="flex flex-col items-center gap-32 mt-32 mb-20">
             <div className='border border-4 border-green-600 p-2 rounded rounded-xl'>
-                <Image className='rounded rounded-md' src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/sortedp1/${questionData.Chapter}/${questionData.questionName}`} alt='image' height={800} width={800} />
+                <Image className='rounded rounded-md' src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/A-level/${questionData.Subject}/${questionData.Chapter}/${questionData.questionName}`} alt='image' height={800} width={800} />
                 <div className="flex gap-8">
                   <h1 className='dark:text-white text-xl sm:text-2xl mt-4'>Answer: {questionData.Answer}</h1>
                     <h1 className='dark:text-white text-xl sm:text-2xl mt-4'>Source: <span>{questionData.pdfName}</span></h1>
-                  <h1 className='dark:text-white text-xl sm:text-2xl mt-4'>Chapter: {questionData.Chapter}</h1>
+                  <h1 className='dark:text-white text-xl sm:text-2xl mt-4'>{chapterString2}</h1>
                 </div>
                 <div>
                 </div>
@@ -47,7 +51,6 @@ export const supabase = createClient('https://dgunybghtjqbawjpkcvg.supabase.co',
 
 
   export async function getStaticProps({ params }) {
-    console.log(params);
     try {
       const filePath = path.join(process.cwd(), 'public', `${params.subjectName}_db.json`);
       const fileData = await fs.readFile(filePath, 'utf-8');
@@ -77,7 +80,7 @@ export const supabase = createClient('https://dgunybghtjqbawjpkcvg.supabase.co',
   }
 
   export async function getStaticPaths (){
-    const filePath = path.join(process.cwd(), 'public', `chemistry_db.json`);
+    const filePath = path.join(process.cwd(), 'public', `all.json`);
     const fileData = await fs.readFile(filePath, 'utf-8');
     const data = JSON.parse(fileData);
 
