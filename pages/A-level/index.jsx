@@ -28,7 +28,7 @@ export default function Home() {
         <SubjectCard header={"Biology (9700)"} link1={"/A-level/biology/"} link2={"#"} link3={"#"} />
         <SubjectCard header={"Chemistry (9701)"} link1={"/A-level/chemistry/"} topicQuestions={true} link2={"#"} link3={"/A-level/chemistry/topic-questions"} />
         <SubjectCard header={"Computer Science (9618)"} link1={"/A-level/computer-science/"} link2={"#"} link3={"#"} />
-        <SubjectCard header={"Economics (9708)"} link1={"/A-level/economics/"} link2={"#"} link3={"#"} />
+        <SubjectCard header={"Economics (9708)"} link1={"/A-level/economics/"} topicQuestions={true} link2={"#"} link3={"/A-level/economics/topic-questions"} />
         <SubjectCard header={"English Language (9093)"} link1={"/A-level/english-language/"} link2={"#"} link3={"#"} />
         <SubjectCard header={"Geography (9696)"} link1={"/A-level/geography/"} link2={"#"} link3={"#"} />
         <SubjectCard header={"History (9489)"} link1={"/A-level/history/"} link2={"#"} link3={"#"} />
