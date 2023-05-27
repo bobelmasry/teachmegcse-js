@@ -40,6 +40,7 @@ import { createClient } from '@supabase/supabase-js'
         const answer = currentQuestionArray[1]
         const chapter = currentQuestionArray[2]
         const subject = currentQuestionArray[3]
+        const paperNumber = currentQuestionArray[5]
 
         const session = useSession()
         const chapterString = chapters.filter(item => (item.id === questionArray[0].Chapter) && (item.subject === questionArray[0].Subject));
@@ -56,11 +57,13 @@ import { createClient } from '@supabase/supabase-js'
             }
             }
             const title = `A-level Topic Questions ${chapterString2}`
+            const str = title;
+            const str2 = str.charAt(0).toUpperCase() + str.slice(1);
 
     return (
       <>
         <Head>
-          <title>{title}</title>
+          <title>{str2}</title>
           <meta name="description" content={`Find the Answer and maybe an Explanation`}></meta>
           <meta name="keywords" content={`teachmegcse, teach me gcse, A-level revision notes, A-level past papers, A-level topic questions`}></meta>
           <Headstuff />
@@ -70,7 +73,7 @@ import { createClient } from '@supabase/supabase-js'
         <div className="flex flex-col items-center gap-24 mt-32 mb-24">
             <h1 className='text-3xl ml-8 md:ml-0 sm:text-5xl font-bold text-white mb-8'>{chapterString2} Topic Questions</h1>
             <div className='border ml-2 md:ml-0 border-4  md:border-8 border-green-600 p-2 rounded rounded-2xl'>
-            <Image className='rounded rounded-md' src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/A-level/${subject}/${chapter}/${questionName}`} alt='image' height={800} width={800} /> 
+            <Image className='rounded rounded-md' src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/A-level/${subject}/p${paperNumber}/${chapter}/${questionName}`} alt='image' height={800} width={800} /> 
             </div>
         </div>
         {notalreadySolved && 

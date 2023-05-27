@@ -12,7 +12,10 @@ import path from 'path';
       const session = useSession()
       const router = useRouter();
       const data = router.query;
-      const title = `A-level ${data.subjectName} Topic Questions`
+      const str = data.subjectName;
+      const str2 = str.charAt(0).toUpperCase() + str.slice(1);
+      const title = `A-level ${str2} Topic Questions`
+
     return (
       <>
         <Head>

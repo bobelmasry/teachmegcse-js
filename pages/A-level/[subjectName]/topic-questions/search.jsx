@@ -76,7 +76,7 @@ import path from 'path';
         <>
             <div key={question.questionName} className='border border-8 border-green-600 p-2 rounded rounded-2xl'>
                 <Link key={question.questionName} href={`/A-level/${question.Subject}/topic-questions/${question.Chapter}/${question.questionName}`}>
-                <Image key={question.questionName} className='rounded rounded-md' src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/A-level/${question.Subject}/${question.Chapter}/${question.questionName}`} alt='image' height={800} width={800} />
+                <Image key={question.questionName} className='rounded rounded-md' src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/A-level/${question.Subject}/p${question.paperNumber}/${question.Chapter}/${question.questionName}`} alt='image' height={800} width={800} />
                 </Link>
             </div>
         </>

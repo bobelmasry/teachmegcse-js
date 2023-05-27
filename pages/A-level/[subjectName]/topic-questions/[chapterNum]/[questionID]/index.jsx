@@ -18,7 +18,6 @@ export const supabase = createClient('https://dgunybghtjqbawjpkcvg.supabase.co',
       const session = useSession()
       const chapterString = chapters.filter(item => (item.id === questionData.Chapter) && (item.subject === questionData.Subject));
       const chapterString2 = chapterString[0].name
-      console.log(chapterString2);
 
     return (
       <>
@@ -33,8 +32,8 @@ export const supabase = createClient('https://dgunybghtjqbawjpkcvg.supabase.co',
         <h1 className='hidden'>{questionData.questionText}</h1>
         <Navbar session={session} />
         <div className="flex flex-col items-center gap-32 mt-32 mb-20">
-            <div className='border border-4 border-green-600 p-2 rounded rounded-xl'>
-                <Image className='rounded rounded-md' src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/A-level/${questionData.Subject}/${questionData.Chapter}/${questionData.questionName}`} alt='image' height={800} width={800} />
+            <div className='border border-4 md:border-8 border-green-600 p-2 rounded rounded-xl'>
+              <Image className='rounded rounded-md' src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/A-level/${questionData.Subject}/p${questionData.paperNumber}/${questionData.Chapter}/${questionData.questionName}`} alt='image' height={800} width={800} />
                 <div className="flex gap-8">
                   <h1 className='dark:text-white text-xl sm:text-2xl mt-4'>Answer: {questionData.Answer}</h1>
                     <h1 className='dark:text-white text-xl sm:text-2xl mt-4'>Source: <span>{questionData.pdfName}</span></h1>

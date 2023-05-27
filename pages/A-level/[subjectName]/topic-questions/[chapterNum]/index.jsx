@@ -20,11 +20,14 @@ import TopicCard from "components/topicCard.jsx"
         const chapterString = chapters.filter(item => (item.id === questionArray[0].Chapter) && (item.subject === questionArray[0].Subject));
         const chapterString2 = chapterString[0].name
         const title = `A-level ${questionArray[0].Subject} Topic Questions ${chapterString2}`
+        const str = data.subjectName;
+        const str2 = str.charAt(0).toUpperCase() + str.slice(1);
+        const title2 = `A-level ${str2} Topic Questions`
 
     return (
       <>
         <Head>
-          <title>{title}</title>
+          <title>{title2}</title>
           <meta name="description" content={`Find the Answer and maybe an Explanation`}></meta>
           <meta name="keywords" content={`teachmegcse, teach me gcse, A-level revision notes, A-level past papers, A-level topic questions, 
     `}></meta>
@@ -38,9 +41,9 @@ import TopicCard from "components/topicCard.jsx"
             <h1 className='text-3xl sm:text-5xl font-bold text-white mb-8'>{chapterString2} Topic Questions</h1>
         {questionArray.map((question) => (
         <>
-            <div key={question.questionName} className='border border-8 border-green-600 p-2 rounded rounded-2xl'>
-                <Link href={`/A-level/${question.Subject}/topic-questions/${question.Chapter}/${question.questionName}`}>
-                  <Image className='rounded rounded-md' src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/A-level/${question.Subject}/${chapterNum}/${question.questionName}`} alt='image' height={800} width={800} />
+            <div key={question.questionName} className='border border-4  md:border-8 border-green-600 p-2 rounded rounded-2xl'>
+                <Link key={question.questionName} href={`/A-level/${question.Subject}/topic-questions/${question.Chapter}/${question.questionName}`}>
+                <Image key={question.questionName} className='rounded rounded-md' src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/A-level/${question.Subject}/p${question.paperNumber}/${question.Chapter}/${question.questionName}`} alt='image' height={800} width={800} />
                 </Link>
             </div>
         </>
