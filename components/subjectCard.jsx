@@ -17,16 +17,6 @@ export default function SubjectCard({header, revisionNotes, topicQuestions, link
         <span className="flex-1 text-xl ml-3 whitespace-nowrap">Past Papers</span>
       </Link>
     </li>
-    {revisionNotes && 
-    <li>
-      <Link
-        href={link2}
-        className="flex items-center hover:scale-[1.02] transition-all ease-out p-3 text-base font-bold text-gray-900 rounded-lg bg-green-50 hover:bg-green-100 group dark:bg-green-500 dark:hover:bg-green-400 dark:text-white"
-      >
-        <span className="flex-1 text-xl ml-3 whitespace-nowrap">Revision Notes</span>
-      </Link>
-    </li>
-    }
     {topicQuestions && 
     <li>
       <Link
@@ -34,6 +24,16 @@ export default function SubjectCard({header, revisionNotes, topicQuestions, link
         className="flex items-center hover:scale-[1.02] transition-all ease-out p-3 text-base font-bold text-gray-900 rounded-lg bg-green-50 hover:bg-green-100 group dark:bg-green-500 dark:hover:bg-green-400 dark:text-white"
       >
         <span className="flex-1 text-xl ml-3 whitespace-nowrap">Topic Questions</span>
+      </Link>
+    </li>
+    }
+    {revisionNotes && 
+    <li>
+      <Link
+        href={link2}
+        className="flex items-center hover:scale-[1.02] transition-all ease-out p-3 text-base font-bold text-gray-900 rounded-lg bg-green-50 hover:bg-green-100 group dark:bg-green-500 dark:hover:bg-green-400 dark:text-white"
+      >
+        <span className="flex-1 text-xl ml-3 whitespace-nowrap">Revision Notes</span>
       </Link>
     </li>
     }
