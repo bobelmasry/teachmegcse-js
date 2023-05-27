@@ -12,10 +12,11 @@ import path from 'path';
       const session = useSession()
       const router = useRouter();
       const data = router.query;
+      const title = `A-level ${data.subjectName} Topic Questions`
     return (
       <>
         <Head>
-          <title>A-level {data.subjectName} Topic Questions</title>
+          <title>{title}</title>
           <meta name="description" content={`Find the Answer and maybe an Explanation`}></meta>
           <meta name="keywords" content={`teachmegcse, teach me gcse, A-level revision notes, A-level past papers, A-level topic questions,`}></meta>
           <Headstuff />
