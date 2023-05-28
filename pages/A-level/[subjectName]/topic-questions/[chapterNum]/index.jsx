@@ -61,7 +61,7 @@ import TopicCard from "components/topicCard.jsx"
       const fileData = await fs.readFile(filePath, 'utf-8');
       const data = JSON.parse(fileData);
   
-      const filteredData = data.filter(item => item.Chapter == params.chapterNum);
+      const filteredData = data.filter(item => item.Chapter == params.chapterNum).slice(0, 30);
   
       if (filteredData.length === 0) {
         throw new Error('Question not found');

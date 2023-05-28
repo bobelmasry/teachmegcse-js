@@ -362,5 +362,82 @@
         "subject": "physics",
         "level" : "A-level",
         "level2" : "AS"
+      },
+      {
+        "id" : 1,
+        "name":"CH 1: Cell structure",
+        "subject": "biology",
+        "level" : "A-level",
+        "level2" : "AS"
+      },
+      {
+        "id" : 2,
+        "name":"CH 2: Biological molecules",
+        "subject": "biology",
+        "level" : "A-level",
+        "level2" : "AS"
+      },
+      {
+        "id" : 3,
+        "name":"CH 3: Enzymes",
+        "subject": "biology",
+        "level" : "A-level",
+        "level2" : "AS"
+      },
+      {
+        "id" : 4,
+        "name":"CH 4: Cell membranes and transport",
+        "subject": "biology",
+        "level" : "A-level",
+        "level2" : "AS"
+      },
+      {
+        "id" : 5,
+        "name":"CH 5: The mitotic cell cycle",
+        "subject": "biology",
+        "level" : "A-level",
+        "level2" : "AS"
+      },
+      {
+        "id" : 6,
+        "name":"CH 6: Nucleic acids and protein synthesis",
+        "subject": "biology",
+        "level" : "A-level",
+        "level2" : "AS"
+      },
+      {
+        "id" : 7,
+        "name":"CH 7: Transport in plants",
+        "subject": "biology",
+        "level" : "A-level",
+        "level2" : "AS"
+      },
+      {
+        "id" : 8,
+        "name":"CH 8: Transport in mammals",
+        "subject": "biology",
+        "level" : "A-level",
+        "level2" : "AS"
+      },
+      {
+        "id" : 9,
+        "name":"CH 9: Gas exchange",
+        "subject": "biology",
+        "level" : "A-level",
+        "level2" : "AS"
+      },
+      {
+        "id" : 10,
+        "name":"CH 10: Infectious diseases",
+        "subject": "biology",
+        "level" : "A-level",
+        "level2" : "AS"
+      },
+      {
+        "id" : 11,
+        "name":"CH 11: Immunity",
+        "subject": "biology",
+        "level" : "A-level",
+        "level2" : "AS"
       }
   ]
