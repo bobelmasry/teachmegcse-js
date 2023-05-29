@@ -69,7 +69,7 @@ import TopicCard from "components/topicCard.jsx"
           <Headstuff />
         </Head>
         <Navbar session={session} />
-        <div className="mb-4 sm:mb-8">
+        <div className="mb-12">
         <div className="flex flex-col items-center gap-32 mt-20 mb-20">
         <TopicCard header={"List Questions"} linkSrc={`/A-level/${subject}/topic-questions/${chapter}/list`} />
         </div>
