@@ -1,441 +1,518 @@
 [
     {
       "id" : 1,
-      "name":"CH 1: Atomic structure",
+      "name":"1: Atomic structure",
       "subject": "chemistry",
       "level" : "A-level",
       "level2" : "AS"
     },
     {
       "id" : 2,
-      "name":"CH 2: Atoms, molecules and stoichiometry",
+      "name":"2: Atoms, molecules and stoichiometry",
       "subject": "chemistry",
       "level" : "A-level",
       "level2" : "AS"
     },
     {
       "id" : 3,
-      "name":"CH 3: Chemical bonding",
+      "name":"3: Chemical bonding",
       "subject": "chemistry",
       "level" : "A-level",
       "level2" : "AS"
     },
     {
       "id" : 4,
-      "name":"CH 4: States of matter",
+      "name":"4: States of matter",
       "subject": "chemistry",
       "level" : "A-level",
       "level2" : "AS"
     },
     {
       "id" : 5,
-      "name":"CH 5: Chemical energetics",
+      "name":"5: Chemical energetics",
       "subject": "chemistry",
       "level" : "A-level",
       "level2" : "AS"
     },
     {
       "id" : 6,
-      "name":"CH 6: Electrochemistry",
+      "name":"6: Electrochemistry",
       "subject": "chemistry",
       "level" : "A-level",
       "level2" : "AS"
     },
     {
       "id" : 7,
-      "name":"CH 7: Equilibria",
+      "name":"7: Equilibria",
       "subject": "chemistry",
       "level" : "A-level",
       "level2" : "AS"
     },
     {
       "id" : 8,
-      "name":"CH 8: Reaction kinetics",
+      "name":"8: Reaction kinetics",
       "subject": "chemistry",
       "level" : "A-level",
       "level2" : "AS"
     },
     {
       "id" : 9,
-      "name":"CH 9: The Periodic Table: chemical periodicity",
+      "name":"9: The Periodic Table: chemical periodicity",
       "subject": "chemistry",
       "level" : "A-level",
       "level2" : "AS"
     },
     {
       "id" : 10,
-      "name":"CH 10: Group 2",
+      "name":"10: Group 2",
       "subject": "chemistry",
       "level" : "A-level",
       "level2" : "AS"
     },
     {
       "id" : 11,
-      "name":"CH 11: Group 17",
+      "name":"11: Group 17",
       "subject": "chemistry",
       "level" : "A-level",
       "level2" : "AS"
     },
     {
       "id" : 12,
-      "name":"CH 12: Nitrogen and sulfur",
+      "name":"12: Nitrogen and sulfur",
       "subject": "chemistry",
       "level" : "A-level",
       "level2" : "AS"
     },
     {
       "id" : 13,
-      "name":"CH 13: An introduction to AS Level organic chemistry",
+      "name":"13: An introduction to AS Level organic chemistry",
       "subject": "chemistry",
       "level" : "A-level",
       "level2" : "AS"
     },
     {
       "id" : 14,
-      "name":"CH 14: Hydrocarbons",
+      "name":"14: Hydrocarbons",
       "subject": "chemistry",
       "level" : "A-level",
       "level2" : "AS"
     },
     {
       "id" : 15,
-      "name":"CH 15: Halogen compounds",
+      "name":"15: Halogen compounds",
       "subject": "chemistry",
       "level" : "A-level",
       "level2" : "AS"
     },
     {
       "id" : 16,
-      "name":"CH 16: Hydroxy compounds",
+      "name":"16: Hydroxy compounds",
       "subject": "chemistry",
       "level" : "A-level",
       "level2" : "AS"
     },
     {
       "id" : 17,
-      "name":"CH 17: Carbonyl compounds",
+      "name":"17: Carbonyl compounds",
       "subject": "chemistry",
       "level" : "A-level",
       "level2" : "AS"
     },
     {
       "id" : 18,
-      "name":"CH 18: Carboxylic acids and derivatives",
+      "name":"18: Carboxylic acids and derivatives",
       "subject": "chemistry",
       "level" : "A-level",
       "level2" : "AS"
     },
     {
       "id" : 19,
-      "name":"CH 19: Nitrogen compounds",
+      "name":"19: Nitrogen compounds",
       "subject": "chemistry",
       "level" : "A-level",
       "level2" : "AS"
     },
     {
       "id" : 20,
-      "name":"CH 20: Polymerisation",
+      "name":"20: Polymerisation",
       "subject": "chemistry",
       "level" : "A-level",
       "level2" : "AS"
     },
     {
       "id" : 21,
-      "name":"CH 21: Organic synthesis",
+      "name":"21: Organic synthesis",
       "subject": "chemistry",
       "level" : "A-level",
       "level2" : "AS"
     },
     {
       "id" : 22,
-      "name":"CH 22: Analytical techniques",
+      "name":"22: Analytical techniques",
       "subject": "chemistry",
       "level" : "A-level",
       "level2" : "AS"
     },
-      {
-        "id" : 1,
-        "name":"CH 1: Utility",
-        "subject": "economics",
-        "level" : "A-level",
-        "level2" : "A2"
-      },
-      {
-        "id" : 2,
-        "name":"CH 2: Indifference curves and budget lines",
-        "subject": "economics",
-        "level" : "A-level",
-        "level2" : "A2"
-      },
-      {
-        "id" : 3,
-        "name":"CH 3: Efficiency and market failure",
-        "subject": "economics",
-        "level" : "A-level",
-        "level2" : "A2"
-      },
-      {
-        "id" : 4,
-        "name":"CH 4: Private costs and benefits, externalities and social costs and benefits",
-        "subject": "economics",
-        "level" : "A-level",
-        "level2" : "A2"
-      },
-      {
-        "id" : 5,
-        "name":"CH 5: Types of cost, revenue and profit, short-run and long-run production",
-        "subject": "economics",
-        "level" : "A-level",
-        "level2" : "A2"
-      },
-      {
-        "id" : 6,
-        "name":"CH 6: Market structures",
-        "subject": "economics",
-        "level" : "A-level",
-        "level2" : "A2"
-      },
-      {
-        "id" : 7,
-        "name":"CH 7: Growth and survival of firms",
-        "subject": "economics",
-        "level" : "A-level",
-        "level2" : "A2"
-      },
-      {
-        "id" : 8,
-        "name":"CH 8: Objectives and policies of firms",
-        "subject": "economics",
-        "level" : "A-level",
-        "level2" : "A2"
-      },
-      {
-        "id" : 9,
-        "name":"CH 9: Government policies to achieve efficient resource allocation",
-        "subject": "economics",
-        "level" : "A-level",
-        "level2" : "A2"
-      },
-      {
-        "id" : 10,
-        "name":"CH 10: Equity and redistribution of income and wealth",
-        "subject": "economics",
-        "level" : "A-level",
-        "level2" : "A2"
-      },
-      {
-        "id" : 11,
-        "name":"CH 11: Labour market forces and government intervention",
-        "subject": "economics",
-        "level" : "A-level",
-        "level2" : "A2"
-      },
+    {
+      "id" : 1,
+      "name":"1: Scarcity, choice and opportunity cost, Factors of production",
+      "subject": "economics",
+      "level" : "A-level",
+      "level2" : "AS"
+    },
+    {
+      "id" : 2,
+      "name":"2: Resource allocation, PPC, goods and services",
+      "subject": "economics",
+      "level" : "A-level",
+      "level2" : "AS"
+    },
+    {
+      "id" : 3,
+      "name":"3: Demand and Supply, elasticities",
+      "subject": "economics",
+      "level" : "A-level",
+      "level2" : "AS"
+    },
+    {
+      "id" : 4,
+      "name":"4: The interaction of demand and supply, Surpluses",
+      "subject": "economics",
+      "level" : "A-level",
+      "level2" : "AS"
+    },
+    {
+      "id" : 5,
+      "name":"5: Government microeconomic intervention",
+      "subject": "economics",
+      "level" : "A-level",
+      "level2" : "AS"
+    },
+    {
+      "id" : 6,
+      "name":"6: National income, Circular Flow",
+      "subject": "economics",
+      "level" : "A-level",
+      "level2" : "AS"
+    },
+    {
+      "id" : 7,
+      "name":"7: Aggregate Demand and Aggregate Supply",
+      "subject": "economics",
+      "level" : "A-level",
+      "level2" : "AS"
+    },
+    {
+      "id" : 8,
+      "name":"8: Economic Growth, Unemployment and Price stability",
+      "subject": "economics",
+      "level" : "A-level",
+      "level2" : "AS"
+    },
+    {
+      "id" : 9,
+      "name":"9: Government Policies",
+      "subject": "economics",
+      "level" : "A-level",
+      "level2" : "AS"
+    },
+    {
+      "id" : 10,
+      "name":"10: International trade and Protectionism",
+      "subject": "economics",
+      "level" : "A-level",
+      "level2" : "AS"
+    },
+    {
+      "id" : 11,
+      "name":"11: Balance of Payments and Exchange rates",
+      "subject": "economics",
+      "level" : "A-level",
+      "level2" : "AS"
+    },
       {
         "id" : 12,
-        "name":"CH 12: The circular flow of income",
+        "name":"12: Utility",
         "subject": "economics",
         "level" : "A-level",
         "level2" : "A2"
       },
       {
         "id" : 13,
-        "name":"CH 13: Economic growth and sustainability",
+        "name":"13: Indifference curves and budget lines",
         "subject": "economics",
         "level" : "A-level",
         "level2" : "A2"
       },
       {
         "id" : 14,
-        "name":"CH 14: Employment/unemployment",
+        "name":"14: Efficiency and market failure",
         "subject": "economics",
         "level" : "A-level",
         "level2" : "A2"
       },
       {
         "id" : 15,
-        "name":"CH 15: Money and banking",
+        "name":"15: Private costs and benefits, externalities and social costs and benefits",
         "subject": "economics",
         "level" : "A-level",
         "level2" : "A2"
       },
       {
         "id" : 16,
-        "name":"CH 16: Government macroeconomic policy objectives",
+        "name":"16: Types of cost, revenue and profit, short-run and long-run production",
         "subject": "economics",
         "level" : "A-level",
         "level2" : "A2"
       },
       {
         "id" : 17,
-        "name":"CH 17: Balance of payments",
+        "name":"17: Market structures",
         "subject": "economics",
         "level" : "A-level",
         "level2" : "A2"
       },
       {
         "id" : 18,
-        "name":"CH 18: Economic development",
+        "name":"18: Growth and survival of firms",
         "subject": "economics",
         "level" : "A-level",
         "level2" : "A2"
       },
       {
         "id" : 19,
-        "name":"CH 19: Levels of development",
+        "name":"19: Objectives and policies of firms",
+        "subject": "economics",
+        "level" : "A-level",
+        "level2" : "A2"
+      },
+      {
+        "id" : 20,
+        "name":"20: Government policies to achieve efficient resource allocation",
+        "subject": "economics",
+        "level" : "A-level",
+        "level2" : "A2"
+      },
+      {
+        "id" : 21,
+        "name":"21: Equity and redistribution of income and wealth",
+        "subject": "economics",
+        "level" : "A-level",
+        "level2" : "A2"
+      },
+      {
+        "id" : 22,
+        "name":"22: Labour market forces and government intervention",
+        "subject": "economics",
+        "level" : "A-level",
+        "level2" : "A2"
+      },
+      {
+        "id" : 23,
+        "name":"23: The circular flow of income",
+        "subject": "economics",
+        "level" : "A-level",
+        "level2" : "A2"
+      },
+      {
+        "id" : 24,
+        "name":"24: Economic growth and sustainability",
+        "subject": "economics",
+        "level" : "A-level",
+        "level2" : "A2"
+      },
+      {
+        "id" : 25,
+        "name":"25: Employment/unemployment",
+        "subject": "economics",
+        "level" : "A-level",
+        "level2" : "A2"
+      },
+      {
+        "id" : 26,
+        "name":"26: Money and banking",
+        "subject": "economics",
+        "level" : "A-level",
+        "level2" : "A2"
+      },
+      {
+        "id" : 27,
+        "name":"27: Government macroeconomic policy objectives",
+        "subject": "economics",
+        "level" : "A-level",
+        "level2" : "A2"
+      },
+      {
+        "id" : 28,
+        "name":"28: Balance of payments",
+        "subject": "economics",
+        "level" : "A-level",
+        "level2" : "A2"
+      },
+      {
+        "id" : 29,
+        "name":"29: Economic development",
+        "subject": "economics",
+        "level" : "A-level",
+        "level2" : "A2"
+      },
+      {
+        "id" : 30,
+        "name":"30: Levels of development",
         "subject": "economics",
         "level" : "A-level",
         "level2" : "A2"
       },
       {
         "id" : 1,
-        "name":"CH 1: Physical quantities and units",
+        "name":"1: Physical quantities and units",
         "subject": "physics",
         "level" : "A-level",
         "level2" : "AS"
       },
       {
         "id" : 2,
-        "name":"CH 2: Kinematics",
+        "name":"2: Kinematics",
         "subject": "physics",
         "level" : "A-level",
         "level2" : "AS"
       },
       {
         "id" : 3,
-        "name":"CH 3: Dynamics",
+        "name":"3: Dynamics",
         "subject": "physics",
         "level" : "A-level",
         "level2" : "AS"
       },
       {
         "id" : 4,
-        "name":"CH 4: Forces, density and pressure",
+        "name":"4: Forces, density and pressure",
         "subject": "physics",
         "level" : "A-level",
         "level2" : "AS"
       },
       {
         "id" : 5,
-        "name":"CH 5: Work, energy and power",
+        "name":"5: Work, energy and power",
         "subject": "physics",
         "level" : "A-level",
         "level2" : "AS"
       },
       {
         "id" : 6,
-        "name":"CH 6: Deformation of solids",
+        "name":"6: Deformation of solids",
         "subject": "physics",
         "level" : "A-level",
         "level2" : "AS"
       },
       {
         "id" : 7,
-        "name":"CH 7: Waves",
+        "name":"7: Waves",
         "subject": "physics",
         "level" : "A-level",
         "level2" : "AS"
       },
       {
         "id" : 8,
-        "name":"CH 8: Superposition",
+        "name":"8: Superposition",
         "subject": "physics",
         "level" : "A-level",
         "level2" : "AS"
       },
       {
         "id" : 9,
-        "name":"CH 9: Electricity",
+        "name":"9: Electricity",
         "subject": "physics",
         "level" : "A-level",
         "level2" : "AS"
       },
       {
         "id" : 10,
-        "name":"CH 10: D.C. circuits",
+        "name":"10: D.C. circuits",
         "subject": "physics",
         "level" : "A-level",
         "level2" : "AS"
       },
       {
         "id" : 11,
-        "name":"CH 11: Particle physics",
+        "name":"11: Particle physics",
         "subject": "physics",
         "level" : "A-level",
         "level2" : "AS"
       },
       {
         "id" : 1,
-        "name":"CH 1: Cell structure",
+        "name":"1: Cell structure",
         "subject": "biology",
         "level" : "A-level",
         "level2" : "AS"
       },
       {
         "id" : 2,
-        "name":"CH 2: Biological molecules",
+        "name":"2: Biological molecules",
         "subject": "biology",
         "level" : "A-level",
         "level2" : "AS"
       },
       {
         "id" : 3,
-        "name":"CH 3: Enzymes",
+        "name":"3: Enzymes",
         "subject": "biology",
         "level" : "A-level",
         "level2" : "AS"
       },
       {
         "id" : 4,
-        "name":"CH 4: Cell membranes and transport",
+        "name":"4: Cell membranes and transport",
         "subject": "biology",
         "level" : "A-level",
         "level2" : "AS"
       },
       {
         "id" : 5,
-        "name":"CH 5: The mitotic cell cycle",
+        "name":"5: The mitotic cell cycle",
         "subject": "biology",
         "level" : "A-level",
         "level2" : "AS"
       },
       {
         "id" : 6,
-        "name":"CH 6: Nucleic acids and protein synthesis",
+        "name":"6: Nucleic acids and protein synthesis",
         "subject": "biology",
         "level" : "A-level",
         "level2" : "AS"
       },
       {
         "id" : 7,
-        "name":"CH 7: Transport in plants",
+        "name":"7: Transport in plants",
         "subject": "biology",
         "level" : "A-level",
         "level2" : "AS"
       },
       {
         "id" : 8,
-        "name":"CH 8: Transport in mammals",
+        "name":"8: Transport in mammals",
         "subject": "biology",
         "level" : "A-level",
         "level2" : "AS"
       },
       {
         "id" : 9,
-        "name":"CH 9: Gas exchange",
+        "name":"9: Gas exchange",
         "subject": "biology",
         "level" : "A-level",
         "level2" : "AS"
       },
       {
         "id" : 10,
-        "name":"CH 10: Infectious diseases",
+        "name":"10: Infectious diseases",
         "subject": "biology",
         "level" : "A-level",
         "level2" : "AS"
       },
       {
         "id" : 11,
-        "name":"CH 11: Immunity",
+        "name":"11: Immunity",
         "subject": "biology",
         "level" : "A-level",
         "level2" : "AS"

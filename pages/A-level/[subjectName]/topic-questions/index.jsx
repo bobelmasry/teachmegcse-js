@@ -15,6 +15,10 @@ import path from 'path';
       const str = data.subjectName;
       const str2 = str.charAt(0).toUpperCase() + str.slice(1);
       const title = `A-level ${str2} Topic Questions`
+      let isEco = false
+      if (str == 'economics') {
+        isEco = true
+      }
 
     return (
       <>
@@ -25,6 +29,11 @@ import path from 'path';
           <Headstuff />
         </Head>
         <Navbar session={session} />
+        {isEco && 
+        <div className="flex justify-center mt-28">
+        <h1 className='text-4xl sm:text-5xl text-white'>A2 starts from CH: 12</h1>
+        </div>
+        }
         <div className="flex justify-center mt-28">
         <TopicCard header={"Search For A Question"} linkSrc={`/A-level/${data.subjectName}/topic-questions/search`} />
         </div>
