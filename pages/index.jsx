@@ -37,15 +37,12 @@ export default function Home () {
         <SplitSection header={"Understand your Mistakes"} description={"Understand your mistakes and revise using our top of the line revision notes, they're summarised clearly to help you understand and remember only the things you need."} imageSrc={"/notes.jpg"} />
         <SplitSection header={"Track your Progress"} description={"Track your progress and know which chapters you still need to revise, we track every question you solve so you'll always know how much time you should spend revising "} imageSrc={"/stats.jpg"} />
         <Pricing />
-        <div className="flex font-semibold justify-center mt-48">
-          <h3 className="text-2xl sm:text-5xl text-gray-100">{"Don't"} just take our word for it .. </h3>
-        </div>
         <Cta />
         <Footer />
         </>
       ) : (
         <>
-        <div className="flex justify-center mt-28">
+        <div className="flex justify-center mt-28 mb-8">
           <div className="min-w-5/6 sm:max-w-5/6">
             <Dashboard session={session} />
           </div>
