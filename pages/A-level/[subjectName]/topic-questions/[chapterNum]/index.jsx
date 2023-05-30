@@ -69,6 +69,7 @@ import { supabase } from '../../../../../utils/supabase';
         const chapter = currentQuestionArray[2]
         const subject = currentQuestionArray[3]
         const paperNumber = currentQuestionArray[5]
+        const source = currentQuestionArray[7]
 
         const session = useSession()
         const chapterString = chapters.filter(item => (item.id === questionArray[0].Chapter) && (item.subject === questionArray[0].Subject));
@@ -191,12 +192,12 @@ import { supabase } from '../../../../../utils/supabase';
         <div className="flex ml-8 md:ml-0 flex-flow justify-center gap-8 mt-8">
         {correct && 
         <>
-        <p className='dark:text-white text-lg sm:text-lg md:text-xl lg:text-2xl'>Correct: the Answer is {answer} <br /> Explanation is coming soon!</p>
+        <p className='dark:text-white text-lg sm:text-lg md:text-xl lg:text-2xl'><span className='text-green-400'>Correct</span>: the Answer is {answer} <br /> Explanation is coming soon! <br /> Source: {source}<br /><br /> Disclaimer: {"there's"} a 2% chance that the answer is incorrect <br />Disclaimer 2: {"there's"} a 5% chance that the question is not in the syllabus </p>
         </>
         }
         {incorrect && 
         <>
-        <p className='text-red-600 text-lg sm:text-lg md:text-xl lg:text-2xl'>Incorrect: the Answer is {answer} <br /> Explanation is coming soon!</p>
+        <p className='dark:text-white text-lg sm:text-lg md:text-xl lg:text-2xl'><span className='text-red-600'>Incorrect</span>: the Answer is {answer} <br /> Explanation is coming soon! <br /> Source: {source} <br /><br /> Disclaimer: {"there's"} a 2% chance that the answer is incorrect <br />Disclaimer 2: {"there's"} a 5% chance that the question is not in the syllabus </p>
         </>
         }
         </div>

@@ -24,7 +24,7 @@ export default function Home() {
       <div className="grid grid-flow-row gap-16 mt-24 sm:mt-36 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 sm:justify-center mb-40 w-11/12 md:w-4/6 lg:w-4/6">
         <SubjectCard header={"Business (9609)"}  link1={"/A-level/business/"} link2={"#"} link3={"#"} />
         <SubjectCard header={"Biology (9700)"} topicQuestions={true} link1={"/A-level/biology/"} link2={"#"} link3={"/A-level/biology/topic-questions"} />
-        <SubjectCard header={"Chemistry (9701)"} link1={"/A-level/chemistry/"} topicQuestions={true} link2={"#"} link3={"/A-level/chemistry/topic-questions"} />
+        <SubjectCard header={"Chemistry (9701)"} link1={"/A-level/chemistry/"} link2={"#"} link3={"#"} />
         <SubjectCard header={"Computer Science (9618)"} link1={"/A-level/computer-science/"} link2={"#"} link3={"#"} />
         <SubjectCard header={"Economics (9708)"} link1={"/A-level/economics/"} topicQuestions={true} link2={"#"} link3={"/A-level/economics/topic-questions"} />
         <SubjectCard header={"English Language (9093)"} link1={"/A-level/english-language/"} link2={"#"} link3={"#"} />
