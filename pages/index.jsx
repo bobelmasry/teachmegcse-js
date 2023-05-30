@@ -42,6 +42,7 @@ export default function Home () {
         </div>
         <Reviews />
         <Cta />
+        <Footer />
         </>
       ) : (
         <>
@@ -52,7 +53,6 @@ export default function Home () {
         </div>
         </>
       )}
-      <Footer />
     </div>
     </>
   )

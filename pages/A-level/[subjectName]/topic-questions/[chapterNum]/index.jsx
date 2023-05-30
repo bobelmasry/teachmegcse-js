@@ -9,6 +9,7 @@ import { useSession, useUser } from '@supabase/auth-helpers-react'
 import chapters from "public/chapters.json"
 import { useState, useEffect} from 'react';
 import TopicCard from "components/topicCard.jsx"
+import supabase from "utils/supabase.js"
 
     function SubjectPage({questionArray}) {
         const arrayLength = questionArray.length;
