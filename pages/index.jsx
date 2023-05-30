@@ -40,7 +40,6 @@ export default function Home () {
         <div className="flex font-semibold justify-center mt-48">
           <h3 className="text-2xl sm:text-5xl text-gray-100">{"Don't"} just take our word for it .. </h3>
         </div>
-        <Reviews />
         <Cta />
         <Footer />
         </>
