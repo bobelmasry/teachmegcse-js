@@ -17,7 +17,7 @@ export default function Special_home() {
                 Topic Questions
               </dt>
               <dd className="text-4xl font-extrabold text-blue-600 md:text-5xl">
-                40,000+
+                10,000+
               </dd>
             </div>
             <div className="flex flex-col bg-gray-300 rounded-lg border border-gray-100 px-4 py-8 text-center">
@@ -25,7 +25,7 @@ export default function Special_home() {
                 Subjects with Revision Notes
               </dt>
               <dd className="text-4xl font-extrabold text-blue-600 md:text-5xl">
-                8
+                1
               </dd>
             </div>
             <div className="flex flex-col bg-gray-300 rounded-lg border border-gray-100 px-4 py-8 text-center">
@@ -33,7 +33,7 @@ export default function Special_home() {
                 Past Papers
               </dt>
               <dd className="text-4xl font-extrabold text-blue-600 md:text-5xl">
-                10,000+
+                5,000+
               </dd>
             </div>
             <div className="flex flex-col bg-gray-300 rounded-lg border border-gray-100 px-4 py-8 text-center">
