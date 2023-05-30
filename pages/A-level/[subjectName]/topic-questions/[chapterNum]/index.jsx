@@ -9,10 +9,18 @@ import { useSession, useUser } from '@supabase/auth-helpers-react'
 import chapters from "public/chapters.json"
 import { useState, useEffect} from 'react';
 import TopicCard from "components/topicCard.jsx"
+import { supabase } from '../../../../../utils/supabase';
 
     function SubjectPage({questionArray}) {
+
+        const user = useUser()
         const arrayLength = questionArray.length;
         const [randInt, setrandInt] = useState(0);
+
+        //now for interactive element
+        const [initialGotten, setinitialGotten] = useState(false)
+        const [questionsSolved, setQuestionsSolved] = useState(0)
+        const [questionsCorrect, setQuestionsCorrect] = useState(0)
 
         async function updateRandInt(){
             const newVal = Math.floor(Math.random() * arrayLength);
@@ -20,6 +28,26 @@ import TopicCard from "components/topicCard.jsx"
             setincorrect(false)
             setcorrect(false)
             setnotalreadySolved(true)
+
+            if (initialGotten === false)
+          {
+                let { data, error, status } = await supabase
+                .from('profile')
+                .select(`questions_solved, questions_correct, notes_read`)
+                .eq('user_id', user.id)
+                .single()
+
+              if (error && status !== 406) {
+                throw error
+              }
+
+              if (data) {
+                setQuestionsSolved(data.questions_solved + questionsSolved)
+                setQuestionsCorrect(data.questions_correct + questionsCorrect)
+              }
+
+                setinitialGotten(true)
+          }
         }
 
         useEffect(() => {
@@ -48,14 +76,62 @@ import TopicCard from "components/topicCard.jsx"
 
         async function handleAnswer(event) {
             event.preventDefault();
+            if (initialGotten === false)
+          {
+                let { data, error, status } = await supabase
+                .from('profile')
+                .select(`questions_solved, questions_correct, notes_read`)
+                .eq('user_id', user.id)
+                .single()
+
+              if (error && status !== 406) {
+                throw error
+              }
+
+              if (data) {
+                setQuestionsSolved(data.questions_solved + questionsSolved)
+                setQuestionsCorrect(data.questions_correct + questionsCorrect)
+                setinitialGotten(true)
+              }
+
+          }
             setnotalreadySolved(false)
             if (event.target.id === answer){
+              if (initialGotten === true){
                 setcorrect(true)
-            
+                setQuestionsCorrect(questionsCorrect + 1)
+                setQuestionsSolved(questionsSolved + 1)
+                updateSupabase(questionsSolved, questionsCorrect)
+                }
             } else{
                 setincorrect(true)
+                if (initialGotten === true) {
+                setQuestionsSolved(questionsSolved + 1)
+                updateSupabase(questionsSolved, questionsCorrect)
+                }
             }
             }
+
+        
+          async function updateSupabase (questionsSolved2, questionsCorrect2) {
+            if (initialGotten === true) {
+            const updates = {
+              user_id: user.id,
+              questions_solved : questionsSolved2,
+              questions_correct : questionsCorrect2,
+            }
+            console.log(questionsSolved2);
+            
+            let { error } = await supabase
+            .from('profile')
+            .upsert(updates)
+
+          if (error) {
+            throw error
+          }
+          }}
+
+          
             const title = `A-level Topic Questions ${chapterString2}`
             const str = title;
             const str2 = str.charAt(0).toUpperCase() + str.slice(1);
