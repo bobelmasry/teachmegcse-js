@@ -2,15 +2,11 @@ import Head from 'next/head';
 import Navbar from "components/navbar.jsx"
 import "flowbite"
 import Headstuff from "components/headstuff.jsx"
-import { createClient } from '@supabase/supabase-js'
 import { useUser, useSession } from '@supabase/auth-helpers-react'
 import Image from 'next/image';
-import Link from 'next/link';
 import fs from 'fs/promises';
 import path from 'path';
-import { useState, useEffect } from 'react'
 import chapters from "public/chapters.json"
-import supabase from "utils/supabase.js"
 
     function QuestionPage({questionData}) {
       const session = useSession()
