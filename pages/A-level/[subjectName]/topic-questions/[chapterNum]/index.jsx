@@ -30,11 +30,11 @@ import { supabase } from '../../../../../utils/supabase';
             setnotalreadySolved(true)
 
             if (initialGotten === false)
-          {
+          {   
                 let { data, error, status } = await supabase
                 .from('profile')
                 .select(`questions_solved, questions_correct, notes_read`)
-                .eq('user_id', user.id)
+                .eq('user_id', user?.id)
                 .single()
 
               if (error && status !== 406) {
@@ -77,12 +77,18 @@ import { supabase } from '../../../../../utils/supabase';
 
         async function handleAnswer(event) {
             event.preventDefault();
+            setnotalreadySolved(false)
+            if (event.target.id === answer){
+              setcorrect(true)}
+              else {
+                setincorrect(true)
+              }
             if (initialGotten === false)
           {
                 let { data, error, status } = await supabase
                 .from('profile')
                 .select(`questions_solved, questions_correct, notes_read`)
-                .eq('user_id', user.id)
+                .eq('user_id', user?.id)
                 .single()
 
               if (error && status !== 406) {
@@ -96,10 +102,10 @@ import { supabase } from '../../../../../utils/supabase';
               }
 
           }
-            setnotalreadySolved(false)
+            
             if (event.target.id === answer){
+              setcorrect(true)
               if (initialGotten === true){
-                setcorrect(true)
                 setQuestionsCorrect(questionsCorrect + 1)
                 setQuestionsSolved(questionsSolved + 1)
                 updateSupabase(questionsSolved, questionsCorrect)
@@ -117,7 +123,7 @@ import { supabase } from '../../../../../utils/supabase';
           async function updateSupabase (questionsSolved2, questionsCorrect2) {
             if (initialGotten === true) {
             const updates = {
-              user_id: user.id,
+              user_id: user?.id,
               questions_solved : questionsSolved2,
               questions_correct : questionsCorrect2,
             }
