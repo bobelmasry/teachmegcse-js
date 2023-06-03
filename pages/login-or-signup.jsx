@@ -6,6 +6,7 @@ import Account from '../components/Account.jsx'
 import { Auth } from '@supabase/auth-ui-react'
 import { ThemeSupa } from '@supabase/auth-ui-shared'
 import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
+import YearCard from "components/yearCard.jsx"
 
 
 const Home = () => {
@@ -26,7 +27,13 @@ const Home = () => {
       {!session ? (
         <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} providers={{}} theme="dark" />
       ) : (
+        <>
+        <div className="flex gap-8 items-center mt-16">
+        <YearCard header={'IGCSE'} linkSrc={`/IGCSE`} />
+        <YearCard header={'A-level'} linkSrc={`/A-level`} />
+        </div>
         <Account session={session} />
+        </>
       )}
     </div>
     </div>

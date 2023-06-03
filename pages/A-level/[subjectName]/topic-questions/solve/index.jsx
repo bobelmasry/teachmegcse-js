@@ -8,13 +8,17 @@ import { useRouter } from 'next/router';
 import fs from 'fs/promises';
 import path from 'path';
 
-    function SubjectPage() {
+    function SubjectPage({chapters}) {
       const session = useSession()
       const router = useRouter();
       const data = router.query;
       const str = data.subjectName;
       const str2 = str.charAt(0).toUpperCase() + str.slice(1);
       const title = `A-level ${str2} Topic Questions`
+      let isEco = false
+      if (str == 'economics') {
+        isEco = true
+      }
 
     return (
       <>
@@ -25,15 +29,21 @@ import path from 'path';
           <Headstuff />
         </Head>
         <Navbar session={session} />
-        <div className="flex justify-center mt-40">
-          <h1 className='text-3xl md:text-5xl font-bold dark:text-white'>{title}</h1>
+        {isEco && 
+        <div className="flex justify-center mt-28">
+        <h1 className='text-4xl sm:text-5xl text-white'>A2 starts from CH: 12</h1>
         </div>
-        <div className="flex flex-col gap-8 items-center mt-40">
-        <TopicCard header={"Search For A Question"} linkSrc={`/A-level/${data.subjectName}/topic-questions/search`} />
-        <TopicCard header={"Practice solving questions"} linkSrc={`/A-level/${data.subjectName}/topic-questions/solve`} />
-        <TopicCard header={"List all the questions"} linkSrc={`/A-level/${data.subjectName}/topic-questions/list`} />
-
-        </div>
+        }
+      <div className="flex justify-center mt-28">
+        <h1 className="text-4xl sm:text-5xl font-bold dark:text-gray-100">A-level {data.subjectName} Topic Questions</h1>
+      </div>
+      <div className="flex justify-center items-center ">
+      <div className="grid grid-rows-4 gap-11 mt-16 mb-24 w-10/12 md:w-5/12 lg:w-3/12">
+        {chapters.map((topic) => (
+          <TopicCard key={topic.id} header={topic.name} linkSrc={`/${topic.level}/${topic.subject}/topic-questions/solve/${topic.id}`} />
+        ))}
+      </div>
+      </div>
     </>
     );
   }

@@ -8,20 +8,53 @@ import Link from 'next/link';
 import { useState } from 'react';
 import fs from 'fs/promises';
 import path from 'path';
+import data from "public/chapters.json"
+import { useRouter } from 'next/router';
 
     function SubjectPage({searchArray}) {
         const session = useSession()
         const [questionArray, setquestionArray] = useState([]);
+        const [chapterValue, setChapterValue] = useState(0);
+        const router = useRouter();
+        const data2 = router.query;
+        const subject = data2.subjectName
+
+        const filteredData = data.filter(item => item.subject === subject);
+  
+      if (filteredData.length === 0) {
+        throw new Error('chapters not found');
+      }
+  
+      const chapters = filteredData;
 
         async function handleText(event) {
         event.preventDefault();
-        if (event.target.value.length > 3) {
-            const filteredQuestions = searchArray.filter(question =>
-            question.questionText.includes(event.target.value)
+        let questionText = event.target.value
+
+        if ((questionText.length > 3) && (chapterValue == 0)) {
+          const filteredQuestions = searchArray.filter(question =>
+            question.questionText.includes(questionText)
             ).slice(0, 25);
             setquestionArray(filteredQuestions);
         }
-        }
+        else if ((questionText.length > 3) && (chapterValue != 0)) {
+        const filteredQuestions2 = searchArray.filter(question =>
+          (question.Chapter == chapterValue) && (question.questionText.includes(questionText))
+          ).slice(0, 25);
+          setquestionArray(filteredQuestions2);
+
+        }}
+
+        async function handleSelect(event) {
+          event.preventDefault();
+          setChapterValue(event.target.value)
+
+          const filteredQuestions2 = searchArray.filter(question =>
+            (question.Chapter == chapterValue)
+            ).slice(0, 25);
+            setquestionArray(filteredQuestions2);
+
+          }
 
     return (
       <>
@@ -36,6 +69,7 @@ import path from 'path';
         <div className="mt-40 mb-20">
             <div className='flex justify-center'>
                 <div className="w-5/6 sm:w-4/6 md:w-3/6 lg:w-2/6">
+                  <div className=""></div>
                     <h1 className='text-3xl mb-12 font-bold text-white'>Search for a question or a keyword</h1>
                 <label
                     htmlFor="searchbar"
@@ -69,17 +103,25 @@ import path from 'path';
                     onChange={handleText}
                     />
                 </div>
+                <div className="w-4/6 sm:w-3/6 md:w-2/6 lg:w-1/8"></div>
+                <label htmlFor="countries" className="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white">Choose a Chapter</label>
+                <select id="countries" onChange={handleSelect} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                  <option id='0' value={0} defaultValue={true}>All Chapters</option>
+                  {chapters.map((chapter) => (
+                    <option key={chapter.id} value={chapter.id}>{chapter.name}</option>
+                ))}
+                </select>
                 </div>
                 </div>
                 <div className="flex flex-col items-center gap-32 mt-32 mb-20">
         {questionArray.map((question) => (
-        <>
+        <div key={question.questionName}>
             <div key={question.questionName} className='border border-8 border-green-600 p-2 rounded rounded-2xl'>
                 <Link key={question.questionName} href={`/A-level/${question.Subject}/topic-questions/${question.Chapter}/${question.questionName}`}>
                 <Image key={question.questionName} className='rounded rounded-md' src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/A-level/${question.Subject}/p${question.paperNumber}/${question.Chapter}/${question.questionName}`} alt='image' height={800} width={800} />
                 </Link>
             </div>
-        </>
+        </div>
         ))}
         </div>
         </div>

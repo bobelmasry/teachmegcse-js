@@ -3,8 +3,11 @@ import YearCard from "components/yearCard.jsx"
 import Head from 'next/head';
 import Navbar from "components/navbar.jsx"
 import Headstuff from "components/headstuff.jsx"
+import { useSession } from '@supabase/auth-helpers-react'
+
 
 export default function Home() {
+  const session = useSession()
   return (
   <div>
   <Head>
@@ -14,7 +17,7 @@ export default function Home() {
     IGCSE math past papers, IGCSE physics past papers, IGCSE chemistry past papers"></meta>
     <Headstuff />
   </Head>
-  <Navbar />
+  <Navbar session={session} />
     <div className="flex justify-center items-center">
         <h1 className=" mt-32 font-bold dark:text-white text-4xl">Under Construction ...</h1>
     </div>
