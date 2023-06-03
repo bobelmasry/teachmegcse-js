@@ -28,7 +28,7 @@ const Home = () => {
         <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} providers={{}} theme="dark" />
       ) : (
         <>
-        <div className="flex gap-8 items-center mt-16">
+        <div className="flex flex-col sm:flex-row gap-8 items-center sm:justify-center mt-16">
         <YearCard header={'IGCSE'} linkSrc={`/IGCSE`} />
         <YearCard header={'A-level'} linkSrc={`/A-level`} />
         </div>

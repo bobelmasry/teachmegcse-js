@@ -11,6 +11,7 @@ import Head from 'next/head';
 import Navbar from "components/navbar.jsx"
 import Headstuff from "components/headstuff.jsx"
 import { useSession } from '@supabase/auth-helpers-react'
+import YearCard from "components/yearCard.jsx"
 
 
 export default function Home () {
@@ -42,6 +43,10 @@ export default function Home () {
         </>
       ) : (
         <>
+        <div className="flex flex-col sm:flex-row gap-8 items-center sm:justify-center mt-24">
+        <YearCard header={'IGCSE'} linkSrc={`/IGCSE`} />
+        <YearCard header={'A-level'} linkSrc={`/A-level`} />
+        </div>
         <div className="flex justify-center mt-28 mb-8">
           <div className="min-w-5/6 sm:max-w-5/6">
             <Dashboard session={session} />
