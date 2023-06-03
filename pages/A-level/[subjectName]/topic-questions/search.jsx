@@ -15,6 +15,10 @@ import { useRouter } from 'next/router';
         const session = useSession()
         const [questionArray, setquestionArray] = useState([]);
         const [chapterValue, setChapterValue] = useState(0);
+        const [paperValue, setPaperValue] = useState(0);
+        const [questionText, setQuestionText] = useState('')
+        //const [paperSelected, setPaperSelected] = useState("All Papers");
+        //const [chapterSelected, setChapterSelected] = useState("All Chapters");
         const router = useRouter();
         const data2 = router.query;
         const subject = data2.subjectName
@@ -27,34 +31,98 @@ import { useRouter } from 'next/router';
   
       const chapters = filteredData;
 
+      const papers = [
+        {
+          "id" : 1,
+          "name":"Paper 1",
+          "subject": "economics",
+          "level" : "A-level",
+        },
+        {
+          "id" : 3,
+          "name":"Paper 3",
+          "subject": "economics",
+          "level" : "A-level",
+        },
+        {
+          "id" : 1,
+          "name":"Paper 1",
+          "subject": "biology",
+          "level" : "A-level",
+        },
+        {
+          "id" : 1,
+          "name":"Paper 1",
+          "subject": "chemistry",
+          "level" : "A-level",
+        },
+        {
+          "id" : 1,
+          "name":"Paper 1",
+          "subject": "physics",
+          "level" : "A-level",
+        }
+      ]
+      const filteredPapers = papers.filter(item => item.subject === subject);
+
         async function handleText(event) {
         event.preventDefault();
-        let questionText = event.target.value
+        setQuestionText(event.target.value)
 
-        if ((questionText.length > 3) && (chapterValue == 0)) {
+        if ((questionText.length > 3) && (chapterValue == 0) && (paperValue == 0)) {
           const filteredQuestions = searchArray.filter(question =>
             question.questionText.includes(questionText)
             ).slice(0, 25);
             setquestionArray(filteredQuestions);
+            //console.log('var1');
         }
-        else if ((questionText.length > 3) && (chapterValue != 0)) {
+        else if ((questionText.length > 3) && (chapterValue != 0) && (paperValue == 0)) {
         const filteredQuestions2 = searchArray.filter(question =>
           (question.Chapter == chapterValue) && (question.questionText.includes(questionText))
           ).slice(0, 25);
           setquestionArray(filteredQuestions2);
+          //console.log('var2');
 
-        }}
+        }
+        else if ((questionText.length > 3) && (chapterValue != 0) && (paperValue != 0)) {
+          const filteredQuestions2 = searchArray.filter(question =>
+            (question.Chapter == chapterValue) && (question.questionText.includes(questionText)) && (question.paperNumber == paperValue)
+            ).slice(0, 25);
+            setquestionArray(filteredQuestions2);
+            //console.log('var3');
+  
+          }
+          else if ((questionText.length > 3) && (chapterValue == 0) && (paperValue != 0)) {
+            const filteredQuestions2 = searchArray.filter(question =>
+              (question.questionText.includes(questionText)) && (question.paperNumber == paperValue)
+              ).slice(0, 25);
+              setquestionArray(filteredQuestions2);
+              //console.log('var4');
+    
+            }
+        }
 
         async function handleSelect(event) {
           event.preventDefault();
           setChapterValue(event.target.value)
-
-          const filteredQuestions2 = searchArray.filter(question =>
-            (question.Chapter == chapterValue)
-            ).slice(0, 25);
-            setquestionArray(filteredQuestions2);
-
+          setquestionArray([])
+          setQuestionText('')
           }
+
+        async function handlePaper(event) {
+          event.preventDefault();
+          setPaperValue(event.target.value)
+          setquestionArray([])
+          setQuestionText('')
+          }
+          //console.log(paperValue);
+
+          async function reset() {
+            setChapterValue(0)
+            setPaperValue(0)
+            setquestionArray([])
+            setQuestionText('')
+            }
 
     return (
       <>
@@ -101,16 +169,34 @@ import { useRouter } from 'next/router';
                     className="block text-md w-full p-4 pl-10 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="eg : chlorine"
                     onChange={handleText}
+                    value={questionText}
                     />
                 </div>
-                <div className="w-4/6 sm:w-3/6 md:w-2/6 lg:w-1/8"></div>
-                <label htmlFor="countries" className="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white">Choose a Chapter</label>
-                <select id="countries" onChange={handleSelect} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <div className="flex justify-around flex-col sm:flex-row flex-wrap mt-4">
+                <div className="w-4/6 sm:w-3/6 md:w-2/6 lg:w-1/8">
+                <label htmlFor="chapters" className="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white">Choose a Chapter</label>
+                <select id="chapters" value={chapterValue} onChange={handleSelect} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                   <option id='0' value={0} defaultValue={true}>All Chapters</option>
                   {chapters.map((chapter) => (
                     <option key={chapter.id} value={chapter.id}>{chapter.name}</option>
                 ))}
                 </select>
+                </div>
+                <div className="w-4/6 sm:w-3/6 md:w-2/6 lg:w-1/8">
+                <label htmlFor="chapters" className="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white">Choose a Paper number</label>
+                <select id="chapters" value={paperValue} onChange={handlePaper} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                  <option id='0' value={0} defaultValue={true}>All Papers</option>
+                  {filteredPapers.map((paper) => (
+                    <option key={paper.id} value={paper.id}>{paper.name}</option>
+                ))}
+                </select>
+                </div>
+                <div className="mt-10">
+                <button onClick={reset} className="text-white transition-all ease-out bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-500 dark:focus:ring-green-800">
+                  Reset
+                </button>
+                </div>
+                </div>
                 </div>
                 </div>
                 <div className="flex flex-col items-center gap-32 mt-32 mb-20">
