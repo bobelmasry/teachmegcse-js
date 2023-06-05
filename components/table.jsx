@@ -23,6 +23,16 @@ const Table = ({ papers, letter }) => {
                   <Link className="hover:text-blue-700 hover:underline ml-2" href={`/A-level/${paper.subjectName}/${paper.year}/${paper.slug}`}>
                       {paper.slug}
                   </Link>
+                  {(paper.hasSolve.toString() == 'True') &&
+                  <Link href={`/A-level/${paper.subjectName}/${paper.year}/${paper.slug}/solve`}>
+                  <button
+                id='Submit'
+                className="md:ml-8 mt-2 sm:mt-0 rounded border border-blue-500 bg-blue-600 px-8 md:px-12 py-2 text-sm md:text-lg lg:text-xl font-medium text-white hover:bg-blue-500 focus:outline-none focus:ring active:text-slate-300"
+                >
+                Solve Interactively
+                </button>
+                </Link>
+                }
                 </td>
               </tr>
             ))}

@@ -30,10 +30,11 @@ export async function getStaticProps({params}) {
 export default function SubjectPage({papers}) {
   const session = useSession()
   let sName = papers[0].subjectName.charAt(0).toUpperCase() + papers[0].subjectName.slice(1);
+  const title = `Past Papers | A Levels | ${papers[0].subjectName} | ${papers[0].year}`
   return (
     <>
       <Head>
-        <title>Past Papers | A Levels | {papers[0].subjectName} | {papers[0].year}</title>
+        <title>{title}</title>
         <meta name="description" content={`CAIE Past Papers for A-level ${papers[0].subjectName} ${papers[0].year}`}></meta>
         <meta name="keywords" content={`teachmegcse, teach me gcse, A-level revision notes, A-level past papers, A-level topic questions, 
     A-level ${papers[0].subjectName} ${papers[0].year} past papers`}></meta>
