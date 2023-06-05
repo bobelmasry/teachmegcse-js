@@ -7,6 +7,7 @@ import { useSession, useUser } from '@supabase/auth-helpers-react'
 import { useState } from 'react';
 import data from "public/all.json"
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
     function SubjectPage({questionArray}) {
 
@@ -20,6 +21,10 @@ import { useRouter } from 'next/router';
         const router = useRouter();
         const data2 = router.query;
         const paperName = data2.paperName
+        let msName = paperName.replace("qp", "ms");
+        const firstNum = paperName.charAt(6)
+        const secondNum = paperName.charAt(7)
+        const year = '20' + firstNum + secondNum
 
         //const user = useUser()
         const arrayLength = questionArray.length;
@@ -145,7 +150,7 @@ import { useRouter } from 'next/router';
         </button>
         }
         {solved &&
-        <h1 className='text-4xl text-white'>You got : {questionsCorrect} / {arrayLength}</h1>
+        <h1 className='text-4xl text-white'>You got : {questionsCorrect} / {arrayLength} <br /> <Link className='text-blue-600 mt-8 underline hover:no-underline' href={`/A-level/${questionArray[0].Subject}/${year}/${msName}`}>MS (Just in case)</Link></h1>
         }
         </div>
         </div>
