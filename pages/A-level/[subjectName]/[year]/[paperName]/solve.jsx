@@ -181,7 +181,7 @@ import Link from 'next/link';
   }
 
   export async function getStaticProps({params}) {
-    const questionArray = data.filter(subject => (subject.Subject.toString() === params.subjectName) && ('2022' === params.year) && (subject.pdfName.toString() === params.paperName));
+    const questionArray = data.filter(subject => (subject.Subject.toString() === params.subjectName) && (subject.pdfName.toString() === params.paperName));
     return {
       props: {
         questionArray
