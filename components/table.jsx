@@ -33,9 +33,7 @@ const Table = ({ papers, letter }) => {
               ((paper.slug.toString().charAt(5) === letter) && (paper.isMs.toString() == 'False')) &&
               <tr key={paper.slug}>
                 <td className="flex flex-wrap px-2 text-xl md:text-3xl lg:text-3xl py-4 text-gray-900 whitespace-nowrap dark:text-white font-bold">
-                  <Link className="hover:text-blue-700 hover:underline ml-2" href={`/A-level/${paper.subjectName}/${paper.year}/${paper.slug}`}>
                       {paper.name}
-                  </Link>
                     <div className="flex gap-2 md:gap-0">
                       <Link href={`/A-level/${paper.subjectName}/${paper.year}/${paper.slug}`}>
                   <button
