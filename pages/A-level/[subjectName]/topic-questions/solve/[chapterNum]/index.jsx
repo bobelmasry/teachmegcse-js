@@ -3,19 +3,28 @@ import Navbar from "components/navbar.jsx"
 import "flowbite"
 import Headstuff from "components/headstuff.jsx"
 import Image from 'next/image';
-import fs from 'fs/promises';
-import path from 'path';
 import { useSession, useUser } from '@supabase/auth-helpers-react'
 import chapters from "public/chapters.json"
 import { useState, useEffect} from 'react';
-import TopicCard from "components/topicCard.jsx"
 import { supabase } from 'utils/supabase';
 
     function SubjectPage({questionArray}) {
 
         const user = useUser()
         const arrayLength = questionArray.length;
-        const [randInt, setrandInt] = useState(0);
+        const [randInt, setrandInt] = useState(Math.floor(Math.random() * arrayLength));
+
+        function AnswerButton({name}){
+          return (
+            <button
+                id={name}
+                onClick={handleAnswer}
+                className="inline-block rounded border border-green-500 bg-green-500 px-12 py-3 text-md sm:text-lg md:text-xl lg:text-2xl font-medium text-white hover:bg-green-400 focus:outline-none focus:ring active:text-green-500"
+                >
+                {name}
+                </button>
+          )
+        }
 
         //now for interactive element
         const [initialGotten, setinitialGotten] = useState(false)
@@ -25,51 +34,46 @@ import { supabase } from 'utils/supabase';
         async function updateRandInt(){
             const newVal = Math.floor(Math.random() * arrayLength);
             setrandInt(newVal);
-            setincorrect(false)
             setcorrect(false)
             setnotalreadySolved(true)
-
-            if (initialGotten === false)
-          {   
-                let { data, error, status } = await supabase
-                .from('profile')
-                .select(`questions_solved, questions_correct, notes_read`)
-                .eq('user_id', user?.id)
-                .single()
-
-              if (error && status !== 406) {
-                throw error
-              }
-
-              if (data) {
-                setQuestionsSolved(data.questions_solved + questionsSolved)
-                setQuestionsCorrect(data.questions_correct + questionsCorrect)
-              }
-
-                setinitialGotten(true)
-          }
         }
 
         useEffect(() => {
-            const startVal = Math.floor(Math.random() * arrayLength);
-            setrandInt(startVal);
-            setcorrect(false)
-            
-          }, [arrayLength]);
+          async function getInitial() {
+            if (!initialGotten){
+            if (user && user.id) { // Check if user and user.id are defined
+              let { data, error, status } = await supabase
+                .from('profile')
+                .select(`questions_solved, questions_correct, notes_read`)
+                .eq('user_id', user.id)
+                .single();
+        
+              if (error && status !== 406) {
+                throw error;
+              }
+        
+              if (data) {
+                setQuestionsSolved(data.questions_solved + questionsSolved);
+                setQuestionsCorrect(data.questions_correct + questionsCorrect);
+                //console.log(`1 : ${data.questions_correct} : ${data.questions_solved}`);
+                setinitialGotten(true);
+              }
+            }}
+          }
+        
+          getInitial(); // Call the function
+        }, [arrayLength, initialGotten, questionsCorrect, questionsSolved, user]);
 
         const currentQuestion = questionArray[randInt];
         const [correct, setcorrect] = useState(false)
         const [notalreadySolved, setnotalreadySolved] = useState(true)
-        const [incorrect, setincorrect] = useState(false)
 
-        const currentQuestionArray = Object.values(currentQuestion);
-
-        const questionName = currentQuestionArray[0]
-        const answer = currentQuestionArray[1]
-        const chapter = currentQuestionArray[2]
-        const subject = currentQuestionArray[3]
-        const paperNumber = currentQuestionArray[5]
-        const source = currentQuestionArray[7]
+        const questionName = currentQuestion['questionName']
+        const answer = currentQuestion['Answer']
+        const chapter = currentQuestion['Chapter']
+        const subject = currentQuestion['Subject']
+        const paperNumber = currentQuestion['paperNumber']
+        const source = currentQuestion['pdfName']
 
         const session = useSession()
         const chapterString = chapters.filter(item => (item.id === questionArray[0].Chapter) && (item.subject === questionArray[0].Subject));
@@ -79,55 +83,25 @@ import { supabase } from 'utils/supabase';
             event.preventDefault();
             setnotalreadySolved(false)
             if (event.target.id === answer){
-              setcorrect(true)}
-              else {
-                setincorrect(true)
-              }
-            if (initialGotten === false)
-          {
-                let { data, error, status } = await supabase
-                .from('profile')
-                .select(`questions_solved, questions_correct, notes_read`)
-                .eq('user_id', user?.id)
-                .single()
-
-              if (error && status !== 406) {
-                throw error
-              }
-
-              if (data) {
-                setQuestionsSolved(data.questions_solved + questionsSolved)
-                setQuestionsCorrect(data.questions_correct + questionsCorrect)
-                setinitialGotten(true)
-              }
-
-          }
-            
-            if (event.target.id === answer){
               setcorrect(true)
-              if (initialGotten === true){
                 setQuestionsCorrect(questionsCorrect + 1)
                 setQuestionsSolved(questionsSolved + 1)
-                updateSupabase(questionsSolved, questionsCorrect)
-                }
+                //console.log(`2 : ${questionsCorrect + 1} : ${questionsSolved + 1}`);
+                updateSupabase(questionsSolved + 1, questionsCorrect + 1)
             } else{
-                setincorrect(true)
-                if (initialGotten === true) {
                 setQuestionsSolved(questionsSolved + 1)
-                updateSupabase(questionsSolved, questionsCorrect)
+                //console.log(`3 : ${questionsCorrect} : ${questionsSolved + 1}`);
+                updateSupabase(questionsSolved + 1, questionsCorrect)
                 }
-            }
             }
 
         
           async function updateSupabase (questionsSolved2, questionsCorrect2) {
-            if (initialGotten === true) {
             const updates = {
-              user_id: user?.id,
+              user_id: user.id,
               questions_solved : questionsSolved2,
               questions_correct : questionsCorrect2,
             }
-            console.log(questionsSolved2);
             
             let { error } = await supabase
             .from('profile')
@@ -136,8 +110,7 @@ import { supabase } from 'utils/supabase';
           if (error) {
             throw error
           }
-          }}
-
+          }
           
             const title = `A-level ${questionArray[0].Subject} Topic Questions ${chapterString2}`
             const str = title;
@@ -161,44 +134,19 @@ import { supabase } from 'utils/supabase';
         </div>
         {notalreadySolved && 
         <div className="flex ml-6 md:ml-0 flex-wrap justify-center gap-8">
-                <button
-                id='A'
-                onClick={handleAnswer}
-                className="inline-block rounded border border-green-500 bg-green-500 px-12 py-3 text-md sm:text-lg md:text-xl lg:text-2xl font-medium text-white hover:bg-green-400 focus:outline-none focus:ring active:text-green-500"
-                >
-                A
-                </button>
-                <button
-                id='B'
-                onClick={handleAnswer}
-                className="inline-block rounded border border-green-500 bg-green-500 px-12 py-3 text-md sm:text-lg md:text-xl lg:text-2xl font-medium text-white hover:bg-green-400 focus:outline-none focus:ring active:text-green-500"
-                >
-                B
-                </button>
-                <button
-                id='C'
-                onClick={handleAnswer}
-                className="inline-block rounded border border-green-500 bg-green-500 px-12 py-3 text-md sm:text-lg md:text-xl lg:text-2xl font-medium text-white hover:bg-green-400 focus:outline-none focus:ring active:text-green-500"
-                >
-                C
-                </button>
-                <button
-                id='D'
-                onClick={handleAnswer}
-                className="inline-block rounded border border-green-500 bg-green-500 px-12 py-3 text-md sm:text-lg md:text-xl lg:text-2xl font-medium text-white hover:bg-green-400 focus:outline-none focus:ring active:text-green-500"
-                >
-                D
-                </button>
-                
+            <AnswerButton name={"A"} />
+            <AnswerButton name={"B"} />
+            <AnswerButton name={"C"} />
+            <AnswerButton name={"D"} />
         </div>
         }
         <div className="flex ml-8 md:ml-0 flex-flow justify-center gap-8 mt-8">
-        {correct && 
+        {(correct && !notalreadySolved) && 
         <>
         <p className='dark:text-white text-lg sm:text-lg md:text-xl lg:text-2xl'><span className='text-green-400'>Correct</span>: the Answer is {answer} <br /> Explanation is coming soon! <br /> Source: {source}<br /><br /> Disclaimer: {"there's"} a 2% chance that the answer is incorrect <br />Disclaimer 2: {"there's"} a 5% chance that the question is not in the syllabus </p>
         </>
         }
-        {incorrect && 
+        {(!correct && !notalreadySolved) && 
         <>
         <p className='dark:text-white text-lg sm:text-lg md:text-xl lg:text-2xl'><span className='text-red-600'>Incorrect</span>: the Answer is {answer} <br /> Explanation is coming soon! <br /> Source: {source} <br /><br /> Disclaimer: {"there's"} a 2% chance that the answer is incorrect <br />Disclaimer 2: {"there's"} a 5% chance that the question is not in the syllabus </p>
         </>
@@ -218,21 +166,20 @@ import { supabase } from 'utils/supabase';
     );
     
   }
-
-
-  export async function getStaticProps({ params }) {
+  export async function getServerSideProps({ params }) {
     try {
-      const filePath = path.join(process.cwd(), 'public', `${params.subjectName}_db.json`);
-      const fileData = await fs.readFile(filePath, 'utf-8');
-      const data = JSON.parse(fileData);
+      let { data } = await supabase
+            .from('questions')
+            .select(`*`)
+            .eq('Subject', params.subjectName)
+            .eq('Chapter', params.chapterNum)
   
-      const filteredData = data.filter(item => item.Chapter == params.chapterNum);
   
-      if (filteredData.length === 0) {
+      if (data.length === 0) {
         throw new Error('Question not found');
       }
   
-      const questionArray = filteredData;
+      const questionArray = data;
   
       return {
         props: {
@@ -248,19 +195,5 @@ import { supabase } from 'utils/supabase';
       };
     }
   }
-
-  export async function getStaticPaths() {
-    const filePath = path.join(process.cwd(), 'public', 'all.json');
-    const fileData = await fs.readFile(filePath, 'utf-8');
-    const data = JSON.parse(fileData);
-
-    const paths = data.map(question => ({
-      params: { subjectName: question.Subject.toString(),
-                chapterNum: question.Chapter.toString()}
-    }));
-    return { paths, fallback: false };
-  }
-
-
 
 export default SubjectPage
