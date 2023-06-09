@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 const Table = ({ papers, letter }) => {
   // letter signifier whether its f/m or m/j or o/n
   // and yeah i did all this to save my ass from python
+  // it will probably be fixed and removed before july
   const [arr, setArr] = useState([]);
 
   useEffect(() => {
@@ -18,7 +19,7 @@ const Table = ({ papers, letter }) => {
   }, [papers]);
 
   return (
-    <div className="mt-10 md:w-4/5 lg:w-2/5 w-5/6">
+    <div className="mt-10 md:w-4/5 lg:w-2/5 w-15/16">
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 dark:bg-gray-500">
           <thead className="text-xs text-gray-700 bg-gray-50 dark:bg-slate-800 dark:text-gray-200">
@@ -69,7 +70,6 @@ const Table = ({ papers, letter }) => {
         </table>
       </div>
     </div>
-    
     
   );
 };

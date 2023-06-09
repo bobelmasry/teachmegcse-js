@@ -64,7 +64,7 @@ import Link from 'next/link';
         <Navbar session={session} />
         <div className="ml-2 mr-2">
         <div className="flex mt-32 ml-2 mb-4 justify-center">
-            <h1 className='text-5xl font-bold text-white'>Solve {paperName}</h1>
+            <h1 className='lg:text-5xl md:text-4xl text-3xl font-bold text-white'>Solve {paperName}</h1>
         </div>
         <div className="flex flex-col items-center gap-32 mt-32 mb-20">
         {questionArray.map((question, index) => (
@@ -110,15 +110,20 @@ import Link from 'next/link';
                 </button>
                 </>
                 }
+                <div>
                 {solved && (
                 <>
                     {activeOptions[questionArray[index].questionName] === questionArray[index].Answer ? (
-                    <p className='dark:text-white text-lg sm:text-lg md:text-xl lg:text-2xl'><span className='text-green-400'>Correct</span>: the Answer is {questionArray[index].Answer} <br /> Explanation is coming soon! <br /> Source: {questionArray[index].pdfName}<br /><br /> Disclaimer: {"there's"} a 2% chance that the answer is incorrect <br />Disclaimer 2: {"there's"} a 5% chance that the question is not in the syllabus </p>
+                    <p className='dark:text-white text-lg sm:text-xl md:text-2xl lg:text-3xl'><span className='text-green-400'>Correct</span>: the Answer is {questionArray[index].Answer}</p>
                     ) : (
-                    <p className='dark:text-white text-lg sm:text-lg md:text-xl lg:text-2xl'><span className='text-red-600'>Incorrect</span>: the Answer is {questionArray[index].Answer} <br /> Explanation is coming soon! <br /> Source: {questionArray[index].pdfName} <br /><br /> Disclaimer: {"there's"} a 2% chance that the answer is incorrect <br />Disclaimer 2: {"there's"} a 5% chance that the question is not in the syllabus </p>
+                    <p className='dark:text-white text-lg sm:text-xl md:text-2xl lg:text-3xl'><span className='text-red-600'>Incorrect</span>: the Answer is {questionArray[index].Answer} <br /> Source: {questionArray[index].pdfName}</p>
                     )}
                 </>
                 )}
+                {(solved && index === 0) && 
+                <p className='dark:text-white text-lg sm:text-lg md:text-xl lg:text-2xl'>Explanations coming soon ! <br /> Source: {questionArray[index].pdfName}<br /><br /> Disclaimer: {"there's"} a 2% chance that the answer is incorrect <br />Disclaimer 2: {"there's"} a 5% chance that the question is not in the syllabus </p>
+                }
+                </div>
         </div>
         </div>
         
