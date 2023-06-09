@@ -28,25 +28,13 @@ import Link from 'next/link';
 
         //const user = useUser()
         const arrayLength = questionArray.length;
-        const [arr, setArr] = useState([]);
         const [questionsCorrect, setQuestionsCorrect] = useState(0)
         const [solved, setSolved] = useState(false)
         const [activeOptions, setActiveOptions] = useState({});
 
         const session = useSession()
 
-        async function handleAnswer(questionName, option, id) {
-            const answer = id
-            const integerPart = answer.charAt(1);
-            const letterPart = answer.charAt(0);
-            const integerPartCleaned = parseInt(integerPart, 10);
-            arr[integerPartCleaned] = letterPart
-            setArr( // Replace the state
-            [ // with a new array
-                ...arr, // that contains all the old items
-                { id: integerPartCleaned, answer: letterPart } // and one new item at the end
-            ]
-            );
+        async function handleAnswer(questionName, option) {
             setActiveOptions((prevState) => ({
               ...prevState,
               [questionName]: option,
@@ -56,7 +44,7 @@ import Link from 'next/link';
         async function handleSubmit() {
             let correctAnswers = 0
             for (let i = 0; i < arrayLength; i++) {  // Fix loop condition: i < arrayLength
-              if (arr[i] === questionArray[i].Answer) {  // Use strict equality (===) for comparison
+              if (activeOptions[questionArray[i].questionName] === questionArray[i].Answer) {  // Use strict equality (===) for comparison
                 correctAnswers ++;
               }
             }
@@ -88,8 +76,7 @@ import Link from 'next/link';
             {!solved && 
             <>
                 <button
-                id={`A${index}`}
-                onClick={() => handleAnswer(question.questionName, 'A', `A${index}`)}
+                onClick={() => handleAnswer(question.questionName, 'A')}
                 className={`inline-block rounded border ${
                     activeOptions[question.questionName] === 'A' ? 'bg-sky-600 border-sky-500 text-white' : 'bg-slate-600 text-white border-gray-500'
                 } px-12 py-3 text-md sm:text-lg md:text-xl lg:text-2xl font-medium hover:bg-sky-500 focus:outline-none focus:ring`}
@@ -98,8 +85,7 @@ import Link from 'next/link';
                 </button>
 
                 <button
-                id={`B${index}`}
-                onClick={() => handleAnswer(question.questionName, 'B', `B${index}`)}
+                onClick={() => handleAnswer(question.questionName, 'B')}
                 className={`inline-block rounded border ${
                   activeOptions[question.questionName] === 'B' ? 'bg-sky-600 border-sky-500 text-white' : 'bg-slate-600 text-white border-gray-500'
               } px-12 py-3 text-md sm:text-lg md:text-xl lg:text-2xl font-medium hover:bg-sky-500 focus:outline-none focus:ring`}
@@ -107,8 +93,7 @@ import Link from 'next/link';
                 B
                 </button>
                 <button
-                id={`C${index}`}
-                onClick={() => handleAnswer(question.questionName, 'C', `C${index}`)}
+                onClick={() => handleAnswer(question.questionName, 'C')}
                 className={`inline-block rounded border ${
                   activeOptions[question.questionName] === 'C' ? 'bg-sky-600 border-sky-500 text-white' : 'bg-slate-600 text-white border-gray-500'
               } px-12 py-3 text-md sm:text-lg md:text-xl lg:text-2xl font-medium hover:bg-sky-500 focus:outline-none focus:ring`}
@@ -116,8 +101,7 @@ import Link from 'next/link';
                 C
                 </button>
                 <button
-                id={`D${index}`}
-                onClick={() => handleAnswer(question.questionName, 'D', `D${index}`)}
+                onClick={() => handleAnswer(question.questionName, 'D')}
                 className={`inline-block rounded border ${
                   activeOptions[question.questionName] === 'D' ? 'bg-sky-600 border-sky-500 text-white' : 'bg-slate-600 text-white border-gray-500'
               } px-12 py-3 text-md sm:text-lg md:text-xl lg:text-2xl font-medium hover:bg-sky-500 focus:outline-none focus:ring`}
@@ -128,7 +112,7 @@ import Link from 'next/link';
                 }
                 {solved && (
                 <>
-                    {arr[index] == questionArray[index].Answer ? (
+                    {activeOptions[questionArray[index].questionName] === questionArray[index].Answer ? (
                     <p className='dark:text-white text-lg sm:text-lg md:text-xl lg:text-2xl'><span className='text-green-400'>Correct</span>: the Answer is {questionArray[index].Answer} <br /> Explanation is coming soon! <br /> Source: {questionArray[index].pdfName}<br /><br /> Disclaimer: {"there's"} a 2% chance that the answer is incorrect <br />Disclaimer 2: {"there's"} a 5% chance that the question is not in the syllabus </p>
                     ) : (
                     <p className='dark:text-white text-lg sm:text-lg md:text-xl lg:text-2xl'><span className='text-red-600'>Incorrect</span>: the Answer is {questionArray[index].Answer} <br /> Explanation is coming soon! <br /> Source: {questionArray[index].pdfName} <br /><br /> Disclaimer: {"there's"} a 2% chance that the answer is incorrect <br />Disclaimer 2: {"there's"} a 5% chance that the question is not in the syllabus </p>
@@ -161,7 +145,7 @@ import Link from 'next/link';
   }
 
   export async function getStaticPaths() {
-    const years = ['2022', '2021', '2020', '2019', '2018', '2017']; // Add the desired years here
+    const years = ['2022', '2021', '2020', '2019', '2018', '2017'];
   
     const paths = [];
   
