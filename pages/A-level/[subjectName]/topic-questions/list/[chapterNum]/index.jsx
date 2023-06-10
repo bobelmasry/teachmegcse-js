@@ -9,6 +9,7 @@ import path from 'path';
 import { useRouter } from 'next/router';
 import { useSession } from '@supabase/auth-helpers-react'
 import chapters from "public/chapters.json"
+import { supabase } from 'utils/supabase';
 
     function SubjectPage({questionArray}) {
         const router = useRouter();
@@ -52,32 +53,20 @@ import chapters from "public/chapters.json"
 
 
   export async function getStaticProps({ params }) {
-    try {
-      const filePath = path.join(process.cwd(), 'public', `${params.subjectName}_db.json`);
-      const fileData = await fs.readFile(filePath, 'utf-8');
-      const data = JSON.parse(fileData);
-  
-      const filteredData = data.filter(item => item.Chapter == params.chapterNum).slice(0, 30);
-  
-      if (filteredData.length === 0) {
+    let { data } = await supabase
+    .from('questions')
+    .select(`*`)
+    .eq('Subject', params.subjectName)
+    .eq('Chapter', params.chapterNum)
+
+      if (data.length === 0) {
         throw new Error('Question not found');
       }
-  
-      const questionArray = filteredData;
-  
+      const questionArray = data;
+
       return {
-        props: {
-          questionArray
-        }
-      };
-    } catch (error) {
-      console.error(`Error reading JSON file: ${error}`);
-      return {
-        props: {
-          questionArray: null
-        }
-      };
-    }
+        props: {questionArray}
+      }
   }
 
   export async function getStaticPaths() {

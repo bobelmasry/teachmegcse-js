@@ -5,6 +5,8 @@ import Headstuff from "components/headstuff.jsx"
 import Image from 'next/image';
 import { useSession, useUser } from '@supabase/auth-helpers-react'
 import chapters from "public/chapters.json"
+import fs from 'fs/promises';
+import path from 'path';
 import { useState, useEffect} from 'react';
 import { supabase } from 'utils/supabase';
 
@@ -166,34 +168,33 @@ import { supabase } from 'utils/supabase';
     );
     
   }
-  export async function getServerSideProps({ params }) {
-    try {
-      let { data } = await supabase
-            .from('questions')
-            .select(`*`)
-            .eq('Subject', params.subjectName)
-            .eq('Chapter', params.chapterNum)
-  
-  
+
+  export async function getStaticProps({ params }) {
+    let { data } = await supabase
+    .from('questions')
+    .select(`*`)
+    .eq('Subject', params.subjectName)
+    .eq('Chapter', params.chapterNum)
+
       if (data.length === 0) {
         throw new Error('Question not found');
       }
-  
       const questionArray = data;
-  
-      return {
-        props: {
-          questionArray
-        }
-      };
-    } catch (error) {
-      console.error(`Error reading JSON file: ${error}`);
-      return {
-        props: {
-          questionArray: null
-        }
-      };
-    }
-  }
 
+      return {
+        props: {questionArray}
+      }
+    }
+
+  export async function getStaticPaths() {
+    const filePath = path.join(process.cwd(), 'public', 'all.json');
+    const fileData = await fs.readFile(filePath, 'utf-8');
+    const data = JSON.parse(fileData);
+
+    const paths = data.map(question => ({
+      params: { subjectName: question.Subject.toString(),
+                chapterNum: question.Chapter.toString()}
+    }));
+    return { paths, fallback: false };
+  }
 export default SubjectPage
