@@ -4,10 +4,11 @@ import "flowbite"
 import Headstuff from "components/headstuff.jsx"
 import Image from 'next/image';
 import { useSession, useUser } from '@supabase/auth-helpers-react'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import data from "public/all.json"
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { supabase } from 'utils/supabase';
 
     function SubjectPage({questionArray}) {
 
@@ -17,6 +18,10 @@ import Link from 'next/link';
         return questionNumberA - questionNumberB;
       });
 
+        const user = useUser()
+
+        const [initialGotten, setinitialGotten] = useState(false)
+        const [questionsSolved, setQuestionsSolved] = useState(0)
 
         const router = useRouter();
         const data2 = router.query;
@@ -34,6 +39,48 @@ import Link from 'next/link';
 
         const session = useSession()
 
+        useEffect(() => {
+          async function getInitial() {
+            if (!initialGotten){
+            if (user && user.id) { // Check if user and user.id are defined
+              let { data, error, status } = await supabase
+                .from('profile')
+                .select(`questions_solved, questions_correct, notes_read`)
+                .eq('user_id', user.id)
+                .single();
+        
+              if (error && status !== 406) {
+                throw error;
+              }
+        
+              if (data) {
+                setQuestionsSolved(data.questions_solved + questionsSolved);
+                setQuestionsCorrect(data.questions_correct + questionsCorrect);
+                //console.log(`1 : ${data.questions_correct} : ${data.questions_solved}`);
+                setinitialGotten(true);
+              }
+            }}
+          }
+        
+          getInitial(); // Call the function
+        }, [arrayLength, initialGotten, questionsCorrect, questionsSolved, user]);
+
+        async function updateSupabase (questionsSolved2, questionsCorrect2) {
+          const updates = {
+            user_id: user.id,
+            questions_solved : questionsSolved2,
+            questions_correct : questionsCorrect2,
+          }
+          
+          let { error } = await supabase
+          .from('profile')
+          .upsert(updates)
+
+        if (error) {
+          throw error
+        }
+        }
+
         async function handleAnswer(questionName, option) {
             setActiveOptions((prevState) => ({
               ...prevState,
@@ -49,6 +96,8 @@ import Link from 'next/link';
               }
             }
             setQuestionsCorrect(correctAnswers)
+            setQuestionsSolved(arrayLength)
+            updateSupabase(arrayLength + questionsSolved, correctAnswers + questionsCorrect)
             setSolved(true);
           }
           
