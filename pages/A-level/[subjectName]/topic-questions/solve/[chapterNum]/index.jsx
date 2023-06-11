@@ -9,8 +9,12 @@ import fs from 'fs/promises';
 import path from 'path';
 import { useState, useEffect} from 'react';
 import { supabase } from 'utils/supabase';
+import { useRouter } from 'next/router';
 
     function SubjectPage({questionArray}) {
+      const router = useRouter()
+      const params = router.query
+      let subjectName = params.subjectName
 
         const user = useUser()
         const arrayLength = questionArray.length;
@@ -45,9 +49,9 @@ import { supabase } from 'utils/supabase';
             if (!initialGotten){
             if (user && user.id) { // Check if user and user.id are defined
               let { data, error, status } = await supabase
-                .from('profile')
-                .select(`questions_solved, questions_correct, notes_read`)
-                .eq('user_id', user.id)
+                .from('profiles')
+                .select(`${subjectName}_questionsSolved, ${subjectName}_questionsCorrect`)
+                .eq('id', user.id)
                 .single();
         
               if (error && status !== 406) {
@@ -55,8 +59,13 @@ import { supabase } from 'utils/supabase';
               }
         
               if (data) {
-                setQuestionsSolved(data.questions_solved + questionsSolved);
-                setQuestionsCorrect(data.questions_correct + questionsCorrect);
+                const solvedKey = `${subjectName}_questionsSolved`;
+                const correctKey = `${subjectName}_questionsCorrect`
+                const questionsSolvedValue = data[solvedKey];
+                const questionsCorrectValue = data[correctKey];
+
+                setQuestionsSolved(questionsSolvedValue + questionsSolved);
+                setQuestionsCorrect(questionsCorrectValue + questionsCorrect);
                 //console.log(`1 : ${data.questions_correct} : ${data.questions_solved}`);
                 setinitialGotten(true);
               }
@@ -64,7 +73,7 @@ import { supabase } from 'utils/supabase';
           }
         
           getInitial(); // Call the function
-        }, [arrayLength, initialGotten, questionsCorrect, questionsSolved, user]);
+        }, [arrayLength, initialGotten, questionsCorrect, questionsSolved, subjectName, user]);
 
         const currentQuestion = questionArray[randInt];
         const [correct, setcorrect] = useState(false)
@@ -99,14 +108,17 @@ import { supabase } from 'utils/supabase';
 
         
           async function updateSupabase (questionsSolved2, questionsCorrect2) {
+            const solvedKey = `${subjectName}_questionsSolved`;
+            const correctKey = `${subjectName}_questionsCorrect`
+
             const updates = {
-              user_id: user.id,
-              questions_solved : questionsSolved2,
-              questions_correct : questionsCorrect2,
+              id: user.id,
+              [solvedKey] : questionsSolved2,
+              [correctKey] : questionsCorrect2,
             }
             
             let { error } = await supabase
-            .from('profile')
+            .from('profiles')
             .upsert(updates)
 
           if (error) {
