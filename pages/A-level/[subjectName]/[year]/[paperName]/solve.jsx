@@ -96,6 +96,75 @@ import { supabase } from 'utils/supabase';
             }));          
         }
 
+        async function updatePapersSolved(score, numOfQuestions) {
+        
+          // Retrieve the current papersSolved value
+          const { data: existingData, error: existingError } = await supabase
+            .from('profiles')
+            .select('papersSolved')
+            .eq('id', user.id)
+            .single();
+        
+          if (existingError) {
+            console.error('Error retrieving existing papersSolved:', existingError);
+            return;
+          }
+          console.log(existingData);
+        
+          // Check if existingData is null
+          if (existingData.papersSolved === null) {
+            // If there is no existing papersSolved data, create a new array with the new entry
+            const newData = [{
+              PaperName: paperName,
+              Score: score,
+              NumOfQuestions: numOfQuestions
+            }];
+        
+            // Update the papersSolved field with the new data
+            const { data, error } = await supabase
+              .from('profiles')
+              .update({
+                papersSolved: newData
+              })
+              .eq('id', user.id);
+        
+            if (error) {
+              console.error('Error updating papersSolved:', error);
+              return;
+            }
+        
+            console.log('papersSolved updated successfully!');
+            return;
+          }
+          else {
+            // Filter out existing entries with the same PaperName
+          const data2 = existingData.papersSolved
+          const filteredData = data2.filter(entry => entry.PaperName !== paperName);
+        
+          // Add the new entry to the filtered data
+          filteredData.push({
+            PaperName: paperName,
+            Score: score,
+            NumOfQuestions: numOfQuestions
+          });
+
+           // Update the papersSolved field with the modified data
+           const { data, error } = await supabase
+           .from('profiles')
+           .update({
+             papersSolved: filteredData
+           })
+           .eq('id', user.id);
+       
+         if (error) {
+           console.error('Error updating papersSolved:', error);
+           return;
+         }
+       
+         console.log('papersSolved updated successfully!');
+          }
+        }
+
         async function handleSubmit() {
             let correctAnswers = 0
             for (let i = 0; i < arrayLength; i++) {  // Fix loop condition: i < arrayLength
@@ -106,6 +175,7 @@ import { supabase } from 'utils/supabase';
             setQuestionsCorrect(correctAnswers)
             setQuestionsSolved(arrayLength)
             updateSupabase(arrayLength + questionsSolved, correctAnswers + questionsCorrect)
+            updatePapersSolved(correctAnswers, arrayLength)
             setSolved(true);
           }
           

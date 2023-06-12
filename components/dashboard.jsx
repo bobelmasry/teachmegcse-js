@@ -8,6 +8,7 @@ export default function Dashboard({ session }) {
 
     const [username, setUsername] = useState(null)
     const [loading, setLoading] = useState(true)
+    const [initialGotten, setinitialGotten] = useState(false)
     const [economics_questionsSolved, seteconomics_questionsSolved] = useState(null)
     const [economics_questionsCorrect, seteconomics_questionsCorrect] = useState(null)
     const [physics_questionsSolved, setphysics_questionsSolved] = useState(null)
@@ -20,6 +21,7 @@ export default function Dashboard({ session }) {
 
     useEffect(() => {
       async function getProfile() {
+        if (!initialGotten) {
         try {
           setLoading(true)
 
@@ -49,10 +51,11 @@ export default function Dashboard({ session }) {
           console.log(error)
         } finally {
           setLoading(false)
+          setinitialGotten(true)
         }
-      }
+      }}
       getProfile()
-      }, [session, supabase, user.id])
+      }, [initialGotten, session, supabase, user.id])
 
       
 
