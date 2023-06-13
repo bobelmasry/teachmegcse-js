@@ -3,6 +3,7 @@ import Navbar from "components/navbar.jsx"
 import "flowbite"
 import Headstuff from "components/headstuff.jsx"
 import TopicCard from "components/topicCard.jsx"
+import TopicCard2 from "components/topicCard2.jsx"
 import { useSession } from '@supabase/auth-helpers-react'
 import { useRouter } from 'next/router';
 import fs from 'fs/promises';
@@ -76,9 +77,16 @@ import { useUser } from '@supabase/auth-helpers-react'
           let amountSolved = solvedPaper.length
           let totalAmount = chapterQuestions.length
 
-          return(
-          <TopicCard key={topic.id} amountSolved={amountSolved} totalAmount={totalAmount} header={topic.name} linkSrc={`/${topic.level}/${topic.subject}/topic-questions/solve/${topic.id}`} />
+          if (session) {
+            return(
+              <TopicCard key={topic.id} amountSolved={amountSolved} totalAmount={totalAmount} header={topic.name} linkSrc={`/${topic.level}/${topic.subject}/topic-questions/solve/${topic.id}`} />
         )
+          }
+          else {
+            return(
+              <TopicCard2 key={topic.id} hasSignIn={true} header={topic.name} linkSrc={`/${topic.level}/${topic.subject}/topic-questions/solve/${topic.id}`} />
+        )
+          }
         })}
       </div>
       </div>
