@@ -152,7 +152,7 @@ import { useRouter } from 'next/router';
               else {
                 // Filter out existing entries with the same questionName
               const data2 = existingData.questionsSolved
-              const filteredData = data2.filter(entry => ((entry.QuestionName !== currentQuestion.questionName) || (entry.Chapter !== currentQuestion.Chapter) || (entry.PaperNumber !== currentQuestion.paperNumber)));
+              const filteredData = data2?.filter(entry => ((entry.QuestionName !== currentQuestion.questionName) || (entry.Chapter !== currentQuestion.Chapter) || (entry.PaperNumber !== currentQuestion.paperNumber)));
             
               // Add the new entry to the filtered data
               filteredData.push({

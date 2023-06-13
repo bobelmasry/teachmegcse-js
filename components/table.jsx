@@ -10,7 +10,6 @@ const Table = ({ papers, letter }) => {
   // it will probably be fixed and removed before july
   const [arr, setArr] = useState([]);
   const [papersSolved, setPapersSolved] = useState([]);
-  const [papersSolved3, setPapersSolved3] = useState([]);
   const [initialGotten, setinitialGotten] = useState(false)
   const user = useUser()
 
@@ -57,14 +56,9 @@ const Table = ({ papers, letter }) => {
           </thead>
           <tbody>
           {papers.map((paper, j) => {
-            const isSolved = papersSolved.filter(p => p.PaperName.toString() === paper.slug.toString());
-            let alreadySolved = false 
-            if (isSolved.length === 0){
-               alreadySolved = false 
-            }
-            else{
-              alreadySolved = true
-            }
+            const isSolved = papersSolved?.filter(p => p.PaperName.toString() === paper.slug.toString());
+            let alreadySolved = false
+            alreadySolved = ((isSolved?.length === 0) || (isSolved?.length === undefined)) ? false : true
 
           return (
             ((paper.slug.toString().charAt(5) === letter) && (paper.isMs.toString() === 'False')) && (
@@ -101,7 +95,7 @@ const Table = ({ papers, letter }) => {
                         MS
                       </button>
                     </Link>
-                    {(paper.hasSolve.toString() == 'True') && (!alreadySolved) && (
+                    {((paper.hasSolve.toString() == 'True') && (alreadySolved === false)) && (
                       <Link href={`/A-level/${paper.subjectName}/${paper.year}/${paper.slug}/solve`}>
                         <button
                           id='Submit'
@@ -111,14 +105,14 @@ const Table = ({ papers, letter }) => {
                         </button>
                       </Link>
                     )}
-                    {(paper.hasSolve.toString() == 'True') && (alreadySolved) && (
+                    {((paper.hasSolve.toString() == 'True') && (alreadySolved === true) && (isSolved)) && (
                       <>
-                        <button
-                          id='Submit'
-                          className="md:ml-8 mt-2 sm:mt-0 rounded border border-blue-500 bg-blue-600 px-8 md:px-10 py-1 text-sm md:text-lg lg:text-xl font-medium text-white focus:outline-none"
-                        >
-                          {isSolved[0].Score} / {isSolved[0].NumOfQuestions}
-                        </button>
+                          <button
+                            id='Submit'
+                            className="md:ml-8 mt-2 sm:mt-0 rounded border border-blue-500 bg-blue-600 px-8 md:px-10 py-1 text-sm md:text-lg lg:text-xl font-medium text-white focus:outline-none"
+                          >
+                            {isSolved[0].Score} / {isSolved[0].NumOfQuestions}
+                          </button>
                       <Link href={`/A-level/${paper.subjectName}/${paper.year}/${paper.slug}/solve`}>
                       <button
                         id='Submit'

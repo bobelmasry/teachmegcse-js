@@ -72,19 +72,19 @@ import { useUser } from '@supabase/auth-helpers-react'
       <div className="flex justify-center items-center ">
       <div className="grid grid-rows-4 gap-11 mt-16 mb-24 w-10/12 md:w-5/12 lg:w-3/12">
       {chapters.map((topic) => { 
-          const solvedPaper = questionsSolved.filter(question => question.Chapter.toString() === topic.id.toString());
+          const solvedPaper = questionsSolved?.filter(question => question.Chapter.toString() === topic.id.toString());
           const chapterQuestions = data2.filter(question => (question.Chapter.toString() === topic.id.toString()));
-          let amountSolved = solvedPaper.length
+          let amountSolved = Array.isArray(solvedPaper) ? solvedPaper.length : 0
           let totalAmount = chapterQuestions.length
 
           if (session) {
             return(
-              <TopicCard key={topic.id} amountSolved={amountSolved} totalAmount={totalAmount} header={topic.name} linkSrc={`/${topic.level}/${topic.subject}/topic-questions/solve/${topic.id}`} />
+              <TopicCard key={topic.id} amountSolved={amountSolved} totalAmount={totalAmount} header={topic.name} linkSrc={`/${topic.level}/${topic.subject}/topic-questions/list/${topic.id}`} />
         )
           }
           else {
             return(
-              <TopicCard2 key={topic.id} hasSignIn={true} header={topic.name} linkSrc={`/${topic.level}/${topic.subject}/topic-questions/solve/${topic.id}`} />
+              <TopicCard2 key={topic.id} hasSignIn={true} header={topic.name} linkSrc={`/${topic.level}/${topic.subject}/topic-questions/list/${topic.id}`} />
         )
           }
         })}
