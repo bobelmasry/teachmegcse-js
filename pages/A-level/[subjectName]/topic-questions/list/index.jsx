@@ -72,7 +72,7 @@ import { useUser } from '@supabase/auth-helpers-react'
       <div className="flex justify-center items-center ">
       <div className="grid grid-rows-4 gap-11 mt-16 mb-24 w-10/12 md:w-5/12 lg:w-3/12">
       {chapters.map((topic) => { 
-          const solvedPaper = questionsSolved?.filter(question => question.Chapter.toString() === topic.id.toString());
+          const solvedPaper = questionsSolved?.filter(question => ((question.Chapter.toString() === topic.id.toString()) && (question.Subject.toString() === str)));
           const chapterQuestions = data2.filter(question => ((question.Chapter.toString() === topic.id.toString()) && (question.Subject.toString() === str)));
           let amountSolved = Array.isArray(solvedPaper) ? solvedPaper.length : 0
           let totalAmount = chapterQuestions.length
