@@ -109,7 +109,6 @@ import { supabase } from 'utils/supabase';
             console.error('Error retrieving existing papersSolved:', existingError);
             return;
           }
-          console.log(existingData);
         
           // Check if existingData is null
           if (existingData.papersSolved === null) {
@@ -117,7 +116,9 @@ import { supabase } from 'utils/supabase';
             const newData = [{
               PaperName: paperName,
               Score: score,
-              NumOfQuestions: numOfQuestions
+              NumOfQuestions: numOfQuestions,
+              Subject : subjectName,
+              Year : year
             }];
         
             // Update the papersSolved field with the new data
@@ -145,7 +146,9 @@ import { supabase } from 'utils/supabase';
           filteredData.push({
             PaperName: paperName,
             Score: score,
-            NumOfQuestions: numOfQuestions
+            NumOfQuestions: numOfQuestions,
+            Subject : subjectName,
+            Year : year
           });
 
            // Update the papersSolved field with the modified data

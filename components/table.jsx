@@ -1,12 +1,18 @@
 import React from 'react';
 import Link from "next/link"
 import { useState, useEffect } from 'react';
+import { supabase } from 'utils/supabase';
+import { useUser } from '@supabase/auth-helpers-react'
 
 const Table = ({ papers, letter }) => {
   // letter signifier whether its f/m or m/j or o/n
   // and yeah i did all this to save my ass from python
   // it will probably be fixed and removed before july
   const [arr, setArr] = useState([]);
+  const [papersSolved, setPapersSolved] = useState([]);
+  const [papersSolved3, setPapersSolved3] = useState([]);
+  const [initialGotten, setinitialGotten] = useState(false)
+  const user = useUser()
 
   useEffect(() => {
     const updatedArr = [];
@@ -16,10 +22,30 @@ const Table = ({ papers, letter }) => {
       updatedArr.push({ id: i, msName: msName2 });
     }
     setArr(updatedArr);
-  }, [papers]);
+    async function getPapersSolved () {
+      if (!initialGotten){
+      if (user && user.id) {
+      const { data: existingData, error: existingError } = await supabase
+            .from('profiles')
+            .select('papersSolved')
+            .eq('id', user.id)
+            .single();
+        
+          if (existingError) {
+            console.error('Error retrieving existing papersSolved:', existingError);
+            return;
+          }
 
+          if (existingData) {
+            setPapersSolved(existingData.papersSolved)
+            setinitialGotten(true)
+          }
+    }}}
+    getPapersSolved()
+  }, [initialGotten, papers, papersSolved, user]);
+  
   return (
-    <div className="mt-10 md:w-4/5 lg:w-2/5 w-15/16">
+    <div className="mt-10 md:w-4/5 lg:w-2/4 w-15/16">
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 dark:bg-gray-500">
           <thead className="text-xs text-gray-700 bg-gray-50 dark:bg-slate-800 dark:text-gray-200">
@@ -30,42 +56,85 @@ const Table = ({ papers, letter }) => {
             </tr>
           </thead>
           <tbody>
-            {papers.map((paper, j) => (
-              ((paper.slug.toString().charAt(5) === letter) && (paper.isMs.toString() == 'False')) &&
+          {papers.map((paper, j) => {
+            const isSolved = papersSolved.filter(p => p.PaperName.toString() === paper.slug.toString());
+            let alreadySolved = false 
+            if (isSolved.length === 0){
+               alreadySolved = false 
+            }
+            else{
+              alreadySolved = true
+            }
+
+          return (
+            ((paper.slug.toString().charAt(5) === letter) && (paper.isMs.toString() === 'False')) && (
               <tr key={paper.slug}>
                 <td className="flex flex-wrap px-2 text-xl md:text-3xl lg:text-3xl py-4 text-gray-900 whitespace-nowrap dark:text-white font-bold">
-                      {paper.name}
-                    <div className="flex gap-2 md:gap-0">
-                      <Link href={`/A-level/${paper.subjectName}/${paper.year}/${paper.slug}`}>
-                  <button
-                id='Submit'
-                className="md:ml-8 mt-2 sm:mt-0 rounded border border-blue-500 bg-blue-600 px-8 md:px-10 py-1 text-sm md:text-lg lg:text-xl font-medium text-white hover:bg-blue-500 focus:outline-none focus:ring active:text-slate-300"
-                >
-                QP
-                </button>
-                </Link>
-                <Link href={`/A-level/${paper.subjectName}/${paper.year}/${arr[j]?.msName}`}>
-                <button
-                id='Submit'
-                className="md:ml-8 mt-2 sm:mt-0 rounded border border-blue-500 bg-blue-600 px-8 md:px-10 py-1 text-sm md:text-lg lg:text-xl font-medium text-white hover:bg-blue-500 focus:outline-none focus:ring active:text-slate-300"
-                >
-                MS
-                </button>
-                </Link>
-                {(paper.hasSolve.toString() == 'True') &&
-                <Link href={`/A-level/${paper.subjectName}/${paper.year}/${paper.slug}/solve`}>
-                <button
-                id='Submit'
-                className="md:ml-8 mt-2 sm:mt-0 rounded border border-blue-500 bg-blue-600 px-8 md:px-10 py-1 text-sm md:text-lg lg:text-xl font-medium text-white hover:bg-blue-500 focus:outline-none focus:ring active:text-slate-300"
-                >
-                Solve
-                </button>
-                </Link>
-              }
-                </div>
+                  {paper.name}
+                  <div className="flex gap-2 md:gap-0">
+                  {(paper.hasSolve.toString() == 'False') && (!alreadySolved) && (
+                    //Added as ones without solve would have no padding on left as they are on another row so this would stick to text as on same row
+                    <Link href={`/A-level/${paper.subjectName}/${paper.year}/${paper.slug}`}>
+                      <button
+                        id='Submit'
+                        className="md:ml-8 ml-4 mt-2 sm:mt-0 rounded border border-blue-500 bg-blue-600 px-8 md:px-10 py-1 text-sm md:text-lg lg:text-xl font-medium text-white hover:bg-blue-500 focus:outline-none focus:ring active:text-slate-300"
+                      >
+                        QP
+                      </button>
+                    </Link>
+                    )}
+                    {(paper.hasSolve.toString() == 'True') && (
+                    <Link href={`/A-level/${paper.subjectName}/${paper.year}/${paper.slug}`}>
+                      <button
+                        id='Submit'
+                        className="md:ml-8 ml-0 mt-2 sm:mt-0 rounded border border-blue-500 bg-blue-600 px-8 md:px-10 py-1 text-sm md:text-lg lg:text-xl font-medium text-white hover:bg-blue-500 focus:outline-none focus:ring active:text-slate-300"
+                      >
+                        QP
+                      </button>
+                    </Link>
+                    )}
+                    <Link href={`/A-level/${paper.subjectName}/${paper.year}/${arr[j]?.msName}`}>
+                      <button
+                        id='Submit'
+                        className="md:ml-8 mt-2 sm:mt-0 rounded border border-blue-500 bg-blue-600 px-8 md:px-10 py-1 text-sm md:text-lg lg:text-xl font-medium text-white hover:bg-blue-500 focus:outline-none focus:ring active:text-slate-300"
+                      >
+                        MS
+                      </button>
+                    </Link>
+                    {(paper.hasSolve.toString() == 'True') && (!alreadySolved) && (
+                      <Link href={`/A-level/${paper.subjectName}/${paper.year}/${paper.slug}/solve`}>
+                        <button
+                          id='Submit'
+                          className="md:ml-8 mt-2 sm:mt-0 rounded border border-blue-500 bg-blue-600 px-8 md:px-10 py-1 text-sm md:text-lg lg:text-xl font-medium text-white hover:bg-blue-500 focus:outline-none focus:ring active:text-slate-300"
+                        >
+                          Solve
+                        </button>
+                      </Link>
+                    )}
+                    {(paper.hasSolve.toString() == 'True') && (alreadySolved) && (
+                      <>
+                        <button
+                          id='Submit'
+                          className="md:ml-8 mt-2 sm:mt-0 rounded border border-blue-500 bg-blue-600 px-8 md:px-10 py-1 text-sm md:text-lg lg:text-xl font-medium text-white focus:outline-none"
+                        >
+                          {isSolved[0].Score} / {isSolved[0].NumOfQuestions}
+                        </button>
+                      <Link href={`/A-level/${paper.subjectName}/${paper.year}/${paper.slug}/solve`}>
+                      <button
+                        id='Submit'
+                        className="md:ml-8 mt-2 sm:mt-0 rounded border border-purple-500 bg-purple-600 px-8 md:px-10 py-1 text-sm md:text-lg lg:text-xl font-medium text-white hover:bg-purple-500 focus:outline-none focus:ring active:text-slate-300"
+                      >
+                        Retry
+                      </button>
+                    </Link>
+                    </>
+                    )}
+                  </div>
                 </td>
               </tr>
-            ))}
+            )
+          );
+        })}
           </tbody>
         </table>
       </div>

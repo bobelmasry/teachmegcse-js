@@ -99,11 +99,84 @@ import { useRouter } from 'next/router';
                 setQuestionsSolved(questionsSolved + 1)
                 //console.log(`2 : ${questionsCorrect + 1} : ${questionsSolved + 1}`);
                 updateSupabase(questionsSolved + 1, questionsCorrect + 1)
+                updateQuestionsSolved(currentQuestion)
             } else{
                 setQuestionsSolved(questionsSolved + 1)
                 //console.log(`3 : ${questionsCorrect} : ${questionsSolved + 1}`);
                 updateSupabase(questionsSolved + 1, questionsCorrect)
+                updateQuestionsSolved(currentQuestion)
                 }
+            }
+
+            async function updateQuestionsSolved(currentQuestion) {
+        
+              // Retrieve the current questionsSolved value
+              const { data: existingData, error: existingError } = await supabase
+                .from('profiles')
+                .select('questionsSolved')
+                .eq('id', user.id)
+                .single();
+            
+              if (existingError) {
+                console.error('Error retrieving existing questionsSolved:', existingError);
+                return;
+              }
+              console.log(existingData);
+            
+              // Check if existingData is null
+              if (existingData.questionsSolved === null) {
+                // If there is no existing questionsSolved data, create a new array with the new entry
+                const newData = [{
+                  PaperNumber: currentQuestion.paperNumber,
+                  Chapter: currentQuestion.Chapter,
+                  QuestionName: currentQuestion.questionName,
+                  Subject : currentQuestion.Subject
+                }];
+            
+                // Update the questionsSolved field with the new data
+                const { data, error } = await supabase
+                  .from('profiles')
+                  .update({
+                    questionsSolved: newData
+                  })
+                  .eq('id', user.id);
+            
+                if (error) {
+                  console.error('Error updating questionsSolved:', error);
+                  return;
+                }
+            
+                console.log('questionsSolved updated successfully!');
+                return;
+              }
+              else {
+                // Filter out existing entries with the same questionName
+              const data2 = existingData.questionsSolved
+              const filteredData = data2.filter(entry => ((entry.QuestionName !== currentQuestion.questionName) || (entry.Chapter !== currentQuestion.Chapter) || (entry.PaperNumber !== currentQuestion.paperNumber)));
+            
+              // Add the new entry to the filtered data
+              filteredData.push({
+                PaperNumber: currentQuestion.paperNumber,
+                  Chapter: currentQuestion.Chapter,
+                  QuestionName: currentQuestion.questionName,
+                  Subject : currentQuestion.Subject
+              });
+    
+               // Update the questionsSolved field with the modified data
+               const { data, error } = await supabase
+               .from('profiles')
+               .update({
+                 questionsSolved: filteredData
+               })
+               .eq('id', user.id);
+           
+             if (error) {
+               console.error('Error updating questionsSolved:', error);
+               return;
+             }
+           
+             console.log('questionsSolved updated successfully!');
+              }
             }
 
         

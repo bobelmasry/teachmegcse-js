@@ -5,8 +5,12 @@ import Headstuff from "components/headstuff.jsx"
 import TopicCard from "components/topicCard.jsx"
 import { useSession } from '@supabase/auth-helpers-react'
 import { useRouter } from 'next/router';
+import { useState, useEffect } from 'react';
+import { supabase } from 'utils/supabase';
+import { useUser } from '@supabase/auth-helpers-react'
 import fs from 'fs/promises';
 import path from 'path';
+import data2 from "public/all.json"
 
     function SubjectPage({chapters}) {
       const session = useSession()
@@ -19,6 +23,32 @@ import path from 'path';
       if (str == 'economics') {
         isEco = true
       }
+      const user = useUser()
+      const [initialGotten, setinitialGotten] = useState(false)
+      const [questionsSolved, setQuestionsSolved] = useState([]);
+
+      useEffect(() => {
+        async function getQuestionsSolved () {
+          if (!initialGotten){
+          if (user && user.id) {
+          const { data: existingData, error: existingError } = await supabase
+                .from('profiles')
+                .select('questionsSolved')
+                .eq('id', user.id)
+                .single();
+            
+              if (existingError) {
+                console.error('Error retrieving existing papersSolved:', existingError);
+                return;
+              }
+    
+              if (existingData) {
+                setQuestionsSolved(existingData.questionsSolved)
+                setinitialGotten(true)
+              }
+        }}}
+        getQuestionsSolved()
+      }, [initialGotten, user]);
 
     return (
       <>
@@ -35,13 +65,20 @@ import path from 'path';
         </div>
         }
       <div className="flex justify-center mt-28">
-        <h1 className="text-4xl sm:text-5xl font-bold dark:text-gray-100">A-level {data.subjectName} Topic Questions</h1>
+        <h1 className="text-4xl sm:text-5xl font-bold dark:text-gray-100">Solve A-level {data.subjectName} Topic Questions</h1>
       </div>
       <div className="flex justify-center items-center ">
       <div className="grid grid-rows-4 gap-11 mt-16 mb-24 w-10/12 md:w-5/12 lg:w-3/12">
-        {chapters.map((topic) => (
-          <TopicCard key={topic.id} header={topic.name} linkSrc={`/${topic.level}/${topic.subject}/topic-questions/solve/${topic.id}`} />
-        ))}
+        {chapters.map((topic) => { 
+          const solvedPaper = questionsSolved.filter(question => question.Chapter.toString() === topic.id.toString());
+          const chapterQuestions = data2.filter(question => (question.Chapter.toString() === topic.id.toString()));
+          let amountSolved = solvedPaper.length
+          let totalAmount = chapterQuestions.length
+
+          return(
+          <TopicCard key={topic.id} amountSolved={amountSolved} totalAmount={totalAmount} header={topic.name} linkSrc={`/${topic.level}/${topic.subject}/topic-questions/solve/${topic.id}`} />
+        )
+        })}
       </div>
       </div>
     </>

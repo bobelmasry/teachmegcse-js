@@ -2,7 +2,7 @@ import Head from 'next/head';
 import Navbar from "components/navbar.jsx"
 import "flowbite"
 import Headstuff from "components/headstuff.jsx"
-import TopicCard from "components/topicCard.jsx"
+import TopicCard2 from "components/topicCard2.jsx"
 import { useSession } from '@supabase/auth-helpers-react'
 import { useRouter } from 'next/router';
 import fs from 'fs/promises';
@@ -29,9 +29,9 @@ import path from 'path';
           <h1 className='text-3xl md:text-5xl font-bold dark:text-white'>{title}</h1>
         </div>
         <div className="flex flex-col gap-8 items-center mt-40">
-        <TopicCard header={"Search For A Question"} linkSrc={`/A-level/${data.subjectName}/topic-questions/search`} />
-        <TopicCard header={"Practice solving questions"} linkSrc={`/A-level/${data.subjectName}/topic-questions/solve`} />
-        <TopicCard header={"List all the questions"} linkSrc={`/A-level/${data.subjectName}/topic-questions/list`} />
+        <TopicCard2 header={"Search For A Question"} linkSrc={`/A-level/${data.subjectName}/topic-questions/search`} />
+        <TopicCard2 header={"Practice solving questions"} linkSrc={`/A-level/${data.subjectName}/topic-questions/solve`} />
+        <TopicCard2 header={"List all the questions"} linkSrc={`/A-level/${data.subjectName}/topic-questions/list`} />
 
         </div>
     </>
