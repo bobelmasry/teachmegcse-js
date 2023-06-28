@@ -9,6 +9,13 @@ export default function Home() {
   const session = useSession()
   return (
     <>
+    <Head>
+      <title>A Level Physics Revision Notes | teachmegcse</title>
+      <meta name="description" content="CAIE Past Papers for Cambridge Int'l AS and A Level"></meta>
+      <meta name="keywords" content="teachmegcse, teach me gcse, A-level revision notes, A-level past papers, A-level topic questions, 
+      A-level math past papers, A-level physics past papers, A-level chemistry past papers"></meta>
+      <Headstuff />
+    </Head>
     <Navbar session={session} />
       <div className="flex justify-center mt-28">
         <h1 className="text-4xl sm:text-5xl font-bold dark:text-gray-100">A-level Physics Revision Notes</h1>
