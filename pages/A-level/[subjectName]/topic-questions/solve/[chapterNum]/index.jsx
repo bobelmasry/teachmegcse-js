@@ -282,7 +282,7 @@ import Link from 'next/link';
         {questionsFinished && 
         <>
         <div className="flex flex-flow justify-center mt-20">
-          <h1 className='text-3xl ml-8 md:ml-0 sm:text-5xl font-bold text-white mb-8'>You've finished all of the Questions !</h1>
+          <h1 className='text-3xl ml-8 md:ml-0 sm:text-5xl font-bold text-white mb-8'>You{"'"}ve finished all of the Questions !</h1>
         </div>
         <div className="flex flex-flow justify-center mt-20">
         <button
