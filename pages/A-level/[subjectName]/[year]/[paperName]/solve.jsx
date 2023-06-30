@@ -250,7 +250,7 @@ import { supabase } from 'utils/supabase';
                     )}
                 </>
                 )}
-                {(solved && index === 0) && 
+                {(solved) && 
                 <p className='dark:text-white text-lg sm:text-lg md:text-xl lg:text-2xl'>Explanations coming soon ! <br /> Source: {questionArray[index].pdfName}<br /><br /> Disclaimer: {"there's"} a 2% chance that the answer is incorrect <br />Disclaimer 2: {"there's"} a 5% chance that the question is not in the syllabus </p>
                 }
                 </div>

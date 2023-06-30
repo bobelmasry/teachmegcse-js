@@ -10,6 +10,7 @@ import path from 'path';
 import { useState, useEffect} from 'react';
 import { supabase } from 'utils/supabase';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
     function SubjectPage({questionArray}) {
       const router = useRouter()
@@ -17,8 +18,6 @@ import { useRouter } from 'next/router';
       let subjectName = params.subjectName
 
         const user = useUser()
-        const arrayLength = questionArray.length;
-        const [randInt, setrandInt] = useState(Math.floor(Math.random() * arrayLength));
 
         function AnswerButton({name}){
           return (
@@ -34,57 +33,88 @@ import { useRouter } from 'next/router';
 
         //now for interactive element
         const [initialGotten, setinitialGotten] = useState(false)
+        const [questionsFinished, setQuestionsFinished] = useState(false)
+        const [firstQuestion, setFirstQuestion] = useState(true)
         const [questionsSolved, setQuestionsSolved] = useState(0)
+        const [actualQuestionsSolved, setActualQuestionsSolved] = useState([])
+        const [remainingQuestions, setRemainingQuestions] = useState([])
         const [questionsCorrect, setQuestionsCorrect] = useState(0)
 
+        const [randInt, setrandInt] = useState(Math.floor(Math.random() * remainingQuestions.length));
+
         async function updateRandInt(){
-            const newVal = Math.floor(Math.random() * arrayLength);
+          if (remainingQuestions.length <= 1){
+            setQuestionsFinished(true)
+          }
+          else {
+            updateRemaining()
+            let newVal = Math.floor(Math.random() * (remainingQuestions.length - 1));       
             setrandInt(newVal);
             setcorrect(false)
             setnotalreadySolved(true)
+            actualQuestionsSolved.push({
+              PaperNumber: currentQuestion.paperNumber,
+              Chapter: currentQuestion.Chapter,
+              QuestionName: currentQuestion.questionName,
+              Subject : currentQuestion.Subject
+            })
+          }
         }
 
         useEffect(() => {
           async function getInitial() {
-            if (!initialGotten){
-            if (user && user.id) { // Check if user and user.id are defined
+            if (!initialGotten) {
+            if (user && user.id) {
+              // Check if user and user.id are defined
               let { data, error, status } = await supabase
                 .from('profiles')
-                .select(`${subjectName}_questionsSolved, ${subjectName}_questionsCorrect`)
+                .select(`*`)
                 .eq('id', user.id)
                 .single();
-        
+      
               if (error && status !== 406) {
                 throw error;
               }
         
               if (data) {
                 const solvedKey = `${subjectName}_questionsSolved`;
-                const correctKey = `${subjectName}_questionsCorrect`
+                const correctKey = `${subjectName}_questionsCorrect`;
                 const questionsSolvedValue = data[solvedKey];
                 const questionsCorrectValue = data[correctKey];
-
+      
                 setQuestionsSolved(questionsSolvedValue + questionsSolved);
                 setQuestionsCorrect(questionsCorrectValue + questionsCorrect);
-                //console.log(`1 : ${data.questions_correct} : ${data.questions_solved}`);
+                setActualQuestionsSolved(data.questionsSolved);
                 setinitialGotten(true);
               }
-            }}
+              }
+            }
           }
         
           getInitial(); // Call the function
-        }, [arrayLength, initialGotten, questionsCorrect, questionsSolved, subjectName, user]);
+          if (firstQuestion){
+          setRemainingQuestions(questionArray); // Update remainingQuestions when questionArray prop changes
+          }
+        }, [initialGotten, questionsCorrect, questionsSolved, subjectName, user, questionArray]);
+        
 
-        const currentQuestion = questionArray[randInt];
         const [correct, setcorrect] = useState(false)
         const [notalreadySolved, setnotalreadySolved] = useState(true)
+        
+        const currentQuestion = remainingQuestions[randInt];
 
-        const questionName = currentQuestion['questionName']
-        const answer = currentQuestion['Answer']
-        const chapter = currentQuestion['Chapter']
-        const subject = currentQuestion['Subject']
-        const paperNumber = currentQuestion['paperNumber']
-        const source = currentQuestion['pdfName']
+        const questionName = currentQuestion?.questionName;
+        const answer = currentQuestion?.Answer;
+        const chapter = currentQuestion?.Chapter;
+        const subject = currentQuestion?.Subject;
+        const paperNumber = currentQuestion?.paperNumber;
+        const source = currentQuestion?.pdfName;
+
+        async function updateRemaining() {
+        setRemainingQuestions(questionArray.filter((obj2) => {
+          return !actualQuestionsSolved?.some((obj1) => obj1.QuestionName?.toString() === obj2.questionName.toString());
+        }));
+        }
 
         const session = useSession()
         const chapterString = chapters.filter(item => (item.id === questionArray[0].Chapter) && (item.subject === questionArray[0].Subject));
@@ -92,19 +122,17 @@ import { useRouter } from 'next/router';
 
         async function handleAnswer(event) {
             event.preventDefault();
+            updateQuestionsSolved(currentQuestion)
             setnotalreadySolved(false)
-            if (event.target.id === answer){
+            setFirstQuestion(false)
+            if (event.target.id === answer && !questionsFinished){
               setcorrect(true)
                 setQuestionsCorrect(questionsCorrect + 1)
                 setQuestionsSolved(questionsSolved + 1)
-                //console.log(`2 : ${questionsCorrect + 1} : ${questionsSolved + 1}`);
                 updateSupabase(questionsSolved + 1, questionsCorrect + 1)
-                updateQuestionsSolved(currentQuestion)
-            } else{
+            } else {
                 setQuestionsSolved(questionsSolved + 1)
-                //console.log(`3 : ${questionsCorrect} : ${questionsSolved + 1}`);
                 updateSupabase(questionsSolved + 1, questionsCorrect)
-                updateQuestionsSolved(currentQuestion)
                 }
             }
 
@@ -121,7 +149,6 @@ import { useRouter } from 'next/router';
                 console.error('Error retrieving existing questionsSolved:', existingError);
                 return;
               }
-              console.log(existingData);
             
               // Check if existingData is null
               if (existingData.questionsSolved === null) {
@@ -213,6 +240,8 @@ import { useRouter } from 'next/router';
         </Head>
         <Navbar session={session} />
         <div className="mb-12">
+        {(!questionsFinished) &&
+        <>
         <div className="flex flex-col items-center gap-24 mt-32 mb-24">
             <h1 className='text-3xl ml-8 md:ml-0 sm:text-5xl font-bold text-white mb-8'>{chapterString2} Topic Questions</h1>
             <div className='border ml-2 md:ml-0 border-4  md:border-8 border-green-600 p-2 rounded rounded-2xl'>
@@ -248,6 +277,24 @@ import { useRouter } from 'next/router';
                 Next
         </button>
         </div>
+        </>
+      }
+        {questionsFinished && 
+        <>
+        <div className="flex flex-flow justify-center mt-20">
+          <h1 className='text-3xl ml-8 md:ml-0 sm:text-5xl font-bold text-white mb-8'>You've finished all of the Questions !</h1>
+        </div>
+        <div className="flex flex-flow justify-center mt-20">
+        <button
+                className="inline-block rounded border border-blue-500 bg-blue-600 px-12 py-3 text-md sm:text-lg md:text-xl lg:text-2xl font-medium text-white hover:bg-blue-500 focus:outline-none focus:ring active:text-blue-500"
+                >
+                  <Link href={`/A-level/${subjectName}/topic-questions/solve`}>
+                Go Back
+                </Link>
+        </button>
+        </div>
+        </>
+        }
         </div>
       </>
     );
