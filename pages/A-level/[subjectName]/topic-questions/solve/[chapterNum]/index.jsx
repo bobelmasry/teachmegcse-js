@@ -95,7 +95,7 @@ import Link from 'next/link';
           if (firstQuestion){
           setRemainingQuestions(questionArray); // Update remainingQuestions when questionArray prop changes
           }
-        }, [initialGotten, questionsCorrect, questionsSolved, subjectName, user, questionArray]);
+        }, [initialGotten, questionsCorrect, questionsSolved, subjectName, user, questionArray, firstQuestion]);
         
 
         const [correct, setcorrect] = useState(false)
