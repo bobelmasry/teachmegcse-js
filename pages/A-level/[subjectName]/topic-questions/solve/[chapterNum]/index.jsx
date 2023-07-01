@@ -90,14 +90,24 @@ import Link from 'next/link';
               }
             }
           }
-        
-          getInitial(); // Call the function
-          if (firstQuestion){
-          setRemainingQuestions(questionArray); // Update remainingQuestions when questionArray prop changes
+          async function updateRemaining () {
+            if (firstQuestion){
+              setRemainingQuestions(questionArray.filter((obj2) => {
+                return !actualQuestionsSolved?.some((obj1) => obj1.QuestionName?.toString() === obj2.questionName.toString());
+                
+              })) // Update remainingQuestions when questionArray prop changes
+            }
+            }
+            getInitial(); // Call the function
+            updateRemaining()
+            if (remainingQuestions.length <= 1) {
+            setQuestionsFinished(true)
           }
-        }, [initialGotten, questionsCorrect, questionsSolved, subjectName, user, questionArray, firstQuestion]);
+          else {
+            setQuestionsFinished(false)
+          }
+        }, [initialGotten, questionsCorrect, questionsSolved, subjectName, user, questionArray, firstQuestion, actualQuestionsSolved, remainingQuestions.length]);
         
-
         const [correct, setcorrect] = useState(false)
         const [notalreadySolved, setnotalreadySolved] = useState(true)
         
@@ -242,61 +252,61 @@ import Link from 'next/link';
         {session ? ( 
         <>
         <div className="mb-12">
-        {(!questionsFinished) &&
-        <>
-        <div className="flex flex-col items-center gap-24 mt-32 mb-24">
-            <h1 className='text-3xl ml-8 md:ml-0 sm:text-5xl font-bold text-white mb-8'>{chapterString2} Topic Questions</h1>
-            <div className='border ml-2 md:ml-0 border-4  md:border-8 border-green-600 p-2 rounded rounded-2xl'>
-            <Image className='rounded rounded-md' src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/A-level/${subject}/p${paperNumber}/${chapter}/${questionName}`} alt='image' height={800} width={800} /> 
+            {(!questionsFinished) &&
+            <>
+            <div className="flex flex-col items-center gap-24 mt-32 mb-24">
+                <h1 className='text-3xl ml-8 md:ml-0 sm:text-5xl font-bold text-white mb-8'>{chapterString2} Topic Questions</h1>
+                <div className='border ml-2 md:ml-0 border-4  md:border-8 border-green-600 p-2 rounded rounded-2xl'>
+                <Image className='rounded rounded-md' src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/A-level/${subject}/p${paperNumber}/${chapter}/${questionName}`} alt='image' height={800} width={800} /> 
+                </div>
             </div>
-        </div>
-        {notalreadySolved && 
-        <div className="flex ml-6 md:ml-0 flex-wrap justify-center gap-8">
-            <AnswerButton name={"A"} />
-            <AnswerButton name={"B"} />
-            <AnswerButton name={"C"} />
-            <AnswerButton name={"D"} />
-        </div>
-        }
-        <div className="flex ml-8 md:ml-0 flex-flow justify-center gap-8 mt-8">
-        {(correct && !notalreadySolved) && 
-        <>
-        <p className='dark:text-white text-lg sm:text-lg md:text-xl lg:text-2xl'><span className='text-green-400'>Correct</span>: the Answer is {answer} <br /> Explanation is coming soon! <br /> Source: {source}<br /><br /> Disclaimer: {"there's"} a 2% chance that the answer is incorrect <br />Disclaimer 2: {"there's"} a 5% chance that the question is not in the syllabus </p>
-        </>
-        }
-        {(!correct && !notalreadySolved) && 
-        <>
-        <p className='dark:text-white text-lg sm:text-lg md:text-xl lg:text-2xl'><span className='text-red-600'>Incorrect</span>: the Answer is {answer} <br /> Explanation is coming soon! <br /> Source: {source} <br /><br /> Disclaimer: {"there's"} a 2% chance that the answer is incorrect <br />Disclaimer 2: {"there's"} a 5% chance that the question is not in the syllabus </p>
-        </>
-        }
-        </div>
-        <div className="flex flex-flow justify-center mt-20 ml-60 md:ml-96">
-        <button
-                id='Next'
-                onClick={updateRandInt}
-                className="inline-block rounded border border-blue-500 bg-blue-600 px-12 py-3 text-md sm:text-lg md:text-xl lg:text-2xl font-medium text-white hover:bg-blue-500 focus:outline-none focus:ring active:text-blue-500"
-                >
-                Next
-        </button>
-        </div>
-        </>
-      }
-        {questionsFinished && 
-        <>
-        <div className="flex flex-flow justify-center mt-20">
-          <h1 className='text-3xl ml-8 md:ml-0 sm:text-5xl font-bold text-white mb-8'>You{"'"}ve finished all of the Questions !</h1>
-        </div>
-        <div className="flex flex-flow justify-center mt-20">
-        <button
-                className="inline-block rounded border border-blue-500 bg-blue-600 px-12 py-3 text-md sm:text-lg md:text-xl lg:text-2xl font-medium text-white hover:bg-blue-500 focus:outline-none focus:ring active:text-blue-500"
-                >
-                  <Link href={`/A-level/${subjectName}/topic-questions/solve`}>
-                Go Back
-                </Link>
-        </button>
-        </div>
-        </>
-        }
+                {notalreadySolved && 
+                <div className="flex ml-6 md:ml-0 flex-wrap justify-center gap-8">
+                    <AnswerButton name={"A"} />
+                    <AnswerButton name={"B"} />
+                    <AnswerButton name={"C"} />
+                    <AnswerButton name={"D"} />
+                </div>
+                }
+                <div className="flex ml-8 md:ml-0 flex-flow justify-center gap-8 mt-8">
+                {(correct && !notalreadySolved) && 
+                <>
+                <p className='dark:text-white text-lg sm:text-lg md:text-xl lg:text-2xl'><span className='text-green-400'>Correct</span>: the Answer is {answer} <br /> Explanation is coming soon! <br /> Source: {source}<br /><br /> Disclaimer: {"there's"} a 2% chance that the answer is incorrect <br />Disclaimer 2: {"there's"} a 5% chance that the question is not in the syllabus </p>
+                </>
+                }
+                {(!correct && !notalreadySolved) && 
+                <>
+                <p className='dark:text-white text-lg sm:text-lg md:text-xl lg:text-2xl'><span className='text-red-600'>Incorrect</span>: the Answer is {answer} <br /> Explanation is coming soon! <br /> Source: {source} <br /><br /> Disclaimer: {"there's"} a 2% chance that the answer is incorrect <br />Disclaimer 2: {"there's"} a 5% chance that the question is not in the syllabus </p>
+                </>
+                }
+            </div>
+            <div className="flex flex-flow justify-center mt-20 ml-60 md:ml-96">
+            <button
+                    id='Next'
+                    onClick={updateRandInt}
+                    className="inline-block rounded border border-blue-500 bg-blue-600 px-12 py-3 text-md sm:text-lg md:text-xl lg:text-2xl font-medium text-white hover:bg-blue-500 focus:outline-none focus:ring active:text-blue-500"
+                    >
+                    Next
+            </button>
+            </div>
+            </>
+          }
+            {questionsFinished && 
+            <>
+            <div className="flex flex-flow justify-center mt-20">
+              <h1 className='text-3xl ml-8 md:ml-0 sm:text-5xl font-bold text-white mb-8'>You{"'"}ve finished all of the Questions !</h1>
+            </div>
+            <div className="flex flex-flow justify-center mt-20">
+            <button
+                    className="inline-block rounded border border-blue-500 bg-blue-600 px-12 py-3 text-md sm:text-lg md:text-xl lg:text-2xl font-medium text-white hover:bg-blue-500 focus:outline-none focus:ring active:text-blue-500"
+                    >
+                      <Link href={`/A-level/${subjectName}/topic-questions/solve`}>
+                    Go Back
+                    </Link>
+            </button>
+            </div>
+            </>
+            }
         </div>
         </>
     ) : (
