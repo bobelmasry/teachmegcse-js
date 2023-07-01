@@ -239,6 +239,8 @@ import Link from 'next/link';
           <Headstuff />
         </Head>
         <Navbar session={session} />
+        {session ? ( 
+        <>
         <div className="mb-12">
         {(!questionsFinished) &&
         <>
@@ -296,6 +298,27 @@ import Link from 'next/link';
         </>
         }
         </div>
+        </>
+    ) : (
+      <>
+        <div className="flex flex-flow justify-center mt-20">
+          <h1 className='text-3xl ml-8 md:ml-0 sm:text-5xl font-bold text-white mb-8'>You{"'"}re not logged in / signed up</h1>
+        </div>
+        <div className="flex flex-flow justify-center mt-20">
+          <h1 className='text-2xl ml-8 md:ml-0 sm:text-4xl font-bold text-white mb-8'>You need to be logged in / signed up to access this content</h1>
+        </div>
+        <div className="flex flex-flow justify-center mt-20">
+        <button
+                className="inline-block rounded border border-blue-500 bg-blue-600 px-12 py-3 text-md sm:text-lg md:text-xl lg:text-2xl font-medium text-white hover:bg-blue-500 focus:outline-none focus:ring active:text-blue-500"
+                >
+                  <Link href={"/login-or-signup"}>
+                Sign up / Login
+                </Link>
+        </button>
+        </div>
+        </>
+    )
+    }
       </>
     );
     
