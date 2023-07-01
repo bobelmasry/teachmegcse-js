@@ -43,7 +43,7 @@ import Link from 'next/link';
         const [randInt, setrandInt] = useState(Math.floor(Math.random() * remainingQuestions.length));
 
         async function updateRandInt(){
-          if (remainingQuestions.length <= 1){
+          if (remainingQuestions.length <= 0){
             setQuestionsFinished(true)
           }
           else {
@@ -100,7 +100,7 @@ import Link from 'next/link';
             }
             getInitial(); // Call the function
             updateRemaining()
-            if (remainingQuestions.length <= 1) {
+            if (remainingQuestions.length <= 0) {
             setQuestionsFinished(true)
           }
           else {
