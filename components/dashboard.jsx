@@ -7,24 +7,14 @@ export default function Dashboard({ session }) {
     const user = useUser()
 
     const [username, setUsername] = useState(null)
-    const [loading, setLoading] = useState(true)
     const [initialGotten, setinitialGotten] = useState(false)
-    const [economics_questionsSolved, seteconomics_questionsSolved] = useState(null)
-    const [economics_questionsCorrect, seteconomics_questionsCorrect] = useState(null)
-    const [physics_questionsSolved, setphysics_questionsSolved] = useState(null)
-    const [physics_questionsCorrect, setphysics_questionsCorrect] = useState(null)
-    const [chemistry_questionsSolved, setchemistry_questionsSolved] = useState(null)
-    const [chemistry_questionsCorrect, setchemistry_questionsCorrect] = useState(null)
-    const [biology_questionsSolved, setbiology_questionsSolved] = useState(null)
-    const [biology_questionsCorrect, setbiology_questionsCorrect] = useState(null)
+    const [questionsSolved, setQuestionsSolved] = useState([])
     
 
     useEffect(() => {
       async function getProfile() {
         if (!initialGotten) {
         try {
-          setLoading(true)
-
           let { data, error, status } = await supabase
             .from('profiles')
             .select(`*`)
@@ -37,28 +27,16 @@ export default function Dashboard({ session }) {
 
           if (data) {
             setUsername(data.username)
-            let counter = 0
-            for (let key in data) {
-              if (counter >= 3) {
-                  let stateSetter = `set${key}`;
-                  let stateValue = data[key];
-                  eval(`${stateSetter}(${stateValue})`);
-              }
-              counter++;
+            setQuestionsSolved(data.questionsSolved)
             }
-          }
         } catch (error) {
           console.log(error)
         } finally {
-          setLoading(false)
           setinitialGotten(true)
         }
       }}
       getProfile()
-      }, [initialGotten, session, supabase, user.id])
-
-      
-
+      }, [initialGotten, questionsSolved, session, supabase, user.id])
 
   return (
     <>
@@ -94,10 +72,10 @@ export default function Dashboard({ session }) {
           Biology
         </th>
         <td className="px-10 py-4">
-        {biology_questionsSolved}
+        {questionsSolved.filter((question) => question.Subject == 'biology').length}
         </td>
         <td className="sm:px-4 px-2 py-4">
-        {`${Math.round(((biology_questionsCorrect/biology_questionsSolved) * 10000)) / 100} %`}
+        {`${Math.round(((questionsSolved.filter((question) => (question.Subject == 'biology') && (question.Correct.toString() == 'true')).length/questionsSolved.filter((question) => question.Subject == 'biology').length) * 10000)) / 100} %`}
         </td>
       </tr>
       <tr className="border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
@@ -105,10 +83,10 @@ export default function Dashboard({ session }) {
           Chemistry
         </th>
         <td className="px-10 py-4">
-        {chemistry_questionsSolved}
+        {questionsSolved.filter((question) => question.Subject == 'chemistry').length}
         </td>
         <td className="sm:px-4 px-2 py-4">
-        {`${Math.round(((chemistry_questionsCorrect/chemistry_questionsSolved) * 10000)) / 100} %`}
+        {`${Math.round(((questionsSolved.filter((question) => (question.Subject == 'chemistry') && (question.Correct.toString() == 'true')).length/questionsSolved.filter((question) => question.Subject == 'chemistry').length) * 10000)) / 100} %`}
         </td>
       </tr>
       <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
@@ -116,10 +94,10 @@ export default function Dashboard({ session }) {
           Physics
         </th>
         <td className="px-10 py-4">
-        {physics_questionsSolved}
+        {questionsSolved.filter((question) => question.Subject == 'physics').length}
         </td>
         <td className="sm:px-4 px-2 py-4">
-        {`${Math.round(((physics_questionsCorrect/physics_questionsSolved) * 10000)) / 100} %`}
+        {`${Math.round((((questionsSolved.filter((question) => (question.Subject == 'phyics') && (question.Correct.toString() == 'true')).length)/(questionsSolved.filter((question) => question.Subject == 'physics').length)) * 10000)) / 100} %`}
         </td>
       </tr>
       <tr className="border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
@@ -127,10 +105,10 @@ export default function Dashboard({ session }) {
           Economics
         </th>
         <td className="px-10 py-4">
-        {economics_questionsSolved}
+        {questionsSolved.filter((question) => question.Subject == 'economics').length}
         </td>
         <td className="sm:px-4 px-2 py-4">
-        {`${Math.round(((economics_questionsCorrect/economics_questionsSolved) * 10000)) / 100} %`}
+        {`${Math.round(((questionsSolved.filter((question) => (question.Subject == 'economics') && (question.Correct.toString() == 'true')).length/questionsSolved.filter((question) => question.Subject == 'economics').length) * 10000)) / 100} %`}
         </td>
       </tr>
     </tbody>

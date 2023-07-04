@@ -16,6 +16,7 @@ import Link from 'next/link';
       const router = useRouter()
       const params = router.query
       let subjectName = params.subjectName
+      const Chapter = params.chapterNum
 
         const user = useUser()
 
@@ -35,10 +36,8 @@ import Link from 'next/link';
         const [initialGotten, setinitialGotten] = useState(false)
         const [questionsFinished, setQuestionsFinished] = useState(false)
         const [firstQuestion, setFirstQuestion] = useState(true)
-        const [questionsSolved, setQuestionsSolved] = useState(0)
         const [actualQuestionsSolved, setActualQuestionsSolved] = useState([])
         const [remainingQuestions, setRemainingQuestions] = useState([])
-        const [questionsCorrect, setQuestionsCorrect] = useState(0)
 
         const [randInt, setrandInt] = useState(Math.floor(Math.random() * remainingQuestions.length));
 
@@ -77,13 +76,6 @@ import Link from 'next/link';
               }
         
               if (data) {
-                const solvedKey = `${subjectName}_questionsSolved`;
-                const correctKey = `${subjectName}_questionsCorrect`;
-                const questionsSolvedValue = data[solvedKey];
-                const questionsCorrectValue = data[correctKey];
-      
-                setQuestionsSolved(questionsSolvedValue + questionsSolved);
-                setQuestionsCorrect(questionsCorrectValue + questionsCorrect);
                 setActualQuestionsSolved(data.questionsSolved);
                 setinitialGotten(true);
               }
@@ -106,8 +98,32 @@ import Link from 'next/link';
           else {
             setQuestionsFinished(false)
           }
-        }, [initialGotten, questionsCorrect, questionsSolved, subjectName, user, questionArray, firstQuestion, actualQuestionsSolved, remainingQuestions.length]);
+        }, [initialGotten, subjectName, user, questionArray, firstQuestion, actualQuestionsSolved, remainingQuestions.length]);
         
+        async function resetQuestions() {
+          for (let i = 0; i < actualQuestionsSolved.length; i++) {
+            if (
+              actualQuestionsSolved[i].Chapter.toString() === Chapter.toString() &&
+              actualQuestionsSolved[i].Subject.toString() === subjectName.toString()
+            ) {
+              actualQuestionsSolved.splice(i, 1);
+              i--; // Decrement i to account for the removed element
+            }
+          }
+          const { data, error } = await supabase
+               .from('profiles')
+               .update({
+                 questionsSolved: actualQuestionsSolved
+               })
+               .eq('id', user.id);
+           
+             if (error) {
+               console.error('Error updating questionsSolved:', error);
+               return;
+             }
+          setRemainingQuestions(questionArray)
+          }   
+
         const [correct, setcorrect] = useState(false)
         const [notalreadySolved, setnotalreadySolved] = useState(true)
         
@@ -132,21 +148,17 @@ import Link from 'next/link';
 
         async function handleAnswer(event) {
             event.preventDefault();
-            updateQuestionsSolved(currentQuestion)
             setnotalreadySolved(false)
             setFirstQuestion(false)
             if (event.target.id === answer && !questionsFinished){
               setcorrect(true)
-                setQuestionsCorrect(questionsCorrect + 1)
-                setQuestionsSolved(questionsSolved + 1)
-                updateSupabase(questionsSolved + 1, questionsCorrect + 1)
+                updateQuestionsSolved(currentQuestion, true)
             } else {
-                setQuestionsSolved(questionsSolved + 1)
-                updateSupabase(questionsSolved + 1, questionsCorrect)
+                updateQuestionsSolved(currentQuestion, false)
                 }
             }
 
-            async function updateQuestionsSolved(currentQuestion) {
+            async function updateQuestionsSolved(currentQuestion, isCorrect) {
         
               // Retrieve the current questionsSolved value
               const { data: existingData, error: existingError } = await supabase
@@ -167,7 +179,8 @@ import Link from 'next/link';
                   PaperNumber: currentQuestion.paperNumber,
                   Chapter: currentQuestion.Chapter,
                   QuestionName: currentQuestion.questionName,
-                  Subject : currentQuestion.Subject
+                  Subject : currentQuestion.Subject,
+                  Correct : isCorrect
                 }];
             
                 // Update the questionsSolved field with the new data
@@ -196,7 +209,8 @@ import Link from 'next/link';
                 PaperNumber: currentQuestion.paperNumber,
                   Chapter: currentQuestion.Chapter,
                   QuestionName: currentQuestion.questionName,
-                  Subject : currentQuestion.Subject
+                  Subject : currentQuestion.Subject,
+                  Correct : isCorrect
               });
     
                // Update the questionsSolved field with the modified data
@@ -215,26 +229,6 @@ import Link from 'next/link';
              console.log('questionsSolved updated successfully!');
               }
             }
-
-        
-          async function updateSupabase (questionsSolved2, questionsCorrect2) {
-            const solvedKey = `${subjectName}_questionsSolved`;
-            const correctKey = `${subjectName}_questionsCorrect`
-
-            const updates = {
-              id: user.id,
-              [solvedKey] : questionsSolved2,
-              [correctKey] : questionsCorrect2,
-            }
-            
-            let { error } = await supabase
-            .from('profiles')
-            .upsert(updates)
-
-          if (error) {
-            throw error
-          }
-          }
           
             const title = `A-level ${questionArray[0].Subject} Topic Questions ${chapterString2}`
             const str = title;
@@ -296,7 +290,7 @@ import Link from 'next/link';
             <div className="flex flex-flow justify-center mt-20">
               <h1 className='text-3xl ml-8 md:ml-0 sm:text-5xl font-bold text-white mb-8'>You{"'"}ve finished all of the Questions !</h1>
             </div>
-            <div className="flex flex-flow justify-center mt-20">
+            <div className="flex gap-8 flex-flow justify-center mt-20">
             <button
                     className="inline-block rounded border border-blue-500 bg-blue-600 px-12 py-3 text-md sm:text-lg md:text-xl lg:text-2xl font-medium text-white hover:bg-blue-500 focus:outline-none focus:ring active:text-blue-500"
                     >
@@ -304,6 +298,13 @@ import Link from 'next/link';
                     Go Back
                     </Link>
             </button>
+            <button onClick={resetQuestions}
+                    className="inline-block rounded border border-blue-500 bg-blue-600 px-12 py-3 text-md sm:text-lg md:text-xl lg:text-2xl font-medium text-white hover:bg-blue-500 focus:outline-none focus:ring active:text-blue-500"
+                    >
+                    Reset
+            </button>
+            </div>
+            <div className="flex flex-flow justify-center mt-20">
             </div>
             </>
             }

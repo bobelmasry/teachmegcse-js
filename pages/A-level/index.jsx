@@ -30,7 +30,7 @@ export default function Home() {
         <SubjectCard header={"English Language (9093)"} link1={"/A-level/english-language/"} link2={"#"} link3={"#"} />
         <SubjectCard header={"History (9489)"} link1={"/A-level/history/"} link2={"#"} link3={"#"} />
         <SubjectCard header={"Maths (9709)"} link1={"/A-level/math/"} link2={"/A-level/math-revision-notes"} link3={"#"}  />
-        <SubjectCard header={"Physics (9702)"} revisionNotes={true} topicQuestions={true} link1={"/A-level/physics/"} link2={"/A-level/physics-revision-notes"} link3={"/A-level/physics/topic-questions"} />
+        <SubjectCard header={"Physics (9702)"} revisionNotes={true} topicQuestions={true} link1={"/A-level/physics/"} link2={"/A-level/physics/revision-notes"} link3={"/A-level/physics/topic-questions"} />
       </div>
     </div>
   </div>
