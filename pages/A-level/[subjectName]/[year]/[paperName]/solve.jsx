@@ -20,7 +20,6 @@ import { supabase } from 'utils/supabase';
 
         const user = useUser()
 
-        const [initialGotten, setinitialGotten] = useState(false)
         const [questionsSolved, setQuestionsSolved] = useState(0)
 
         const router = useRouter();
@@ -39,55 +38,6 @@ import { supabase } from 'utils/supabase';
         const [activeOptions, setActiveOptions] = useState({});
 
         const session = useSession()
-
-        useEffect(() => {
-          async function getInitial() {
-            if (!initialGotten){
-            if (user && user.id) { // Check if user and user.id are defined
-              let { data, error, status } = await supabase
-                .from('profiles')
-                .select(`${subjectName}_questionsSolved, ${subjectName}_questionsCorrect`)
-                .eq('id', user.id)
-                .single();
-        
-              if (error && status !== 406) {
-                throw error;
-              }
-        
-              if (data) {
-                const solvedKey = `${subjectName}_questionsSolved`;
-                const correctKey = `${subjectName}_questionsCorrect`
-                const questionsSolvedValue = data[solvedKey];
-                const questionsCorrectValue = data[correctKey];
-
-                setQuestionsSolved(questionsSolvedValue + questionsSolved);
-                setQuestionsCorrect(questionsCorrectValue + questionsCorrect);
-                //console.log(`1 : ${data.questions_correct} : ${data.questions_solved}`);
-                setinitialGotten(true);
-              }
-            }}}
-        
-          getInitial(); // Call the function
-        }, [arrayLength, initialGotten, questionsCorrect, questionsSolved, subjectName, user]);
-
-        async function updateSupabase (questionsSolved2, questionsCorrect2) {
-          const solvedKey = `${subjectName}_questionsSolved`;
-          const correctKey = `${subjectName}_questionsCorrect`
-
-          const updates = {
-            id: user.id,
-            [solvedKey] : questionsSolved2,
-            [correctKey] : questionsCorrect2,
-          }
-          
-          let { error } = await supabase
-          .from('profiles')
-          .upsert(updates)
-
-        if (error) {
-          throw error
-        }
-        }
 
         async function handleAnswer(questionName, option) {
             setActiveOptions((prevState) => ({
@@ -175,9 +125,6 @@ import { supabase } from 'utils/supabase';
                 correctAnswers ++;
               }
             }
-            setQuestionsCorrect(correctAnswers)
-            setQuestionsSolved(arrayLength)
-            updateSupabase(arrayLength + questionsSolved, correctAnswers + questionsCorrect)
             updatePapersSolved(correctAnswers, arrayLength)
             setSolved(true);
           }
