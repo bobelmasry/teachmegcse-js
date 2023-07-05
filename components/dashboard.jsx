@@ -72,10 +72,10 @@ export default function Dashboard({ session }) {
           Biology
         </th>
         <td className="px-10 py-4">
-        {questionsSolved.filter((question) => question.Subject == 'biology').length}
+        {questionsSolved?.filter((question) => question.Subject == 'biology').length || 0}
         </td>
         <td className="sm:px-4 px-2 py-4">
-        {`${Math.round(((questionsSolved.filter((question) => (question.Subject == 'biology') && (question.Correct.toString() == 'true')).length/questionsSolved.filter((question) => question.Subject == 'biology').length) * 10000)) / 100} %`}
+        {`${Math.round(((questionsSolved?.filter((question) => (question.Subject == 'biology') && (question.Correct.toString() == 'true')).length/questionsSolved?.filter((question) => question.Subject == 'biology').length) * 10000)) / 100} %`}
         </td>
       </tr>
       <tr className="border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
@@ -83,10 +83,10 @@ export default function Dashboard({ session }) {
           Chemistry
         </th>
         <td className="px-10 py-4">
-        {questionsSolved.filter((question) => question.Subject == 'chemistry').length}
+        {questionsSolved?.filter((question) => question.Subject == 'chemistry').length || 0}
         </td>
         <td className="sm:px-4 px-2 py-4">
-        {`${Math.round(((questionsSolved.filter((question) => (question.Subject == 'chemistry') && (question.Correct.toString() == 'true')).length/questionsSolved.filter((question) => question.Subject == 'chemistry').length) * 10000)) / 100} %`}
+        {`${Math.round(((questionsSolved?.filter((question) => (question.Subject == 'chemistry') && (question.Correct.toString() == 'true')).length/questionsSolved?.filter((question) => question.Subject == 'chemistry').length) * 10000)) / 100} %`}
         </td>
       </tr>
       <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
@@ -94,10 +94,10 @@ export default function Dashboard({ session }) {
           Physics
         </th>
         <td className="px-10 py-4">
-        {questionsSolved.filter((question) => question.Subject == 'physics').length}
+        {questionsSolved?.filter((question) => question.Subject == 'physics').length || 0}
         </td>
         <td className="sm:px-4 px-2 py-4">
-        {`${Math.round((((questionsSolved.filter((question) => (question.Subject == 'phyics') && (question.Correct.toString() == 'true')).length)/(questionsSolved.filter((question) => question.Subject == 'physics').length)) * 10000)) / 100} %`}
+        {`${Math.round((((questionsSolved?.filter((question) => (question.Subject == 'phyics') && (question.Correct.toString() == 'true')).length)/(questionsSolved?.filter((question) => question.Subject == 'physics').length)) * 10000)) / 100} %`}
         </td>
       </tr>
       <tr className="border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
@@ -105,10 +105,10 @@ export default function Dashboard({ session }) {
           Economics
         </th>
         <td className="px-10 py-4">
-        {questionsSolved.filter((question) => question.Subject == 'economics').length}
+        {questionsSolved?.filter((question) => question.Subject == 'economics').length || 0}
         </td>
         <td className="sm:px-4 px-2 py-4">
-        {`${Math.round(((questionsSolved.filter((question) => (question.Subject == 'economics') && (question.Correct.toString() == 'true')).length/questionsSolved.filter((question) => question.Subject == 'economics').length) * 10000)) / 100} %`}
+        {`${Math.round(((questionsSolved?.filter((question) => (question.Subject == 'economics') && (question.Correct.toString() == 'true')).length/questionsSolved?.filter((question) => question.Subject == 'economics').length) * 10000)) / 100} %`}
         </td>
       </tr>
     </tbody>

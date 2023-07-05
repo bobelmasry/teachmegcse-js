@@ -41,22 +41,24 @@ import Link from 'next/link';
 
         const [randInt, setrandInt] = useState(Math.floor(Math.random() * remainingQuestions.length));
 
-        async function updateRandInt(){
-          if (remainingQuestions.length <= 0){
-            setQuestionsFinished(true)
-          }
-          else {
-            updateRemaining()
-            let newVal = Math.floor(Math.random() * (remainingQuestions.length - 1));       
+        async function updateRandInt() {
+          if (remainingQuestions.length <= 0) {
+            setQuestionsFinished(true);
+          } else {
+            updateRemaining();
+            let newVal = Math.floor(Math.random() * (remainingQuestions.length - 1));
             setrandInt(newVal);
-            setcorrect(false)
-            setnotalreadySolved(true)
-            actualQuestionsSolved.push({
-              PaperNumber: currentQuestion.paperNumber,
-              Chapter: currentQuestion.Chapter,
-              QuestionName: currentQuestion.questionName,
-              Subject : currentQuestion.Subject
-            })
+            setcorrect(false);
+            setnotalreadySolved(true);
+            setActualQuestionsSolved((prevQuestionsSolved) => [
+              ...prevQuestionsSolved,
+              {
+                PaperNumber: currentQuestion.paperNumber,
+                Chapter: currentQuestion.Chapter,
+                QuestionName: currentQuestion.questionName,
+                Subject: currentQuestion.Subject,
+              },
+            ]);
           }
         }
 

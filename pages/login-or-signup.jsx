@@ -25,7 +25,12 @@ const Home = () => {
     <div className="flex justify-center">
       <div className="w-3/4 sm:w-2/4 md:w-1/4 mt-36">
       {!session ? (
-        <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} providers={{}} theme="dark" />
+        <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa,
+          style: {
+            message: { color: 'white' },
+          },
+        }}
+        providers={{}} theme="dark" />
       ) : (
         <>
         <div className="flex flex-col sm:flex-row gap-8 items-center sm:justify-center mt-16">
