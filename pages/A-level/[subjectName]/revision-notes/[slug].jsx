@@ -32,8 +32,8 @@ function Post({ noteData,  content }) {
           throw error;
         }
   
-        if (data) {
-          const array = data.notesRead.filter(note => ((note.Title.toString() === noteData.title.toString())));
+        if (data.notesRead) {
+          const array = data.notesRead?.filter(note => ((note.Title.toString() === noteData.title.toString())));
           setNotesRead(array);
           if (array.length != 0) {
             setUpdated(true)
@@ -68,13 +68,21 @@ function Post({ noteData,  content }) {
       </div>
     </div>
     <div className="flex flex-flow justify-center mt-20 mb-20">
-      {!updated && 
+      {(!updated && session) &&
             <button
                     id='Next'
                     onClick={updateNotesRead.bind(null, noteData)}
                     className="inline-block rounded border border-blue-500 bg-blue-600 px-12 py-3 text-md sm:text-lg md:text-xl lg:text-2xl font-medium text-white hover:bg-blue-500 focus:outline-none focus:ring active:text-blue-500"
                     >
                     Mark as Complete
+            </button>
+      }
+      {(!updated && !session) &&
+            <button
+                    id='Next'
+                    className="inline-block rounded border border-blue-500 bg-blue-600 px-12 py-3 text-md sm:text-lg md:text-xl lg:text-2xl font-medium text-white hover:bg-blue-500 focus:outline-none focus:ring active:text-blue-500"
+                    >
+                    Sign in to track your progress
             </button>
       }
       {updated && 

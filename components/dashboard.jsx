@@ -97,7 +97,7 @@ export default function Dashboard({ session }) {
         {questionsSolved?.filter((question) => question.Subject == 'physics').length || 0}
         </td>
         <td className="sm:px-4 px-2 py-4">
-        {`${Math.round((((questionsSolved?.filter((question) => (question.Subject == 'phyics') && (question.Correct.toString() == 'true')).length)/(questionsSolved?.filter((question) => question.Subject == 'physics').length)) * 10000)) / 100} %`}
+        {`${Math.round(((questionsSolved?.filter((question) => (question.Subject == 'physics') && (question.Correct.toString() == 'true')).length/questionsSolved?.filter((question) => question.Subject == 'physics').length) * 10000)) / 100} %`}
         </td>
       </tr>
       <tr className="border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
