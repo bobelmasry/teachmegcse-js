@@ -4,11 +4,11 @@ import "flowbite"
 import Headstuff from "components/headstuff.jsx"
 import Image from 'next/image';
 import { useSession, useUser } from '@supabase/auth-helpers-react'
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import data from "public/all.json"
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { supabase } from 'utils/supabase';
+import { updateSupabase } from 'utils/updateSupabase'
 
     function SubjectPage({questionArray}) {
 
@@ -20,8 +20,6 @@ import { supabase } from 'utils/supabase';
 
         const user = useUser()
 
-        const [questionsSolved, setQuestionsSolved] = useState(0)
-
         const router = useRouter();
         const data2 = router.query;
         const subjectName = data2.subjectName
@@ -30,12 +28,13 @@ import { supabase } from 'utils/supabase';
         const firstNum = paperName.charAt(6)
         const secondNum = paperName.charAt(7)
         const year = '20' + firstNum + secondNum
+        let correctAnswers = 0
 
         //const user = useUser()
         const arrayLength = questionArray.length;
-        const [questionsCorrect, setQuestionsCorrect] = useState(0)
         const [solved, setSolved] = useState(false)
         const [activeOptions, setActiveOptions] = useState({});
+        const [questionsCorrect, setQuestionsCorrect] = useState(0)
 
         const session = useSession()
 
@@ -46,86 +45,22 @@ import { supabase } from 'utils/supabase';
             }));          
         }
 
-        async function updatePapersSolved(score, numOfQuestions) {
-        
-          // Retrieve the current papersSolved value
-          const { data: existingData, error: existingError } = await supabase
-            .from('profiles')
-            .select('papersSolved')
-            .eq('id', user.id)
-            .single();
-        
-          if (existingError) {
-            console.error('Error retrieving existing papersSolved:', existingError);
-            return;
-          }
-        
-          // Check if existingData is null
-          if (existingData.papersSolved === null) {
-            // If there is no existing papersSolved data, create a new array with the new entry
-            const newData = [{
-              PaperName: paperName,
-              Score: score,
-              NumOfQuestions: numOfQuestions,
-              Subject : subjectName,
-              Year : year
-            }];
-        
-            // Update the papersSolved field with the new data
-            const { data, error } = await supabase
-              .from('profiles')
-              .update({
-                papersSolved: newData
-              })
-              .eq('id', user.id);
-        
-            if (error) {
-              console.error('Error updating papersSolved:', error);
-              return;
-            }
-        
-            console.log('papersSolved updated successfully!');
-            return;
-          }
-          else {
-            // Filter out existing entries with the same PaperName
-          const data2 = existingData.papersSolved
-          const filteredData = data2.filter(entry => entry.PaperName !== paperName);
-        
-          // Add the new entry to the filtered data
-          filteredData.push({
-            PaperName: paperName,
-            Score: score,
-            NumOfQuestions: numOfQuestions,
-            Subject : subjectName,
-            Year : year
-          });
-
-           // Update the papersSolved field with the modified data
-           const { data, error } = await supabase
-           .from('profiles')
-           .update({
-             papersSolved: filteredData
-           })
-           .eq('id', user.id);
-       
-         if (error) {
-           console.error('Error updating papersSolved:', error);
-           return;
-         }
-       
-         console.log('papersSolved updated successfully!');
-          }
-        }
-
         async function handleSubmit() {
             let correctAnswers = 0
             for (let i = 0; i < arrayLength; i++) {  // Fix loop condition: i < arrayLength
               if (activeOptions[questionArray[i].questionName] === questionArray[i].Answer) {  // Use strict equality (===) for comparison
                 correctAnswers ++;
+                setQuestionsCorrect(questionsCorrect+1)
               }
             }
-            updatePapersSolved(correctAnswers, arrayLength)
+            const dataToUpdate = {
+              PaperName: paperName,
+              Score: correctAnswers,
+              NumOfQuestions: arrayLength,
+              Subject : subjectName,
+              Year : year
+            }
+            updateSupabase(dataToUpdate, 'profiles', 'papersSolved', user, 'PaperName', paperName, true)
             setSolved(true);
           }
           
@@ -195,11 +130,9 @@ import { supabase } from 'utils/supabase';
                     ) : (
                     <p className='dark:text-white text-lg sm:text-xl md:text-2xl lg:text-3xl'><span className='text-red-600'>Incorrect</span>: the Answer is {questionArray[index].Answer} <br /> Source: {questionArray[index].pdfName}</p>
                     )}
+                    <p className='dark:text-white text-lg sm:text-lg md:text-xl lg:text-2xl'>Explanations coming soon ! <br /> Source: {questionArray[index].pdfName}<br /><br /> Disclaimer: {"there's"} a 2% chance that the answer is incorrect <br />Disclaimer 2: {"there's"} a 5% chance that the question is not in the syllabus </p>
                 </>
                 )}
-                {(solved) && 
-                <p className='dark:text-white text-lg sm:text-lg md:text-xl lg:text-2xl'>Explanations coming soon ! <br /> Source: {questionArray[index].pdfName}<br /><br /> Disclaimer: {"there's"} a 2% chance that the answer is incorrect <br />Disclaimer 2: {"there's"} a 5% chance that the question is not in the syllabus </p>
-                }
                 </div>
         </div>
         </div>

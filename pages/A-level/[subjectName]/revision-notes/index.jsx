@@ -80,7 +80,7 @@ export default function Home({ posts }) {
       <div className="grid grid-rows-4 gap-11 mt-16 mb-24 w-10/12 md:w-5/12 lg:w-3/12">
       {posts.map((post) => {
         if (notesRead) {
-          const array = notesRead?.filter(note => ((note.Title.toString() === post.data.title.toString())));
+          const array = notesRead?.filter(note => ((note.title.toString() === post.data.title.toString())));
         if ((session) && (array.length != 0)) {
           return(
             <TopicCard2 key={post?.slug} hasGreen={true} header={post?.data.title} linkSrc={`/A-level/${posts[0]?.data.subject}/revision-notes/${post?.slug}`} />

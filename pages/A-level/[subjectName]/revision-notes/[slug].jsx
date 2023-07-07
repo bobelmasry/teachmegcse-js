@@ -8,6 +8,7 @@ import Headstuff from "components/headstuff.jsx"
 import { useSession, useUser } from '@supabase/auth-helpers-react'
 import { supabase } from 'utils/supabase';
 import { useState, useEffect } from "react";
+import { updateSupabase } from 'utils/updateSupabase'
 
 function Post({ noteData,  content }) {
   const session = useSession()
@@ -33,7 +34,7 @@ function Post({ noteData,  content }) {
         }
   
         if (data.notesRead) {
-          const array = data.notesRead?.filter(note => ((note.Title.toString() === noteData.title.toString())));
+          const array = data.notesRead.filter(note => ((note.title.toString() === noteData.title.toString())));
           setNotesRead(array);
           if (array.length != 0) {
             setUpdated(true)
@@ -71,7 +72,10 @@ function Post({ noteData,  content }) {
       {(!updated && session) &&
             <button
                     id='Next'
-                    onClick={updateNotesRead.bind(null, noteData)}
+                    onClick={() => {
+                      updateSupabase(noteData, 'profiles', 'notesRead', user, 'title', noteData.title, true);
+                      setUpdated(true);
+                    }}
                     className="inline-block rounded border border-blue-500 bg-blue-600 px-12 py-3 text-md sm:text-lg md:text-xl lg:text-2xl font-medium text-white hover:bg-blue-500 focus:outline-none focus:ring active:text-blue-500"
                     >
                     Mark as Complete
@@ -96,31 +100,6 @@ function Post({ noteData,  content }) {
     </div>
     </>
   );
-  async function updateNotesRead(note) {
-    
-      // If there is no existing notesRead data, create a new array with the new entry
-      const newData = [{
-        Title: note.title,
-        Subject : note.subject
-      }];
-  
-      // Update the notesRead field with the new data
-      if (!updated) {
-      const { data, error } = await supabase
-        .from('profiles')
-        .update({
-          notesRead: newData
-        })
-        .eq('id', user.id);
-      if (error) {
-        console.error('Error updating notesRead:', error);
-        return;
-      }
-      }
-      console.log('notesRead updated successfully!');
-      setUpdated(true)
-      return;
-  }
 }
 
 export async function getStaticPaths() {

@@ -9,6 +9,7 @@ import fs from 'fs/promises';
 import path from 'path';
 import { useState, useEffect} from 'react';
 import { supabase } from 'utils/supabase';
+import { updateSupabase } from 'utils/updateSupabase'
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
@@ -139,9 +140,8 @@ import Link from 'next/link';
         const source = currentQuestion?.pdfName;
 
         async function updateRemaining() {
-        setRemainingQuestions(questionArray.filter((obj2) => {
-          return !actualQuestionsSolved?.some((obj1) => obj1.QuestionName?.toString() === obj2.questionName.toString());
-        }));
+          const updatedArray = remainingQuestions.filter((obj) => obj.questionName !== questionName);
+          setRemainingQuestions(updatedArray)
         }
 
         const session = useSession()
@@ -154,82 +154,24 @@ import Link from 'next/link';
             setFirstQuestion(false)
             if (event.target.id === answer && !questionsFinished){
               setcorrect(true)
-                updateQuestionsSolved(currentQuestion, true)
-            } else {
-                updateQuestionsSolved(currentQuestion, false)
-                }
-            }
-
-            async function updateQuestionsSolved(currentQuestion, isCorrect) {
-        
-              // Retrieve the current questionsSolved value
-              const { data: existingData, error: existingError } = await supabase
-                .from('profiles')
-                .select('questionsSolved')
-                .eq('id', user.id)
-                .single();
-            
-              if (existingError) {
-                console.error('Error retrieving existing questionsSolved:', existingError);
-                return;
-              }
-            
-              // Check if existingData is null
-              if (existingData.questionsSolved === null) {
-                // If there is no existing questionsSolved data, create a new array with the new entry
-                const newData = [{
-                  PaperNumber: currentQuestion.paperNumber,
-                  Chapter: currentQuestion.Chapter,
-                  QuestionName: currentQuestion.questionName,
-                  Subject : currentQuestion.Subject,
-                  Correct : isCorrect
-                }];
-            
-                // Update the questionsSolved field with the new data
-                const { data, error } = await supabase
-                  .from('profiles')
-                  .update({
-                    questionsSolved: newData
-                  })
-                  .eq('id', user.id);
-            
-                if (error) {
-                  console.error('Error updating questionsSolved:', error);
-                  return;
-                }
-            
-                console.log('questionsSolved updated successfully!');
-                return;
-              }
-              else {
-                // Filter out existing entries with the same questionName
-              const data2 = existingData.questionsSolved
-              const filteredData = data2?.filter(entry => ((entry.QuestionName !== currentQuestion.questionName) || (entry.Chapter !== currentQuestion.Chapter) || (entry.PaperNumber !== currentQuestion.paperNumber)));
-            
-              // Add the new entry to the filtered data
-              filteredData.push({
+              const dataToUpdate = {
                 PaperNumber: currentQuestion.paperNumber,
-                  Chapter: currentQuestion.Chapter,
-                  QuestionName: currentQuestion.questionName,
-                  Subject : currentQuestion.Subject,
-                  Correct : isCorrect
-              });
-    
-               // Update the questionsSolved field with the modified data
-               const { data, error } = await supabase
-               .from('profiles')
-               .update({
-                 questionsSolved: filteredData
-               })
-               .eq('id', user.id);
-           
-             if (error) {
-               console.error('Error updating questionsSolved:', error);
-               return;
-             }
-           
-             console.log('questionsSolved updated successfully!');
+                Chapter: currentQuestion.Chapter,
+                QuestionName: currentQuestion.questionName,
+                Subject : currentQuestion.Subject,
+                Correct : true
               }
+                updateSupabase(dataToUpdate, 'profiles', 'questionsSolved', user)
+            } else {
+              const dataToUpdate = {
+                PaperNumber: currentQuestion.paperNumber,
+                Chapter: currentQuestion.Chapter,
+                QuestionName: currentQuestion.questionName,
+                Subject : currentQuestion.Subject,
+                Correct : false
+              }
+                updateSupabase(dataToUpdate, 'profiles', 'questionsSolved', user, null, null, false)
+                }
             }
           
             const title = `A-level ${questionArray[0].Subject} Topic Questions ${chapterString2}`
