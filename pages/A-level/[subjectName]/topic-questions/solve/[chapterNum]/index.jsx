@@ -46,20 +46,11 @@ import Link from 'next/link';
           if (remainingQuestions.length <= 0) {
             setQuestionsFinished(true);
           } else {
-            updateRemaining();
+            updateRemaining2();
             let newVal = Math.floor(Math.random() * (remainingQuestions.length - 1));
             setrandInt(newVal);
             setcorrect(false);
             setnotalreadySolved(true);
-            setActualQuestionsSolved((prevQuestionsSolved) => [
-              ...prevQuestionsSolved,
-              {
-                PaperNumber: currentQuestion.paperNumber,
-                Chapter: currentQuestion.Chapter,
-                QuestionName: currentQuestion.questionName,
-                Subject: currentQuestion.Subject,
-              },
-            ]);
           }
         }
 
@@ -139,7 +130,7 @@ import Link from 'next/link';
         const paperNumber = currentQuestion?.paperNumber;
         const source = currentQuestion?.pdfName;
 
-        async function updateRemaining() {
+        async function updateRemaining2() {
           const updatedArray = remainingQuestions.filter((obj) => obj.questionName !== questionName);
           setRemainingQuestions(updatedArray)
         }

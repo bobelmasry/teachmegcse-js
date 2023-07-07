@@ -15,13 +15,13 @@ export async function updateSupabase(object, table, field, user, field2Filter, f
     }
   
     // Check if existingData is null
-    if (existingData.field === null) {
+    if (existingData[field] === null) {
   
       // Update the field field with the new data
       const { data, error } = await supabase
         .from(table)
         .update({
-          [field]: object
+          [field]: [object]
         })
         .eq('id', user.id);
   
