@@ -50,8 +50,8 @@ import { updateSupabase } from 'utils/updateSupabase'
             for (let i = 0; i < arrayLength; i++) {  // Fix loop condition: i < arrayLength
               if (activeOptions[questionArray[i].questionName] === questionArray[i].Answer) {  // Use strict equality (===) for comparison
                 correctAnswers ++;
-                setQuestionsCorrect(questionsCorrect+1)
               }
+              setQuestionsCorrect(correctAnswers)
             }
             const dataToUpdate = {
               PaperName: paperName,

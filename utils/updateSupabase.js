@@ -1,76 +1,37 @@
 import { supabase } from 'utils/supabase';
 
-export async function updateSupabase(object, table, field, user, field2Filter, field2Filter2, hasFilter) {
-        
-    // Retrieve the current value
-    const { data: existingData, error: existingError } = await supabase
-      .from(table)
-      .select(field)
-      .eq('id', user.id)
-      .single();
-  
-    if (existingError) {
-      console.error(`Error retrieving existing ${field}:`, existingError);
-      return;
-    }
-  
-    // Check if existingData is null
-    if (existingData[field] === null) {
-  
-      // Update the field field with the new data
-      const { data, error } = await supabase
-        .from(table)
-        .update({
-          [field]: [object]
-        })
-        .eq('id', user.id);
-  
-      if (error) {
-        console.error(`Error updating ${field}:`, error);
-        return;
-      }
-  
-      console.log(`${field} updated successfully!`);
-      return;
-    }
-    else {
-      // Filter out existing entries with the same field2Filter
-    const data2 = existingData[field];
-    if (hasFilter) {
-    const filteredData = data2?.filter(entry => ((entry[field2Filter] !== field2Filter2)))
-  
-    // Add the new entry to the filtered data
-    filteredData.push(object);
+export async function updateSupabase(object, table, field, user, field2Filter, field2Filter2, hasFilter, isUserId) {
+  const userIdKey = isUserId ? 'user_id' : 'id';
 
-     // Update the field with the modified data
-     const { data, error } = await supabase
-      .from(table)
-      .update({
-        [field]: filteredData,
-      })
-      .eq('id', user.id);
+  const { data: existingData, error: existingError } = await supabase
+    .from(table)
+    .select(field)
+    .eq(userIdKey, user.id)
+    .single();
 
-      if (error) {
-        console.error(`Error updating ${field}:`, error);
-        return;
-      }
-    }
-    else {
-      data2.push(object)
-
-      const { data, error } = await supabase
-      .from(table)
-      .update({
-        [field]: data2,
-      })
-      .eq('id', user.id);
-      if (error) {
-        console.error(`Error updating ${field}:`, error);
-        return;
-      }
-
-    }
-    
-   console.log(`${field} updated successfully!`);
-    }
+  if (existingError) {
+    console.error(`Error retrieving existing ${field}:`, existingError);
+    return;
   }
+
+  const newData = { ...existingData };
+  const data2 = newData[field] || [];
+
+  if (hasFilter) {
+    newData[field] = data2.filter((entry) => entry[field2Filter] !== field2Filter2);
+  } else {
+    newData[field] = [...data2, object];
+  }
+
+  const { data, error } = await supabase
+    .from(table)
+    .update(newData)
+    .eq(userIdKey, user.id);
+
+  if (error) {
+    console.error(`Error updating ${field}:`, error);
+    return;
+  }
+
+  console.log(`${field} updated successfully!`);
+}

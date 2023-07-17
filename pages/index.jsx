@@ -1,12 +1,12 @@
 import "flowbite";
-import Dashboard from '../components/dashboard.jsx'
-import Banner from "components/banner.jsx"
-import Cta from "components/cta.jsx"
-import Special_home from "components/special-home.jsx"
-import SplitSection from "components/split-section.jsx"
-import Pricing from "components/pricing.jsx"
-import Reviews from "components/reviews.jsx"
-import Footer from "components/footer.jsx"
+import Dashboard from '../components/homepage/dashboard.jsx'
+import Banner from "components/homepage/banner.jsx"
+import Cta from "components/homepage/cta.jsx"
+import Special_home from "components/homepage/special-home.jsx"
+import SplitSection from "components/homepage/split-section.jsx"
+import Pricing from "components/homepage/pricing.jsx"
+import Reviews from "components/homepage/reviews.jsx"
+import Footer from "components/homepage/footer.jsx"
 import Head from 'next/head';
 import Navbar from "components/navbar.jsx"
 import Headstuff from "components/headstuff.jsx"
@@ -43,10 +43,6 @@ export default function Home () {
         </>
       ) : (
         <>
-        <div className="flex flex-col sm:flex-row gap-8 items-center sm:justify-center mt-24">
-        <YearCard header={'IGCSE'} linkSrc={`/IGCSE`} />
-        <YearCard header={'A-level'} linkSrc={`/A-level`} />
-        </div>
         <div className="flex justify-center mt-28 mb-8">
           <div className="min-w-5/6 sm:max-w-5/6">
             <Dashboard session={session} />

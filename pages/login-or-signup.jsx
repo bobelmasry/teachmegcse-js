@@ -2,7 +2,7 @@ import "flowbite";
 import Head from 'next/head';
 import Navbar from "components/navbar.jsx"
 import Headstuff from "components/headstuff.jsx"
-import Account from '../components/Account.jsx'
+import Account from '../components/homepage/Account.jsx'
 import { Auth } from '@supabase/auth-ui-react'
 import { ThemeSupa } from '@supabase/auth-ui-shared'
 import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
