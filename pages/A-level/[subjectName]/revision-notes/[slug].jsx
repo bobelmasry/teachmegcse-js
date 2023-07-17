@@ -73,7 +73,7 @@ function Post({ noteData,  content }) {
             <button
                     id='Next'
                     onClick={() => {
-                      updateSupabase(noteData, 'profiles', 'notesRead', user, 'title', noteData.title, true);
+                      updateSupabase(noteData, 'profiles', 'notesRead', user, 'title', noteData.title, false);
                       setUpdated(true);
                     }}
                     className="inline-block rounded border border-blue-500 bg-blue-600 px-12 py-3 text-md sm:text-lg md:text-xl lg:text-2xl font-medium text-white hover:bg-blue-500 focus:outline-none focus:ring active:text-blue-500"
