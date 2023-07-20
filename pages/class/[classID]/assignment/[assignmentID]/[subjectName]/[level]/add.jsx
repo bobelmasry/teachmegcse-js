@@ -2,7 +2,7 @@ import Head from 'next/head';
 import Navbar from "components/navbar.jsx"
 import "flowbite"
 import Headstuff from "components/headstuff.jsx"
-import { useSession } from '@supabase/auth-helpers-react'
+import { useSession, useUser } from '@supabase/auth-helpers-react'
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { supabase } from 'utils/supabase';
@@ -42,8 +42,10 @@ import AddIcon from '@mui/icons-material/Add';
 }
 
     function SubjectPage({searchArray}) {
-      console.log(searchArray);
+      const user = useUser()
         const [questionsAvailable, setQuestionsAvailable] = useState(searchArray)
+        const [isTeacher, setIsTeacher] = useState(false)
+
         const session = useSession()
 
         const router = useRouter()
@@ -54,7 +56,7 @@ import AddIcon from '@mui/icons-material/Add';
         const filteredData = data.filter(item => (item.subject === subject) && (item.level2 === level));
 
         useEffect(() => {
-          async function getInitial() {
+          async function getQuestions() {
             if (session) {
               // Check if user and user.id are defined
               let { data, error, status } = await supabase
@@ -78,8 +80,27 @@ import AddIcon from '@mui/icons-material/Add';
               }
             }
           }
-            getInitial(); // Call the function
-        }, [assignmentID, questionsAvailable, session]);
+          async function getInitial() {
+            if (user && user.id) {
+              // Check if user and user.id are defined
+              let { data, error, status } = await supabase
+                .from('profiles')
+                .select(`*`)
+                .eq('id', user.id)
+                .single();
+      
+              if (error && status !== 406) {
+                throw error;
+              }
+        
+              if (data.isTeacher === true) {
+                setIsTeacher(true)
+              }
+              }
+            }
+          getInitial()
+          getQuestions(); // Call the function
+        }, [assignmentID, questionsAvailable, session, user]);
   
       if (filteredData.length === 0) {
         throw new Error('chapters not found');
@@ -185,6 +206,7 @@ import AddIcon from '@mui/icons-material/Add';
           <Headstuff />
         </Head>
         <Navbar session={session} />
+        {isTeacher ? (
         <div className="mt-40 mb-20">
             <div className='flex justify-center'>
                 <div className="w-5/6 sm:w-4/6 md:w-3/6 lg:w-2/6">
@@ -263,6 +285,10 @@ import AddIcon from '@mui/icons-material/Add';
         ))}
         </div>
         </div>
+        ) : (
+          <h1 className='mt-20 flex justify-center text-4xl text-white'>Hey, you {"don't"} seem to be a teacher</h1>
+        )
+        }
       </>
     );
     

@@ -10,6 +10,7 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import Link from 'next/link';
 import AssignmentModal from 'components/modals/createAssignment.jsx'
 import AddStudents from 'components/modals/addStudents.jsx'
+import findStudentClasses from 'utils/findStudentClasses.js'
 
 function TopicCard2({linkSrc, header, dueDate, studentNum}) {
   const date = new Date(dueDate);
@@ -31,6 +32,13 @@ function TopicCard2({linkSrc, header, dueDate, studentNum}) {
  export default function ClassPage({ classData }) {
 
   const router = useRouter();
+  const user = useUser()
+  const session = useSession()
+  const [studentsAvailable, setStudentsAvailable] = useState([])
+  const [assignments, setAssignments] = useState([])
+  const [isTeacher, setIsTeacher] = useState(false)
+  console.log(findStudentClasses(user?.id));
+
   useEffect(() => {
     const fetchData = async () => {
       if (!classData[0].students) {
@@ -82,12 +90,15 @@ function TopicCard2({linkSrc, header, dueDate, studentNum}) {
     }
 
     getAssignments()
-  }, [classData]);
-
-    const user = useUser()
-    const session = useSession()
-    const [studentsAvailable, setStudentsAvailable] = useState([])
-    const [assignments, setAssignments] = useState([])
+    async function getInitial() {
+      if (user && user.id) {
+        if (user.id === classData[0].user_id) {
+          setIsTeacher(true)
+        }
+      }
+    }
+    getInitial()
+  }, [classData, user]);
 
     async function removeAStudent(studentID) {
       const updatedStudents = classData[0].students.filter((student) => student !== studentID);
@@ -110,6 +121,8 @@ function TopicCard2({linkSrc, header, dueDate, studentNum}) {
             <Headstuff />
         </Head>
         <Navbar session={session} />
+        {isTeacher ? (
+          <>
         <div className="flex justify-center">
         <h1 className='text-4xl font-bold mt-20 text-white'>{classData[0].name}</h1>
         </div>
@@ -172,6 +185,11 @@ function TopicCard2({linkSrc, header, dueDate, studentNum}) {
         <AssignmentModal subject={classData[0]?.subject} level={classData[0]?.level} userID={user?.id} classID={classData[0]?.classID} />
           </div>
         </div>
+        </>
+        ) : (
+          <h1 className='mt-20 flex justify-center text-4xl text-white'>Hey, you {"don't"} seem to be a teacher</h1>
+        )
+        }
         </>
     )
 }

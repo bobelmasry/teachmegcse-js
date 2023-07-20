@@ -9,6 +9,7 @@ import { useSession, useUser } from '@supabase/auth-helpers-react'
 import { supabase } from 'utils/supabase';
 import { useState, useEffect } from "react";
 import { updateSupabase } from 'utils/updateSupabase'
+import Link from "next/link";
 
 function Post({ noteData,  content }) {
   const session = useSession()
@@ -82,12 +83,14 @@ function Post({ noteData,  content }) {
             </button>
       }
       {(!updated && !session) &&
+      <>
             <button
                     id='Next'
                     className="inline-block rounded border border-blue-500 bg-blue-600 px-12 py-3 text-md sm:text-lg md:text-xl lg:text-2xl font-medium text-white hover:bg-blue-500 focus:outline-none focus:ring active:text-blue-500"
                     >
-                    Sign in to track your progress
+                    <Link href={'/login-or-signup'}> Sign in to track your progress </Link>
             </button>
+            </>
       }
       {updated && 
         <button
