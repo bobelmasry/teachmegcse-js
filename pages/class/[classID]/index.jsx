@@ -10,9 +10,9 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import Link from 'next/link';
 import AssignmentModal from 'components/modals/createAssignment.jsx'
 import AddStudents from 'components/modals/addStudents.jsx'
-import findStudentClasses from 'utils/findStudentClasses.js'
+import findStudentAssignments from 'utils/findStudentAssignments.js'
 
-function TopicCard2({linkSrc, header, dueDate, studentNum}) {
+function TopicCard({linkSrc, header, dueDate, studentNum}) {
   const date = new Date(dueDate);
   const options = { month: 'long', day: 'numeric', year : 'numeric', hour: 'numeric', minute: 'numeric' };
   const formattedDate = date.toLocaleString('en-US', options);
@@ -29,6 +29,33 @@ function TopicCard2({linkSrc, header, dueDate, studentNum}) {
   )
 };
 
+function TopicCard2({linkSrc, header, dueDate}) {
+  const date = new Date(dueDate);
+  const options = { month: 'long', day: 'numeric', year : 'numeric', hour: 'numeric', minute: 'numeric' };
+  const formattedDate = date.toLocaleString('en-US', options);
+    return (
+    <div className='mt-8'>
+    <Link href={`${linkSrc}`}>
+    <div className="btn flex justify-center shadow-[0_7px_0_0px_rgb(3,105,161)] md:hover:scale-[1.02] ease-out transition-all rounded p-6 bg-gray-50 border border-gray-200 rounded-lg shadow md:hover:bg-gray-100 dark:bg-slate-600 dark:border-gray-600 md:dark:hover:bg-gray-500">
+  <h5 className="text-3xl font-semibold text-gray-900 dark:text-white">{header}</h5>
+    <h5 className="text-lg mt-1 ml-4 text-gray-900 dark:text-white">Due : {formattedDate}</h5>
+  </div>
+  </Link>
+    </div>
+  )
+};
+
+function TopicCard3({header, score}) {
+    return (
+    <div className='mt-8'>
+    <div className="btn flex justify-center shadow-[0_7px_0_0px_rgb(3,105,161)] md:hover:scale-[1.02] ease-out transition-all rounded p-6 bg-gray-50 border border-gray-200 rounded-lg shadow md:hover:bg-gray-100 dark:bg-slate-600 dark:border-gray-600 md:dark:hover:bg-gray-500">
+  <h5 className="text-3xl font-semibold text-gray-900 dark:text-white">{header}</h5>
+    <h5 className="text-lg mt-1 ml-6 text-gray-900 dark:text-white">Score : {score}</h5>
+  </div>
+    </div>
+  )
+};
+
  export default function ClassPage({ classData }) {
 
   const router = useRouter();
@@ -37,7 +64,13 @@ function TopicCard2({linkSrc, header, dueDate, studentNum}) {
   const [studentsAvailable, setStudentsAvailable] = useState([])
   const [assignments, setAssignments] = useState([])
   const [isTeacher, setIsTeacher] = useState(false)
-  console.log(findStudentClasses(user?.id));
+  const [isStudent, setIsStudent] = useState(false)
+  const [studentAssignments, setStudentAssignments] = useState([])
+  const [userCompletedAssignments, setUserCompletedAssignments] = useState([]);
+
+    function isUserInClass(classes, userId) {
+      return classes.some((classItem) => classItem.students.includes(userId));
+    }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -98,7 +131,33 @@ function TopicCard2({linkSrc, header, dueDate, studentNum}) {
       }
     }
     getInitial()
+    async function getAssignmentsForStudent() {
+      if (user && user.id) {
+        const studentAssignments = await findStudentAssignments(user.id);
+        if (studentAssignments) {
+          setStudentAssignments(studentAssignments);
+          // Assuming the assignments data is stored in a variable called 'assignments'
+          const filteredAssignments = studentAssignments.filter((assignment) => {
+            // Check if 'completedBy' exists and is not null before using 'find'
+            if (assignment.completedBy && assignment.completedBy.length > 0) {
+              const completedByUser = assignment.completedBy.find((user) => user.id === user.id);
+              return !completedByUser;
+            }
+            return true; // Include assignments without 'completedBy' property
+          });
+          setUserCompletedAssignments(filteredAssignments);
+        }
+      }
+    }
+    getAssignmentsForStudent()
   }, [classData, user]);
+
+  useEffect(() => {
+    if (classData && classData.length > 0) {
+      const isUserInAnyClass = isUserInClass(classData, user?.id);
+      setIsStudent(isUserInAnyClass);
+    }
+  }, [classData, user?.id]);
 
     async function removeAStudent(studentID) {
       const updatedStudents = classData[0].students.filter((student) => student !== studentID);
@@ -121,7 +180,7 @@ function TopicCard2({linkSrc, header, dueDate, studentNum}) {
             <Headstuff />
         </Head>
         <Navbar session={session} />
-        {isTeacher ? (
+        {isTeacher &&
           <>
         <div className="flex justify-center">
         <h1 className='text-4xl font-bold mt-20 text-white'>{classData[0].name}</h1>
@@ -179,16 +238,50 @@ function TopicCard2({linkSrc, header, dueDate, studentNum}) {
           </div>
           {assignments.map((Assignment) => (
           <div key={Assignment.assignmentID} className="flex justify-center">
-            <TopicCard2 key={Assignment.assignmentID} studentNum={Assignment.completedBy?.length ? Assignment.completedBy.length : 0} dueDate={Assignment.dueDate} header={Assignment.name} linkSrc={`/class/${classData[0].classID}/assignment/${Assignment.assignmentID}`} />      
+            <TopicCard key={Assignment.assignmentID} studentNum={Assignment.completedBy?.length ? Assignment.completedBy.length : 0} dueDate={Assignment.dueDate} header={Assignment.name} linkSrc={`/class/${classData[0].classID}/assignment/${Assignment.assignmentID}`} />      
           </div>
           ))}
         <AssignmentModal subject={classData[0]?.subject} level={classData[0]?.level} userID={user?.id} classID={classData[0]?.classID} />
           </div>
         </div>
         </>
-        ) : (
+        }
+        {!isTeacher && !isStudent &&
           <h1 className='mt-20 flex justify-center text-4xl text-white'>Hey, you {"don't"} seem to be a teacher</h1>
-        )
+        }
+        {!isTeacher && isStudent &&
+        <>
+        <h1 className='mt-20 flex justify-center text-5xl font-semibold text-white'>My remaining assignments : </h1>
+        {userCompletedAssignments.length > 0 ? (
+          userCompletedAssignments.map((Assignment) => (
+            <div key={Assignment.assignmentID} className="flex mt-16 mb-16 justify-center">
+              <TopicCard2 key={Assignment.assignmentID} dueDate={Assignment.dueDate} header={Assignment.name} linkSrc={`/class/${classData[0].classID}/assignment/${Assignment.assignmentID}/solve`} />      
+            </div>
+          ))
+        ) : (
+          <h1 className='mt-20 flex justify-center text-3xl font-semibold text-white'>All assignments complete !</h1>
+        )}
+        <h1 className='mt-20 flex justify-center text-4xl font-semibold text-white'>My completed assignments : </h1>
+        {studentAssignments.filter((studentAssignment) => (
+          !userCompletedAssignments.some((completedAssignment) => (
+            completedAssignment.assignmentID === studentAssignment.assignmentID
+          ))
+        )).map((studentAssignment) => {
+          // Find the completedBy object for the current user
+          const completedByUser = studentAssignment.completedBy.find((completedByItem) => (
+            completedByItem.id === user?.id
+          ));
+
+          // Calculate the score as Score / numOfQuestions
+          const score = completedByUser ? `${completedByUser.Score} / ${completedByUser.numOfQuestions}` : "Not Completed";
+
+          return (
+            <div key={studentAssignment.assignmentID} className="flex mt-16 mb-16 justify-center">
+              <TopicCard3 key={studentAssignment.assignmentID} header={studentAssignment.name} score={score} />      
+            </div>
+          );
+        })}
+      </>
         }
         </>
     )

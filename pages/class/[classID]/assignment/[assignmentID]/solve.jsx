@@ -68,7 +68,8 @@ async function updateSupabase(object, table, field, assignmentID) {
         }
         const dataToUpdate = {
           id: user.id,
-          Score: correctAnswers
+          Score: correctAnswers,
+          numOfQuestions: arrayLength 
         }
         updateSupabase(dataToUpdate, 'assignments', 'completedBy', assignmentData.assignmentID)
         setSolved(true);
@@ -144,7 +145,7 @@ async function updateSupabase(object, table, field, assignmentID) {
             <Headstuff />
         </Head>
         <Navbar session={session} />
-        {((studentInClass || (isTeacher)) && (!solvedPreviously)) && 
+        {((studentInClass) && (!solvedPreviously)) && (!isTeacher) && 
         <div className="flex flex-col items-center gap-32 mt-32 mb-20">
         <h1 className='text-5xl font-bold mt-20 text-white'>{assignmentData.name} - ({assignmentData.questions.length}) Questions</h1>
         {assignmentData.questions.map((question, index) => (
@@ -221,11 +222,14 @@ async function updateSupabase(object, table, field, assignmentID) {
         </div>
         </div>
         }
-        {(!studentInClass || (!isTeacher) && !solvedPreviously && !solved) && 
+        {(!studentInClass && !isTeacher && !solvedPreviously && !solved) && 
             <h1 className='mt-32 flex justify-center text-4xl text-white'>Hey, you {"don't"} seem to be in this class</h1>
         }
         {(solvedPreviously) && 
             <h1 className='mt-32 flex justify-center text-4xl text-white'>Hey, you already solved this assignment, your score was {solvedPreviouslyData.Score} / {arrayLength}</h1>
+        }
+        {(isTeacher) && 
+            <h1 className='mt-32 flex justify-center text-4xl text-white'>Hey, {"you're"} a teacher you {"can't"} solve this, go back and press show questions</h1>
         }
         </>
     )

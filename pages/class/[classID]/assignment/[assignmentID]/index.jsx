@@ -63,8 +63,6 @@ import Image from 'next/image';
       
       getCompletedBy();
     }, [assignmentData, session, user]);
-    console.log(assignmentData[0]);
-    
 
     const title = `${assignmentData[0].name} | teachmegcse`
     const date = new Date(assignmentData[0].dueDate);
@@ -87,7 +85,7 @@ import Image from 'next/image';
           <h1 className='text-5xl font-bold mt-20 text-white'>{assignmentData[0].name}</h1>
           <h1 className='text-3xl font-bold mt-20 text-white'>Due : {formattedDate}</h1>
           <h1 className='text-4xl font-bold mt-20 text-white'>Completed by : {assignmentData[0].completedBy?.length ? assignmentData[0].completedBy.length : 0} Student(s)</h1>
-          {studentUsernames &&
+          {studentUsernames && assignmentData[0].completedBy &&
           <div className="flex mt-10 justify-center">
                 <table className="w-full text-lg text-left text-gray-500 dark:text-gray-400">
                     <thead className="text-xl text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
