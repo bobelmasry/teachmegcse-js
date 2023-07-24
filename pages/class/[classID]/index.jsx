@@ -79,16 +79,25 @@ function TopicCard3({header, score}) {
       }
   
       const studentDataArray = [];
-      for (const student of classData[0].students) {
-        const { data } = await supabase
+
+      if (classData[0]?.students && classData[0].students.length > 0) {
+        const studentIds = classData[0].students;
+        const { data, error } = await supabase
           .from('profiles')
-          .select(`*`)
-          .eq('id', student);
-        if (data.length === 0) {
-          throw new Error('Profile not found');
+          .select('*')
+          .in('id', studentIds);
+
+        if (error) {
+          throw new Error('Error fetching student profiles');
         }
-        studentDataArray.push(data[0]);
+
+        if (data.length !== studentIds.length) {
+          throw new Error('Some profiles not found');
+        }
+
+        studentDataArray.push(...data);
       }
+
       setStudentData(studentDataArray);
     };
   
@@ -149,15 +158,15 @@ function TopicCard3({header, score}) {
         }
       }
     }
-    getAssignmentsForStudent()
-  }, [classData, user]);
-
-  useEffect(() => {
-    if (classData && classData.students && classData.students.length > 0) {
+    async function setStudentBool(){
+      if (classData && classData.students && classData.students.length > 0) {
       const isUserInAnyClass = isUserInClass(classData, user?.id);
       setIsStudent(isUserInAnyClass);
     }
-  }, [classData, user?.id]);  
+    }
+    setStudentBool()
+    getAssignmentsForStudent()
+  }, [classData, user]);
 
     async function removeAStudent(studentID) {
       const updatedStudents = classData[0].students.filter((student) => student !== studentID);

@@ -52,75 +52,58 @@ export default function Dashboard({ session }) {
     const [userCompletedAssignments, setUserCompletedAssignments] = useState([]);
 
     useEffect(() => {
-      async function getProfile() {
-        if (!initialGotten) {
-        try {
-          let { data, error, status } = await supabase
-            .from('profiles')
-            .select(`*`)
-            .eq('id', user.id)
-            .single()
-
-          if (error && status !== 406) {
-            throw error
-          }
-
-          if (data) {
-            setUsername(data.username)
-            setQuestionsSolved(data.questionsSolved)
-            setIsTeacher(data.isTeacher)
-            setSchool(data.school)
-            }
-        } catch (error) {
-          console.log(error)
-        } finally {
-          setinitialGotten(true)
-        }
-      }}
-
-      async function getClasses () {
-        if (!initialGotten) {
-        const { data, error } = await supabase
-        .from('classes')
-        .select('*')
-        .eq('user_id', user.id)
-
-        if (data) {
-          setClasses(data)
-        }
-      }
-      }
-      async function getClassesForStudent() {
-        if (user && user.id) {
-          const studentClasses = await findStudentClasses(user.id);
-          if (studentClasses) {
-            setStudentClasses(studentClasses)
-          }
-        }
-      }
-      async function getAssignmentsForStudent() {
-        if (user && user.id) {
-          const studentAssignments = await findStudentAssignments(user.id);
-          if (studentAssignments) {
+  
+      const fetchData = async () => {
+        if (!initialGotten && session && session.user) {
+          const userId = session.user.id;
+  
+          try {
+            const { data: profileData, error: profileError } = await supabase
+              .from('profiles')
+              .select('*')
+              .eq('id', userId)
+              .single();
+  
+              const { data: classesData, error: classesError } = await supabase
+              .from('classes')
+              .select('*')
+              .eq('user_id', userId);
+  
+            const studentClasses = await findStudentClasses(userId);
+  
+            const studentAssignments = await findStudentAssignments(userId);
+  
+            setUsername(profileData.username);
+            setQuestionsSolved(profileData.questionsSolved);
+            setIsTeacher(profileData.isTeacher);
+            setSchool(profileData.school);
+            setClasses(classesData || []);
+            setStudentClasses(studentClasses);
             setStudentAssignments(studentAssignments);
-            // Assuming the assignments data is stored in a variable called 'assignments'
+            setStudentData(studentClasses.map((classItem) => classItem.students));
             const filteredAssignments = studentAssignments.filter((assignment) => {
-              // Check if 'completedBy' exists and is not null before using 'find'
               if (assignment.completedBy && assignment.completedBy.length > 0) {
-                const completedByUser = assignment.completedBy.find((user) => user.id === user.id);
+                const completedByUser = assignment.completedBy.find((user) => user.id === userId);
                 return !completedByUser;
               }
-              return true; // Include assignments without 'completedBy' property
+              return true;
             });
             setUserCompletedAssignments(filteredAssignments);
+            const isUserInAnyClass = studentClasses.some((classItem) =>
+              classItem.students.includes(userId)
+            );
+            setIsStudent(isUserInAnyClass);
+            setinitialGotten(true)
+          } catch (error) {
+            console.error('Error fetching data:', error);
           }
         }
-      }
-      getClassesForStudent()
-      getProfile()
-      getClasses()
-      getAssignmentsForStudent()
-      }, [classes, initialGotten, questionsSolved, session, user, user.id])
+      };
+  
+      fetchData();
+    }, [session, initialGotten]);
+    
+    console.log(username);
 
   return (
     <>
