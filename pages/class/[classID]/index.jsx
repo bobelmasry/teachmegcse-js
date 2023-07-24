@@ -153,11 +153,11 @@ function TopicCard3({header, score}) {
   }, [classData, user]);
 
   useEffect(() => {
-    if (classData && classData.length > 0) {
+    if (classData && classData.students && classData.students.length > 0) {
       const isUserInAnyClass = isUserInClass(classData, user?.id);
       setIsStudent(isUserInAnyClass);
     }
-  }, [classData, user?.id]);
+  }, [classData, user?.id]);  
 
     async function removeAStudent(studentID) {
       const updatedStudents = classData[0].students.filter((student) => student !== studentID);
