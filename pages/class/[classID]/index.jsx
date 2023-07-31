@@ -173,7 +173,7 @@ function TopicCard3({header, score}) {
       const { error } = await supabase
       .from('classes')
       .update({ students: updatedStudents })
-      .eq('user_id', user.id)
+      .eq('classID', classData[0].classID)
       router.reload()
     }
     const [studentData, setStudentData] = useState([]);

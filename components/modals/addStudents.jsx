@@ -36,7 +36,7 @@ export default function AddStudents ({studentsAvailable, classData, user}) {
           .update({
             students: data2
           })
-          .eq('user_id', user.id);
+          .eq('classID', classData[0].classID);
     
         if (error) {
           throw error;
