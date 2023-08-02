@@ -9,6 +9,8 @@ import { supabase } from 'utils/supabase';
 import data from "public/chapters.json"
 import { useRouter } from 'next/router';
 import AddIcon from '@mui/icons-material/Add';
+import path from 'path';
+import { promises as fs } from 'fs';
 
  async function updateSupabase(object, table, field, assignmentID) {
 
@@ -63,7 +65,7 @@ import AddIcon from '@mui/icons-material/Add';
                 .from('assignments')
                 .select(`questions`)
                 .eq('assignmentID', assignmentID)
-                .single();
+                //.single();
       
               if (error && status !== 406) {
                 throw error;
@@ -174,20 +176,36 @@ import AddIcon from '@mui/icons-material/Add';
         
           setquestionArray(filteredQuestions);
         }
-
+        
         async function handleSelect(event) {
           event.preventDefault();
-          setChapterValue(event.target.value)
-          setquestionArray([])
-          setQuestionText('')
-          }
-
+          setChapterValue(event.target.value);
+          setquestionArray([]);
+          setQuestionText('');
+        
+          const filteredQuestions = questionsAvailable.filter((question) => {
+            const isChapterMatch = event.target.value === '0' || question.Chapter.toString() === event.target.value.toString();
+            const isTextMatch = question.questionText.includes(questionText) || questionText === '';
+            return isChapterMatch && isTextMatch;
+          }).slice(0, 100);
+        
+          setquestionArray(filteredQuestions);
+        }
+        
         async function handlePaper(event) {
           event.preventDefault();
-          setPaperValue(event.target.value)
-          setquestionArray([])
-          setQuestionText('')
-          }
+          setPaperValue(event.target.value);
+          setquestionArray([]);
+          setQuestionText('');
+        
+          const filteredQuestions = questionsAvailable.filter((question) => {
+            const isPaperMatch = event.target.value === '0' || question.paperNumber.toString() === event.target.value.toString();
+            const isTextMatch = question.questionText.includes(questionText) || questionText === '';
+            return isPaperMatch && isTextMatch;
+          }).slice(0, 100);
+        
+          setquestionArray(filteredQuestions);
+        }
 
           async function reset() {
             setChapterValue(0)
@@ -277,7 +295,7 @@ import AddIcon from '@mui/icons-material/Add';
                 <div className="flex flex-col items-center gap-32 mt-32 mb-20">
         {questionArray.map((question) => (
         <div key={question.questionName} className='flex'>
-            <div key={question.questionName} className='border border-8 border-green-600 p-2 rounded rounded-2xl'>
+            <div className='border border-8 border-green-600 p-2 rounded rounded-2xl'>
                 <Image key={question.questionName} className='rounded rounded-md' src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/A-level/${question.Subject}/p${question.paperNumber}/${question.Chapter}/${question.questionName}`} alt='image' height={800} width={800} />
             </div>
             <AddIcon onClick={() => addAQuestion(question)} key={question.questionName} fontSize="large" className='ml-8 mt-24 cursor-pointer ease-out transition-all hover:bg-gray-200 bg-gray-400 rounded rounded-xl'/>
@@ -293,22 +311,33 @@ import AddIcon from '@mui/icons-material/Add';
     );
     
   }
-  export async function getServerSideProps({params}) {
-    let { data } = await supabase
-      .from('questions')
-      .select(`*`)
-      .eq('Subject', params.subjectName)
-      .eq('Level', params.level)
+  export async function getServerSideProps({ params }) {
+    try {
+      const filePath = path.join(process.cwd(), 'public', `${params.subjectName}_db.json`);
+      const fileData = await fs.readFile(filePath, 'utf-8');
+      const data = JSON.parse(fileData);
   
-    if (data.length === 0) {
-      throw new Error('Questions not found');
+      const filteredData = data.filter((item) => item.Subject === params.subjectName);
+  
+      if (filteredData.length === 0) {
+        throw new Error('Chapters not found');
+      }
+  
+      const searchArray = filteredData;
+  
+      return {
+        props: {
+          searchArray,
+        },
+      };
+    } catch (error) {
+      console.error(`Error reading JSON file: ${error}`);
+      return {
+        props: {
+          searchArray: null,
+        },
+      };
     }
-    
-    const searchArray = data;
-  
-    return {
-      props: { searchArray },
-    };
-}
+  }
 
 export default SubjectPage
