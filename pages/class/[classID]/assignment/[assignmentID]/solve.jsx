@@ -81,7 +81,7 @@ async function updateSupabase(object, table, field, assignmentID) {
             let { data, error, status } = await supabase
               .from('classes')
               .select(`*`)
-              .eq('user_id', assignmentData.user_id)
+              .eq('classID', assignmentData.classID)
               .single()
   
             if (error && status !== 406) {
@@ -131,8 +131,6 @@ async function updateSupabase(object, table, field, assignmentID) {
 
       getCompletedBy()
         }, [assignmentData.assignmentID, assignmentData.user_id, user])
-
-        console.log(((studentInClass || (isTeacher)) && (!solvedPreviously)));
 
      const title = `${assignmentData.name} - teachmegcse`
     return (

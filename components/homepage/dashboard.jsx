@@ -49,7 +49,6 @@ export default function Dashboard({ session }) {
     const [classes, setClasses] = useState([])
     const [studentClasses, setStudentClasses] = useState([])
     const [studentAssignments, setStudentAssignments] = useState([])
-    const [userCompletedAssignments, setUserCompletedAssignments] = useState([]);
 
     useEffect(() => {
   
@@ -80,19 +79,6 @@ export default function Dashboard({ session }) {
             setClasses(classesData || []);
             setStudentClasses(studentClasses);
             setStudentAssignments(studentAssignments);
-            setStudentData(studentClasses.map((classItem) => classItem.students));
-            const filteredAssignments = studentAssignments.filter((assignment) => {
-              if (assignment.completedBy && assignment.completedBy.length > 0) {
-                const completedByUser = assignment.completedBy.find((user) => user.id === userId);
-                return !completedByUser;
-              }
-              return true;
-            });
-            setUserCompletedAssignments(filteredAssignments);
-            const isUserInAnyClass = studentClasses.some((classItem) =>
-              classItem.students.includes(userId)
-            );
-            setIsStudent(isUserInAnyClass);
             setinitialGotten(true)
           } catch (error) {
             console.error('Error fetching data:', error);
@@ -103,8 +89,6 @@ export default function Dashboard({ session }) {
       fetchData();
     }, [session, initialGotten]);
     
-    console.log(username);
-
   return (
     <>
     <div className="flex justify-center">
@@ -159,18 +143,19 @@ export default function Dashboard({ session }) {
           <>
           <h1 className='text-4xl mt-20 dark:text-gray-100'>My Classes:</h1>
           {studentClasses.map((classItem) => {
-        // Find the number of completed assignments for the current class
-        const completedAssignmentsForClass = userCompletedAssignments.filter(
-          (assignment) => assignment.classID === classItem.classID
-        );
+            // Find the assignments that belong to the current class and are not completed by the user
+            const incompleteAssignmentsForClass = studentAssignments.filter((assignment) => (
+              assignment.classID === classItem.classID &&
+              !assignment.completedBy?.some((completedByItem) => completedByItem.id === user?.id)
+            ));
 
-        return (
-          <div key={classItem.classID} className="flex mt-10 mb-20">
-            {/* Pass the number of completed assignments as the assignmentNum prop */}
-            <TopicCard2 key={classItem.classID} header={classItem.name} linkSrc={`/class/${classItem.classID}`} assignmentNum={completedAssignmentsForClass.length} />
-          </div>
-        );
-      })}
+            return (
+              <div key={classItem.classID} className="flex mt-10 mb-20">
+                {/* Pass the number of incomplete assignments as the assignmentNum prop */}
+                <TopicCard2 key={classItem.classID} header={classItem.name} linkSrc={`/class/${classItem.classID}`} assignmentNum={incompleteAssignmentsForClass.length} />
+              </div>
+            );
+          })}
           </>
           }
 

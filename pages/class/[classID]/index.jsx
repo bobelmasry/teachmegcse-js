@@ -10,7 +10,6 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import Link from 'next/link';
 import AssignmentModal from 'components/modals/createAssignment.jsx'
 import AddStudents from 'components/modals/addStudents.jsx'
-import findStudentAssignments from 'utils/findStudentAssignments.js'
 
 function TopicCard({linkSrc, header, dueDate, studentNum}) {
   const date = new Date(dueDate);
@@ -64,9 +63,8 @@ function TopicCard3({header, score}) {
   const [studentsAvailable, setStudentsAvailable] = useState([])
   const [assignments, setAssignments] = useState([])
   const [isTeacher, setIsTeacher] = useState(false)
-  const [isStudent, setIsStudent] = useState(false)
+  const [isStudent, setIsStudent] = useState(true)
   const [studentAssignments, setStudentAssignments] = useState([])
-  const [userCompletedAssignments, setUserCompletedAssignments] = useState([]);
 
     function isUserInClass(classes, userId) {
       return classes.some((classItem) => classItem.students.includes(userId));
@@ -142,31 +140,31 @@ function TopicCard3({header, score}) {
     getInitial()
     async function getAssignmentsForStudent() {
       if (user && user.id) {
-        const studentAssignments = await findStudentAssignments(user.id);
-        if (studentAssignments) {
+        try {
+          const { data: studentAssignments, error } = await supabase
+            .from('assignments')
+            .select('*')
+            .eq('classID', classData[0].classID);
+    
+          if (error) {
+            throw new Error('Error fetching student assignments');
+          }
+    
           setStudentAssignments(studentAssignments);
-          // Assuming the assignments data is stored in a variable called 'assignments'
-          const filteredAssignments = studentAssignments.filter((assignment) => {
-            // Check if 'completedBy' exists and is not null before using 'find'
-            if (assignment.completedBy && assignment.completedBy.length > 0) {
-              const completedByUser = assignment.completedBy.find((user) => user.id === user.id);
-              return !completedByUser;
-            }
-            return true; // Include assignments without 'completedBy' property
-          });
-          setUserCompletedAssignments(filteredAssignments);
+        } catch (error) {
+          console.error('Error fetching student assignments:', error);
         }
       }
     }
-    async function setStudentBool(){
-      if (classData && classData.students && classData.students.length > 0) {
+    getAssignmentsForStudent()
+  }, [classData, user]);
+
+  useEffect(() => {
+    if (classData && classData.students && classData.students.length > 0) {
       const isUserInAnyClass = isUserInClass(classData, user?.id);
       setIsStudent(isUserInAnyClass);
     }
-    }
-    setStudentBool()
-    getAssignmentsForStudent()
-  }, [classData, user]);
+  }, [classData, user?.id]); 
 
     async function removeAStudent(studentID) {
       const updatedStudents = classData[0].students.filter((student) => student !== studentID);
@@ -260,21 +258,30 @@ function TopicCard3({header, score}) {
         }
         {!isTeacher && isStudent &&
         <>
+        <div className="flex justify-center">
+        <h1 className='text-4xl font-bold mt-20 text-white'>{classData[0].name}</h1>
+        </div>
         <h1 className='mt-20 flex justify-center text-5xl font-semibold text-white'>My remaining assignments : </h1>
-        {userCompletedAssignments.length > 0 ? (
-          userCompletedAssignments.map((Assignment) => (
-            <div key={Assignment.assignmentID} className="flex mt-16 mb-16 justify-center">
-              <TopicCard2 key={Assignment.assignmentID} dueDate={Assignment.dueDate} header={Assignment.name} linkSrc={`/class/${classData[0].classID}/assignment/${Assignment.assignmentID}/solve`} />      
-            </div>
-          ))
-        ) : (
-          <h1 className='mt-20 flex justify-center text-3xl font-semibold text-white'>All assignments complete !</h1>
+        {studentAssignments.length > 0 && (
+          studentAssignments.map((Assignment) => {
+            const isCompleted = Assignment.completedBy && Assignment.completedBy.some((completedByUser) => completedByUser.id === user?.id);
+            
+            // Show assignments that are not completed
+            if (!isCompleted) {
+              return (
+                <div key={Assignment.assignmentID} className="flex mt-16 mb-16 justify-center">
+                  <TopicCard2 dueDate={Assignment.dueDate} header={Assignment.name} linkSrc={`/class/${classData[0].classID}/assignment/${Assignment.assignmentID}/solve`} />      
+                </div>
+              );
+            }
+            
+            return null; // Return null for completed assignments to skip rendering them
+          })
         )}
         <h1 className='mt-20 flex justify-center text-4xl font-semibold text-white'>My completed assignments : </h1>
         {studentAssignments.filter((studentAssignment) => (
-          !userCompletedAssignments.some((completedAssignment) => (
-            completedAssignment.assignmentID === studentAssignment.assignmentID
-          ))
+          // Show assignments that are completed by the user
+          studentAssignment.completedBy && studentAssignment.completedBy.some((completedByItem) => completedByItem.id === user?.id)
         )).map((studentAssignment) => {
           // Find the completedBy object for the current user
           const completedByUser = studentAssignment.completedBy.find((completedByItem) => (
