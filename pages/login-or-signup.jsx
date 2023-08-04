@@ -5,13 +5,14 @@ import Headstuff from "components/headstuff.jsx"
 import Account from '../components/homepage/Account.jsx'
 import { Auth } from '@supabase/auth-ui-react'
 import { ThemeSupa } from '@supabase/auth-ui-shared'
-import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
-import YearCard from "components/yearCard.jsx"
-
+import { useSession, useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
+import PayPalButtonsWrapper from "../components/PayPalButtonsWrapper";
 
 const Home = () => {
   const session = useSession()
   const supabase = useSupabaseClient()
+  const user = useUser()
+
   return (
     <>
     <Head>
@@ -33,10 +34,6 @@ const Home = () => {
         providers={{}} theme="dark" />
       ) : (
         <>
-        <div className="flex flex-col sm:flex-row gap-8 items-center sm:justify-center mt-16">
-        <YearCard header={'IGCSE'} linkSrc={`/IGCSE`} />
-        <YearCard header={'A-level'} linkSrc={`/A-level`} />
-        </div>
         <Account session={session} />
         </>
       )}
