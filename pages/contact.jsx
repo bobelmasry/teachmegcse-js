@@ -22,7 +22,7 @@ const Home = () => {
             <h1 className="text-4xl mt-12 dark:text-white">Our contact information :</h1>
             <h1 className="text-3xl mt-12 dark:text-white">Ahmed (Head of Sales) ahwaleed154@gmail.com</h1>
             <h1 className="text-3xl mt-12 dark:text-white">Aly (Co-CEO) alyhassan2254@gmail.com</h1>
-            <h1 className="text-3xl mt-12 dark:text-white">Amr (Co-CEO) amrobadrcm@gmail.com</h1>
+            <h1 className="text-3xl mt-12 dark:text-white">Amr (Co-CEO) amrobadrcm@hotmail.com</h1>
         </div>
     </div>
     </>

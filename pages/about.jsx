@@ -23,7 +23,7 @@ const Home = () => {
             <p className="mt-20 text-2xl dark:text-white">With years of experience in education and a deep understanding of the challenges students face, we envisioned a platform that goes beyond traditional learning methods. We wanted to provide a comprehensive and personalized approach that caters to the diverse needs of every student.</p>
             <p className="mt-20 text-2xl dark:text-white">Join us on this transformative educational journey and unlock your true potential. Empower yourself with knowledge, gain confidence, and achieve academic excellence with teachmegcse.</p>
             <p className="mt-20 text-2xl dark:text-white">Thank you for being a part of our story.<br />Aly and Amr<br />Co-founders, TeachMeGCSE</p>
-            <p className="mt-20 text-2xl dark:text-white">Feel free to reach out to us<br />Aly : alyhassan2254@gmail.com<br /> Amr : amrobadrcm@gmail.com</p>
+            <p className="mt-20 text-2xl dark:text-white">Feel free to reach out to us<br />Aly : alyhassan2254@gmail.com<br /> Amr : amrobadrcm@hotmail.com</p>
         </div>
     </div>
     </>
