@@ -36,7 +36,7 @@ export default function Navbar({ session }) {
             onClick={handleToggleMenu}
             data-collapse-toggle="navbar-sticky"
             type="button"
-            className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+            className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:bg-gray-600 dark:hover:bg-gray-500 dark:focus:ring-gray-600"
             aria-controls="navbar-sticky"
             aria-expanded={isMenuOpen}
           >
@@ -57,7 +57,7 @@ export default function Navbar({ session }) {
           </button>
           {!session ? (
             <Link
-              className="text-white transition-all ease-out bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-500 dark:focus:ring-green-800"
+              className="ml-2 text-white transition-all ease-out bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-500 dark:focus:ring-green-800"
               href={'/login-or-signup'}
             >
               Sign In
@@ -98,6 +98,20 @@ export default function Navbar({ session }) {
                 href="/A-level"
               >
                 A-level
+              </Link>
+              <Link
+                className="block transition-all py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                onClick={() => handleNavigate('/about')}
+                href="/about"
+              >
+                About Us
+              </Link>
+              <Link
+                className="block transition-all py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                onClick={() => handleNavigate('/contact')}
+                href="/contact"
+              >
+                Contact Us
               </Link>
             </li>
           </ul>

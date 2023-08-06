@@ -8,11 +8,11 @@ export default function Cta() {
             Ready to Get Started ?
         </h2>
 
-        <div className="inline-flex justify-center hover:scale-[1.02] transition-all ease-out w-full mt-6 sm:w-auto">
+        <div className="inline-flex justify-center w-full mt-6 sm:w-auto">
         <Link
           href="/login-or-signup"
-          className="mt-8 inline-block rounded bg-blue-500 px-12 py-3 text-2xl sm:text-3xl font-medium text-white transition hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-400">
-          <p>Yeah !</p>
+          className="hover:scale-[1.02] transition-all ease-out mt-8 inline-block rounded bg-blue-500 px-12 py-3 text-2xl sm:text-3xl font-medium text-white transition hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-400">
+          <p className="hover:scale-[1.02] transition-all ease-out">Yeah !</p>
         </Link>
         </div>
     </div>
