@@ -26,7 +26,7 @@ import Link from 'next/link';
             <button
                 id={name}
                 onClick={handleAnswer}
-                className="inline-block rounded border border-green-500 bg-green-500 px-12 py-3 text-md sm:text-lg md:text-xl lg:text-2xl font-medium text-white hover:bg-green-400 focus:outline-none focus:ring active:text-green-500"
+                className="inline-block rounded border bg-slate-600 text-white border-gray-500 px-12 py-3 text-md sm:text-lg md:text-xl lg:text-2xl font-medium text-white hover:bg-sky-500 focus:outline-none focus:ring"
                 >
                 {name}
                 </button>

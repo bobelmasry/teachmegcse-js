@@ -35,7 +35,7 @@ export default function Footer () {
           </Link>
         </li>
       </ul>
-      <ul class="mt-12 flex justify-center gap-6 md:gap-8">
+      <ul className="mt-12 flex justify-center gap-6 md:gap-8">
       <li>
         <a
           href="https://www.facebook.com/profile.php?id=100088073991063"
@@ -43,7 +43,7 @@ export default function Footer () {
           target="_blank"
           className="text-gray-400 transition hover:text-gray-400/75"
         >
-          <span class="sr-only">Facebook</span>
+          <span className="sr-only">Facebook</span>
           <svg
             className="h-6 w-6"
             fill="currentColor"
@@ -66,7 +66,7 @@ export default function Footer () {
           target="_blank"
           className="text-gray-400 transition hover:text-gray-400/75"
         >
-          <span class="sr-only">Instagram</span>
+          <span className="sr-only">Instagram</span>
           <svg
             className="h-6 w-6"
             fill="currentColor"
