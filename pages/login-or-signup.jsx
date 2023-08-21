@@ -6,7 +6,6 @@ import Account from '../components/homepage/Account.jsx'
 import { Auth } from '@supabase/auth-ui-react'
 import { ThemeSupa } from '@supabase/auth-ui-shared'
 import { useSession, useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
-import PayPalButtonsWrapper from "../components/PayPalButtonsWrapper";
 
 const Home = () => {
   const session = useSession()
