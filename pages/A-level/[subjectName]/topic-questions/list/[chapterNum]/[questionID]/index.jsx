@@ -11,7 +11,7 @@ import chapters from "public/chapters.json"
     function QuestionPage({questionData}) {
       const session = useSession()
       const chapterString = chapters.filter(item => (item.id === questionData.Chapter) && (item.subject === questionData.Subject));
-      const chapterString2 = chapterString[0].name
+      const chapterString2 = chapterString.name
 
     return (
       <>
