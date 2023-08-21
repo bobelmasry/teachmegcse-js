@@ -65,7 +65,7 @@ function Post({ noteData,  content }) {
         <h1 className="text-4xl sm:text-5xl mt-20 font-bold dark:text-gray-100">{noteData.title}</h1>
     </div>
     <div className="flex justify-center">
-      <div className="prose p-5 sm:p-10 m-5 sm:m-10 prose-lg text-gray-300 bg-slate-800 rounded-lg">
+      <div className="prose p-5 sm:p-10 m-5 sm:m-10 prose-lg bg-gray-400 rounded-lg">
         <MDXRemote {...content} />
       </div>
     </div>
