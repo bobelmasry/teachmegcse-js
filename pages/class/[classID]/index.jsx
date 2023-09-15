@@ -10,39 +10,7 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import Link from 'next/link';
 import AssignmentModal from 'components/modals/createAssignment.jsx'
 import AddStudents from 'components/modals/addStudents.jsx'
-
-function TopicCard({linkSrc, header, dueDate, studentNum}) {
-  const date = new Date(dueDate);
-  const options = { month: 'long', day: 'numeric', year : 'numeric', hour: 'numeric', minute: 'numeric' };
-  const formattedDate = date.toLocaleString('en-US', options);
-    return (
-    <div className='mt-8'>
-    <Link href={`${linkSrc}`}>
-    <div className="btn flex justify-center shadow-[0_7px_0_0px_rgb(3,105,161)] md:hover:scale-[1.02] ease-out transition-all rounded p-6 bg-gray-50 border border-gray-200 rounded-lg shadow md:hover:bg-gray-100 dark:bg-slate-600 dark:border-gray-600 md:dark:hover:bg-gray-500">
-  <h5 className="text-3xl font-semibold text-gray-900 dark:text-white">{header}</h5>
-    <h5 className="text-lg mt-1 ml-4 text-gray-900 dark:text-white">Due : {formattedDate}</h5>
-    <h5 className="text-lg mt-1 ml-4 text-gray-900 dark:text-white">Completed by : {studentNum}</h5>
-  </div>
-  </Link>
-    </div>
-  )
-};
-
-function TopicCard2({linkSrc, header, dueDate}) {
-  const date = new Date(dueDate);
-  const options = { month: 'long', day: 'numeric', year : 'numeric', hour: 'numeric', minute: 'numeric' };
-  const formattedDate = date.toLocaleString('en-US', options);
-    return (
-    <div className='mt-8'>
-    <Link href={`${linkSrc}`}>
-    <div className="btn flex justify-center shadow-[0_7px_0_0px_rgb(3,105,161)] md:hover:scale-[1.02] ease-out transition-all rounded p-6 bg-gray-50 border border-gray-200 rounded-lg shadow md:hover:bg-gray-100 dark:bg-slate-600 dark:border-gray-600 md:dark:hover:bg-gray-500">
-  <h5 className="text-3xl font-semibold text-gray-900 dark:text-white">{header}</h5>
-    <h5 className="text-lg mt-1 ml-4 text-gray-900 dark:text-white">Due : {formattedDate}</h5>
-  </div>
-  </Link>
-    </div>
-  )
-};
+import { Button, Drawer } from 'antd';
 
 function TopicCard3({header, score}) {
     return (
@@ -55,6 +23,39 @@ function TopicCard3({header, score}) {
   )
 };
 
+function TopicCard4({linkSrc, header, dueDate}) {
+  const date = new Date(dueDate);
+  const options = { month: 'long', day: 'numeric', year : 'numeric' };
+  const formattedDate = date.toLocaleString('en-US', options);
+    return (
+    <div className='mt-4 w-full'>
+    <Link href={`${linkSrc}`}>
+    <div className="btn md:hover:scale-[1.02] ease-out transition-all rounded p-6 border rounded-lg shadow bg-slate-600 border-gray-600 md:hover:bg-gray-400">
+  <h5 className="text-md font-semibold text-gray-900 dark:text-white">{header}</h5>
+    <span className="text-sm text-gray-900 dark:text-white">Due : {formattedDate}</span>
+  </div>
+  </Link>
+    </div>
+  )
+};
+
+function TopicCard5({linkSrc, header, dueDate, studentNum}) {
+  const date = new Date(dueDate);
+  const options = { month: 'long', day: 'numeric', year : 'numeric' };
+  const formattedDate = date.toLocaleString('en-US', options);
+    return (
+      <div className='mt-4 w-full'>
+      <Link href={`${linkSrc}`}>
+      <div className="btn md:hover:scale-[1.02] ease-out transition-all rounded p-6 border rounded-lg shadow bg-slate-600 border-gray-600 md:hover:bg-gray-400">
+  <h5 className="text-md font-semibold text-gray-900 dark:text-white">{header}</h5>
+    <span className="text-sm text-gray-900 dark:text-white">Due : {formattedDate}</span>
+    <h5 className="text-sm text-gray-900 dark:text-white">Completed by : {studentNum}</h5>
+  </div>
+  </Link>
+    </div>
+  )
+};
+
  export default function ClassPage({ classData }) {
 
   const router = useRouter();
@@ -63,45 +64,11 @@ function TopicCard3({header, score}) {
   const [studentsAvailable, setStudentsAvailable] = useState([])
   const [assignments, setAssignments] = useState([])
   const [isTeacher, setIsTeacher] = useState(false)
-  const [isStudent, setIsStudent] = useState(true)
   const [studentAssignments, setStudentAssignments] = useState([])
 
-    function isUserInClass(classes, userId) {
-      return classes.some((classItem) => classItem.students.includes(userId));
-    }
-
   useEffect(() => {
-    const fetchData = async () => {
-      if (!classData[0].students) {
-        return;
-      }
-  
-      const studentDataArray = [];
-
-      if (classData[0]?.students && classData[0].students.length > 0) {
-        const studentIds = classData[0].students;
-        const { data, error } = await supabase
-          .from('profiles')
-          .select('*')
-          .in('id', studentIds);
-
-        if (error) {
-          throw new Error('Error fetching student profiles');
-        }
-
-        if (data.length !== studentIds.length) {
-          throw new Error('Some profiles not found');
-        }
-
-        studentDataArray.push(...data);
-      }
-
-      setStudentData(studentDataArray);
-    };
-  
-    fetchData();
-
     async function addStudents() {
+      
       let { data, error, status } = await supabase
         .from('profiles')
         .select(`*`)
@@ -114,8 +81,15 @@ function TopicCard3({header, score}) {
         }
         return true;
       });
+      const studentsInClass = data.filter((student) => {
+        if (classData[0].students) {
+          return classData[0].students.includes(student.id);
+        }
+        return true;
+      });
     
       setStudentsAvailable(studentsNotInClass);
+      setStudentData(studentsInClass);
     }
 
     addStudents()
@@ -127,6 +101,7 @@ function TopicCard3({header, score}) {
         .eq('classID', classData[0].classID)
     
       setAssignments(data);
+      setStudentAssignments(data);
     }
 
     getAssignments()
@@ -138,33 +113,7 @@ function TopicCard3({header, score}) {
       }
     }
     getInitial()
-    async function getAssignmentsForStudent() {
-      if (user && user.id) {
-        try {
-          const { data: studentAssignments, error } = await supabase
-            .from('assignments')
-            .select('*')
-            .eq('classID', classData[0].classID);
-    
-          if (error) {
-            throw new Error('Error fetching student assignments');
-          }
-    
-          setStudentAssignments(studentAssignments);
-        } catch (error) {
-          console.error('Error fetching student assignments:', error);
-        }
-      }
-    }
-    getAssignmentsForStudent()
   }, [classData, user]);
-
-  useEffect(() => {
-    if (classData && classData.students && classData.students.length > 0) {
-      const isUserInAnyClass = isUserInClass(classData, user?.id);
-      setIsStudent(isUserInAnyClass);
-    }
-  }, [classData, user?.id]); 
 
     async function removeAStudent(studentID) {
       const updatedStudents = classData[0].students.filter((student) => student !== studentID);
@@ -174,6 +123,57 @@ function TopicCard3({header, score}) {
       .eq('classID', classData[0].classID)
       router.reload()
     }
+
+    function SideBarAnt() {
+      const [open, setOpen] = useState(false);
+      const showDrawer = () => {
+        setOpen(true);
+      };
+      const onClose = () => {
+        setOpen(false);
+      };
+      return (
+        <>
+          <Button type="primary" style={{"backgroundColor" : "green"}} size='large' onClick={showDrawer} className='mt-8'> Open Assignment Window </Button>
+          <Drawer title={classData[0]?.name.toUpperCase()} style={{"backgroundColor" : "gray"}} placement="left" onClose={onClose} open={open}>
+            {isTeacher && (
+              <>
+                <h1 className='text-gray-700 capitalize text-2xl font-semibold'>Class Assignments:</h1>
+                {assignments.map((Assignment) => (
+                  <div key={Assignment.assignmentID} className="flex justify-center">
+                    <TopicCard5 key={Assignment.assignmentID} studentNum={Assignment.completedBy?.length ? Assignment.completedBy.length : 0} dueDate={Assignment.dueDate} header={Assignment.name} linkSrc={`/class/${classData[0].classID}/assignment/${Assignment.assignmentID}`} />
+                  </div>
+                ))}
+                <AssignmentModal subject={classData[0]?.subject} level={classData[0]?.level} userID={user?.id} classID={classData[0]?.classID} />
+              </>
+            )}
+            {!isTeacher && (
+              <>
+              <h1 className='text-gray-700 text-2xl font-semibold'>My Remaining Assignments:</h1>
+              {studentAssignments.length > 0 && (
+                studentAssignments.map((Assignment) => {
+                  const isCompleted = Assignment.completedBy && Assignment.completedBy.some((completedByUser) => completedByUser.id === user?.id);
+                  
+                  // Show assignments that are not completed
+                  if (!isCompleted && Assignment.questions != null) {
+                    return (
+                      <div key={Assignment.assignmentID} className="flex mt-16 mb-16 justify-center">
+                        <TopicCard4 dueDate={Assignment.dueDate} header={Assignment.name} linkSrc={`/class/${classData[0].classID}/assignment/${Assignment.assignmentID}/solve`} />      
+                      </div>
+                    );
+                  }
+                  
+                  return null; // Return null for completed assignments to skip rendering them
+                })
+              )}
+              </>
+            )}
+            <hr className="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700"></hr>
+          </Drawer>
+        </>
+      );
+    };
+
     const [studentData, setStudentData] = useState([]);
     const title = `${classData[0].name} | teachmegcse`
         
@@ -209,6 +209,9 @@ function TopicCard3({header, score}) {
                           Questions Solved
                         </th>
                         <th scope="col" className="sm:px-4 px-2 py-3">
+                          Questions Correct
+                        </th>
+                        <th scope="col" className="sm:px-4 px-2 py-3">
                           Percentage
                         </th>
                         <th scope="col" className="sm:px-4 px-2 py-3">
@@ -221,10 +224,15 @@ function TopicCard3({header, score}) {
                     <tbody key={student.id}>
                       <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                       <td className="px-10 py-4">
+                        <Link href={`/class/${classData[0].classID}/student/${student.id}`} className='text-blue-600 font-semibold text-xl underline hover:no-underline'>
                         {student.username}
+                        </Link>
                       </td>
                         <td className="px-10 ml-8 py-4">
                         {student.questionsSolved?.filter((question) => question.Subject == 'physics').length || 0}
+                        </td>
+                        <td className="px-10 ml-8 py-4">
+                        {student.questionsSolved?.filter((question) => question.Subject == 'physics' && (question.Correct.toString() == 'true')).length || 0}
                         </td>
                         <td className="sm:px-4 px-2 py-4">
                         {`${Math.round(((student.questionsSolved?.filter((question) => (question.Subject == 'physics') && (question.Correct.toString() == 'true')).length/student.questionsSolved?.filter((question) => question.Subject == 'physics').length) * 10000)) / 100} %`}
@@ -240,44 +248,15 @@ function TopicCard3({header, score}) {
           </div>
           }
         <AddStudents studentsAvailable={studentsAvailable} classData={classData} user={user} />
-          <div className="flex justify-start mt-20">
-            <h1 className='text-4xl font-bold mb-20 text-white'>My Assignments</h1>
-          </div>
-          {assignments.map((Assignment) => (
-          <div key={Assignment.assignmentID} className="flex justify-center">
-            <TopicCard key={Assignment.assignmentID} studentNum={Assignment.completedBy?.length ? Assignment.completedBy.length : 0} dueDate={Assignment.dueDate} header={Assignment.name} linkSrc={`/class/${classData[0].classID}/assignment/${Assignment.assignmentID}`} />      
-          </div>
-          ))}
-        <AssignmentModal subject={classData[0]?.subject} level={classData[0]?.level} userID={user?.id} classID={classData[0]?.classID} />
           </div>
         </div>
         </>
         }
-        {!isTeacher && !isStudent &&
-          <h1 className='mt-20 flex justify-center text-4xl text-white'>Hey, you {"don't"} seem to be a teacher</h1>
-        }
-        {!isTeacher && isStudent &&
+        {!isTeacher &&
         <>
         <div className="flex justify-center">
         <h1 className='text-4xl font-bold mt-20 text-white'>{classData[0].name}</h1>
         </div>
-        <h1 className='mt-20 flex justify-center text-5xl font-semibold text-white'>My remaining assignments : </h1>
-        {studentAssignments.length > 0 && (
-          studentAssignments.map((Assignment) => {
-            const isCompleted = Assignment.completedBy && Assignment.completedBy.some((completedByUser) => completedByUser.id === user?.id);
-            
-            // Show assignments that are not completed
-            if (!isCompleted) {
-              return (
-                <div key={Assignment.assignmentID} className="flex mt-16 mb-16 justify-center">
-                  <TopicCard2 dueDate={Assignment.dueDate} header={Assignment.name} linkSrc={`/class/${classData[0].classID}/assignment/${Assignment.assignmentID}/solve`} />      
-                </div>
-              );
-            }
-            
-            return null; // Return null for completed assignments to skip rendering them
-          })
-        )}
         <h1 className='mt-20 flex justify-center text-4xl font-semibold text-white'>My completed assignments : </h1>
         {studentAssignments.filter((studentAssignment) => (
           // Show assignments that are completed by the user
@@ -299,6 +278,9 @@ function TopicCard3({header, score}) {
         })}
       </>
         }
+        <div className="flex justify-center">
+        <SideBarAnt />
+        </div>
         </>
     )
 }

@@ -11,6 +11,7 @@ import { useRouter } from 'next/router';
 import AddIcon from '@mui/icons-material/Add';
 import path from 'path';
 import { promises as fs } from 'fs';
+import Link from 'next/link';
 
  async function updateSupabase(object, table, field, assignmentID) {
 
@@ -47,12 +48,14 @@ import { promises as fs } from 'fs';
       const user = useUser()
         const [questionsAvailable, setQuestionsAvailable] = useState(searchArray)
         const [isTeacher, setIsTeacher] = useState(false)
+        const [bannerShown, setBannerShown] = useState(false)
 
         const session = useSession()
 
         const router = useRouter()
         const data2 = router.query;
         const subject = data2.subjectName
+        const classID = data2.classID
         const assignmentID = data2.assignmentID
         const level = data2.level
         const filteredData = data.filter(item => (item.subject === subject) && (item.level2 === level));
@@ -154,7 +157,8 @@ import { promises as fs } from 'fs';
         const [paperValue, setPaperValue] = useState(0);
         const [questionText, setQuestionText] = useState('')
 
-        async function addAQuestion(question) {        
+        async function addAQuestion(question) {
+          setBannerShown(true)        
           await updateSupabase(question, 'assignments', 'questions', assignmentID);
         
           const updatedAvailableArray = questionsAvailable.filter((obj) => obj.questionName !== question.questionName);
@@ -162,7 +166,13 @@ import { promises as fs } from 'fs';
         
           const updatedQuestionArray = questionArray.filter((obj) => obj.questionName !== question.questionName);
           setquestionArray(updatedQuestionArray);
+          await timeout(3500)
+          setBannerShown(false)
         }
+
+        function timeout(delay) {
+          return new Promise( res => setTimeout(res, delay) );
+      }
 
         async function handleText(event) {
           event.preventDefault();
@@ -224,6 +234,13 @@ import { promises as fs } from 'fs';
           <Headstuff />
         </Head>
         <Navbar session={session} />
+        {bannerShown &&
+        <div className="bg-indigo-600 mt-12 w-full fixed px-4 py-3 text-white">
+        <p className="text-center text-lg font-semibold">
+          Added !
+        </p>
+      </div>
+        }
         {isTeacher ? (
         <div className="mt-40 mb-20">
             <div className='flex justify-center'>
@@ -287,6 +304,11 @@ import { promises as fs } from 'fs';
                 <div className="mt-10">
                 <button onClick={reset} className="text-white transition-all ease-out bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-500 dark:focus:ring-green-800">
                   Reset
+                </button>
+                <button className="text-white ml-8 transition-all ease-out bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-500 dark:focus:ring-blue-800">
+                  <Link href={`/class/${classID}`}>
+                  Save and Quit
+                  </Link>
                 </button>
                 </div>
                 </div>

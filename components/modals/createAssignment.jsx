@@ -22,6 +22,7 @@ export default function AssignmentModal ({userID, classID, subject, level}) {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+
     const [class_Name, SetClass_Name] = useState('');
     const [dueDate2, setDueDate] = useState(null);
 
@@ -46,7 +47,8 @@ export default function AssignmentModal ({userID, classID, subject, level}) {
 
     return (
         <div>
-<Button colorScheme='blue' margin={20} size='lg' onClick={showModal}> Create an Assignment </Button>
+<Button colorScheme='blue' margin={16} size='lg' onClick={showModal}> Create an Assignment </Button>
+{isModalOpen && 
 <Modal title="Create an Assignment" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} footer={null}>
           <form className="space-y-4 md:space-y-5 p-8">
         <div>
@@ -71,7 +73,10 @@ export default function AssignmentModal ({userID, classID, subject, level}) {
           >
             Due Date
           </label>
-        <DatePicker bodyStyle={{backgroundColor: 'black'}} onChange={onChange} showTime />
+          <DatePicker onChange={onChange} />
+        {dueDate2 === null && (
+        <p className="text-red-500 text-sm">Please select a due date.</p>
+      )}
     </form>
 <button
         type="submit"
@@ -81,6 +86,7 @@ export default function AssignmentModal ({userID, classID, subject, level}) {
         Create an Assignment
 </button>
 </Modal>
+}
   </div>
     )
   }

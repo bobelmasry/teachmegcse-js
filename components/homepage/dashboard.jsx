@@ -8,34 +8,77 @@ import CreateClass from 'components/modals/createClass.jsx'
 import UpdateClass from 'components/modals/updateClass.jsx'
 import findStudentClasses from 'utils/findStudentClasses.js'
 import findStudentAssignments from 'utils/findStudentAssignments.js'
+import Image from 'next/image';
 
 
 export default function Dashboard({ session }) {
 
     const user = useUser()
       //for teachers
-     function TopicCard({linkSrc, header, studentNum, level}) {
+    function TopicCard({linkSrc, header, studentNum, level, subject}) {
       return (
-        <div>
+        <div className='flex justify-center'>
         <Link href={`${linkSrc}`}>
-        <div className="btn flex justify-center shadow-[0_7px_0_0px_rgb(3,105,161)] md:hover:scale-[1.02] ease-out transition-all rounded p-6 bg-gray-50 border border-gray-200 rounded-lg shadow md:hover:bg-gray-100 dark:bg-slate-600 dark:border-gray-600 md:dark:hover:bg-gray-500">
-      <h5 className="text-3xl font-semibold text-gray-900 dark:text-white">{header}</h5>
-        <h5 className="text-2xl mt-1 ml-4 text-gray-900 dark:text-white">{studentNum} Student(s)</h5>
-        <h5 className="text-2xl mt-7 ml-6 text-gray-900 dark:text-white">{level}</h5>
-      </div>
+
+      <article className="md:hover:scale-[1.02] ease-out transition-all rounded-lg border border-gray-100 bg-slate-600 hover:bg-slate-500 border-gray-800 p-4 shadow-sm transition hover:shadow-lg sm:p-6" >
+        <span className="flex justify-center inline-block rounded bg-blue-600 p-2 text-white">
+          {subject == 'physics' &&
+          <Image src={'https://cdn-icons-png.flaticon.com/512/188/188802.png'} height={100} width={100} alt='' />
+          }
+          {subject == 'chemistry' &&
+          <Image src={'https://cdn-icons-png.flaticon.com/512/2802/2802825.png'} height={100} width={100} alt='' />
+          }
+          {subject == 'biology' &&
+          <Image src={'https://cdn-icons-png.flaticon.com/512/2784/2784428.png'} height={100} width={100} alt='' />
+          }
+        </span>
+
+          <h3 className="text-3xl mt-2 font-semibold text-gray-100"> {header} </h3>
+
+        <div className="mt-4 flex flex-wrap gap-1">
+          <span className="whitespace-nowrap font-semibold rounded-full bg-purple-300 px-2.5 py-0.5 text-sm text-purple-600">
+            {studentNum} Student(s)
+          </span>
+
+          <span className="whitespace-nowrap font-semibold rounded-full bg-green-300 px-2.5 py-0.5 text-sm text-purple-600">
+            {level}
+          </span>
+    </div>
+      </article>
       </Link>
         </div>
       )
     };
     //for students
-    function TopicCard2({linkSrc, header, assignmentNum}) {
+    function TopicCard2({linkSrc, header, subject, assignmentNum, level}) {
       return (
-        <div>
+        <div className='flex justify-center'>
         <Link href={`${linkSrc}`}>
-        <div className="btn flex justify-center shadow-[0_7px_0_0px_rgb(3,105,161)] md:hover:scale-[1.02] ease-out transition-all rounded p-6 bg-gray-50 border border-gray-200 rounded-lg shadow md:hover:bg-gray-100 dark:bg-slate-600 dark:border-gray-600 md:dark:hover:bg-gray-500">
-      <h5 className="text-3xl font-semibold text-gray-900 dark:text-white">{header}</h5>
-        <h5 className="text-2xl mt-1 ml-4 text-gray-900 dark:text-white">{assignmentNum} Assignment(s) remaining</h5>
-      </div>
+
+      <article className="md:hover:scale-[1.02] ease-out transition-all rounded-lg border border-gray-100 bg-slate-600 hover:bg-slate-500 border-gray-800 p-4 shadow-sm transition hover:shadow-lg sm:p-6" >
+        <span className="flex justify-center inline-block rounded bg-blue-600 p-4 text-white">
+          {subject == 'physics' &&
+          <Image src={'https://cdn-icons-png.flaticon.com/512/188/188802.png'} height={100} width={100} alt='' />
+          }
+          {subject == 'chemistry' &&
+          <Image src={'https://cdn-icons-png.flaticon.com/512/2802/2802825.png'} height={100} width={100} alt='' />
+          }
+          {subject == 'biology' &&
+          <Image src={'https://cdn-icons-png.flaticon.com/512/2784/2784428.png'} height={100} width={100} alt='' />
+          }
+        </span>
+
+          <h3 className="text-3xl mt-2 font-semibold text-gray-100"> {header} </h3>
+
+        <div className="mt-4 flex flex-wrap gap-1">
+          <span className="whitespace-nowrap font-semibold rounded-full bg-purple-300 px-2.5 py-0.5 text-sm text-purple-600">
+            {assignmentNum} Assignment(s)
+          </span>
+          <span className="whitespace-nowrap font-semibold rounded-full bg-green-300 px-2.5 py-0.5 text-sm text-purple-600">
+            {level}
+          </span>
+    </div>
+      </article>
       </Link>
         </div>
       )
@@ -121,13 +164,11 @@ export default function Dashboard({ session }) {
           <h2 className='text-4xl dark:text-gray-100'>Your Classes:</h2>
         </div>
         <div className="flex justify-center items-center">
-        <div className="grid gap-10 mt-16 w-10/12 md:w-8/12">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 grid-cols-1 gap-10 mt-16 w-11/12 md:w-10/12">
         {classes.map((classItem) => (
-          <div key={classItem.classID} className="flex">
-            <TopicCard key={classItem.classID} level={classItem.level} header={classItem.name} linkSrc={`/class/${classItem.classID}`} studentNum={classItem.students ? classItem.students.length : 0} />
-            <div>
+          <div key={classItem.classID}>
+            <TopicCard key={classItem.classID} level={classItem.level} header={classItem.name} linkSrc={`/class/${classItem.classID}`} studentNum={classItem.students ? classItem.students.length : 0} subject={classItem.subject}/>
               <UpdateClass userID={user.id} classID={classItem.classID} subject={classItem.subject} school={classItem.school} level={classItem.level} />
-            </div>        
           </div>
           ))}
         </div>
@@ -140,23 +181,25 @@ export default function Dashboard({ session }) {
   </>
 )}
           {(!isTeacher && school) && 
-          <>
+          <div>
           <h1 className='text-4xl mt-20 dark:text-gray-100'>My Classes:</h1>
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 grid-cols-1 gap-10 w-11/12 md:w-10/12 mb-20">
           {studentClasses.map((classItem) => {
             // Find the assignments that belong to the current class and are not completed by the user
             const incompleteAssignmentsForClass = studentAssignments.filter((assignment) => (
-              assignment.classID === classItem.classID &&
+              assignment.classID === classItem.classID && assignment.questions != null &&
               !assignment.completedBy?.some((completedByItem) => completedByItem.id === user?.id)
             ));
 
             return (
-              <div key={classItem.classID} className="flex mt-10 mb-20">
+              <div key={classItem.classID} className="flex mt-10">
                 {/* Pass the number of incomplete assignments as the assignmentNum prop */}
-                <TopicCard2 key={classItem.classID} header={classItem.name} linkSrc={`/class/${classItem.classID}`} assignmentNum={incompleteAssignmentsForClass.length} />
+                <TopicCard2 key={classItem.classID} level={classItem.level} subject={classItem.subject} header={classItem.name} linkSrc={`/class/${classItem.classID}`} assignmentNum={incompleteAssignmentsForClass.length} />
               </div>
             );
           })}
-          </>
+          </div>
+          </div>
           }
 
       <div className="flex m-4 mt-4">
