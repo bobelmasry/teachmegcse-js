@@ -8,6 +8,7 @@ import { Button } from '@chakra-ui/react'
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { postData } from '../../../../../helpers/makePdf';
 
  export default function ClassPage({ assignmentData }) {
     const session = useSession()
@@ -122,7 +123,10 @@ import Image from 'next/image';
         </div>
         <div className='flex justify-start'>
         {!questionsShown && assignmentData[0].questions &&
+        <>
         <Button colorScheme='blue' onClick={() => setQuestionsShown(!questionsShown)} className='ml-96 mb-20' size='lg'>Show Questions</Button>
+        <Button colorScheme='green' onClick={() => postData(assignmentData[0].questions)} className='ml-96 mb-20' size='lg'>Download Worksheeta testing</Button>
+        </>
         }
         {questionsShown && assignmentData[0].questions &&
         <Button colorScheme='blue' onClick={() => setQuestionsShown(!questionsShown)} className='ml-96 mb-20' size='lg'>Hide Questions</Button>

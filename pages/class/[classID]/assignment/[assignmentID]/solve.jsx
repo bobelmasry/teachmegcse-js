@@ -130,7 +130,7 @@ async function updateSupabase(object, table, field, assignmentID) {
       }}
 
       getCompletedBy()
-        }, [assignmentData.assignmentID, assignmentData.user_id, user])
+        }, [assignmentData.assignmentID, assignmentData.classID, assignmentData.user_id, user])
 
      const title = `${assignmentData.name} - teachmegcse`
     return (
