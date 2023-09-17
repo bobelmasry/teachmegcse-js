@@ -1,12 +1,13 @@
-export async function postData(jsonData) {
-    const postUrl = 'https://197.37.83.246:443/';
+import { GENERATE_PDF_ENDPOINT } from "../utils/constants";
+
+export async function postData(questionData,filename) {
     const data = {
-      jsonData: jsonData, // Pass your JSON data here
+      questionData,
     };
   
     try {
       // Send the POST request
-      const response = await fetch(postUrl, {
+      const response = await fetch(GENERATE_PDF_ENDPOINT, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -20,12 +21,12 @@ export async function postData(jsonData) {
   
       // Handle the response here (e.g., download the PDF)
       const pdfBlob = await response.blob();
-  
       // Example: Create a link to download the PDF
       const pdfUrl = window.URL.createObjectURL(pdfBlob);
+      console.log(pdfUrl);
       const a = document.createElement('a');
       a.href = pdfUrl;
-      a.download = 'generated.pdf';
+      a.download = `${filename}.pdf`;
       document.body.appendChild(a);
       a.click();
       window.URL.revokeObjectURL(pdfUrl);
