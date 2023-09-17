@@ -1,1 +1,1 @@
-export const GENERATE_PDF_ENDPOINT = "http://197.37.83.246:80/generate-pdf";
+export const GENERATE_PDF_ENDPOINT = "http://192.168.1.3/generate-pdf/";

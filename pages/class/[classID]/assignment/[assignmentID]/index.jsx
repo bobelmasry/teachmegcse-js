@@ -68,7 +68,8 @@ import { postData } from '../../../../../helpers/makePdf';
     const title = `${assignmentData[0].name} | teachmegcse`
     const date = new Date(assignmentData[0].dueDate);
     const options = { month: 'long', day: 'numeric', year : 'numeric', hour: 'numeric', minute: 'numeric' };
-    const formattedDate = date.toLocaleString('en-US', options);  
+    const formattedDate = date.toLocaleString('en-US', options);
+    console.log(assignmentData[0].questions);  
      
     return (
         <>
