@@ -69,7 +69,6 @@ import { postData } from '../../../../../helpers/makePdf';
     const date = new Date(assignmentData[0].dueDate);
     const options = { month: 'long', day: 'numeric', year : 'numeric', hour: 'numeric', minute: 'numeric' };
     const formattedDate = date.toLocaleString('en-US', options);
-    console.log(assignmentData[0].questions);  
      
     return (
         <>
@@ -126,7 +125,7 @@ import { postData } from '../../../../../helpers/makePdf';
         {!questionsShown && assignmentData[0].questions &&
         <>
         <Button colorScheme='blue' onClick={() => setQuestionsShown(!questionsShown)} className='ml-96 mb-20' size='lg'>Show Questions</Button>
-        <Button colorScheme='green' onClick={() => postData(assignmentData[0].questions, title)} className='ml-96 mb-20' size='lg'>Download Worksheeta testing</Button>
+        <Button colorScheme='green' onClick={() => postData(assignmentData[0].questions, title)} className='ml-96 mb-20' size='lg'>Download Worksheet</Button>
         </>
         }
         {questionsShown && assignmentData[0].questions &&
