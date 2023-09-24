@@ -1,1 +1,2 @@
-export const GENERATE_PDF_ENDPOINT = "http://192.168.1.3/generate-pdf/";
+export const GENERATE_PDF_ENDPOINT =
+  "http://makepdf.hopto.org:8000/generate-pdf/";
