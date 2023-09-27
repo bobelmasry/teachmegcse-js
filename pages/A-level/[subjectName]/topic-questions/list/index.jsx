@@ -70,7 +70,7 @@ import { useUser } from '@supabase/auth-helpers-react'
         <h1 className="text-4xl sm:text-5xl font-bold dark:text-gray-100">List A-level {data.subjectName} Topic Questions</h1>
       </div>
       <div className="flex justify-center items-center ">
-      <div className="grid grid-rows-4 gap-11 mt-16 mb-24 w-10/12 md:w-5/12 lg:w-3/12">
+      <div className="grid grid-rows-4 gap-8 mt-16 mb-24 w-auto">
       {chapters.map((topic) => { 
           const solvedPaper = questionsSolved?.filter(question => ((question.Chapter.toString() === topic.id.toString()) && (question.Subject.toString() === str)));
           const chapterQuestions = data2.filter(question => ((question.Chapter.toString() === topic.id.toString()) && (question.Subject.toString() === str)));

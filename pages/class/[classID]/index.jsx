@@ -5,182 +5,270 @@ import Navbar from "components/navbar.jsx"
 import Headstuff from "components/headstuff.jsx"
 import "flowbite"
 import { supabase } from 'utils/supabase';
-import { useRouter } from 'next/router';
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import Link from 'next/link';
 import AssignmentModal from 'components/modals/createAssignment.jsx'
-import AddStudents from 'components/modals/addStudents.jsx'
-import { Button, Drawer } from 'antd';
-
-function SideBarHome() {
-  return (
-    <div className="flex h-screen w-1/6 flex-col mt-12 justify-between border-e bg-white">
-    <div className="px-4 py-6">
-      <span className="grid h-10 w-32 place-content-center rounded-lg bg-gray-100 text-md font-semibold text-gray-600">
-        My Classes:
-      </span>
-      <ul className="mt-6 space-y-1">
-        <li>
-          <a
-            href=""
-            className="block rounded-lg bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700"
-          >
-            General
-          </a>
-        </li>
-        <li>
-          <details className="group [&_summary::-webkit-details-marker]:hidden">
-            <summary className="flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700">
-              <span className="text-sm font-medium"> Teams </span>
-              <span className="shrink-0 transition duration-300 group-open:-rotate-180">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </span>
-            </summary>
-            <ul className="mt-2 space-y-1 px-4">
-              <li>
-                <a
-                  href=""
-                  className="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
-                >
-                  Banned Users
-                </a>
-              </li>
-              <li>
-                <a
-                  href=""
-                  className="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
-                >
-                  Calendar
-                </a>
-              </li>
-            </ul>
-          </details>
-        </li>
-        <li>
-          <a
-            href=""
-            className="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
-          >
-            Billing
-          </a>
-        </li>
-        <li>
-          <a
-            href=""
-            className="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
-          >
-            Invoices
-          </a>
-        </li>
-      </ul>
-    </div>
-  </div>
-)
-};
-
-function TopicCard3({header, score}) {
-    return (
-    <div className='mt-8'>
-    <div className="btn flex justify-center shadow-[0_7px_0_0px_rgb(3,105,161)] md:hover:scale-[1.02] ease-out transition-all rounded p-6 bg-gray-50 border border-gray-200 rounded-lg shadow md:hover:bg-gray-100 dark:bg-slate-600 dark:border-gray-600 md:dark:hover:bg-gray-500">
-  <h5 className="text-3xl font-semibold text-gray-900 dark:text-white">{header}</h5>
-    <h5 className="text-lg mt-1 ml-6 text-gray-900 dark:text-white">Score : {score}</h5>
-  </div>
-    </div>
-  )
-};
-
-function TopicCard4({linkSrc, header, dueDate}) {
-  const date = new Date(dueDate);
-  const options = { month: 'long', day: 'numeric', year : 'numeric' };
-  const formattedDate = date.toLocaleString('en-US', options);
-    return (
-    <div className='mt-4 w-full'>
-    <Link href={`${linkSrc}`}>
-    <div className="btn md:hover:scale-[1.02] ease-out transition-all rounded p-6 border rounded-lg shadow bg-slate-600 border-gray-600 md:hover:bg-gray-400">
-  <h5 className="text-md font-semibold text-gray-900 dark:text-white">{header}</h5>
-    <span className="text-sm text-gray-900 dark:text-white">Due : {formattedDate}</span>
-  </div>
-  </Link>
-    </div>
-  )
-};
-
-function TopicCard5({linkSrc, header, dueDate, studentNum}) {
-  const date = new Date(dueDate);
-  const options = { month: 'long', day: 'numeric', year : 'numeric' };
-  const formattedDate = date.toLocaleString('en-US', options);
-    return (
-      <div className='mt-4 w-full'>
-      <Link href={`${linkSrc}`}>
-      <div className="btn md:hover:scale-[1.02] ease-out transition-all rounded p-6 border rounded-lg shadow bg-slate-600 border-gray-600 md:hover:bg-gray-400">
-  <h5 className="text-md font-semibold text-gray-900 dark:text-white">{header}</h5>
-    <span className="text-sm text-gray-900 dark:text-white">Due : {formattedDate}</span>
-    <h5 className="text-sm text-gray-900 dark:text-white">Completed by : {studentNum}</h5>
-  </div>
-  </Link>
-    </div>
-  )
-};
+import Image from 'next/image';
+import findStudentClasses from 'utils/findStudentClasses.js'
 
  export default function ClassPage({ classData }) {
+  const [classes, setClasses] = useState([])
 
-  const router = useRouter();
+  function SideBarHome({isTeacher, studentAssignments, classData, assignments}) {
+    return (
+      <div className="flex h-screen sm:w-1/4 md:w-1/6 lg:w-1/9 flex-col mt-12 justify-between border-e bg-slate-700">
+      <div className="px-4 py-6">
+        <ul className="space-y-1">
+          <li>
+            <div className="flex justify-center">
+          <h1 className='text-2xl font-bold mb-4 text-white'>{classData[0].name}</h1>
+          </div>
+          </li>
+          <li>
+            <details className="group [&_summary::-webkit-details-marker]:hidden">
+              <summary className="flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 bg-gray-100 hover:text-gray-700">
+                <span className="text-md font-medium"> Other Classes </span>
+                <span className="shrink-0 transition duration-300 group-open:-rotate-180">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </summary>
+              {classes.map((classItem) => (
+            <div key={classItem.classID}>
+              <ClassCard key={classItem.classID} level={classItem.level} header={classItem.name} linkSrc={`/class/${classItem.classID}`} studentNum={classItem.students ? classItem.students.length : 0} subject={classItem.subject}/>
+            </div>
+            ))}
+            </details>
+          </li>
+          {!isTeacher &&
+          <>
+          <li>
+          <details className="group mt-2 [&_summary::-webkit-details-marker]:hidden" open={true}>
+              <summary className="flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 bg-gray-100 hover:text-gray-700">
+                <span className="text-md font-medium"> Remaining Assignments </span>
+                <span className="shrink-0 transition duration-300 group-open:-rotate-180">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </summary>
+                {studentAssignments.length > 0 && (
+                  studentAssignments.map((Assignment) => {
+                    const isCompleted = Assignment.completedBy && Assignment.completedBy.some((completedByUser) => completedByUser.id === user?.id);
+                    
+                    // Show assignments that are not completed
+                    if (!isCompleted && Assignment.questions != null) {
+                      return (
+                        <div key={Assignment.assignmentID} className="flex justify-center">
+                          <TopicCard4 dueDate={Assignment.dueDate} header={Assignment.name} linkSrc={`/class/${classData[0]?.classID}/assignment/${Assignment.assignmentID}/solve`} />      
+                        </div>
+                      );
+                    }
+                    
+                    return null; // Return null for completed assignments to skip rendering them
+                  })
+                )}
+            </details>
+            </li>
+                    <li>
+                    <details className="group mt-2 [&_summary::-webkit-details-marker]:hidden">
+                        <summary className="flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 bg-gray-100 hover:text-gray-700">
+                          <span className="text-md font-medium"> Completed Assignments </span>
+                          <span className="shrink-0 transition duration-300 group-open:-rotate-180">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="h-5 w-5"
+                              viewBox="0 0 20 20"
+                              fill="currentColor"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                clipRule="evenodd"
+                              />
+                            </svg>
+                          </span>
+                        </summary>
+                        {studentAssignments.filter((studentAssignment) => (
+                          // Show assignments that are completed by the user
+                          studentAssignment.completedBy && studentAssignment.completedBy.some((completedByItem) => completedByItem.id === user?.id)
+                        )).map((studentAssignment) => {
+                          // Find the completedBy object for the current user
+                          const completedByUser = studentAssignment.completedBy.find((completedByItem) => (
+                            completedByItem.id === user?.id
+                          ));
+  
+                          // Calculate the score as Score / numOfQuestions
+                          const score = completedByUser ? `${completedByUser.Score} / ${completedByUser.numOfQuestions}` : "Not Completed";
+  
+                          return (
+                            <div key={studentAssignment.assignmentID} className="flex justify-center">
+                              <TopicCard3 key={studentAssignment.assignmentID} header={studentAssignment.name} score={score} />      
+                            </div>
+                          );
+                        })}
+                      </details>
+                      </li>
+                      </>
+            }
+            {isTeacher &&
+            <>
+                    <li>
+          <details className="group mt-2 [&_summary::-webkit-details-marker]:hidden" open={true}>
+              <summary className="flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 bg-gray-100 hover:text-gray-700">
+                <span className="text-md font-medium"> Assignments </span>
+                <span className="shrink-0 transition duration-300 group-open:-rotate-180">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </summary>
+              {assignments.map((Assignment) => (
+                    <div key={Assignment.assignmentID} className="flex justify-center">
+                      <TopicCard5 key={Assignment.assignmentID} studentNum={Assignment.completedBy?.length ? Assignment.completedBy.length : 0} dueDate={Assignment.dueDate} header={Assignment.name} linkSrc={`/class/${classData[0].classID}/assignment/${Assignment.assignmentID}`} />
+                    </div>
+                  ))}
+            </details>
+            </li>
+            </>
+            }
+            <li>
+            <Link href={`/class/${classData[0].classID}/student`} className="mt-2 block rounded-lg px-4 py-2 text-md font-medium bg-gray-100 hover:text-gray-700">
+              View Students
+            </Link>
+          </li>
+          <li>
+          <AssignmentModal subject={classData[0]?.subject} level={classData[0]?.level} userID={user?.id} classID={classData[0]?.classID} />
+          </li>
+        </ul>
+      </div>
+    </div>
+  )
+  };
+  
+  function TopicCard3({header, score}) {
+    return (
+      <div className='mt-4 mb-4 w-full'>
+      <div className="btn md:hover:scale-[1.02] ease-out transition-all rounded p-6 border rounded-lg shadow bg-slate-600 border-gray-600 md:hover:bg-gray-400">
+    <h5 className="text-md font-semibold text-gray-900 dark:text-white">{header}</h5>
+      <span className="text-sm text-gray-900 dark:text-white">Score : {score}</span>
+    </div>
+      </div>
+    )
+  };
+  
+  function ClassCard({linkSrc, header, studentNum, level, subject}) {
+    return (
+      <div className="flex mt-2 justify-center">
+        <Link href={`${linkSrc}`}>
+          <article className="w-60 gap-4 md:hover:scale-[1.02] ease-out transition-all rounded-lg border border-gray-100 bg-slate-600 hover:bg-slate-500 border-gray-800 p-2 shadow-sm transition hover:shadow-lg">
+            <div className='flex gap-4'>
+            <span className="flex justify-center inline-block rounded bg-blue-600 p-4 text-white">
+              {subject === 'physics' && (
+                <Image src={'https://cdn-icons-png.flaticon.com/512/188/188802.png'} height={30} width={30} alt="" />
+              )}
+              {subject === 'chemistry' && (
+                <Image src={'https://cdn-icons-png.flaticon.com/512/2802/2802825.png'} height={30} width={30} alt="" />
+              )}
+              {subject === 'biology' && (
+                <Image src={'https://cdn-icons-png.flaticon.com/512/2784/2784428.png'} height={30} width={30} alt="" />
+              )}
+            </span>
+  
+            <h3 className="text-lg font-semibold text-gray-100"> {header} </h3>
+            </div>
+            <div className="mt-4 flex flex-wrap gap-1">
+            <span className="whitespace-nowrap font-semibold rounded-full bg-purple-300 px-2.5 py-0.5 text-sm text-purple-600">
+              {studentNum} Student(s)
+            </span>
+  
+            <span className="whitespace-nowrap font-semibold rounded-full bg-green-300 px-2.5 py-0.5 text-sm text-purple-600">
+              {level}
+            </span>
+            </div>
+          </article>
+        </Link>
+      </div>
+    );
+  }
+  
+  function TopicCard4({linkSrc, header, dueDate}) {
+    const date = new Date(dueDate);
+    const options = { month: 'long', day: 'numeric', year : 'numeric' };
+    const formattedDate = date.toLocaleString('en-US', options);
+      return (
+      <div className='mt-4 mb-4 w-full'>
+      <Link href={`${linkSrc}`}>
+      <div className="btn md:hover:scale-[1.02] ease-out transition-all rounded p-6 border rounded-lg shadow bg-slate-600 border-gray-600 md:hover:bg-gray-400">
+    <h5 className="text-md font-semibold text-gray-900 dark:text-white">{header}</h5>
+      <span className="text-sm text-gray-900 dark:text-white">Due : {formattedDate}</span>
+    </div>
+    </Link>
+      </div>
+    )
+  };
+  
+  function TopicCard5({linkSrc, header, dueDate, studentNum}) {
+    const date = new Date(dueDate);
+    const options = { month: 'long', day: 'numeric', year : 'numeric' };
+    const formattedDate = date.toLocaleString('en-US', options);
+      return (
+        <div className='mt-4 w-full'>
+        <Link href={`${linkSrc}`}>
+        <div className="btn md:hover:scale-[1.02] ease-out transition-all rounded p-6 border rounded-lg shadow bg-slate-600 border-gray-600 md:hover:bg-gray-400">
+    <h5 className="text-md font-semibold text-gray-900 dark:text-white">{header}</h5>
+      <span className="text-sm text-gray-900 dark:text-white">Due : {formattedDate}</span>
+      <h5 className="text-sm text-gray-900 dark:text-white">Completed by : {studentNum}</h5>
+    </div>
+    </Link>
+      </div>
+    )
+  };
+
   const user = useUser()
   const session = useSession()
-  const [studentsAvailable, setStudentsAvailable] = useState([])
   const [assignments, setAssignments] = useState([])
   const [isTeacher, setIsTeacher] = useState(false)
   const [studentAssignments, setStudentAssignments] = useState([])
 
   useEffect(() => {
-    async function addStudents() {
-      
-      let { data, error, status } = await supabase
-        .from('profiles')
-        .select(`*`)
-        .eq('school', classData[0].school)
-        .eq('isTeacher', false);
-    
-      const studentsNotInClass = data.filter((student) => {
-        if (classData[0].students) {
-          return !classData[0].students.includes(student.id);
-        }
-        return true;
-      });
-      const studentsInClass = data.filter((student) => {
-        if (classData[0].students) {
-          return classData[0].students.includes(student.id);
-        }
-        return true;
-      });
-    
-      setStudentsAvailable(studentsNotInClass);
-      setStudentData(studentsInClass);
-    }
-
-    addStudents()
 
     async function getAssignments() {
       let { data, error, status } = await supabase
         .from('assignments')
         .select(`*`)
         .eq('classID', classData[0].classID)
-    
-      setAssignments(data);
-      setStudentAssignments(data);
-    }
 
+        setAssignments(data);
+        setStudentAssignments(data);  
+  }
     getAssignments()
     async function getInitial() {
       if (user && user.id) {
@@ -190,68 +278,26 @@ function TopicCard5({linkSrc, header, dueDate, studentNum}) {
       }
     }
     getInitial()
-  }, [classData, user]);
-
-    async function removeAStudent(studentID) {
-      const updatedStudents = classData[0].students.filter((student) => student !== studentID);
-      const { error } = await supabase
-      .from('classes')
-      .update({ students: updatedStudents })
-      .eq('classID', classData[0].classID)
-      router.reload()
+    async function getClasses(){
+      if (session && session.user){
+      const userId = session.user.id
+      if (isTeacher) {
+        const { data: classesData, error: classesError } = await supabase
+              .from('classes')
+              .select('*')
+              .eq('user_id', userId);
+    
+      setClasses(classesData)
+      }
+      else if (!isTeacher) {
+        const studentClasses = await findStudentClasses(userId);
+        setClasses(studentClasses)
+      }
     }
+  }
+    getClasses()
+  }, [classData, isTeacher, session, user]);
 
-    function SideBarAnt() {
-      const [open, setOpen] = useState(false);
-      const showDrawer = () => {
-        setOpen(true);
-      };
-      const onClose = () => {
-        setOpen(false);
-      };
-      return (
-        <>
-          <Button type="primary" style={{"backgroundColor" : "green"}} size='large' onClick={showDrawer} className='mt-8'> Open Assignment Window </Button>
-          <Drawer title={classData[0]?.name.toUpperCase()} style={{"backgroundColor" : "gray"}} placement="left" onClose={onClose} open={open}>
-            {isTeacher && (
-              <>
-                <h1 className='text-gray-700 capitalize text-2xl font-semibold'>Class Assignments:</h1>
-                {assignments.map((Assignment) => (
-                  <div key={Assignment.assignmentID} className="flex justify-center">
-                    <TopicCard5 key={Assignment.assignmentID} studentNum={Assignment.completedBy?.length ? Assignment.completedBy.length : 0} dueDate={Assignment.dueDate} header={Assignment.name} linkSrc={`/class/${classData[0].classID}/assignment/${Assignment.assignmentID}`} />
-                  </div>
-                ))}
-                <AssignmentModal subject={classData[0]?.subject} level={classData[0]?.level} userID={user?.id} classID={classData[0]?.classID} />
-              </>
-            )}
-            {!isTeacher && (
-              <>
-              <h1 className='text-gray-700 text-2xl font-semibold'>My Remaining Assignments:</h1>
-              {studentAssignments.length > 0 && (
-                studentAssignments.map((Assignment) => {
-                  const isCompleted = Assignment.completedBy && Assignment.completedBy.some((completedByUser) => completedByUser.id === user?.id);
-                  
-                  // Show assignments that are not completed
-                  if (!isCompleted && Assignment.questions != null) {
-                    return (
-                      <div key={Assignment.assignmentID} className="flex mt-16 mb-16 justify-center">
-                        <TopicCard4 dueDate={Assignment.dueDate} header={Assignment.name} linkSrc={`/class/${classData[0].classID}/assignment/${Assignment.assignmentID}/solve`} />      
-                      </div>
-                    );
-                  }
-                  
-                  return null; // Return null for completed assignments to skip rendering them
-                })
-              )}
-              </>
-            )}
-            <hr className="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700"></hr>
-          </Drawer>
-        </>
-      );
-    };
-
-    const [studentData, setStudentData] = useState([]);
     const title = `${classData[0].name} | teachmegcse`
         
     return (
@@ -265,103 +311,7 @@ function TopicCard5({linkSrc, header, dueDate, studentNum}) {
         </Head>
         <Navbar session={session} />
         <div className="flex">
-        {isTeacher &&
-          <>
-          <div className="block ml-36">
-        <div className="flex justify-center">
-        <h1 className='text-4xl font-bold mt-20 text-white'>{classData[0].name}</h1>
-        </div>
-        <div className="flex mt-12 justify-center">
-          <div className="w-3/10">
-          {(!classData[0].students || classData[0].students.length === 0) &&
-          <h2 className='text-3xl mt-8 dark:text-gray-100'>Huh, you {"don't"} seem to have any Students</h2>
-          }
-          {(classData[0].students && classData[0].students.length != 0) &&
-          <div className="flex justify-center">
-                <table className="w-full text-lg text-left text-gray-500 dark:text-gray-400">
-                    <thead className="text-lg text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                      <tr>
-                      <th scope="col" className="sm:px-4 px-2 py-3">
-                          username
-                        </th>
-                        <th scope="col" className="sm:px-4 px-2 py-3">
-                          Questions Solved
-                        </th>
-                        <th scope="col" className="sm:px-4 px-2 py-3">
-                          Questions Correct
-                        </th>
-                        <th scope="col" className="sm:px-4 px-2 py-3">
-                          Percentage
-                        </th>
-                        <th scope="col" className="sm:px-4 px-2 py-3">
-                          Edit
-                        </th>
-                      </tr>
-                    </thead>
-          {studentData.map((student) => (
-              <>
-                    <tbody key={student.id}>
-                      <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                      <td className="px-10 py-4">
-                        <Link href={`/class/${classData[0].classID}/student/${student.id}`} className='text-blue-600 font-semibold text-xl underline hover:no-underline'>
-                        {student.username}
-                        </Link>
-                      </td>
-                        <td className="px-10 ml-8 py-4">
-                        {student.questionsSolved?.filter((question) => question.Subject == 'physics').length || 0}
-                        </td>
-                        <td className="px-10 ml-8 py-4">
-                        {student.questionsSolved?.filter((question) => question.Subject == 'physics' && (question.Correct.toString() == 'true')).length || 0}
-                        </td>
-                        <td className="sm:px-4 px-2 py-4">
-                        {`${Math.round(((student.questionsSolved?.filter((question) => (question.Subject == 'physics') && (question.Correct.toString() == 'true')).length/student.questionsSolved?.filter((question) => question.Subject == 'physics').length) * 10000)) / 100} %`}
-                        </td>
-                        <td className="sm:px-4 px-2 py-4">
-                          <DeleteOutlineOutlinedIcon onClick={() => removeAStudent(student.id)} fontSize="large" className='cursor-pointer ease-out transition-all hover:bg-gray-600 rounded rounded-xl'/>
-                        </td>
-                      </tr>
-                    </tbody>
-              </>
-          ))}
-          </table>            
-          </div>
-          }
-        <AddStudents studentsAvailable={studentsAvailable} classData={classData} user={user} />
-          </div>
-        </div>
-        <SideBarAnt />
-        </div>
-        </>
-        }
-        {!isTeacher &&
-        <>
-        <div className="block ml-96">
-        <div className="flex justify-center">
-        <h1 className='text-4xl font-bold mt-20 text-white'>{classData[0].name}</h1>
-        </div>
-        <h1 className='mt-20 flex justify-center text-4xl font-semibold text-white'>My completed assignments : </h1>
-        {studentAssignments.filter((studentAssignment) => (
-          // Show assignments that are completed by the user
-          studentAssignment.completedBy && studentAssignment.completedBy.some((completedByItem) => completedByItem.id === user?.id)
-        )).map((studentAssignment) => {
-          // Find the completedBy object for the current user
-          const completedByUser = studentAssignment.completedBy.find((completedByItem) => (
-            completedByItem.id === user?.id
-          ));
-
-          // Calculate the score as Score / numOfQuestions
-          const score = completedByUser ? `${completedByUser.Score} / ${completedByUser.numOfQuestions}` : "Not Completed";
-
-          return (
-            <div key={studentAssignment.assignmentID} className="flex mt-16 mb-16 justify-center">
-              <TopicCard3 key={studentAssignment.assignmentID} header={studentAssignment.name} score={score} />      
-            </div>
-          );
-        })}
-        <SideBarAnt />
-        </div>
-      </>
-        }
+          <SideBarHome isTeacher={isTeacher} studentAssignments={studentAssignments} classData={classData} assignments={assignments} />
         </div>
         </>
     )

@@ -47,7 +47,7 @@ export default function AssignmentModal ({userID, classID, subject, level}) {
 
     return (
         <div>
-<Button colorScheme='blue' margin={16} size='lg' onClick={showModal}> Create an Assignment </Button>
+<Button colorScheme='blue' margin={4} size='md' onClick={showModal}> Create an Assignment </Button>
 {isModalOpen && 
 <Modal title="Create an Assignment" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} footer={null}>
           <form className="space-y-4 md:space-y-5 p-8">

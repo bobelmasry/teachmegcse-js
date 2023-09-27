@@ -25,7 +25,7 @@ export default function Special_home() {
                 Subjects with Revision Notes
               </dt>
               <dd className="text-4xl font-extrabold text-blue-600 md:text-5xl">
-                1
+                2
               </dd>
             </div>
             <div className="flex flex-col bg-gray-300 rounded-lg border border-gray-100 px-4 py-8 text-center">
