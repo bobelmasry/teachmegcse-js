@@ -6,8 +6,6 @@ export default async function handler(req, res) {
   const data = req.body;
   res.status(200);
 
-  console.log(endpoint);
-
   try {
     const response = await fetch(endpoint, {
       method: "POST",

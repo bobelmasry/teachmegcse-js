@@ -26,7 +26,7 @@ export async function postData(questionData, filename) {
     console.log(pdfUrl);
     const a = document.createElement("a");
     a.href = pdfUrl;
-    a.download = `${filename}.pdf`;
+    a.download = `${filename}.zip`;
     document.body.appendChild(a);
     a.click();
     window.URL.revokeObjectURL(pdfUrl);
