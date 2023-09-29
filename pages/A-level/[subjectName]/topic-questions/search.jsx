@@ -23,7 +23,7 @@ import { useRouter } from 'next/router';
         const data2 = router.query;
         const subject = data2.subjectName
 
-        const filteredData = data.filter(item => item.subject === subject);
+        const filteredData = data.filter(item => (item.subject === subject) && (item.level === 'A-level'));
   
       if (filteredData.length === 0) {
         throw new Error('chapters not found');
@@ -221,7 +221,7 @@ import { useRouter } from 'next/router';
       const fileData = await fs.readFile(filePath, 'utf-8');
       const data = JSON.parse(fileData);
   
-      const filteredData = data.filter(item => item.Subject === params.subjectName);
+      const filteredData = data.filter(item => (item.Subject === params.subjectName) && (item.Level === 'AS' || item.Level === 'A2'));
   
       if (filteredData.length === 0) {
         throw new Error('chapters not found');

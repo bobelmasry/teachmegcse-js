@@ -136,7 +136,7 @@ import Link from 'next/link';
         }
 
         const session = useSession()
-        const chapterString = chapters.filter(item => (item.id === questionArray[0].Chapter) && (item.subject === questionArray[0].Subject));
+        const chapterString = chapters.filter(item => (item.id === questionArray[0].Chapter) && (item.subject === questionArray[0].Subject) && (item.level === 'A-level'));
         const chapterString2 = chapterString[0].name
 
         async function handleAnswer(event) {
@@ -150,7 +150,8 @@ import Link from 'next/link';
                 Chapter: currentQuestion.Chapter,
                 QuestionName: currentQuestion.questionName,
                 Subject : currentQuestion.Subject,
-                Correct : true
+                Correct : true,
+                Level : currentQuestion.Level
               }
                 updateSupabase(dataToUpdate, 'profiles', 'questionsSolved', user)
             } else {
@@ -159,7 +160,8 @@ import Link from 'next/link';
                 Chapter: currentQuestion.Chapter,
                 QuestionName: currentQuestion.questionName,
                 Subject : currentQuestion.Subject,
-                Correct : false
+                Correct : false,
+                Level : currentQuestion.Level
               }
                 updateSupabase(dataToUpdate, 'profiles', 'questionsSolved', user, null, null, false)
                 }
@@ -273,9 +275,10 @@ import Link from 'next/link';
   export async function getStaticProps({ params }) {
     let { data } = await supabase
     .from('questions')
-    .select(`*`)
+    .select('*')
     .eq('Subject', params.subjectName)
     .eq('Chapter', params.chapterNum)
+    .like('Level', '%A%')
 
       if (data.length === 0) {
         throw new Error('Question not found');

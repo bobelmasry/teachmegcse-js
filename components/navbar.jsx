@@ -21,7 +21,7 @@ export default function Navbar({ session }) {
       <div className="max-w-screen-xl flex flex-wrap items-center justify-around mx-auto p-4">
         <Link className="flex items-center" href="/">
           <Image
-            src="./logo.svg"
+            src="/logo.svg"
             className="h-8 mr-3"
             alt="Logo"
             height={50}

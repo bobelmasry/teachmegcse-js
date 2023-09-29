@@ -14,12 +14,9 @@ import { supabase } from 'utils/supabase';
     function SubjectPage({questionArray}) {
         const router = useRouter();
         const data  = router.query;
-        const chapterNum = data.chapterNum
-        const subject = data.subjectName
         const session = useSession()
-        const chapterString = chapters.filter(item => (item.id === questionArray[0].Chapter) && (item.subject === questionArray[0].Subject));
+        const chapterString = chapters.filter(item => (item.id === questionArray[0].Chapter) && (item.subject === questionArray[0].Subject) && (item.level === 'A-level'));
         const chapterString2 = chapterString[0].name
-        const title = `A-level ${questionArray[0].Subject} Topic Questions ${chapterString2}`
         const str = data.subjectName;
         const str2 = str.charAt(0).toUpperCase() + str.slice(1);
         const title2 = `A-level ${str2} Topic Questions`
@@ -58,6 +55,7 @@ import { supabase } from 'utils/supabase';
     .select(`*`)
     .eq('Subject', params.subjectName)
     .eq('Chapter', params.chapterNum)
+    .like('Level', '%A%')
 
       if (data.length === 0) {
         throw new Error('Question not found');
