@@ -7,18 +7,18 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
     export async function getStaticPaths() {
-      const data2 = data.filter(subject => (subject.Level.toString() === "A-level"));
+      const data2 = data.filter(paper => (paper.Level.toString() === "IGCSE"));
 
-      const paths = data2.map(subject => ({
-        params: { subjectName: subject.subjectName.toString(),
-                  year: subject.year.toString(),
-                 paperName : subject.slug.toString()}
+      const paths = data2.map(paper => ({
+        params: { subjectName: paper.subjectName.toString(),
+                  year: paper.year.toString(),
+                 paperName : paper.slug.toString()}
       }));
       return { paths, fallback: false };
     }
 
 export async function getStaticProps({params}) {
-  const paper = data.filter(subject => (subject.subjectName.toString() === params.subjectName) && (subject.year.toString() === params.year) && (subject.slug.toString() === params.paperName) && (subject.Level.toString() === "A-level"));
+  const paper = data.filter(subject => (subject.subjectName.toString() === params.subjectName) && (subject.year.toString() === params.year) && (subject.slug.toString() === params.paperName) && (subject.Level.toString() === "IGCSE"));
   return {
     props: {
       paper
@@ -50,8 +50,8 @@ export default function SubjectPage({paper}) {
       <Head>
         <title>{title}</title>
         <meta name="description" content={`${paper[0].slug} ${paper[0].subjectName} ${paper[0].year} Past Paper`}></meta>
-        <meta name="keywords" content={`teachmegcse, teach me gcse, A-level revision notes, A-level past papers, A-level topic questions, 
-    A-level ${paper[0].subjectName} ${paper[0].year} past papers,${paper[0].slug},${paper[0].synonym}`}></meta>
+        <meta name="keywords" content={`teachmegcse, teach me gcse, IGCSE revision notes, IGCSE past papers, IGCSE topic questions, 
+    IGCSE ${paper[0].subjectName} ${paper[0].year} past papers,${paper[0].slug},${paper[0].synonym}`}></meta>
         <Headstuff />
       </Head>
       <Navbar session={session} />
@@ -60,10 +60,10 @@ export default function SubjectPage({paper}) {
               <div key={1}>
                 <div className="mt-24 mb-16">
                   {(paper[i].isMs.toString() == 'False') &&
-                  <h1 className="sm:text-5xl text-3xl tracking-tight font-bold ml-12 sm:ml-48 mb-8 dark:text-gray-100">{paper[i].slug}<Link className='text-blue-600 ml-4 underline hover:no-underline' href={`/A-level/${paper[i].subjectName}/${paper[i].year}/${msName}`}>MS</Link></h1>
+                  <h1 className="sm:text-5xl text-3xl tracking-tight font-bold ml-12 sm:ml-48 mb-8 dark:text-gray-100">{paper[i].slug}<Link className='text-blue-600 ml-4 underline hover:no-underline' href={`/IGCSE/${paper[i].subjectName}/${paper[i].year}/${msName}`}>MS</Link></h1>
                   }
                   {(paper[i].isMs.toString() == 'True') &&
-                  <h1 className="sm:text-5xl text-3xl tracking-tight font-bold ml-12 sm:ml-48 mb-8 dark:text-gray-100">{paper[i].slug}<Link className='text-blue-600 ml-4 underline hover:no-underline' href={`/A-level/${paper[i].subjectName}/${paper[i].year}/${msName}`}>QP</Link></h1>
+                  <h1 className="sm:text-5xl text-3xl tracking-tight font-bold ml-12 sm:ml-48 mb-8 dark:text-gray-100">{paper[i].slug}<Link className='text-blue-600 ml-4 underline hover:no-underline' href={`/IGCSE/${paper[i].subjectName}/${paper[i].year}/${msName}`}>QP</Link></h1>
                   }
                   <div className="flex justify-center items-center mt-4">
                     <object key={1} data={paper[i].src} type="application/pdf" width="90%" height="720px"></object>
