@@ -73,7 +73,7 @@ import { useUser } from '@supabase/auth-helpers-react'
       <div className="grid grid-rows-4 gap-8 mt-16 mb-24 w-auto">
       {chapters.map((topic) => { 
           const solvedPaper = questionsSolved?.filter(question => ((question.Chapter.toString() === topic.id.toString()) && (question.Subject.toString() === str) && (question.Level2?.toString() === 'A-level')));
-          const chapterQuestions = data2.filter(question => ((question.Chapter.toString() === topic.id.toString()) && (question.Subject.toString() === str)));
+          const chapterQuestions = data2.filter(question => ((question.Chapter.toString() === topic.id.toString()) && (question.Subject.toString() === str)&& (question.Level.toString() === ("AS") || question.Level.toString() === "A2")));
           let amountSolved = Array.isArray(solvedPaper) ? solvedPaper.length : 0
           let totalAmount = chapterQuestions.length
 
