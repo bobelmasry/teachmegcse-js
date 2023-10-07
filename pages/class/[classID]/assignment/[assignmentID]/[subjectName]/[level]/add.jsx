@@ -339,7 +339,7 @@ import Link from 'next/link';
       const fileData = await fs.readFile(filePath, 'utf-8');
       const data = JSON.parse(fileData);
   
-      const filteredData = data.filter((item) => item.Subject === params.subjectName);
+      const filteredData = data.filter((question) => (question.Subject === params.subjectName) && (question.Level === params.level));
   
       if (filteredData.length === 0) {
         throw new Error('Chapters not found');

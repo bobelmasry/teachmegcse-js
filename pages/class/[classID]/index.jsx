@@ -25,14 +25,14 @@ import findStudentClasses from 'utils/findStudentClasses.js'
           </li>
           <li>
             <details className="group [&_summary::-webkit-details-marker]:hidden">
-              <summary className="flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 bg-gray-100 hover:text-gray-700">
-                <span className="text-md font-medium"> Other Classes </span>
+              <summary className="flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 bg-gray-100">
+                <span className="text-md font-medium text-black"> Other Classes </span>
                 <span className="shrink-0 transition duration-300 group-open:-rotate-180">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-5 w-5"
                     viewBox="0 0 20 20"
-                    fill="currentColor"
+                    fill="black"
                   >
                     <path
                       fillRule="evenodd"
@@ -54,13 +54,13 @@ import findStudentClasses from 'utils/findStudentClasses.js'
           <li>
           <details className="group mt-2 [&_summary::-webkit-details-marker]:hidden" open={true}>
               <summary className="flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 bg-gray-100 hover:text-gray-700">
-                <span className="text-md font-medium"> Remaining Assignments </span>
+                <span className="text-md font-medium text-black"> Remaining Assignments </span>
                 <span className="shrink-0 transition duration-300 group-open:-rotate-180">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-5 w-5"
                     viewBox="0 0 20 20"
-                    fill="currentColor"
+                    fill="black"
                   >
                     <path
                       fillRule="evenodd"
@@ -90,15 +90,15 @@ import findStudentClasses from 'utils/findStudentClasses.js'
             </li>
                     <li>
                     <details className="group mt-2 [&_summary::-webkit-details-marker]:hidden">
-                        <summary className="flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 bg-gray-100 hover:text-gray-700">
-                          <span className="text-md font-medium"> Completed Assignments </span>
+                        <summary className="flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 bg-gray-100">
+                          <span className="text-md font-medium text-black"> Completed Assignments </span>
                           <span className="shrink-0 transition duration-300 group-open:-rotate-180">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               className="h-5 w-5"
                               viewBox="0 0 20 20"
-                              fill="currentColor"
-                            >
+                              fill="black"
+                              >
                               <path
                                 fillRule="evenodd"
                                 d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
@@ -134,13 +134,13 @@ import findStudentClasses from 'utils/findStudentClasses.js'
                     <li>
           <details className="group mt-2 [&_summary::-webkit-details-marker]:hidden" open={true}>
               <summary className="flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 bg-gray-100 hover:text-gray-700">
-                <span className="text-md font-medium"> Assignments </span>
-                <span className="shrink-0 transition duration-300 group-open:-rotate-180">
+                <span className="text-md font-medium text-black"> Assignments </span>
+                <span className="shrink-0 transition duration-300 group-open:-rotate-180 ">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-5 w-5"
                     viewBox="0 0 20 20"
-                    fill="currentColor"
+                    fill="black"
                   >
                     <path
                       fillRule="evenodd"
@@ -160,7 +160,7 @@ import findStudentClasses from 'utils/findStudentClasses.js'
             </>
             }
             <li>
-            <Link href={`/class/${classData[0].classID}/student`} className="mt-2 block rounded-lg px-4 py-2 text-md font-medium bg-gray-100 hover:text-gray-700">
+            <Link href={`/class/${classData[0].classID}/student`} className="mt-2 block rounded-lg px-4 py-2 text-md font-medium bg-gray-100 text-black hover:text-gray-700">
               View Students
             </Link>
           </li>
@@ -176,7 +176,7 @@ import findStudentClasses from 'utils/findStudentClasses.js'
   function TopicCard3({header, score}) {
     return (
       <div className='mt-4 mb-4 w-full'>
-      <div className="btn md:hover:scale-[1.02] ease-out transition-all rounded p-6 border rounded-lg shadow bg-slate-600 border-gray-600 md:hover:bg-gray-400">
+      <div className="btn md:hover:scale-[1.02] ease-out transition-all rounded p-6 border rounded-lg shadow bg-slate-600 border-gray-600 md:hover:bg-slate-500">
     <h5 className="text-md font-semibold text-gray-900 dark:text-white">{header}</h5>
       <span className="text-sm text-gray-900 dark:text-white">Score : {score}</span>
     </div>
@@ -226,7 +226,7 @@ import findStudentClasses from 'utils/findStudentClasses.js'
       return (
       <div className='mt-4 mb-4 w-full'>
       <Link href={`${linkSrc}`}>
-      <div className="btn md:hover:scale-[1.02] ease-out transition-all rounded p-6 border rounded-lg shadow bg-slate-600 border-gray-600 md:hover:bg-gray-400">
+      <div className="btn md:hover:scale-[1.02] ease-out transition-all rounded p-6 border rounded-lg shadow bg-slate-600 border-gray-600 md:hover:bg-slate-500">
     <h5 className="text-md font-semibold text-gray-900 dark:text-white">{header}</h5>
       <span className="text-sm text-gray-900 dark:text-white">Due : {formattedDate}</span>
     </div>
@@ -242,7 +242,7 @@ import findStudentClasses from 'utils/findStudentClasses.js'
       return (
         <div className='mt-4 w-full'>
         <Link href={`${linkSrc}`}>
-        <div className="btn md:hover:scale-[1.02] ease-out transition-all rounded p-6 border rounded-lg shadow bg-slate-600 border-gray-600 md:hover:bg-gray-400">
+        <div className="btn md:hover:scale-[1.02] ease-out transition-all rounded p-6 border rounded-lg shadow bg-slate-600 border-gray-600 md:hover:bg-slate-500">
     <h5 className="text-md font-semibold text-gray-900 dark:text-white">{header}</h5>
       <span className="text-sm text-gray-900 dark:text-white">Due : {formattedDate}</span>
       <h5 className="text-sm text-gray-900 dark:text-white">Completed by : {studentNum}</h5>

@@ -18,7 +18,7 @@ import { useSession } from '@supabase/auth-helpers-react'
     }
 
 export async function getStaticProps({params}) {
-  const papers = papers2.filter(paper => (paper.subjectName.toString() === params.subjectName) && (paper.year.toString() === params.year));
+  const papers = papers2.filter(paper => (paper.subjectName.toString() === params.subjectName) && (paper.year.toString() === params.year) && (paper.Level === 'A-level'));
   return {
     props: {
       papers

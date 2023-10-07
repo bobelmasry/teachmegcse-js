@@ -18,7 +18,7 @@ import { useEffect, useState } from 'react';
     }
 
 export async function getStaticProps({params}) {
-  const paper = data.filter(subject => (subject.subjectName.toString() === params.subjectName) && (subject.year.toString() === params.year) && (subject.slug.toString() === params.paperName) && (subject.Level.toString() === "A-level"));
+  const paper = data.filter(paper => (paper.subjectName.toString() === params.subjectName) && (paper.year.toString() === params.year) && (paper.slug.toString() === params.paperName) && (paper.Level.toString() === "A-level"));
   return {
     props: {
       paper

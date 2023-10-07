@@ -516,5 +516,315 @@
         "subject": "biology",
         "level" : "A-level",
         "level2" : "AS"
+      },
+      {
+        "id" : 1,
+        "name":"1: Characteristics and classification of living organisms",
+        "subject": "biology",
+        "level" : "IGCSE",
+        "level2" : "IGCSE"
+      },
+      {
+        "id" : 2,
+        "name":"2: Organisation of the organism",
+        "subject": "biology",
+        "level" : "IGCSE",
+        "level2" : "IGCSE"
+      }
+      ,
+      {
+        "id" : 3,
+        "name":"3: Movement into and out of cells",
+        "subject": "biology",
+        "level" : "IGCSE",
+        "level2" : "IGCSE"
+      }
+      ,
+      {
+        "id" : 4,
+        "name":"4: Biological molecules",
+        "subject": "biology",
+        "level" : "IGCSE",
+        "level2" : "IGCSE"
+      }
+      ,
+      {
+        "id" : 5,
+        "name":"5: Enzymes",
+        "subject": "biology",
+        "level" : "IGCSE",
+        "level2" : "IGCSE"
+      }
+      ,
+      {
+        "id" : 6,
+        "name":"6: Plant nutrition",
+        "subject": "biology",
+        "level" : "IGCSE",
+        "level2" : "IGCSE"
+      }
+      ,
+      {
+        "id" : 7,
+        "name":"7: Human nutrition",
+        "subject": "biology",
+        "level" : "IGCSE",
+        "level2" : "IGCSE"
+      }
+      ,
+      {
+        "id" : 8,
+        "name":"8: Transport in plants",
+        "subject": "biology",
+        "level" : "IGCSE",
+        "level2" : "IGCSE"
+      }
+      ,
+      {
+        "id" : 9,
+        "name":"9: Transport in animals",
+        "subject": "biology",
+        "level" : "IGCSE",
+        "level2" : "IGCSE"
+      }
+      ,
+      {
+        "id" : 10,
+        "name":"10: Diseases and immunity",
+        "subject": "biology",
+        "level" : "IGCSE",
+        "level2" : "IGCSE"
+      }
+      ,
+      {
+        "id" : 11,
+        "name":"11: Gas exchange in humans",
+        "subject": "biology",
+        "level" : "IGCSE",
+        "level2" : "IGCSE"
+      }
+      ,
+      {
+        "id" : 12,
+        "name":"12: Respiration",
+        "subject": "biology",
+        "level" : "IGCSE",
+        "level2" : "IGCSE"
+      }
+      ,
+      {
+        "id" : 13,
+        "name":"13: Excretion in humans",
+        "subject": "biology",
+        "level" : "IGCSE",
+        "level2" : "IGCSE"
+      }
+      ,
+      {
+        "id" : 14,
+        "name":"14: Coordination and response",
+        "subject": "biology",
+        "level" : "IGCSE",
+        "level2" : "IGCSE"
+      }
+      ,
+      {
+        "id" : 15,
+        "name":"15: Drugs",
+        "subject": "biology",
+        "level" : "IGCSE",
+        "level2" : "IGCSE"
+      }
+      ,
+      {
+        "id" : 16,
+        "name":"16: Reproduction",
+        "subject": "biology",
+        "level" : "IGCSE",
+        "level2" : "IGCSE"
+      }
+      ,
+      {
+        "id" : 17,
+        "name":"17: Inheritance",
+        "subject": "biology",
+        "level" : "IGCSE",
+        "level2" : "IGCSE"
+      }
+      ,
+      {
+        "id" : 18,
+        "name":"18: Variation and selection",
+        "subject": "biology",
+        "level" : "IGCSE",
+        "level2" : "IGCSE"
+      }
+      ,
+      {
+        "id" : 19,
+        "name":"19: Organisms and their environment",
+        "subject": "biology",
+        "level" : "IGCSE",
+        "level2" : "IGCSE"
+      }
+      ,
+      {
+        "id" : 20,
+        "name":"20: Human influences on ecosystems",
+        "subject": "biology",
+        "level" : "IGCSE",
+        "level2" : "IGCSE"
+      }
+      ,
+      {
+        "id" : 21,
+        "name":"21: Biotechnology and genetic modification",
+        "subject": "biology",
+        "level" : "IGCSE",
+        "level2" : "IGCSE"
+      }
+      ,
+      {
+        "id" : 1,
+        "name":"1: States of matter",
+        "subject": "chemistry",
+        "level" : "IGCSE",
+        "level2" : "IGCSE"
+      }
+      ,
+      {
+        "id" : 2,
+        "name":"2: Atoms, elements and compounds",
+        "subject": "chemistry",
+        "level" : "IGCSE",
+        "level2" : "IGCSE"
+      }
+      ,
+      {
+        "id" : 3,
+        "name":"3: Stoichiometry",
+        "subject": "chemistry",
+        "level" : "IGCSE",
+        "level2" : "IGCSE"
+      }
+      ,
+      {
+        "id" : 4,
+        "name":"4: Electrochemistry",
+        "subject": "chemistry",
+        "level" : "IGCSE",
+        "level2" : "IGCSE"
+      }
+      ,
+      {
+        "id" : 5,
+        "name":"5: Chemical energetics",
+        "subject": "chemistry",
+        "level" : "IGCSE",
+        "level2" : "IGCSE"
+      }
+      ,
+      {
+        "id" : 6,
+        "name":"6: Chemical reactions",
+        "subject": "chemistry",
+        "level" : "IGCSE",
+        "level2" : "IGCSE"
+      }
+      ,
+      {
+        "id" : 7,
+        "name":"7: Acids, bases and salts",
+        "subject": "chemistry",
+        "level" : "IGCSE",
+        "level2" : "IGCSE"
+      }
+      ,
+      {
+        "id" : 8,
+        "name":"8: The Periodic Table",
+        "subject": "chemistry",
+        "level" : "IGCSE",
+        "level2" : "IGCSE"
+      }
+      ,
+      {
+        "id" : 9,
+        "name":"9: Metals",
+        "subject": "chemistry",
+        "level" : "IGCSE",
+        "level2" : "IGCSE"
+      }
+      ,
+      {
+        "id" : 10,
+        "name":"10: Chemistry of the environment",
+        "subject": "chemistry",
+        "level" : "IGCSE",
+        "level2" : "IGCSE"
+      }
+      ,
+      {
+        "id" : 11,
+        "name":"11: Organic chemistry",
+        "subject": "chemistry",
+        "level" : "IGCSE",
+        "level2" : "IGCSE"
+      }
+      ,
+      {
+        "id" : 12,
+        "name":"12: Experimental techniques and chemical analysis",
+        "subject": "chemistry",
+        "level" : "IGCSE",
+        "level2" : "IGCSE"
+      }
+      ,
+      {
+        "id" : 1,
+        "name":"1: The basic economic problem",
+        "subject": "economics",
+        "level" : "IGCSE",
+        "level2" : "IGCSE"
+      }
+      ,
+      {
+        "id" : 2,
+        "name":"2: The allocation of resources",
+        "subject": "economics",
+        "level" : "IGCSE",
+        "level2" : "IGCSE"
+      }
+      ,
+      {
+        "id" : 3,
+        "name":"3: Microeconomic decision makers",
+        "subject": "economics",
+        "level" : "IGCSE",
+        "level2" : "IGCSE"
+      }
+      ,
+      {
+        "id" : 4,
+        "name":"4: Government and the macroeconomy",
+        "subject": "economics",
+        "level" : "IGCSE",
+        "level2" : "IGCSE"
+      }
+      ,
+      {
+        "id" : 5,
+        "name":"5: Economic development",
+        "subject": "economics",
+        "level" : "IGCSE",
+        "level2" : "IGCSE"
+      }
+      ,
+      {
+        "id" : 6,
+        "name":"6: International trade and globalisation",
+        "subject": "economics",
+        "level" : "IGCSE",
+        "level2" : "IGCSE"
       }
   ]
