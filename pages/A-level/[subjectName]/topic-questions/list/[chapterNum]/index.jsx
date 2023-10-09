@@ -50,40 +50,30 @@ import { supabase } from 'utils/supabase';
 
 
   export async function getStaticProps({ params }) {
-    try {
-      const filePath = path.join(process.cwd(), 'public', `${params.subjectName}_db.json`);
-      const fileData = await fs.readFile(filePath, 'utf-8');
-      const data = JSON.parse(fileData);
-  
-      const filteredData = data.filter(item => (item.Subject === params.subjectName) && (item.Level === 'AS' || item.Level === 'A2'));
-  
-      if (filteredData.length === 0) {
-        throw new Error('chapters not found');
+    let { data } = await supabase
+    .from('questions')
+    .select('*')
+    .eq('Subject', params.subjectName)
+    .eq('Chapter', params.chapterNum)
+    .like('Level', '%A%')
+
+      if (data.length === 0) {
+        throw new Error('Question not found');
       }
-  
-      const searchArray = filteredData;
-  
+      const questionArray = data;
+
       return {
-        props: {
-            searchArray
-        }
-      };
-    } catch (error) {
-      console.error(`Error reading JSON file: ${error}`);
-      return {
-        props: {
-            searchArray: null
-        }
-      };
-    }
+        props: {questionArray}
+      }
   }
 
   export async function getStaticPaths() {
     const filePath = path.join(process.cwd(), 'public', 'all.json');
     const fileData = await fs.readFile(filePath, 'utf-8');
     const data = JSON.parse(fileData);
+    const data2 = data.filter(question => question.Level === 'AS' || 'A2')
 
-    const paths = data.map(question => ({
+    const paths = data2.map(question => ({
       params: { subjectName: question.Subject.toString(),
                 chapterNum: question.Chapter.toString()}
     }));
