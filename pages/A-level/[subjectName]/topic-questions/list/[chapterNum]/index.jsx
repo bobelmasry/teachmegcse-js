@@ -52,7 +52,7 @@ import { supabase } from 'utils/supabase';
   export async function getStaticProps({ params }) {
     let { data } = await supabase
     .from('questions')
-    .select(`*`)
+    .select('*')
     .eq('Subject', params.subjectName)
     .eq('Chapter', params.chapterNum)
     .like('Level', '%A%')

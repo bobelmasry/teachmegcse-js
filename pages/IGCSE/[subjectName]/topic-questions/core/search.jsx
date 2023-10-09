@@ -152,10 +152,10 @@ import { useRouter } from 'next/router';
       const fileData = await fs.readFile(filePath, 'utf-8');
       const data = JSON.parse(fileData);
   
-      const filteredData = data.filter(item => (item.Subject === params.subjectName) && (item.Level === 'IGCSE') && (item.paperNumber === 1));
+      const filteredData = data.filter(question => (question.Subject === params.subjectName) && (question.Level == 'IGCSE') && (question.paperNumber == 1));
   
       if (filteredData.length === 0) {
-        throw new Error('chapters not found');
+        throw new Error('questions not found');
       }
   
       const searchArray = filteredData;

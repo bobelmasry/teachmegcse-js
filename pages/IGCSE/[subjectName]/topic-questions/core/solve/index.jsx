@@ -92,7 +92,7 @@ import data2 from "public/all.json"
       const fileData = await fs.readFile(filePath, 'utf-8');
       const data = JSON.parse(fileData);
   
-      const filteredData = data.filter(item => (item.subject == params.subjectName) && (item.level === 'IGCSE'));
+      const filteredData = data.filter(chapter => (chapter.subject == params.subjectName) && (chapter.level == 'IGCSE'));
   
       if (filteredData.length === 0) {
         throw new Error('chapters not found');
