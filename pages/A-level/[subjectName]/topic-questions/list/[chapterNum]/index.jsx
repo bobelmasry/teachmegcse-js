@@ -50,21 +50,32 @@ import { supabase } from 'utils/supabase';
 
 
   export async function getStaticProps({ params }) {
-    let { data } = await supabase
-    .from('questions')
-    .select('*')
-    .eq('Subject', params.subjectName)
-    .eq('Chapter', params.chapterNum)
-    .like('Level', '%A%')
-
-      if (data.length === 0) {
-        throw new Error('Question not found');
+    try {
+      const filePath = path.join(process.cwd(), 'public', `${params.subjectName}_db.json`);
+      const fileData = await fs.readFile(filePath, 'utf-8');
+      const data = JSON.parse(fileData);
+  
+      const filteredData = data.filter(item => (item.Subject === params.subjectName) && (item.Level === 'AS' || item.Level === 'A2'));
+  
+      if (filteredData.length === 0) {
+        throw new Error('chapters not found');
       }
-      const questionArray = data;
-
+  
+      const searchArray = filteredData;
+  
       return {
-        props: {questionArray}
-      }
+        props: {
+            searchArray
+        }
+      };
+    } catch (error) {
+      console.error(`Error reading JSON file: ${error}`);
+      return {
+        props: {
+            searchArray: null
+        }
+      };
+    }
   }
 
   export async function getStaticPaths() {
