@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { useSession, useUser } from '@supabase/auth-helpers-react'
 import { useState } from 'react';
 import data from "public/all.json"
+import papers from "public/papers.json"
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { updateSupabase } from 'utils/updateSupabase'
@@ -160,20 +161,18 @@ import { updateSupabase } from 'utils/updateSupabase'
   }
 
   export async function getStaticPaths() {
-    const years = ['2022', '2021', '2020', '2019', '2018', '2017'];
+    const papersArray = papers.filter(paper => paper.hasSolve === "True");
   
     const paths = [];
   
-    data.forEach((subject) => {
-      years.forEach((year) => {
+    papersArray.forEach((paper) => {
         paths.push({
           params: {
-            subjectName: subject.Subject.toString(),
-            year: year,
-            paperName: subject.pdfName.toString(),
+            subjectName: paper.subjectName.toString(),
+            year: paper.year,
+            paperName: paper.slug.toString(),
           },
         });
-      });
     });
   
     return { paths, fallback: false };
