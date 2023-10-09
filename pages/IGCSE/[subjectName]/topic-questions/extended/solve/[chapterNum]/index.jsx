@@ -136,7 +136,7 @@ import Link from 'next/link';
         }
 
         const session = useSession()
-        const chapterString = chapters.filter(item => (item.id === questionArray[0].Chapter) && (item.subject === questionArray[0].Subject) && (item.level === 'A-level'));
+        const chapterString = chapters.filter(item => (item.id === questionArray[0].Chapter) && (item.subject === questionArray[0].Subject) && (item.level === 'IGCSE'));
         const chapterString2 = chapterString[0].name
 
         async function handleAnswer(event) {
@@ -167,7 +167,7 @@ import Link from 'next/link';
                 }
             }
           
-            const title = `A-level ${questionArray[0].Subject} Topic Questions ${chapterString2}`
+            const title = `IGCSE ${questionArray[0].Subject} Topic Questions ${chapterString2}`
             const str = title;
             const str2 = str.charAt(0).toUpperCase() + str.slice(1);
 
@@ -176,7 +176,7 @@ import Link from 'next/link';
         <Head>
           <title>{str2}</title>
           <meta name="description" content={`Find the Answer and maybe an Explanation`}></meta>
-          <meta name="keywords" content={`teachmegcse, teach me gcse, A-level revision notes, A-level past papers, A-level topic questions`}></meta>
+          <meta name="keywords" content={`teachmegcse, teach me gcse, IGCSE revision notes, IGCSE past papers, IGCSE topic questions`}></meta>
           <Headstuff />
         </Head>
         <Navbar session={session} />
@@ -188,7 +188,7 @@ import Link from 'next/link';
             <div className="flex flex-col items-center gap-24 mt-32 mb-24">
                 <h1 className='text-3xl ml-8 md:ml-0 sm:text-5xl font-bold text-white mb-8'>{chapterString2} Topic Questions</h1>
                 <div className='border ml-2 md:ml-0 border-4  md:border-8 border-green-600 p-2 rounded rounded-2xl'>
-                <Image className='rounded rounded-md' src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/A-level/${subject}/p${paperNumber}/${chapter}/${questionName}`} alt='image' height={800} width={800} /> 
+                <Image className='rounded rounded-md' src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/IGCSE/${subject}/p${paperNumber}/${chapter}/${questionName}`} alt='image' height={800} width={800} /> 
                 </div>
             </div>
                 {notalreadySolved && 
@@ -231,7 +231,7 @@ import Link from 'next/link';
             <button
                     className="inline-block rounded border border-blue-500 bg-blue-600 px-12 py-3 text-md sm:text-lg md:text-xl lg:text-2xl font-medium text-white hover:bg-blue-500 focus:outline-none focus:ring active:text-blue-500"
                     >
-                      <Link href={`/A-level/${subjectName}/topic-questions/solve`}>
+                      <Link href={`/IGCSE/${subjectName}/topic-questions/solve`}>
                     Go Back
                     </Link>
             </button>
