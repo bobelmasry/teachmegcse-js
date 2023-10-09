@@ -77,7 +77,7 @@ import chapters from "public/chapters.json"
     const filePath = path.join(process.cwd(), 'public', `all.json`);
     const fileData = await fs.readFile(filePath, 'utf-8');
     const data = JSON.parse(fileData);
-    const data2 = data.filter(question => question.Level === 'AS' || 'A2')
+    const data2 = data.filter(question => question.Level === ('AS' || 'A2'))
 
     const paths = data2.map(question => ({
       params: { subjectName: question.Subject.toString(),
