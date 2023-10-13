@@ -9,6 +9,8 @@ import Link from 'next/link';
 import AssignmentModal from 'components/modals/createAssignment.jsx'
 import Image from 'next/image';
 import findStudentClasses from 'utils/findStudentClasses.js'
+import { Input, Button } from '@chakra-ui/react'
+import { format as timeagoFormat } from 'timeago.js';
 
  export default function ClassPage({ classData }) {
   const [classes, setClasses] = useState([])
@@ -256,6 +258,8 @@ import findStudentClasses from 'utils/findStudentClasses.js'
   const session = useSession()
   const [assignments, setAssignments] = useState([])
   const [isTeacher, setIsTeacher] = useState(false)
+  const [inputValue, setInputValue] = useState('')
+  const handleChange = (event) => setInputValue(event.target.value)
   const [studentAssignments, setStudentAssignments] = useState([])
 
   useEffect(() => {
@@ -298,6 +302,95 @@ import findStudentClasses from 'utils/findStudentClasses.js'
     getClasses()
   }, [classData, isTeacher, session, user]);
 
+  const [messages, setMessages] = useState([]);
+  const [usernameDictionary, setUsernameDictionary] = useState({});  // Initialize username dictionary state
+
+  // Subscribe to real-time updates from the 'messages' table
+  useEffect(() => {
+    async function getInitialMessages() {
+      try {
+        let { data, error, status } = await supabase
+          .from('messages')
+          .select(`*`)
+          .eq('classID', classData[0].classID);
+        if (error) {
+          throw error;
+        }
+        setMessages(data);
+      } catch (error) {
+        console.error('Error fetching initial messages:', error);
+      }
+    }
+    getInitialMessages();
+  
+    const channel = supabase
+      .channel('schema-db-changes')
+      .on(
+        'postgres_changes',
+        {
+          event: 'INSERT',
+          schema: 'public',
+        },
+        (payload) => {
+          setMessages((prevMessages) => [...prevMessages, payload.new]);
+        }
+      )
+      .subscribe();
+  
+    // Fetch usernames for messages
+    async function fetchUsernamesForMessages() {
+      for (let i = 0; i < messages.length; i++) {
+        const userID = messages[i]['userID'];
+        if (!usernameDictionary[userID]) {
+          try {
+            const { data, error } = await supabase
+              .from('profiles')
+              .select('username')
+              .eq('id', userID);
+            if (error) {
+              throw error;
+            }
+            setUsernameDictionary((prevDictionary) => ({
+              ...prevDictionary,
+              [userID]: data[0]?.username || 'Loading',
+            }));
+          } catch (error) {
+            console.error('Error fetching username:', error);
+            setUsernameDictionary((prevDictionary) => ({
+              ...prevDictionary,
+              [userID]: 'Loading',
+            }));
+          }
+        }
+      }
+    }
+  
+    // Call the function to fetch usernames
+    fetchUsernamesForMessages();
+  }, [classes]);
+
+  async function updateMessages(message) {
+    // Insert the message into the 'messages' table
+    const { data, error } = await supabase
+      .from('messages')
+      .insert([
+        {
+          classID: classData[0].classID,  // Make sure 'classID' is defined and valid
+          messageText: message,
+          userID: user.id
+        },
+      ]);
+      setInputValue('')
+  
+    // Check for errors and handle them if necessary
+    if (error) {
+      console.error('Error inserting message:', error);
+    } else {
+      // Insertion successful
+      console.log('Message inserted successfully:', data);
+    }
+  }
+
     const title = `${classData[0].name} | teachmegcse`
         
     return (
@@ -312,6 +405,26 @@ import findStudentClasses from 'utils/findStudentClasses.js'
         <Navbar session={session} />
         <div className="flex">
           <SideBarHome isTeacher={isTeacher} studentAssignments={studentAssignments} classData={classData} assignments={assignments} />
+          <div className="w-1/2 h-[calc(100vh-3rem)] ml-32 flex flex-col content-center justify-end">
+          <div className='flex flex-col mb-4 ' style={{ maxHeight: '35rem', overflowY: 'auto'}}>
+            {messages.map((message) => {
+              const username = usernameDictionary[message.userID] || 'Loading';
+              return (
+                <div key={message.id} className='bg-blue-500 mt-2 p-4 rounded rounded-xl'>
+                  <div className="flex gap-4">
+                    <p className='text-sm font-medium'>{username}</p>
+                    <p className='text-sm font-semibold'>{timeagoFormat(message.created_at)}</p>
+                  </div>
+                  <p className='text-xl font-bold'>{message.messageText}</p>
+                </div>
+              );
+            })}
+          </div>
+            <div className="flex">
+            <Input onChange={handleChange} value={inputValue} bg={'white'} placeholder='Enter Text' />
+            <Button colorScheme='blue' onClick={() => updateMessages(inputValue)}  className="ml-2 mr-1 mb-1 cursor-pointer ease-out transition-all"> Send</Button>
+            </div>
+          </div>
         </div>
         </>
     )
