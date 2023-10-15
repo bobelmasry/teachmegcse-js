@@ -4,7 +4,7 @@ import "flowbite"
 import Headstuff from "components/headstuff.jsx"
 import { useSession, useUser } from '@supabase/auth-helpers-react'
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { supabase } from 'utils/supabase';
 import data from "public/chapters.json"
 import { useRouter } from 'next/router';
@@ -58,6 +58,13 @@ import Link from 'next/link';
         const classID = data2.classID
         const assignmentID = data2.assignmentID
         const level = data2.level
+        let level2 = ''
+        if (level === 'AS' || level === 'A2'){
+           level2 = 'A-level'
+        }
+        else if (level === 'IGCSE'){
+           level2 = 'IGCSE'
+        }
         const filteredData = data.filter(item => (item.subject === subject) && (item.level2 === level));
 
         useEffect(() => {
@@ -148,6 +155,55 @@ import Link from 'next/link';
           "subject": "physics",
           "level" : "A-level",
           "level2" : "AS"
+        },
+        {
+          "id" : 1,
+          "name":"Paper 1 (core)",
+          "subject": "physics",
+          "level" : "IGCSE",
+          "level2" : "IGCSE"
+        },
+        {
+          "id" : 2,
+          "name":"Paper 2 (extended)",
+          "subject": "physics",
+          "level" : "IGCSE",
+          "level2" : "IGCSE"
+        },
+        {
+          "id" : 1,
+          "name":"Paper 1 (core)",
+          "subject": "chemistry",
+          "level" : "IGCSE",
+          "level2" : "IGCSE"
+        },
+        {
+          "id" : 2,
+          "name":"Paper 2 (extended)",
+          "subject": "chemistry",
+          "level" : "IGCSE",
+          "level2" : "IGCSE"
+        },
+        {
+          "id" : 1,
+          "name":"Paper 1 (core)",
+          "subject": "biology",
+          "level" : "IGCSE",
+          "level2" : "IGCSE"
+        },
+        {
+          "id" : 2,
+          "name":"Paper 2 (extended)",
+          "subject": "biology",
+          "level" : "IGCSE",
+          "level2" : "IGCSE"
+        },
+        {
+          "id" : 1,
+          "name":"Paper 1",
+          "subject": "economics",
+          "level" : "IGCSE",
+          "level2" : "IGCSE"
         }
       ]
       const filteredPapers = papers.filter(item => (item.subject === subject) && (item.level2 === level));
@@ -156,6 +212,7 @@ import Link from 'next/link';
         const [chapterValue, setChapterValue] = useState(0);
         const [paperValue, setPaperValue] = useState(0);
         const [questionText, setQuestionText] = useState('')
+        //console.log(questionArray);
 
         async function addAQuestion(question) {
           setBannerShown(true)        
@@ -173,57 +230,39 @@ import Link from 'next/link';
         function timeout(delay) {
           return new Promise( res => setTimeout(res, delay) );
       }
-
-        async function handleText(event) {
-          event.preventDefault();
-          setQuestionText(event.target.value);
-        
-          const filteredQuestions = questionsAvailable.filter((question) => {
-            const isChapterMatch = chapterValue === 0 || question.Chapter.toString() === chapterValue.toString();
-            const isTextMatch = question.questionText.includes(questionText) || questionText === '';
-            return isChapterMatch && isTextMatch;
-          }).slice(0, 100);
-        
-          setquestionArray(filteredQuestions);
-        }
-        
-        async function handleSelect(event) {
-          event.preventDefault();
-          setChapterValue(event.target.value);
-          setquestionArray([]);
-          setQuestionText('');
-        
-          const filteredQuestions = questionsAvailable.filter((question) => {
-            const isChapterMatch = event.target.value === '0' || question.Chapter.toString() === event.target.value.toString();
-            const isTextMatch = question.questionText.includes(questionText) || questionText === '';
-            return isChapterMatch && isTextMatch;
-          }).slice(0, 100);
-        
-          setquestionArray(filteredQuestions);
-        }
-        
-        async function handlePaper(event) {
-          event.preventDefault();
-          setPaperValue(event.target.value);
-          setquestionArray([]);
-          setQuestionText('');
-        
-          const filteredQuestions = questionsAvailable.filter((question) => {
-            const isPaperMatch = event.target.value === '0' || question.paperNumber.toString() === event.target.value.toString();
-            const isTextMatch = question.questionText.includes(questionText) || questionText === '';
-            return isPaperMatch && isTextMatch;
-          }).slice(0, 100);
-        
-          setquestionArray(filteredQuestions);
-        }
-
           async function reset() {
             setChapterValue(0)
             setPaperValue(0)
             setquestionArray([])
             setQuestionText('')
             }
+            const filteredQuestionsRef = useRef();
 
+            useEffect(() => {
+              // Filtering logic
+              let tempFilteredQuestions = questionsAvailable;
+
+              if (questionText) {
+                tempFilteredQuestions = tempFilteredQuestions.filter(question => question.questionText.includes(questionText));
+              }
+
+              if (paperValue !== 0) {
+                tempFilteredQuestions = tempFilteredQuestions.filter(question => question.paperNumber == paperValue);
+              }
+
+              if (chapterValue !== 0) {
+                tempFilteredQuestions = tempFilteredQuestions.filter(question => question.Chapter === chapterValue);
+              }
+
+              // Limit the results to the first 100 items
+              tempFilteredQuestions = tempFilteredQuestions.slice(0, 100);
+
+              // Store filteredQuestions in the ref
+              filteredQuestionsRef.current = tempFilteredQuestions;
+
+              // Update the state with the filtered questions
+              setquestionArray(tempFilteredQuestions);
+            }, [questionText, chapterValue, paperValue, questionsAvailable]);
     return (
       <>
         <Head>
@@ -276,14 +315,14 @@ import Link from 'next/link';
                     id="searchbar"
                     className="block text-md w-full p-4 pl-10 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="eg : chlorine"
-                    onChange={handleText}
+                    onChange={(event) => setQuestionText(event.target.value)}
                     value={questionText}
                     />
                 </div>
                 <div className="flex gap-4">
                   <div className="w-4/6 sm:w-3/6 md:w-2/6 lg:w-1/8">
                     <label htmlFor="chapters" className="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white">Choose a Chapter</label>
-                    <select value={chapterValue} onChange={handleSelect} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <select value={chapterValue} onChange={(event) => setChapterValue(event.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                       <option id='0' value={0} defaultValue={true}>All Chapters</option>
                       {chapters.map((chapter) => (
                         <option key={chapter.id} value={chapter.id}>{chapter.name}</option>
@@ -292,7 +331,7 @@ import Link from 'next/link';
                   </div>
                   <div className="w-4/6 sm:w-3/6 md:w-2/6 lg:w-1/8">
                     <label htmlFor="chapters" className="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white">Choose a Paper number</label>
-                    <select value={paperValue} onChange={handlePaper} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <select value={paperValue} onChange={(event) => setPaperValue(event.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                       <option id='0' value={0} defaultValue={true}>All Papers</option>
                       {filteredPapers.map((paper) => (
                         <option key={paper.id} value={paper.id}>{paper.name}</option>
@@ -318,7 +357,7 @@ import Link from 'next/link';
         {questionArray.map((question) => (
         <div key={question.questionName} className='flex'>
             <div className='border border-8 border-green-600 p-2 rounded rounded-2xl'>
-                <Image key={question.questionName} className='rounded rounded-md' src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/A-level/${question.Subject}/p${question.paperNumber}/${question.Chapter}/${question.questionName}`} alt='image' height={800} width={800} />
+                <Image key={question.questionName} className='rounded rounded-md' src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/${level2}/${question.Subject}/p${question.paperNumber}/${question.Chapter}/${question.questionName}`} alt='image' height={800} width={800} />
             </div>
             <AddIcon onClick={() => addAQuestion(question)} key={question.questionName} fontSize="large" className='ml-8 mt-24 cursor-pointer ease-out transition-all hover:bg-gray-200 bg-gray-400 rounded rounded-xl'/>
         </div>

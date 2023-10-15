@@ -5,7 +5,7 @@ import Headstuff from "components/headstuff.jsx"
 import { useSession } from '@supabase/auth-helpers-react'
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import fs from 'fs/promises';
 import path from 'path';
 import data from "public/chapters.json"
@@ -16,8 +16,6 @@ import { useRouter } from 'next/router';
         const [questionArray, setquestionArray] = useState([]);
         const [chapterValue, setChapterValue] = useState(0);
         const [questionText, setQuestionText] = useState('')
-        //const [paperSelected, setPaperSelected] = useState("All Papers");
-        //const [chapterSelected, setChapterSelected] = useState("All Chapters");
         const router = useRouter();
         const data2 = router.query;
         const subject = data2.subjectName
@@ -30,38 +28,36 @@ import { useRouter } from 'next/router';
   
       const chapters = filteredData;
 
-        async function handleText(event) {
-        event.preventDefault();
-        setQuestionText(event.target.value)
+      const filteredQuestionsRef = useRef();
 
-        if ((questionText.length > 3) && (chapterValue == 0)) {
-          const filteredQuestions = searchArray.filter(question =>
-            question.questionText.includes(questionText)
-            ).slice(0, 25);
-            setquestionArray(filteredQuestions);
-            //console.log('var1');
-        }
-        else if ((questionText.length > 3) && (chapterValue != 0)) {
-        const filteredQuestions2 = searchArray.filter(question =>
-          (question.Chapter == chapterValue) && (question.questionText.includes(questionText))
-          ).slice(0, 25);
-          setquestionArray(filteredQuestions2);
-          //console.log('var2');
 
-        }
+      useEffect(() => {
+        // Filtering logic
+        let tempFilteredQuestions = searchArray;
+
+        if (questionText) {
+          tempFilteredQuestions = tempFilteredQuestions.filter(question => question.questionText.includes(questionText));
         }
 
-        async function handleSelect(event) {
-          event.preventDefault();
-          setChapterValue(event.target.value)
-          setquestionArray([])
-          setQuestionText('')
-          }
-          async function reset() {
-            setChapterValue(0)
-            setquestionArray([])
-            setQuestionText('')
-            }
+        if (chapterValue !== 0) {
+          tempFilteredQuestions = tempFilteredQuestions.filter(question => question.Chapter.toString() == chapterValue.toString());
+        }
+
+        // Limit the results to the first 100 items
+        tempFilteredQuestions = tempFilteredQuestions.slice(0, 100);
+
+        // Store filteredQuestions in the ref
+        filteredQuestionsRef.current = tempFilteredQuestions;
+
+        // Update the state with the filtered questions
+        setquestionArray(tempFilteredQuestions);
+      }, [questionText, chapterValue]);
+
+      async function reset() {
+        setChapterValue(0)
+        setquestionArray(searchArray)
+        setQuestionText('')
+        }
 
     return (
       <>
@@ -107,14 +103,14 @@ import { useRouter } from 'next/router';
                     id="searchbar"
                     className="block text-md w-full p-4 pl-10 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="eg : chlorine"
-                    onChange={handleText}
+                    onChange={(event) => setQuestionText(event.target.value)}
                     value={questionText}
                     />
                 </div>
                 <div className="flex justify-around flex-col sm:flex-row flex-wrap mt-4">
                 <div className="w-4/6 sm:w-3/6 md:w-2/6 lg:w-1/8">
                 <label htmlFor="chapters" className="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white">Choose a Chapter</label>
-                <select id="chapters" value={chapterValue} onChange={handleSelect} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <select id="chapters" value={chapterValue} onChange={(event) => setChapterValue(event.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                   <option id='0' value={0} defaultValue={true}>All Chapters</option>
                   {chapters.map((chapter) => (
                     <option key={chapter.id} value={chapter.id}>{chapter.name}</option>
@@ -133,7 +129,7 @@ import { useRouter } from 'next/router';
         {questionArray.map((question) => (
         <div key={question.questionName}>
             <div key={question.questionName} className='border border-8 border-green-600 p-2 rounded rounded-2xl'>
-                <Link key={question.questionName} href={`/IGCSE/${question.Subject}/topic-questions/core/list/${question.Chapter}/${question.questionName}`}>
+                <Link key={question.questionName} href={`/IGCSE/${question.Subject}/topic-questions/extended/list/${question.Chapter}/${question.questionName}`}>
                 <Image key={question.questionName} className='rounded rounded-md' src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/IGCSE/${question.Subject}/p${question.paperNumber}/${question.Chapter}/${question.questionName}`} alt='image' height={800} width={800} />
                 </Link>
             </div>

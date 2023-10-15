@@ -26,7 +26,7 @@ export default function Home() {
         <SubjectCard header={"Biology (0610)"} topicQuestions={true} link1={"/IGCSE/biology/"} link2={"#"} link3={"/IGCSE/biology/topic-questions"} />
         <SubjectCard header={"Chemistry (0620)"} topicQuestions={true} link1={"/IGCSE/chemistry/"} link2={"#"} link3={"/IGCSE/chemistry/topic-questions"} />
         <SubjectCard header={"Computer Science (0478)"} link1={"/IGCSE/computer-science/"} link2={"#"} link3={"#"} />
-        <SubjectCard header={"Economics (0455)"} topicQuestions={true} link1={"/IGCSE/economics/"} link2={"#"} link3={"/IGCSE/economics/topic-questions/extended"} />
+        <SubjectCard header={"Economics (0455)"} topicQuestions={true} link1={"/IGCSE/economics/"} link2={"#"} link3={"/IGCSE/economics/topic-questions/core"} />
         <SubjectCard header={"English as a First Language (0500)"} link1={"/IGCSE/english-language/"} link2={"#"} link3={"#"} />
         <SubjectCard header={"History (0470)"} link1={"/IGCSE/history/"} link2={"#"} link3={"#"} />
         <SubjectCard header={"Maths (0580)"} link1={"/IGCSE/math/"} link2={"#"} link3={"#"}  />

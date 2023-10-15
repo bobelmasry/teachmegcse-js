@@ -830,7 +830,42 @@
       ,
       {
         "id" : 1,
-        "name":"1: Coming soon",
+        "name":"1: Motion, forces and energy",
+        "subject": "physics",
+        "level" : "IGCSE",
+        "level2" : "IGCSE"
+      },
+      {
+        "id" : 2,
+        "name":"2: Thermal physics",
+        "subject": "physics",
+        "level" : "IGCSE",
+        "level2" : "IGCSE"
+      },
+      {
+        "id" : 3,
+        "name":"3: Waves",
+        "subject": "physics",
+        "level" : "IGCSE",
+        "level2" : "IGCSE"
+      },
+      {
+        "id" : 4,
+        "name":"4: Electricity and magnetism",
+        "subject": "physics",
+        "level" : "IGCSE",
+        "level2" : "IGCSE"
+      },
+      {
+        "id" : 5,
+        "name":"5: Nuclear physics",
+        "subject": "physics",
+        "level" : "IGCSE",
+        "level2" : "IGCSE"
+      },
+      {
+        "id" : 6,
+        "name":"6: Space physics",
         "subject": "physics",
         "level" : "IGCSE",
         "level2" : "IGCSE"

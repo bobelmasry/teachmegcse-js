@@ -19,7 +19,7 @@ import chapters from "public/chapters.json"
           <title>{questionData.questionText}</title>
           <meta name='title' content={`${questionData.questionText}`}></meta>
           <meta name="description" content={`Find the Answer and maybe an Explanation`}></meta>
-          <meta name="keywords" content={`teachmegcse, teach me gcse, A-level revision notes, A-level past papers, A-level topic questions, 
+          <meta name="keywords" content={`teachmegcse, teach me gcse, IGCSE revision notes, IGCSE past papers, IGCSE topic questions, 
     ${questionData.questionText}`}></meta>
           <Headstuff />
         </Head>
@@ -27,7 +27,7 @@ import chapters from "public/chapters.json"
         <Navbar session={session} />
         <div className="flex flex-col items-center gap-32 ml-8 mt-32 mb-20">
             <div className='border border-4 md:border-8 border-green-600 p-2 rounded rounded-xl'>
-              <Image className='rounded rounded-md' src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/A-level/${questionData.Subject}/p${questionData.paperNumber}/${questionData.Chapter}/${questionData.questionName}`} alt='image' height={800} width={800} />
+              <Image className='rounded rounded-md' src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/IGCSE/${questionData.Subject}/p${questionData.paperNumber}/${questionData.Chapter}/${questionData.questionName}`} alt='image' height={800} width={800} />
                 <div className="flex gap-8">
                     <h1 className='dark:text-white text-xl sm:text-2xl mt-4'>Answer: {questionData.Answer}</h1>
                     <h1 className='dark:text-white text-xl sm:text-2xl mt-4'>Source: <span>{questionData.pdfName}</span></h1>
@@ -77,7 +77,7 @@ import chapters from "public/chapters.json"
     const filePath = path.join(process.cwd(), 'public', `all.json`);
     const fileData = await fs.readFile(filePath, 'utf-8');
     const data = JSON.parse(fileData);
-    const data2 = data.filter(question => question.Level === 'IGCSE' && question.paperNumber === 1)
+    const data2 = data.filter(question => question.Level === 'IGCSE' && question.paperNumber === 2)
 
     const paths = data2.map(question => ({
       params: { subjectName: question.Subject.toString(),

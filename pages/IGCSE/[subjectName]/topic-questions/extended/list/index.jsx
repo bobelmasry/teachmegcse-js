@@ -67,8 +67,8 @@ import { useUser } from '@supabase/auth-helpers-react'
       <div className="flex justify-center items-center ">
       <div className="grid grid-rows-4 gap-8 mt-16 mb-24 w-auto">
       {chapters.map((topic) => { 
-          const solvedPaper = questionsSolved?.filter(question => ((question.Chapter.toString() === topic.id.toString()) && (question.Subject.toString() === str) && (question.Level?.toString() === 'IGCSE')));
-          const chapterQuestions = data2.filter(question => ((question.Chapter.toString() === topic.id.toString()) && (question.Subject.toString() === str) && (question.Level.toString() === 'IGCSE')));
+          const solvedPaper = questionsSolved?.filter(question => ((question.Chapter.toString() === topic.id.toString()) && (question.Subject.toString() === str) && (question.Level?.toString() === 'IGCSE')&& question.paperNumber?.toString() === ("2")));
+          const chapterQuestions = data2.filter(question => ((question.Chapter.toString() === topic.id.toString()) && (question.Subject.toString() === str) && (question.Level.toString() === 'IGCSE')&& question.paperNumber?.toString() === ("2")));
           let amountSolved = Array.isArray(solvedPaper) ? solvedPaper.length : 0
           let totalAmount = chapterQuestions.length
 
