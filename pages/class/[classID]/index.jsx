@@ -161,6 +161,8 @@ import { format as timeagoFormat } from 'timeago.js';
             </li>
             </>
             }
+            {isTeacher &&
+            <>
             <li>
             <Link href={`/class/${classData[0].classID}/student`} className="mt-2 block rounded-lg px-4 py-2 text-md font-medium bg-gray-100 text-black hover:text-gray-700">
               View Students
@@ -169,6 +171,8 @@ import { format as timeagoFormat } from 'timeago.js';
           <li>
           <AssignmentModal subject={classData[0]?.subject} level={classData[0]?.level} userID={user?.id} classID={classData[0]?.classID} />
           </li>
+          </>
+          }
         </ul>
       </div>
     </div>
@@ -370,6 +374,7 @@ import { format as timeagoFormat } from 'timeago.js';
   }, [classes]);
 
   async function updateMessages(message) {
+    if (message != ''){
     // Insert the message into the 'messages' table
     const { data, error } = await supabase
       .from('messages')
@@ -389,6 +394,7 @@ import { format as timeagoFormat } from 'timeago.js';
       // Insertion successful
       console.log('Message inserted successfully:', data);
     }
+  }
   }
 
     const title = `${classData[0].name} | teachmegcse`
@@ -421,7 +427,7 @@ import { format as timeagoFormat } from 'timeago.js';
             })}
           </div>
             <div className="flex">
-            <Input onChange={handleChange} value={inputValue} bg={'white'} placeholder='Enter Text' />
+            <Input onChange={handleChange} value={inputValue} color={'black'} bg={'white'} placeholder='Enter Text' />
             <Button colorScheme='blue' onClick={() => updateMessages(inputValue)}  className="ml-2 mr-1 mb-1 cursor-pointer ease-out transition-all"> Send</Button>
             </div>
           </div>
