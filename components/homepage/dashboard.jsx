@@ -5,6 +5,7 @@ import Link from 'next/link';
 import DataTable from "components/homepage/dataTable.jsx"
 import { supabase } from 'utils/supabase'
 import CreateClass from 'components/modals/createClass.jsx'
+import CreateWorksheet from 'components/modals/createWorksheet.jsx'
 import UpdateClass from 'components/modals/updateClass.jsx'
 import findStudentClasses from 'utils/findStudentClasses.js'
 import findStudentAssignments from 'utils/findStudentAssignments.js'
@@ -84,12 +85,37 @@ export default function Dashboard({ session }) {
       )
     };
 
+    function WorksheetCard({linkSrc, header, subject, questionNum, level}) {
+      return (
+        <div className='flex justify-center'>
+        <Link href={`${linkSrc}`}>
+
+      <article className="md:hover:scale-[1.02] ease-out transition-all rounded-lg border border-gray-100 bg-slate-600 hover:bg-slate-500 border-gray-800 p-4 shadow-sm transition hover:shadow-lg sm:p-6" >
+
+          <h3 className="text-3xl mt-2 font-semibold text-gray-100"> {header} - {subject} </h3>
+
+        <div className="mt-4 flex flex-wrap gap-1">
+          <span className="whitespace-nowrap font-semibold rounded-full bg-purple-300 px-2.5 py-0.5 text-sm text-purple-600">
+            {questionNum} Question (s)
+          </span>
+          <span className="whitespace-nowrap font-semibold rounded-full bg-green-300 px-2.5 py-0.5 text-sm text-purple-600">
+            {level}
+          </span>
+    </div>
+      </article>
+      </Link>
+        </div>
+      )
+    };
+
+
     const [username, setUsername] = useState(null)
     const [initialGotten, setinitialGotten] = useState(false)
     const [isTeacher, setIsTeacher] = useState(false)
     const [school, setSchool] = useState('')
     const [questionsSolved, setQuestionsSolved] = useState([])
     const [classes, setClasses] = useState([])
+    const [worksheets, setWorksheets] = useState([])
     const [studentClasses, setStudentClasses] = useState([])
     const [studentAssignments, setStudentAssignments] = useState([])
 
@@ -110,6 +136,11 @@ export default function Dashboard({ session }) {
               .from('classes')
               .select('*')
               .eq('user_id', userId);
+
+              const { data: worksheetData, error: worksheetError } = await supabase
+              .from('worksheets')
+              .select('*')
+              .eq('user_id', userId);
   
             const studentClasses = await findStudentClasses(userId);
   
@@ -120,6 +151,7 @@ export default function Dashboard({ session }) {
             setIsTeacher(profileData.isTeacher);
             setSchool(profileData.school);
             setClasses(classesData || []);
+            setWorksheets(worksheetData || []);
             setStudentClasses(studentClasses);
             setStudentAssignments(studentAssignments);
             setinitialGotten(true)
@@ -173,9 +205,23 @@ export default function Dashboard({ session }) {
           ))}
         </div>
         </div>
+        <div className="flex mt-20 justify-start mb-12">
+          <h2 className='text-4xl dark:text-gray-100'>Your Worksheets:</h2>
+        </div>
+        <div className="flex mt-12 justify-center items-center">
+        {worksheets.map((worksheet) => (
+          <div key={worksheet.id}>
+            <WorksheetCard key={worksheet.id} level={worksheet.level} header={worksheet.name} linkSrc={`/worksheet/${worksheet.id}`} questionNum={worksheet.questions ? worksheet.questions.length : 0} subject={worksheet.subject}/>
+          </div>
+          ))}
+          </div>
         <div className="flex flex-flow justify-center mt-32 ml-60 md:ml-96">
           <CreateClass user={user} school={school} />
         </div>
+        <div className="flex flex-flow justify-center mt-6 ml-60 md:ml-96">
+          <CreateWorksheet user={user} />
+        </div>
+
       </>
     )}
   </>
