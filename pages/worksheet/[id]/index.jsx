@@ -8,7 +8,7 @@ import { supabase } from 'utils/supabase';
 import { Button } from '@chakra-ui/react'
 import Link from 'next/link';
 import Image from 'next/image';
-
+import { postData } from '../../../helpers/makePdf';
  export default function ClassPage({ worksheetData }) {
 
   const user = useUser()
@@ -27,8 +27,7 @@ import Image from 'next/image';
   )
 
     const title = `${worksheetData[0].name} | teachmegcse`
-
-    console.log(isTeacher);
+    const header = `${worksheetData[0].name} - worksheet`
         
     return (
         <>
@@ -43,6 +42,9 @@ import Image from 'next/image';
         <div className="mt-32">
         {isTeacher ? (
           <>
+        <div className="flex justify-center">
+          <h1 className='text-4xl font-bold text-white'>{header}</h1>
+        </div>
           <div className="flex flex-col items-center">
           <div className='flex'>
           <h1 className='text-3xl font-bold mt-20 text-white'>Questions({worksheetData[0].questions?.length ? worksheetData[0].questions.length : 0})</h1>
@@ -61,7 +63,10 @@ import Image from 'next/image';
           </>
           }
           {questionsShown && worksheetData[0].questions &&
+          <>
           <Button colorScheme='blue' onClick={() => setQuestionsShown(!questionsShown)} className='ml-40 mb-20' size='lg'>Hide Questions</Button>
+          <Button colorScheme='green' onClick={() => postData(worksheetData[0].questions, title)} className='ml-40 mb-20' size='lg'>Download Worksheet</Button>
+          </>
           }
           </div>
                 {questionsShown && (

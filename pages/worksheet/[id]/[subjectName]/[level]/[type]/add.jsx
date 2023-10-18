@@ -25,12 +25,11 @@ import Link from 'next/link';
     console.error(`Error retrieving existing ${field}:`, existingError);
     return;
   }
-
   const newData = { ...existingData };
   const data2 = newData[field] || [];
 
     newData[field] = [...data2, object];
-
+    console.log(newData);
   const { data, error } = await supabase
     .from(table)
     .update(newData)
@@ -111,7 +110,7 @@ import Link from 'next/link';
             }
           getInitial()
           getQuestions(); // Call the function
-        }, [worksheetID, questionsAvailable, session, user]);
+        }, [worksheetID, session, user]);
   
       if (filteredData.length === 0) {
         throw new Error('chapters not found');

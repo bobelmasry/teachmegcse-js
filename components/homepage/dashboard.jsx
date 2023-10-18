@@ -10,11 +10,26 @@ import UpdateClass from 'components/modals/updateClass.jsx'
 import findStudentClasses from 'utils/findStudentClasses.js'
 import findStudentAssignments from 'utils/findStudentAssignments.js'
 import Image from 'next/image';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import { useRouter } from 'next/router';
 
 
 export default function Dashboard({ session }) {
 
     const user = useUser()
+    const router = useRouter()
+
+    async function removeAWorksheet(worksheetID) {
+      console.log(worksheetID);
+      const { error } = await supabase
+      .from('worksheets')
+      .delete()
+      .eq('id', worksheetID)
+      if (error){
+        console.log(error);
+      }
+      router.reload()
+    }
       //for teachers
     function TopicCard({linkSrc, header, studentNum, level, subject}) {
       return (
@@ -210,8 +225,9 @@ export default function Dashboard({ session }) {
         </div>
         <div className="flex mt-12 justify-center items-center">
         {worksheets.map((worksheet) => (
-          <div key={worksheet.id}>
+          <div key={worksheet.id} className='flex no-wrap'>
             <WorksheetCard key={worksheet.id} level={worksheet.level} header={worksheet.name} linkSrc={`/worksheet/${worksheet.id}`} questionNum={worksheet.questions ? worksheet.questions.length : 0} subject={worksheet.subject}/>
+            <DeleteOutlineOutlinedIcon onClick={() => removeAWorksheet(worksheet.id)} fontSize="large" className='cursor-pointer ease-out transition-all bg-gray-500 hover:bg-gray-300 mt-8 ml-4 rounded rounded-xl'/>
           </div>
           ))}
           </div>

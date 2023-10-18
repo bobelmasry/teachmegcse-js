@@ -125,12 +125,6 @@ import { postData } from '../../../../../helpers/makePdf';
         {!questionsShown && assignmentData[0].questions &&
         <>
         <Button colorScheme='blue' onClick={() => setQuestionsShown(!questionsShown)} className='ml-96 mb-20' size='lg'>Show Questions</Button>
-        {assignmentData[0].questions.length > 0 &&
-        <Button colorScheme='green' onClick={() => postData(assignmentData[0].questions, title)} className='ml-96 mb-20' size='lg'>Download Worksheet</Button>
-        }
-        {assignmentData[0].questions.length === 0 &&
-        <Button colorScheme='green' onClick={() => postData(assignmentData[0].questions, title)} className='ml-96 mb-20' size='lg' disabled={true}>Download Worksheet</Button>
-        }
         </>
         }
         {questionsShown && assignmentData[0].questions &&
