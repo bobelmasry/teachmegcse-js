@@ -374,7 +374,7 @@ import Link from 'next/link';
   }
   export async function getServerSideProps({ params }) {
     try {
-      const filePath = path.join(process.cwd(), 'public', `${params.subjectName}_db.json`);
+      const filePath = path.join(process.cwd(), 'public', `all.json`);
       const fileData = await fs.readFile(filePath, 'utf-8');
       const data = JSON.parse(fileData);
   
