@@ -131,7 +131,7 @@ import { useRouter } from 'next/router';
             <div key={question.questionName} className='border border-8 border-green-600 p-2 rounded rounded-2xl'>
                 <Link key={question.questionName} href={`/IGCSE/${question.Subject}/topic-questions/extended/list/${question.Chapter}/${question.questionName}`}>
                 <Image key={question.questionName} className='rounded rounded-md' src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/IGCSE/${question.Subject}/p${question.paperNumber}/${question.Chapter}/${question.questionName}`} alt='image' height={800} width={800} />
-                </Link>
+                </Link> 
             </div>
         </div>
         ))}
@@ -147,10 +147,10 @@ import { useRouter } from 'next/router';
       const fileData = await fs.readFile(filePath, 'utf-8');
       const data = JSON.parse(fileData);
   
-      const filteredData = data.filter(item => (item.Level === 'IGCSE') && (item.paperNumber === 2) && (question.Subject === params.subjectName));
+      const filteredData = data.filter(question => (question.Level == 'IGCSE') && (question.paperNumber == 2) && (question.Subject === params.subjectName));
   
       if (filteredData.length === 0) {
-        throw new Error('chapters not found');
+        throw new Error('questions not found');
       }
   
       const searchArray = filteredData;
