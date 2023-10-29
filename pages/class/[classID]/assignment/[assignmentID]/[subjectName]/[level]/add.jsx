@@ -112,7 +112,7 @@ import Link from 'next/link';
             }
           getInitial()
           getQuestions(); // Call the function
-        }, [assignmentID, questionsAvailable, session, user]);
+        }, [classID, session, user]);
   
       if (filteredData.length === 0) {
         throw new Error('chapters not found');
@@ -212,7 +212,6 @@ import Link from 'next/link';
         const [chapterValue, setChapterValue] = useState(0);
         const [paperValue, setPaperValue] = useState(0);
         const [questionText, setQuestionText] = useState('')
-        //console.log(questionArray);
 
         async function addAQuestion(question) {
           setBannerShown(true)        
