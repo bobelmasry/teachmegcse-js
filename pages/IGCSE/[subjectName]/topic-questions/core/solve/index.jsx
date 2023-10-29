@@ -63,7 +63,7 @@ import data2 from "public/all.json"
       <div className="flex justify-center items-center ">
       <div className="grid grid-rows-4 gap-8 mt-16 mb-24 w-auto">
         {chapters.map((topic) => { 
-          const solvedPaper = questionsSolved?.filter(question => ((question.Chapter.toString() === topic.id.toString()) && (question.Subject.toString() === str) && (question.Level?.toString() === ("IGCSE") && question.paperNumber?.toString() === ("1"))));
+          const solvedPaper = questionsSolved?.filter(question => ((question.Chapter.toString() === topic.id.toString()) && (question.Subject.toString() === str) && (question.Level?.toString() === ("IGCSE") && question.PaperNumber?.toString() === ("1"))));
           const chapterQuestions = data2.filter(question => ((question.Chapter.toString() === topic.id.toString()) && (question.Subject.toString() === str) && (question.Level?.toString() === ("IGCSE") && question.paperNumber?.toString() === ("1"))));
           let amountSolved = Array.isArray(solvedPaper) ? solvedPaper.length : 0
 

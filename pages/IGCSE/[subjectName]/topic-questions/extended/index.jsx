@@ -21,7 +21,7 @@ import path from 'path';
        title = `IGCSE ${str2} Topic Questions`
       }
       else {
-        title = `IGCSE Core ${str2} Topic Questions`
+        title = `IGCSE Extended ${str2} Topic Questions`
       }
 
     return (

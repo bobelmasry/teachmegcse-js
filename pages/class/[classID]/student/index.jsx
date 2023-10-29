@@ -69,7 +69,7 @@ export default function ClassPage({ classData }) {
       addStudents()
     },[classData, classID, studentID, user]
     )
-    const title = `${studentData[0]?.username}'s Data for ${classData[0]?.name}`
+    const title = ` ${classData[0]?.name} - Students`
     return (
         <>
         <Head>
@@ -80,15 +80,20 @@ export default function ClassPage({ classData }) {
             <Headstuff />
         </Head>
         <Navbar session={session} />
-            {classData[0].students.length === 0 && isTeacher &&
+            {classData[0].students.length === 0 &&
             <div className="flex mt-20 justify-center"> 
             <h1 className='text-3xl text-white'>Hey, you need to have students to see their !</h1>
             </div>
             }
-            {classData[0].students.length != 0 && isTeacher &&
+            {classData[0].students.length != 0 &&
             <>
             <div className="flex mt-20 justify-center">
+            {isTeacher &&
             <h1 className='text-3xl text-white'>{classData[0]?.name} - Students</h1>
+            }
+            {!isTeacher &&
+            <h1 className='text-3xl text-white'>{classData[0]?.name} - Leaderboards</h1>
+            }
             </div>
             <div className="flex mt-20 justify-center">
             {(classData[0].students && classData[0].students.length != 0) &&
@@ -108,9 +113,11 @@ export default function ClassPage({ classData }) {
                         <th scope="col" className="sm:px-4 px-2 py-3">
                           Percentage
                         </th>
+                        {isTeacher &&
                         <th scope="col" className="sm:px-4 px-2 py-3">
                           Edit
                         </th>
+                        }
                       </tr>
                     </thead>
           {studentData.map((student) => (
@@ -118,22 +125,31 @@ export default function ClassPage({ classData }) {
                     <tbody key={student.id}>
                       <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                       <td className="px-10 py-4">
+                      {isTeacher &&
                         <Link href={`/class/${classData[0].classID}/student/${student.id}`} className='text-blue-600 font-semibold text-xl underline hover:no-underline'>
                         {student.username}
                         </Link>
+                      }
+                      {!isTeacher &&
+                      <p className='font-semibold text-xl'>
+                        {student.username}
+                      </p>
+                      }
                       </td>
                         <td className="px-10 ml-8 py-4">
-                        {student.questionsSolved?.filter((question) => question.Subject == 'physics').length || 0}
+                        {student.questionsSolved?.filter((question) => question.Subject == classData[0].subject).length || 0}
                         </td>
                         <td className="px-10 ml-8 py-4">
-                        {student.questionsSolved?.filter((question) => question.Subject == 'physics' && (question.Correct.toString() == 'true')).length || 0}
+                        {student.questionsSolved?.filter((question) => question.Subject == classData[0].subject && (question.Correct.toString() == 'true')).length || 0}
                         </td>
                         <td className="sm:px-4 px-2 py-4">
-                        {`${Math.round(((student.questionsSolved?.filter((question) => (question.Subject == 'physics') && (question.Correct.toString() == 'true')).length/student.questionsSolved?.filter((question) => question.Subject == 'physics').length) * 10000)) / 100} %`}
+                        {`${Math.round(((student.questionsSolved?.filter((question) => (question.Subject == classData[0].subject) && (question.Correct.toString() == 'true')).length/student.questionsSolved?.filter((question) => question.Subject == classData[0].subject).length) * 10000)) / 100} %`}
                         </td>
+                        {isTeacher &&
                         <td className="sm:px-4 px-2 py-4">
                           <DeleteOutlineOutlinedIcon onClick={() => removeAStudent(student.id)} fontSize="large" className='cursor-pointer ease-out transition-all hover:bg-gray-600 rounded rounded-xl'/>
                         </td>
+                        }
                       </tr>
                     </tbody>
               </>
@@ -143,26 +159,17 @@ export default function ClassPage({ classData }) {
           }
             </div>
           <div className='flex flex-col ml-96'>
+          {isTeacher &&
           <AddStudents studentsAvailable={studentsAvailable} classData={classData} user={user} />
+        }
             <Link href={`/class/${classID}`} className='p-8'>
-              <Button colorScheme='blue' size='lg'>Go Back</Button>
+              <Button colorScheme='green' size='lg'>Go Back</Button>
             </Link>
-          </div>
-            </> 
-            }
-            {!isTeacher &&
-            <>
-            <div className="flex mt-20 justify-center"> 
-            <h1 className='text-3xl text-white'>Hey, you don{"'t"} seem to be a teacher / are not signed in</h1>
-            </div>
-            <div className="flex mt-10 justify-center"> 
-            <Link href={"/login-or-signup"} className='p-8'>
-              <Button colorScheme='blue' size='lg'>Login / Sign Up</Button>
-            </Link>
+            
             </div>
             </>
-            }
-        </>
+    }
+    </>
     )
 }
 

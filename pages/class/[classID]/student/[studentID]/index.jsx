@@ -71,13 +71,13 @@ export default function ClassPage({ assignmentData }) {
     getClassData()
     async function getInitial() {
       if (user && user.id) {
-        if (user.id === assignments[0]?.user_id) {
+        if (user.id === classData[0]?.user_id) {
           setIsTeacher(true)
         }
       }
     }
     getInitial()
-    },[assignmentData, assignments, classID, studentID, user]
+    },[assignmentData, classData, classID, studentID, user]
     )
     const title = `${studentData[0]?.username}'s Data for ${classData[0]?.name}`
     return (

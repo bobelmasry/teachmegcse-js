@@ -173,6 +173,15 @@ import { format as timeagoFormat } from 'timeago.js';
           </li>
           </>
           }
+          {!isTeacher &&
+            <>
+            <li>
+            <Link href={`/class/${classData[0].classID}/student`} className="mt-2 block rounded-lg px-4 py-2 text-md font-medium bg-gray-100 text-black hover:text-gray-700">
+              Leaderboards
+            </Link>
+          </li>
+          </>
+          }
         </ul>
       </div>
     </div>
