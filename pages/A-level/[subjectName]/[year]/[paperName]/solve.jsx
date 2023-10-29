@@ -9,7 +9,47 @@ import data from "public/all.json"
 import papers from "public/papers.json"
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { updateSupabase } from 'utils/updateSupabase'
+import { supabase } from 'utils/supabase';
+
+async function updateSupabase(object, table, field, user, field2Filter, field2Filter2, hasFilter, isUserId) {
+  const userIdKey = isUserId ? 'user_id' : 'id';
+
+  const { data: existingData, error: existingError } = await supabase
+    .from(table)
+    .select(field)
+    .eq(userIdKey, user.id)
+    .single();
+
+  if (existingError) {
+    console.error(`Error retrieving existing ${field}:`, existingError);
+    return;
+  }
+
+  const newData = { ...existingData };
+  const data2 = newData[field] || [];
+  console.log(newData);
+  console.log(newData[field]);
+  console.log(data2);
+
+  if (hasFilter) {
+    newData[field] = data2.filter((entry) => entry[field2Filter] !== field2Filter2);
+  }
+
+  newData[field] = [...newData[field], object];
+
+
+  const { data, error } = await supabase
+    .from(table)
+    .update(newData)
+    .eq(userIdKey, user.id);
+
+  if (error) {
+    console.error(`Error updating ${field}:`, error);
+    return;
+  }
+
+  console.log(`${field} updated successfully!`);
+}
 
     function SubjectPage({questionArray}) {
 
@@ -29,7 +69,6 @@ import { updateSupabase } from 'utils/updateSupabase'
         const firstNum = paperName.charAt(6)
         const secondNum = paperName.charAt(7)
         const year = '20' + firstNum + secondNum
-        let correctAnswers = 0
 
         //const user = useUser()
         const arrayLength = questionArray.length;
@@ -61,7 +100,7 @@ import { updateSupabase } from 'utils/updateSupabase'
               Subject : subjectName,
               Year : year
             }
-            updateSupabase(dataToUpdate, 'profiles', 'papersSolved', user, 'PaperName', paperName, true)
+            updateSupabase(dataToUpdate, 'profiles', 'papersSolved', user, 'PaperName', dataToUpdate.PaperName, true, false)
             setSolved(true);
           }
           
