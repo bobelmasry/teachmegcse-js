@@ -17,7 +17,7 @@ export default function Footer () {
         width={50}
       />
       <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-        teachmegcse
+      exceed
       </span>
     </Link>
     </div>

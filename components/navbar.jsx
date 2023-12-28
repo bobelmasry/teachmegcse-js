@@ -28,7 +28,7 @@ export default function Navbar({ session }) {
             width={50}
           />
           <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-            teachmegcse
+            exceed
           </span>
         </Link>
         <div className="flex md:order-2">

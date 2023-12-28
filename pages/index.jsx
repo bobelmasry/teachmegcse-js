@@ -5,14 +5,11 @@ import Cta from "components/homepage/cta.jsx"
 import Special_home from "components/homepage/special-home.jsx"
 import SplitSection from "components/homepage/split-section.jsx"
 import Pricing from "components/homepage/pricing.jsx"
-import Reviews from "components/homepage/reviews.jsx"
 import Footer from "components/homepage/footer.jsx"
 import Head from 'next/head';
 import Navbar from "components/navbar.jsx"
 import Headstuff from "components/headstuff.jsx"
 import { useSession } from '@supabase/auth-helpers-react'
-import YearCard from "components/yearCard.jsx"
-
 
 export default function Home () {
   
@@ -21,9 +18,9 @@ export default function Home () {
   return (
     <>
     <Head>
-    <title>teachmegcse | A-level and IGCSE Content</title>
+    <title>exceed | A-level and IGCSE Content</title>
     <meta name="description" content="CAIE Past Papers for Cambridge Int'l AS and A Level"></meta>
-    <meta name="keywords" content="teachmegcse, teach me gcse, A-level revision notes, A-level past papers, A-level topic questions, 
+    <meta name="keywords" content="exceed, teach me gcse, A-level revision notes, A-level past papers, A-level topic questions, 
     A-level math past papers, A-level physics past papers, A-level chemistry past papers"></meta>
     <Headstuff />
     <meta name="google-site-verification" content="ZPZaedV92LzUagW1ABnkJ35wh4Unm4fgVMAkkOQ2IRw" />

@@ -26,7 +26,7 @@ import { postData } from '../../../helpers/makePdf';
   }, [user, worksheetData]
   )
 
-    const title = `${worksheetData[0].name} | teachmegcse`
+    const title = `${worksheetData[0].name} | exceed`
     const header = `${worksheetData[0].name} - worksheet`
         
     return (
@@ -34,7 +34,7 @@ import { postData } from '../../../helpers/makePdf';
         <Head>
             <title>{title}</title>
             <meta name="description" content="Class"></meta>
-            <meta name="keywords" content="teachmegcse, teach me gcse, A-level revision notes, A-level past papers, A-level topic questions, 
+            <meta name="keywords" content="exceed, teach me gcse, A-level revision notes, A-level past papers, A-level topic questions, 
             A-level math past papers, A-level physics past papers, A-level chemistry past papers"></meta>
             <Headstuff />
         </Head>

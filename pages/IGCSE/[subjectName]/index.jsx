@@ -81,7 +81,7 @@ const yearsArray = [2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 
         <Head>
           <title>{`Past Papers | IGCSE | ${str2}`}</title>
           <meta name="description" content={`CAIE Past Papers for IGCSE ${subjectData.name}`}></meta>
-          <meta name="keywords" content={`teachmegcse, teach me gcse, IGCSE revision notes, IGCSE past papers, IGCSE topic questions, 
+          <meta name="keywords" content={`exceed, teach me gcse, IGCSE revision notes, IGCSE past papers, IGCSE topic questions, 
     IGCSE ${subjectData.name} past papers`}></meta>
           <Headstuff />
         </Head>

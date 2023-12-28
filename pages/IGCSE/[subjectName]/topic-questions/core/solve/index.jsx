@@ -53,7 +53,7 @@ import data2 from "public/all.json"
         <Head>
           <title>{title}</title>
           <meta name="description" content={`Find the Answer and maybe an Explanation`}></meta>
-          <meta name="keywords" content={`teachmegcse, teach me gcse, IGCSE revision notes, IGCSE past papers, IGCSE topic questions,`}></meta>
+          <meta name="keywords" content={`exceed, teach me gcse, IGCSE revision notes, IGCSE past papers, IGCSE topic questions,`}></meta>
           <Headstuff />
         </Head>
         <Navbar session={session} />

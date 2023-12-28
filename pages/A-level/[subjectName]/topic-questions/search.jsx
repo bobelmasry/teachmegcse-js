@@ -104,7 +104,7 @@ import { useRouter } from 'next/router';
         <Head>
           <title>Search for a question or a keyword</title>
           <meta name="description" content={`Find the Answer and maybe an Explanation`}></meta>
-          <meta name="keywords" content={`teachmegcse, teach me gcse, A-level revision notes, A-level past papers, A-level topic questions, 
+          <meta name="keywords" content={`exceed, teach me gcse, A-level revision notes, A-level past papers, A-level topic questions, 
     `}></meta>
           <Headstuff />
         </Head>

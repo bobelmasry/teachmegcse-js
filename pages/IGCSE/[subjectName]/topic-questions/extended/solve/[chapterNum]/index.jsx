@@ -176,7 +176,7 @@ import Link from 'next/link';
         <Head>
           <title>{str2}</title>
           <meta name="description" content={`Find the Answer and maybe an Explanation`}></meta>
-          <meta name="keywords" content={`teachmegcse, teach me gcse, IGCSE revision notes, IGCSE past papers, IGCSE topic questions`}></meta>
+          <meta name="keywords" content={`exceed, teach me gcse, IGCSE revision notes, IGCSE past papers, IGCSE topic questions`}></meta>
           <Headstuff />
         </Head>
         <Navbar session={session} />

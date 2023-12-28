@@ -65,7 +65,7 @@ import { postData } from '../../../../../helpers/makePdf';
       getCompletedBy();
     }, [assignmentData, session, user]);
 
-    const title = `${assignmentData[0].name} | teachmegcse`
+    const title = `${assignmentData[0].name} | exceed`
     const date = new Date(assignmentData[0].dueDate);
     const options = { month: 'long', day: 'numeric', year : 'numeric', hour: 'numeric', minute: 'numeric' };
     const formattedDate = date.toLocaleString('en-US', options);
@@ -75,7 +75,7 @@ import { postData } from '../../../../../helpers/makePdf';
         <Head>
             <title>{title}</title>
             <meta name="description" content="Class"></meta>
-            <meta name="keywords" content="teachmegcse, teach me gcse, A-level revision notes, A-level past papers, A-level topic questions, 
+            <meta name="keywords" content="exceed, teach me gcse, A-level revision notes, A-level past papers, A-level topic questions, 
             A-level math past papers, A-level physics past papers, A-level chemistry past papers"></meta>
             <Headstuff />
         </Head>

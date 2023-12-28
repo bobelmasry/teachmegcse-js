@@ -12,7 +12,7 @@ export default function Banner() {
           <span className="sm:block"> all while having FUN </span>
         </h1>
         <p className="mx-auto mt-8 max-w-xl sm:text-xl/relaxed">
-          With teachmegcse get access to 10,000+ Questions that are sorted by
+          With exceed get access to 10,000+ Questions that are sorted by
           topic along with our well known Revision Notes.
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-4">

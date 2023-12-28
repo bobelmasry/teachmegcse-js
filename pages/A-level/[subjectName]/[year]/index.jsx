@@ -36,7 +36,7 @@ export default function SubjectPage({papers}) {
       <Head>
         <title>{title}</title>
         <meta name="description" content={`CAIE Past Papers for A-level ${papers[0].subjectName} ${papers[0].year}`}></meta>
-        <meta name="keywords" content={`teachmegcse, teach me gcse, A-level revision notes, A-level past papers, A-level topic questions, 
+        <meta name="keywords" content={`exceed, teach me gcse, A-level revision notes, A-level past papers, A-level topic questions, 
     A-level ${papers[0].subjectName} ${papers[0].year} past papers`}></meta>
         <Headstuff />
       </Head>

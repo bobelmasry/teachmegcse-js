@@ -19,7 +19,7 @@ import chapters from "public/chapters.json"
           <title>{questionData.questionText}</title>
           <meta name='title' content={`${questionData.questionText}`}></meta>
           <meta name="description" content={`Find the Answer and maybe an Explanation`}></meta>
-          <meta name="keywords" content={`teachmegcse, teach me gcse, IGCSE revision notes, IGCSE past papers, IGCSE topic questions, 
+          <meta name="keywords" content={`exceed, teach me gcse, IGCSE revision notes, IGCSE past papers, IGCSE topic questions, 
     ${questionData.questionText}`}></meta>
           <Headstuff />
         </Head>

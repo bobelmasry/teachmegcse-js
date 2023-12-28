@@ -132,13 +132,13 @@ async function updateSupabase(object, table, field, assignmentID) {
       getCompletedBy()
         }, [assignmentData.assignmentID, assignmentData.classID, assignmentData.user_id, user])
 
-     const title = `${assignmentData.name} - teachmegcse`
+     const title = `${assignmentData.name} - exceed`
     return (
         <>
         <Head>
             <title>{title}</title>
             <meta name="description" content="Class"></meta>
-            <meta name="keywords" content="teachmegcse, teach me gcse, A-level revision notes, A-level past papers, A-level topic questions, 
+            <meta name="keywords" content="exceed, teach me gcse, A-level revision notes, A-level past papers, A-level topic questions, 
             A-level math past papers, A-level physics past papers, A-level chemistry past papers"></meta>
             <Headstuff />
         </Head>
