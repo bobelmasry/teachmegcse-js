@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Navbar from "components/navbar.jsx"
-import Table from "components/table2.jsx"
+import Table from "components/table.jsx"
 import "flowbite"
 import papers2 from "public/papers.json"
 import Headstuff from "components/headstuff.jsx"
@@ -149,14 +149,14 @@ export default function SubjectPage({papers}) {
       </div>
       <div className="block ml-0 justify-center items-center sm:justify-start mt-16 mb-16 sm:ml-16">
         { (papers[0].year > 2015 ) && <><h1 className="text-2xl ml-2 sm:text-4xl font-bold dark:text-gray-100">February/March {papers[0].year}</h1>
-        <Table papers={papers} letter={"m"} /> </>}
+        <Table papers={papers} letter={"m"} type={"IGCSE"} /> </>}
         <div className="mt-12">
           <h1 className="text-2xl sm:text-4xl ml-2 font-bold dark:text-gray-100">May/June {papers[0].year}</h1>
-          <Table papers={papers} letter={"s"} />
+          <Table papers={papers} letter={"s"} type={"IGCSE"} />
         </div>
         <div className="mt-12">
           <h1 className="text-2xl sm:text-4xl ml-2 font-bold dark:text-gray-100">October/November {papers[0].year}</h1>
-          <Table papers={papers} letter={"w"} />
+          <Table papers={papers} letter={"w"} type={"IGCSE"} />
         </div>
       </div>
     </>

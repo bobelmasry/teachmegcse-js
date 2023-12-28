@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react';
 import { supabase } from 'utils/supabase';
 import { useUser } from '@supabase/auth-helpers-react'
 
-const Table = ({ papers, letter }) => {
+const Table = ({ papers, letter, type }) => {
+  // type is A-level or IGCSE
   // letter signifier whether its f/m or m/j or o/n
   // and yeah i did all this to save my ass from python
   // it will probably be fixed and removed before july
@@ -25,10 +26,9 @@ const Table = ({ papers, letter }) => {
       if (!initialGotten){
       if (user && user.id) {
       const { data: existingData, error: existingError } = await supabase
-            .from('profiles')
-            .select('papersSolved')
-            .eq('id', user.id)
-            .single();
+            .from('papersSolved')
+            .select('*')
+            .eq('user_id', user.id)
         
           if (existingError) {
             console.error('Error retrieving existing papersSolved:', existingError);
@@ -36,12 +36,14 @@ const Table = ({ papers, letter }) => {
           }
 
           if (existingData) {
-            setPapersSolved(existingData.papersSolved)
+            setPapersSolved(existingData)
             setinitialGotten(true)
           }
     }}}
     getPapersSolved()
   }, [initialGotten, papers, papersSolved, user]);
+
+  console.log(papersSolved);
   
   return (
     <div className="mt-10 md:w-4/5 lg:w-2/4 w-15/16">
@@ -56,7 +58,7 @@ const Table = ({ papers, letter }) => {
           </thead>
           <tbody>
           {papers.map((paper, j) => {
-            const isSolved = papersSolved?.filter(p => p.PaperName.toString() === paper.slug.toString());
+          const isSolved = Array.isArray(papersSolved) ? papersSolved.filter(p => p.PaperName.toString() === paper.slug.toString()) : [];
             let alreadySolved = false
             alreadySolved = ((isSolved?.length === 0) || (isSolved?.length === undefined)) ? false : true
 
@@ -68,7 +70,7 @@ const Table = ({ papers, letter }) => {
                   <div className="flex gap-2 md:gap-0">
                   {(paper.hasSolve.toString() == 'False') && (!alreadySolved) && (
                     //Added as ones without solve would have no padding on left as they are on another row so this would stick to text as on same row
-                    <Link href={`/A-level/${paper.subjectName}/${paper.year}/${paper.slug}`}>
+                    <Link href={`/${type}/${paper.subjectName}/${paper.year}/${paper.slug}`}>
                       <button
                         id='Submit'
                         className="md:ml-8 ml-4 mt-2 sm:mt-0 rounded border border-blue-500 bg-blue-600 px-8 md:px-10 py-1 text-sm md:text-lg lg:text-xl font-medium text-white hover:bg-blue-500 focus:outline-none focus:ring active:text-slate-300"
@@ -78,7 +80,7 @@ const Table = ({ papers, letter }) => {
                     </Link>
                     )}
                     {(paper.hasSolve.toString() == 'True') && (
-                    <Link href={`/A-level/${paper.subjectName}/${paper.year}/${paper.slug}`}>
+                    <Link href={`/${type}/${paper.subjectName}/${paper.year}/${paper.slug}`}>
                       <button
                         id='Submit'
                         className="md:ml-8 ml-0 mt-2 sm:mt-0 rounded border border-blue-500 bg-blue-600 px-8 md:px-10 py-1 text-sm md:text-lg lg:text-xl font-medium text-white hover:bg-blue-500 focus:outline-none focus:ring active:text-slate-300"
@@ -87,7 +89,7 @@ const Table = ({ papers, letter }) => {
                       </button>
                     </Link>
                     )}
-                    <Link href={`/A-level/${paper.subjectName}/${paper.year}/${arr[j]?.msName}`}>
+                    <Link href={`/${type}/${paper.subjectName}/${paper.year}/${arr[j]?.msName}`}>
                       <button
                         id='Submit'
                         className="md:ml-8 mt-2 sm:mt-0 rounded border border-blue-500 bg-blue-600 px-8 md:px-10 py-1 text-sm md:text-lg lg:text-xl font-medium text-white hover:bg-blue-500 focus:outline-none focus:ring active:text-slate-300"
@@ -96,7 +98,7 @@ const Table = ({ papers, letter }) => {
                       </button>
                     </Link>
                     {((paper.hasSolve.toString() == 'True') && (alreadySolved === false)) && (
-                      <Link href={`/A-level/${paper.subjectName}/${paper.year}/${paper.slug}/solve`}>
+                      <Link href={`/${type}/${paper.subjectName}/${paper.year}/${paper.slug}/solve`}>
                         <button
                           id='Submit'
                           className="md:ml-8 mt-2 sm:mt-0 rounded border border-blue-500 bg-blue-600 px-8 md:px-10 py-1 text-sm md:text-lg lg:text-xl font-medium text-white hover:bg-blue-500 focus:outline-none focus:ring active:text-slate-300"
@@ -111,9 +113,9 @@ const Table = ({ papers, letter }) => {
                             id='Submit'
                             className="md:ml-8 mt-2 sm:mt-0 rounded border border-blue-500 bg-blue-600 px-8 md:px-10 py-1 text-sm md:text-lg lg:text-xl font-medium text-white focus:outline-none"
                           >
-                            {isSolved[0].Score} / {isSolved[0].NumOfQuestions}
+                            {isSolved[0].Score} / {isSolved[0].numOfQuestions}
                           </button>
-                      <Link href={`/A-level/${paper.subjectName}/${paper.year}/${paper.slug}/solve`}>
+                      <Link href={`/${type}/${paper.subjectName}/${paper.year}/${paper.slug}/solve`}>
                       <button
                         id='Submit'
                         className="md:ml-8 mt-2 sm:mt-0 rounded border border-purple-500 bg-purple-600 px-8 md:px-10 py-1 text-sm md:text-lg lg:text-xl font-medium text-white hover:bg-purple-500 focus:outline-none focus:ring active:text-slate-300"

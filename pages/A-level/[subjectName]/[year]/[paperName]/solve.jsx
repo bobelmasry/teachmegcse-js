@@ -11,46 +11,6 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { supabase } from 'utils/supabase';
 
-async function updateSupabase(object, table, field, user, field2Filter, field2Filter2, hasFilter, isUserId) {
-  const userIdKey = isUserId ? 'user_id' : 'id';
-
-  const { data: existingData, error: existingError } = await supabase
-    .from(table)
-    .select(field)
-    .eq(userIdKey, user.id)
-    .single();
-
-  if (existingError) {
-    console.error(`Error retrieving existing ${field}:`, existingError);
-    return;
-  }
-
-  const newData = { ...existingData };
-  const data2 = newData[field] || [];
-  console.log(newData);
-  console.log(newData[field]);
-  console.log(data2);
-
-  if (hasFilter) {
-    newData[field] = data2.filter((entry) => entry[field2Filter] !== field2Filter2);
-  }
-
-  newData[field] = [...newData[field], object];
-
-
-  const { data, error } = await supabase
-    .from(table)
-    .update(newData)
-    .eq(userIdKey, user.id);
-
-  if (error) {
-    console.error(`Error updating ${field}:`, error);
-    return;
-  }
-
-  console.log(`${field} updated successfully!`);
-}
-
     function SubjectPage({questionArray}) {
 
       questionArray.sort((a, b) => {
@@ -94,13 +54,21 @@ async function updateSupabase(object, table, field, user, field2Filter, field2Fi
               setQuestionsCorrect(correctAnswers)
             }
             const dataToUpdate = {
-              PaperName: paperName,
+              PaperName : paperName,
               Score: correctAnswers,
-              NumOfQuestions: arrayLength,
+              numOfQuestions: arrayLength,
               Subject : subjectName,
-              Year : year
+              Year : year,
+              user_id : user.id,
+              key : paperName + user.id
             }
-            updateSupabase(dataToUpdate, 'profiles', 'papersSolved', user, 'PaperName', dataToUpdate.PaperName, true, false)
+              const { error } = await supabase
+                .from('papersSolved')
+                .upsert([dataToUpdate], { onConflict: ['key'] });
+            
+              if (error) {
+                console.error('Supabase upsert error:', error);
+              }
             setSolved(true);
           }
           
@@ -110,7 +78,7 @@ async function updateSupabase(object, table, field, user, field2Filter, field2Fi
         <Head>
           <title>{title}</title>
           <meta name="description" content={`Find the Answer and maybe an Explanation`}></meta>
-          <meta name="keywords" content={`teachmegcse, teach me gcse, A-level revision notes, A-level past papers, A-level topic questions`}></meta>
+          <meta name="keywords" content={`exceed, teach me gcse, A-level revision notes, A-level past papers, A-level topic questions`}></meta>
           <Headstuff />
         </Head>
         <Navbar session={session} />

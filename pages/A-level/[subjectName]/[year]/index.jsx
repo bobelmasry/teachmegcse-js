@@ -46,14 +46,14 @@ export default function SubjectPage({papers}) {
       </div>
       <div className="block ml-0 justify-center items-center sm:justify-start mt-16 mb-16 sm:ml-16">
         { (papers[0].year > 2015 ) && <><h1 className="text-2xl ml-2 sm:text-4xl font-bold dark:text-gray-100">February/March {papers[0].year}</h1>
-        <Table papers={papers} letter={"m"} /> </>}
+        <Table papers={papers} letter={"m"} type={"A-level"} /> </>}
         <div className="mt-12">
           <h1 className="text-2xl sm:text-4xl ml-2 font-bold dark:text-gray-100">May/June {papers[0].year}</h1>
-          <Table papers={papers} letter={"s"} />
+          <Table papers={papers} letter={"s"} type={"A-level"} />
         </div>
         <div className="mt-12">
           <h1 className="text-2xl sm:text-4xl ml-2 font-bold dark:text-gray-100">October/November {papers[0].year}</h1>
-          <Table papers={papers} letter={"w"} />
+          <Table papers={papers} letter={"w"} type={"A-level"} />
         </div>
       </div>
     </>
