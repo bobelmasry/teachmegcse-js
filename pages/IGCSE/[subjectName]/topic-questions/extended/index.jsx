@@ -14,16 +14,9 @@ import path from 'path';
       const data = router.query;
       const str = data.subjectName;
       const str2 = str.charAt(0).toUpperCase() + str.slice(1);
-      let isEco = false
       let title = ''
-      if (str == 'economics') {
-        isEco = true
-       title = `IGCSE ${str2} Topic Questions`
-      }
-      else {
-        title = `IGCSE Extended ${str2} Topic Questions`
-      }
-
+      str == 'economics' ? title = `IGCSE ${str2} Topic Questions` : title = `IGCSE Extended ${str2} Topic Questions`
+      
     return (
       <>
         <Head>

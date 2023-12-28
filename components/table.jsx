@@ -42,11 +42,9 @@ const Table = ({ papers, letter, type }) => {
     }}}
     getPapersSolved()
   }, [initialGotten, papers, papersSolved, user]);
-
-  console.log(papersSolved);
   
   return (
-    <div className="mt-10 md:w-4/5 lg:w-2/4 w-15/16">
+    <div className="mt-10 md:w-3/5 lg:w-1/4 w-10/16">
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 dark:bg-gray-500">
           <thead className="text-xs text-gray-700 bg-gray-50 dark:bg-slate-800 dark:text-gray-200">
@@ -63,45 +61,16 @@ const Table = ({ papers, letter, type }) => {
             alreadySolved = ((isSolved?.length === 0) || (isSolved?.length === undefined)) ? false : true
 
           return (
-            ((paper.slug.toString().charAt(5) === letter) && (paper.isMs.toString() === 'False')) && (
+            ((paper.slug.toString().charAt(5) === letter) && (paper.isMs.toString() === 'False')) && (paper.hasSolve.toString() == 'True') && (
               <tr key={paper.slug}>
                 <td className="flex flex-wrap px-2 text-xl md:text-3xl lg:text-3xl py-4 text-gray-900 whitespace-nowrap dark:text-white font-bold">
                   {paper.name}
                   <div className="flex gap-2 md:gap-0">
-                  {(paper.hasSolve.toString() == 'False') && (!alreadySolved) && (
-                    //Added as ones without solve would have no padding on left as they are on another row so this would stick to text as on same row
-                    <Link href={`/${type}/${paper.subjectName}/${paper.year}/${paper.slug}`}>
-                      <button
-                        id='Submit'
-                        className="md:ml-8 ml-4 mt-2 sm:mt-0 rounded border border-blue-500 bg-blue-600 px-8 md:px-10 py-1 text-sm md:text-lg lg:text-xl font-medium text-white hover:bg-blue-500 focus:outline-none focus:ring active:text-slate-300"
-                      >
-                        QP
-                      </button>
-                    </Link>
-                    )}
-                    {(paper.hasSolve.toString() == 'True') && (
-                    <Link href={`/${type}/${paper.subjectName}/${paper.year}/${paper.slug}`}>
-                      <button
-                        id='Submit'
-                        className="md:ml-8 ml-0 mt-2 sm:mt-0 rounded border border-blue-500 bg-blue-600 px-8 md:px-10 py-1 text-sm md:text-lg lg:text-xl font-medium text-white hover:bg-blue-500 focus:outline-none focus:ring active:text-slate-300"
-                      >
-                        QP
-                      </button>
-                    </Link>
-                    )}
-                    <Link href={`/${type}/${paper.subjectName}/${paper.year}/${arr[j]?.msName}`}>
-                      <button
-                        id='Submit'
-                        className="md:ml-8 mt-2 sm:mt-0 rounded border border-blue-500 bg-blue-600 px-8 md:px-10 py-1 text-sm md:text-lg lg:text-xl font-medium text-white hover:bg-blue-500 focus:outline-none focus:ring active:text-slate-300"
-                      >
-                        MS
-                      </button>
-                    </Link>
                     {((paper.hasSolve.toString() == 'True') && (alreadySolved === false)) && (
                       <Link href={`/${type}/${paper.subjectName}/${paper.year}/${paper.slug}/solve`}>
                         <button
                           id='Submit'
-                          className="md:ml-8 mt-2 sm:mt-0 rounded border border-blue-500 bg-blue-600 px-8 md:px-10 py-1 text-sm md:text-lg lg:text-xl font-medium text-white hover:bg-blue-500 focus:outline-none focus:ring active:text-slate-300"
+                          className="md:ml-8 ml-4 rounded border border-blue-500 bg-blue-600 px-8 md:px-10 py-1 text-sm md:text-lg lg:text-xl font-medium text-white hover:bg-blue-500 focus:outline-none focus:ring active:text-slate-300"
                         >
                           Solve
                         </button>
@@ -111,7 +80,7 @@ const Table = ({ papers, letter, type }) => {
                       <>
                           <button
                             id='Submit'
-                            className="md:ml-8 mt-2 sm:mt-0 rounded border border-blue-500 bg-blue-600 px-8 md:px-10 py-1 text-sm md:text-lg lg:text-xl font-medium text-white focus:outline-none"
+                            className="md:ml-8 ml-4 rounded border border-blue-500 bg-blue-600 px-8 md:px-10 py-1 text-sm md:text-lg lg:text-xl font-medium text-white focus:outline-none"
                           >
                             {isSolved[0].Score} / {isSolved[0].numOfQuestions}
                           </button>

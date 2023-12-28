@@ -31,7 +31,7 @@ export default function Dashboard({ session }) {
       router.reload()
     }
       //for teachers
-    function TopicCard({linkSrc, header, studentNum, level, subject}) {
+    function ClassCard({linkSrc, header, studentNum, level, subject}) {
       return (
         <div className='flex justify-center'>
         <Link href={`${linkSrc}`}>
@@ -66,7 +66,7 @@ export default function Dashboard({ session }) {
       )
     };
     //for students
-    function TopicCard2({linkSrc, header, subject, assignmentNum, level}) {
+    function ClassCard2({linkSrc, header, subject, assignmentNum, level}) {
       return (
         <div className='flex justify-center'>
         <Link href={`${linkSrc}`}>
@@ -214,7 +214,7 @@ export default function Dashboard({ session }) {
         <div className="grid sm:grid-cols-2 md:grid-cols-3 grid-cols-1 gap-10 mt-16 w-11/12 md:w-10/12">
         {classes.map((classItem) => (
           <div key={classItem.classID}>
-            <TopicCard key={classItem.classID} level={classItem.level} header={classItem.name} linkSrc={`/class/${classItem.classID}`} studentNum={classItem.students ? classItem.students.length : 0} subject={classItem.subject}/>
+            <ClassCard key={classItem.classID} level={classItem.level} header={classItem.name} linkSrc={`/class/${classItem.classID}`} studentNum={classItem.students ? classItem.students.length : 0} subject={classItem.subject}/>
               <UpdateClass userID={user.id} classID={classItem.classID} subject={classItem.subject} school={classItem.school} level={classItem.level} />
           </div>
           ))}
@@ -256,7 +256,7 @@ export default function Dashboard({ session }) {
             return (
               <div key={classItem.classID} className="flex mt-10">
                 {/* Pass the number of incomplete assignments as the assignmentNum prop */}
-                <TopicCard2 key={classItem.classID} level={classItem.level} subject={classItem.subject} header={classItem.name} linkSrc={`/class/${classItem.classID}`} assignmentNum={incompleteAssignmentsForClass.length} />
+                <ClassCard2 key={classItem.classID} level={classItem.level} subject={classItem.subject} header={classItem.name} linkSrc={`/class/${classItem.classID}`} assignmentNum={incompleteAssignmentsForClass.length} />
               </div>
             );
           })}

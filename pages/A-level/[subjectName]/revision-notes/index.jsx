@@ -8,7 +8,7 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { supabase } from 'utils/supabase';
 
-function TopicCard2({ linkSrc, header, hasSignIn, hasGrey, hasGreen }) {
+function noteCard({ linkSrc, header, hasSignIn, hasGrey, hasGreen }) {
   return (
     <div>
       <Link href={`${linkSrc}`}>
@@ -94,17 +94,17 @@ export default function Home({ posts }) {
           const array = notesRead?.filter(note => ((note.title.toString() === post.data.title.toString())));
         if ((session) && (array.length != 0)) {
           return(
-            <TopicCard2 key={post?.slug} hasGreen={true} header={post?.data.title} linkSrc={`/A-level/${posts[0]?.data.subject}/revision-notes/${post?.slug}`} />
+            <noteCard key={post?.slug} hasGreen={true} header={post?.data.title} linkSrc={`/A-level/${posts[0]?.data.subject}/revision-notes/${post?.slug}`} />
       )
         }}
        if ((session)){
           return(
-          <TopicCard2 key={post?.slug} hasGrey={true} header={post?.data.title} linkSrc={`/A-level/${posts[0]?.data.subject}/revision-notes/${post?.slug}`} />
+          <noteCard key={post?.slug} hasGrey={true} header={post?.data.title} linkSrc={`/A-level/${posts[0]?.data.subject}/revision-notes/${post?.slug}`} />
           )
         }
         else if (!session) {
           return(
-            <TopicCard2 key={post?.slug} hasSignIn={true} header={post?.data.title} linkSrc={`/A-level/${posts[0]?.data.subject}/revision-notes/${post?.slug}`} />
+            <noteCard key={post?.slug} hasSignIn={true} header={post?.data.title} linkSrc={`/A-level/${posts[0]?.data.subject}/revision-notes/${post?.slug}`} />
       )
         }
         })}

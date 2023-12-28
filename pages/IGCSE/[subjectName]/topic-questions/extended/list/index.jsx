@@ -20,10 +20,6 @@ import { useUser } from '@supabase/auth-helpers-react'
       const str = data.subjectName;
       const str2 = str.charAt(0).toUpperCase() + str.slice(1);
       const title = `IGCSE ${str2} Topic Questions`
-      let isEco = false
-      if (str == 'economics') {
-        isEco = true
-      }
 
       const user = useUser()
       const [initialGotten, setinitialGotten] = useState(false)
