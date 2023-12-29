@@ -21,6 +21,19 @@ import { useRouter } from 'next/router';
         const data2 = router.query;
         const subject = data2.subjectName
 
+        const [questionArray2, setQuestionArray2] = useState(questionArray);
+
+        const handleToggleAnswer = (questionName) => {
+          setQuestionArray2((prevQuestions) =>
+            prevQuestions.map((question) =>
+              question.questionName === questionName
+                ? { ...question, showAnswer: !question.showAnswer }
+                : question
+            )
+          );
+        };
+              
+
         const filteredData = data.filter(item => (item.subject === subject) && (item.level === 'A-level'));
   
       if (filteredData.length === 0) {
@@ -175,15 +188,30 @@ import { useRouter } from 'next/router';
                 </div>
                 </div>
                 <div className="flex flex-col items-center gap-32 mt-32 mb-20">
-        {questionArray.map((question) => (
-        <div key={question.questionName}>
-            <div key={question.questionName} className='border border-8 border-green-600 p-2 rounded rounded-2xl'>
-                <Link key={question.questionName} href={`/A-level/${question.Subject}/topic-questions/list/${question.Chapter}/${question.questionName}`}>
-                <Image key={question.questionName} className='rounded rounded-md' src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/A-level/${question.Subject}/p${question.paperNumber}/${question.Chapter}/${question.questionName}`} alt='image' height={800} width={800} />
-                </Link>
-            </div>
-        </div>
-        ))}
+                {questionArray2.map((question) => (
+                <div key={question.questionName}>
+                  <div key={question.questionName} className='border border-8 border-green-600 p-2 rounded rounded-2xl'>
+                    <Link key={question.questionName} href={`/A-level/${question.Subject}/topic-questions/list/${question.Chapter}/${question.questionName}`}>
+                      <Image key={question.questionName} className='rounded rounded-md' src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/A-level/${question.Subject}/p${question.paperNumber}/${question.Chapter}/${question.questionName}`} alt='image' height={800} width={800} />
+                    </Link>
+                  </div>
+                  <button onClick={() => handleToggleAnswer(question.questionName)} className="mt-4 text-xl text-white transition-all ease-out bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-500 dark:focus:ring-green-800">
+                    {question.showAnswer ? 'Hide Answer' : 'Show Answer'}
+                  </button>
+                  {question.showAnswer && (
+                    <div className="mt-2 flex text-white">
+                      <div>
+                        <p className="text-xl font-bold text-white">Answer:</p>
+                        <p className='text-white text-xl'>{question.Answer}</p>
+                      </div>
+                      <div className='ml-8'>
+                        <p className="text-xl font-bold text-white">Source:</p>
+                        <p className='text-white text-xl'>{question.pdfName}</p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ))}
         </div>
         </div>
       </>
