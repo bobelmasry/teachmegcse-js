@@ -4,7 +4,6 @@ import "flowbite"
 import Headstuff from "components/headstuff.jsx"
 import { useSession } from '@supabase/auth-helpers-react'
 import Image from 'next/image';
-import Link from 'next/link';
 import { useState, useRef, useEffect } from 'react';
 import fs from 'fs/promises';
 import path from 'path';
@@ -191,9 +190,7 @@ import { useRouter } from 'next/router';
                 {questionArray2.map((question) => (
                 <div key={question.questionName}>
                   <div key={question.questionName} className='border border-8 border-green-600 p-2 rounded rounded-2xl'>
-                    <Link key={question.questionName} href={`/A-level/${question.Subject}/topic-questions/list/${question.Chapter}/${question.questionName}`}>
                       <Image key={question.questionName} className='rounded rounded-md' src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/A-level/${question.Subject}/p${question.paperNumber}/${question.Chapter}/${question.questionName}`} alt='image' height={800} width={800} />
-                    </Link>
                   </div>
                   <button onClick={() => handleToggleAnswer(question.questionName)} className="mt-4 text-xl text-white transition-all ease-out bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-500 dark:focus:ring-green-800">
                     {question.showAnswer ? 'Hide Answer' : 'Show Answer'}

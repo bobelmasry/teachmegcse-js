@@ -4,7 +4,6 @@ import "flowbite"
 import Headstuff from "components/headstuff.jsx"
 import { useSession } from '@supabase/auth-helpers-react'
 import Image from 'next/image';
-import Link from 'next/link';
 import { useState, useEffect, useRef } from 'react';
 import fs from 'fs/promises';
 import path from 'path';
@@ -13,12 +12,23 @@ import { useRouter } from 'next/router';
 
     function SubjectPage({searchArray}) {
         const session = useSession()
-        const [questionArray, setquestionArray] = useState([]);
         const [chapterValue, setChapterValue] = useState(0);
         const [questionText, setQuestionText] = useState('')
         const router = useRouter();
         const data2 = router.query;
         const subject = data2.subjectName
+
+        const [questionArray, setQuestionArray] = useState(searchArray);
+        const handleToggleAnswer = (questionName) => {
+          setQuestionArray((prevQuestions) =>
+            prevQuestions.map((question) =>
+              question.questionName === questionName
+                ? { ...question, showAnswer: !question.showAnswer }
+                : question
+            )
+          );
+        };
+        
 
         const filteredData = data.filter(item => (item.subject === subject) && (item.level === 'IGCSE'));
   
@@ -50,12 +60,12 @@ import { useRouter } from 'next/router';
         filteredQuestionsRef.current = tempFilteredQuestions;
 
         // Update the state with the filtered questions
-        setquestionArray(tempFilteredQuestions);
+        setQuestionArray(tempFilteredQuestions);
       }, [questionText, chapterValue]);
 
       async function reset() {
         setChapterValue(0)
-        setquestionArray(searchArray)
+        setQuestionArray(searchArray)
         setQuestionText('')
         }
 
@@ -126,15 +136,28 @@ import { useRouter } from 'next/router';
                 </div>
                 </div>
                 <div className="flex flex-col items-center gap-32 mt-32 mb-20">
-        {questionArray.map((question) => (
-        <div key={question.questionName}>
-            <div key={question.questionName} className='border border-8 border-green-600 p-2 rounded rounded-2xl'>
-                <Link key={question.questionName} href={`/IGCSE/${question.Subject}/topic-questions/core/list/${question.Chapter}/${question.questionName}`}>
-                <Image key={question.questionName} className='rounded rounded-md' src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/IGCSE/${question.Subject}/p${question.paperNumber}/${question.Chapter}/${question.questionName}`} alt='image' height={800} width={800} />
-                </Link> 
-            </div>
-        </div>
-        ))}
+                {questionArray.map((question) => (
+                <div key={question.questionName}>
+                  <div key={question.questionName} className='border border-8 border-green-600 p-2 rounded rounded-2xl'>
+                      <Image key={question.questionName} className='rounded rounded-md' src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/IGCSE/${question.Subject}/p${question.paperNumber}/${question.Chapter}/${question.questionName}`} alt='image' height={800} width={800} />
+                  </div>
+                  <button onClick={() => handleToggleAnswer(question.questionName)} className="mt-4 text-xl text-white transition-all ease-out bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-500 dark:focus:ring-green-800">
+                      {question.showAnswer ? 'Hide Answer' : 'Show Answer'}
+                    </button>
+                    {question.showAnswer && (
+                    <div className="mt-2 flex text-white">
+                      <div>
+                        <p className="text-xl font-bold text-white">Answer:</p>
+                        <p className='text-white text-xl'>{question.Answer}</p>
+                      </div>
+                      <div className='ml-8'>
+                        <p className="text-xl font-bold text-white">Source:</p>
+                        <p className='text-white text-xl'>{question.pdfName}</p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ))}
         </div>
         </div>
       </>

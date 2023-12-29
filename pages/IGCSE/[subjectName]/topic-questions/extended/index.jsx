@@ -32,7 +32,6 @@ import path from 'path';
         <div className="flex flex-col gap-8 items-center mt-24">
         <TopicCard2 header={"Search For A Question"} linkSrc={`/IGCSE/${data.subjectName}/topic-questions/extended/search`} />
         <TopicCard2 header={"Practice solving questions"} linkSrc={`/IGCSE/${data.subjectName}/topic-questions/extended/solve`} />
-        <TopicCard2 header={"List all the questions"} linkSrc={`/IGCSE/${data.subjectName}/topic-questions/extended/list`} />
         </div>
     </>
     );
