@@ -197,11 +197,16 @@ import { useRouter } from 'next/router';
     const filePath = path.join(process.cwd(), 'public', 'chapters.json');
     const fileData = await fs.readFile(filePath, 'utf-8');
     const data = JSON.parse(fileData);
-
-    const paths = data.map(question => ({
-      params: { subjectName: question.subject.toString()}
-    }));
+  
+    // Exclude the subject 'economics'
+    // cause economics in core only
+    const paths = data
+      .filter(question => question.subject !== 'economics')
+      .map(question => ({
+        params: { subjectName: question.subject.toString() }
+      }));
+  
     return { paths, fallback: false };
   }
-
+  
 export default SubjectPage
