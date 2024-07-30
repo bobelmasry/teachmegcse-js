@@ -8,7 +8,7 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { supabase } from 'utils/supabase';
 
-function noteCard({ linkSrc, header, hasSignIn, hasGrey, hasGreen }) {
+function NoteCard({ linkSrc, header, hasSignIn, hasGrey, hasGreen }) {
   return (
     <div>
       <Link href={`${linkSrc}`}>
@@ -74,6 +74,16 @@ export default function Home({ posts }) {
     getInitial()
   }, [user, initialGotten, posts]);
 
+  const extractNumber = (title) => {
+    const match = title.match(/^(\d+)/);
+    return match ? parseInt(match[0], 10) : Infinity; // If no number, place it at the end
+  };
+
+  // Sort the posts based on the extracted number
+  const sortedPosts = [...posts].sort((a, b) => {
+    return extractNumber(a.data.title) - extractNumber(b.data.title);
+  });
+
   const title = `A-level ${posts[0]?.data.subject} Revision Notes`
   return (
     <>
@@ -89,25 +99,41 @@ export default function Home({ posts }) {
       </div>
       <div className="flex justify-center items-center">
       <div className="grid grid-rows-4 gap-11 mt-16 mb-24 w-10/12 md:w-5/12 lg:w-3/12">
-      {posts.map((post) => {
-        if (notesRead) {
-          const array = notesRead?.filter(note => ((note.title.toString() === post.data.title.toString())));
-        if ((session) && (array.length != 0)) {
-          return(
-            <noteCard key={post?.slug} hasGreen={true} header={post?.data.title} linkSrc={`/A-level/${posts[0]?.data.subject}/revision-notes/${post?.slug}`} />
-      )
-        }}
-       if ((session)){
-          return(
-          <noteCard key={post?.slug} hasGrey={true} header={post?.data.title} linkSrc={`/A-level/${posts[0]?.data.subject}/revision-notes/${post?.slug}`} />
-          )
-        }
-        else if (!session) {
-          return(
-            <noteCard key={post?.slug} hasSignIn={true} header={post?.data.title} linkSrc={`/A-level/${posts[0]?.data.subject}/revision-notes/${post?.slug}`} />
-      )
-        }
-        })}
+      {sortedPosts.map((post) => {
+            const array = notesRead?.filter(note => note.title.toString() === post.data.title.toString());
+            const isRead = array && array.length !== 0;
+
+          if (session) {
+            if (isRead) {
+              return (
+                <NoteCard 
+                  key={post.slug} 
+                  hasGreen={true} 
+                  header={post.data.title} 
+                  linkSrc={`/A-level/${post.data.subject}/revision-notes/${post.slug}`} 
+                />
+              );
+            } else {
+              return (
+                <NoteCard 
+                  key={post.slug} 
+                  hasGrey={true} 
+                  header={post.data.title} 
+                  linkSrc={`/A-level/${post.data.subject}/revision-notes/${post.slug}`} 
+                />
+              );
+            }
+          } else {
+            return (
+              <NoteCard 
+                key={post.slug} 
+                hasSignIn={true} 
+                header={post.data.title} 
+                linkSrc={`/A-level/${post.data.subject}/revision-notes/${post.slug}`} 
+              />
+            );
+          }
+          })}
       </div>
     </div>
     </>
