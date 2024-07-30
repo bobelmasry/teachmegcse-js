@@ -20,10 +20,9 @@ import { useRouter } from 'next/router';
         const data2 = router.query;
         const subject = data2.subjectName
 
-        const [questionArray2, setQuestionArray2] = useState(questionArray);
 
         const handleToggleAnswer = (questionName) => {
-          setQuestionArray2((prevQuestions) =>
+          setquestionArray((prevQuestions) =>
             prevQuestions.map((question) =>
               question.questionName === questionName
                 ? { ...question, showAnswer: !question.showAnswer }
@@ -42,37 +41,12 @@ import { useRouter } from 'next/router';
       const chapters = filteredData;
 
       const papers = [
-        {
-          "id" : 1,
-          "name":"Paper 1",
-          "subject": "economics",
-          "level" : "A-level",
-        },
-        {
-          "id" : 3,
-          "name":"Paper 3",
-          "subject": "economics",
-          "level" : "A-level",
-        },
-        {
-          "id" : 1,
-          "name":"Paper 1",
-          "subject": "biology",
-          "level" : "A-level",
-        },
-        {
-          "id" : 1,
-          "name":"Paper 1",
-          "subject": "chemistry",
-          "level" : "A-level",
-        },
-        {
-          "id" : 1,
-          "name":"Paper 1",
-          "subject": "physics",
-          "level" : "A-level",
-        }
-      ]
+        { id: 1, name: "Paper 1", subject: "economics", level: "A-level" },
+        { id: 3, name: "Paper 3", subject: "economics", level: "A-level" },
+        { id: 1, name: "Paper 1", subject: "biology", level: "A-level" },
+        { id: 1, name: "Paper 1", subject: "chemistry", level: "A-level" },
+        { id: 1, name: "Paper 1", subject: "physics", level: "A-level" }
+      ];
       const filteredPapers = papers.filter(item => item.subject === subject);
 
       const filteredQuestionsRef = useRef();
@@ -165,7 +139,7 @@ import { useRouter } from 'next/router';
                 <select id="chapters" value={chapterValue} onChange={(event) => setChapterValue(event.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                   <option id='0' value={0} defaultValue={true}>All Chapters</option>
                   {chapters.map((chapter) => (
-                    <option key={chapter.id} value={chapter.id}>{chapter.name}</option>
+                    <option key={chapter.id} value={chapter.id}>{chapter.name} ({chapter.level2})</option>
                 ))}
                 </select>
                 </div>
@@ -187,7 +161,7 @@ import { useRouter } from 'next/router';
                 </div>
                 </div>
                 <div className="flex flex-col items-center gap-32 mt-32 mb-20">
-                {questionArray2.map((question) => (
+                {questionArray.map((question) => (
                 <div key={question.questionName}>
                   <div key={question.questionName} className='border border-8 border-green-600 p-2 rounded rounded-2xl'>
                       <Image key={question.questionName} className='rounded rounded-md' src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/A-level/${question.Subject}/p${question.paperNumber}/${question.Chapter}/${question.questionName}`} alt='image' height={800} width={800} />
