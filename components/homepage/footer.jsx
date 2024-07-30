@@ -25,11 +25,6 @@ export default function Footer () {
     <nav aria-label="Footer Nav" className="mt-12">
       <ul className="flex flex-wrap justify-center gap-6 md:gap-8 lg:gap-12">
         <li>
-          <Link className="text-gray-300 transition hover:text-gray-300/60" href="/about">
-            About
-          </Link>
-        </li>
-        <li>
           <Link className="text-gray-300 transition hover:text-gray-300/60" href="/contact">
             Contact Us
           </Link>
