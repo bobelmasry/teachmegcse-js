@@ -317,7 +317,7 @@ import Link from 'next/link';
                     />
                 </div>
                 <div className="flex gap-4">
-                  <div className="w-4/6 sm:w-3/6 md:w-2/6 lg:w-1/8">
+                  <div className="w-4/6 sm:w-3/6">
                     <label htmlFor="chapters" className="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white">Choose a Chapter</label>
                     <select value={chapterValue} onChange={(event) => setChapterValue(event.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                       <option id='0' value={0} defaultValue={true}>All Chapters</option>
@@ -326,7 +326,7 @@ import Link from 'next/link';
                     ))}
                     </select>
                   </div>
-                  <div className="w-4/6 sm:w-3/6 md:w-2/6 lg:w-1/8">
+                  <div className="w-4/6 sm:w-3/6">
                     <label htmlFor="chapters" className="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white">Choose a Paper number</label>
                     <select value={paperValue} onChange={(event) => setPaperValue(event.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                       <option id='0' value={0} defaultValue={true}>All Papers</option>
@@ -336,17 +336,15 @@ import Link from 'next/link';
                     </select>
                   </div>
                 </div>
-                <div className="flex justify-around flex-col sm:flex-row flex-wrap mt-4">
-                <div className="mt-10">
+                <div className="flex justify-around flex-col sm:flex-row flex-wrap mt-12 gap-4">
                 <button onClick={reset} className="text-white transition-all ease-out bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-500 dark:focus:ring-green-800">
                   Reset
                 </button>
-                <button className="text-white ml-8 transition-all ease-out bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-500 dark:focus:ring-blue-800">
+                <button className="text-white transition-all ease-out bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-500 dark:focus:ring-blue-800">
                   <Link href={`/worksheet/${worksheetID}`}>
                   Save and Quit
                   </Link>
                 </button>
-                </div>
                 </div>
                 </div>
                 </div>
@@ -356,7 +354,7 @@ import Link from 'next/link';
             <div className='border border-8 border-green-600 p-2 rounded rounded-2xl'>
                 <Image key={question.questionName} className='rounded rounded-md' src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/${level2}/${question.Subject}/p${question.paperNumber}/${question.Chapter}/${question.questionName}`} alt='image' height={800} width={800} />
             </div>
-            <AddIcon onClick={() => addAQuestion(question)} key={question.questionName} fontSize="large" className='ml-8 mt-24 cursor-pointer ease-out transition-all hover:bg-gray-200 bg-gray-400 rounded rounded-xl'/>
+            <AddIcon onClick={() => addAQuestion(question)} key={question.questionName} fontSize="large" className='ml-4 md:ml-8 mt-24 cursor-pointer ease-out transition-all hover:bg-gray-200 bg-gray-400 rounded rounded-xl'/>
         </div>
         ))}
         </div>

@@ -181,16 +181,15 @@ export default function Dashboard({ session }) {
     
   return (
     <>
-    <div className="flex justify-center">
-    <div className="w-11/12 sm:w-3/6 md:w-full">
+    <div className="w-full m-auto">
       {username != null && 
-      <div className="flex justify-start mb-6">
+      <div className="flex justify-start mb-6 ml-4">
         <h2 className='text-5xl dark:text-gray-100'>Hi <span className='text-blue-500 font-semibold capitalize'>{username}</span>,</h2>
       </div>
       }
       {(!isTeacher) && 
         <>
-      <div className="flex justify-start mb-12">
+      <div className="flex justify-start mb-12 ml-4">
         <h2 className='text-4xl dark:text-gray-100'>My Stats:</h2>
       </div>
       <DataTable questionsSolved={questionsSolved} />
@@ -201,26 +200,26 @@ export default function Dashboard({ session }) {
     {classes.length === 0 ? (
       <>
         <h2 className='text-3xl mt-8 dark:text-gray-100'>Huh, you {"don't"} seem to have any classes</h2>
-        <div className="flex flex-flow justify-center mt-20 ml-60 md:ml-96">
-        </div>
         <CreateClass user={user} school={school} />
       </>
     ) : (
       <>
         <div className="flex justify-start mb-12">
-          <h2 className='text-4xl dark:text-gray-100'>Your Classes:</h2>
+          <h2 className='text-4xl dark:text-gray-100 ml-4'>Your Classes:</h2>
         </div>
         <div className="flex justify-center items-center">
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 grid-cols-1 gap-10 mt-16 w-11/12 md:w-10/12">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 grid-cols-1 gap-10  w-7/12 md:w-10/12">
         {classes.map((classItem) => (
           <div key={classItem.classID}>
             <ClassCard key={classItem.classID} level={classItem.level} header={classItem.name} linkSrc={`/class/${classItem.classID}`} studentNum={classItem.students ? classItem.students.length : 0} subject={classItem.subject}/>
-              <UpdateClass userID={user.id} classID={classItem.classID} subject={classItem.subject} school={classItem.school} level={classItem.level} />
+              <div className='flex justify-end'>
+                <UpdateClass userID={user.id} classID={classItem.classID} subject={classItem.subject} school={classItem.school} level={classItem.level} />
+              </div>
           </div>
           ))}
         </div>
         </div>
-        <div className="flex mt-20 justify-start mb-12">
+        <div className="flex mt-20 justify-start mb-12 ml-4">
           <h2 className='text-4xl dark:text-gray-100'>Your Worksheets:</h2>
         </div>
         <div className="flex mt-12 justify-center items-center">
@@ -237,12 +236,12 @@ export default function Dashboard({ session }) {
         <div className="flex flex-flow justify-center mt-6 ml-60 md:ml-96">
           <CreateWorksheet user={user} />
         </div>
-
       </>
     )}
   </>
 )}
           {(!isTeacher && school) && 
+          <div className='flex justify-center'>
           <div>
           <h1 className='text-4xl mt-20 dark:text-gray-100'>My Classes:</h1>
           <div className="grid sm:grid-cols-2 md:grid-cols-3 grid-cols-1 gap-10 w-11/12 md:w-10/12 mb-20">
@@ -262,13 +261,13 @@ export default function Dashboard({ session }) {
           })}
           </div>
           </div>
+          </div>
           }
 
       <div className="flex m-4 mt-4">
         <button className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-lg w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-700 dark:hover:bg-red-500 dark:focus:ring-red-800" onClick={() => supabase.auth.signOut()}>
           Sign Out
         </button>
-      </div>
       </div>
       </div>
   </>

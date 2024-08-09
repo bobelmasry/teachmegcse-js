@@ -31,7 +31,7 @@ export default function Navbar({ session }) {
             exceed
           </span>
         </Link>
-        <div className="flex md:order-2">
+        <div className="flex md:order-2 gap-4">
           <button
             onClick={handleToggleMenu}
             data-collapse-toggle="navbar-sticky"

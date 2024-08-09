@@ -42,51 +42,52 @@ import { postData } from '../../../helpers/makePdf';
         <div className="mt-32">
         {isTeacher ? (
           <>
-        <div className="flex justify-center">
-          <h1 className='text-4xl font-bold text-white'>{header}</h1>
+        <div className="flex justify-center mt-32">
+          <h1 className='text-4xl font-bold text-white text-center'>{header}</h1>
         </div>
-          <div className="flex flex-col items-center">
-          <div className='flex'>
-          <h1 className='text-3xl font-bold mt-20 text-white'>Questions({worksheetData[0].questions?.length ? worksheetData[0].questions.length : 0})</h1>
-          <Button colorScheme='blue' margin={20} size='md'><Link href={`/worksheet/${worksheetData[0].id}/${worksheetData[0].subject}/${worksheetData[0].level}/${worksheetData[0].type}/add`}>Add Questions </Link> </Button>
-        </div>
-          <div className='flex justify-start'>
-          {!questionsShown && worksheetData[0].questions &&
+            <div className="w-full flex flex-col items-center">
+      <div className='flex flex-col sm:flex-row justify-center items-center'>
+        <h1 className='text-3xl font-bold mt-20 text-white text-center'>Questions({worksheetData[0].questions?.length ? worksheetData[0].questions.length : 0})</h1>
+        <Button colorScheme='blue' margin={20} size='md'>
+          <Link href={`/worksheet/${worksheetData[0].id}/${worksheetData[0].subject}/${worksheetData[0].level}/${worksheetData[0].type}/add`}>Add Questions</Link>
+        </Button>
+      </div>
+      <div className='flex gap-4 justify-center'>
+        {!questionsShown && worksheetData[0].questions && (
           <>
-          <Button colorScheme='blue' onClick={() => setQuestionsShown(!questionsShown)} className='ml-40 mb-20' size='lg'>Show Questions</Button>
-          {worksheetData[0].questions.length > 0 &&
-          <Button colorScheme='green' onClick={() => postData(worksheetData[0].questions, title)} className='ml-40 mb-20' size='lg'>Download Worksheet</Button>
-          }
-          {worksheetData[0].questions.length === 0 &&
-          <Button colorScheme='green' onClick={() => postData(worksheetData[0].questions, title)} className='ml-40 mb-20' size='lg' disabled={true}>Download Worksheet</Button>
-          }
+            <Button colorScheme='blue' onClick={() => setQuestionsShown(!questionsShown)} size='lg'>Show Questions</Button>
+            {worksheetData[0].questions.length > 0 ? (
+              <Button colorScheme='green' onClick={() => postData(worksheetData[0].questions, title)} size='lg'>Download Worksheet</Button>
+            ) : (
+              <Button colorScheme='green' onClick={() => postData(worksheetData[0].questions, title)} size='lg' disabled>Download Worksheet</Button>
+            )}
           </>
-          }
-          {questionsShown && worksheetData[0].questions &&
-          <>
-          <Button colorScheme='blue' onClick={() => setQuestionsShown(!questionsShown)} className='ml-40 mb-20' size='lg'>Hide Questions</Button>
-          <Button colorScheme='green' onClick={() => postData(worksheetData[0].questions, title)} className='ml-40 mb-20' size='lg'>Download Worksheet</Button>
-          </>
-          }
-          </div>
-                {questionsShown && (
-          <div className='flex flex-col items-center gap-20 mt-12 mb-20'>
-            {worksheetData[0].questions.map((question) => (
-              <div key={question.questionName} className='flex'>
-                <div className='border border-8 border-green-600 p-2 rounded rounded-2xl'>
-                  <Image
-                    className='rounded rounded-md'
-                    src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/${question.Level}/${question.Subject}/p${question.paperNumber}/${question.Chapter}/${question.questionName}`}
-                    alt='image'
-                    height={800}
-                    width={800}
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
         )}
+        {questionsShown && worksheetData[0].questions && (
+          <>
+            <Button colorScheme='blue' onClick={() => setQuestionsShown(!questionsShown)} size='lg'>Hide Questions</Button>
+            <Button colorScheme='green' onClick={() => postData(worksheetData[0].questions, title)} size='lg'>Download Worksheet</Button>
+          </>
+        )}
+      </div>
+      {questionsShown && (
+        <div className='w-full flex flex-col items-center gap-20 mt-20 mb-20'>
+          {worksheetData[0].questions.map((question) => (
+            <div key={question.questionName} className='flex justify-center w-full'>
+              <div className='border border-8 border-green-600 p-2 rounded rounded-2xl'>
+                <Image
+                  className='rounded rounded-md'
+                  src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/${question.Level}/${question.Subject}/p${question.paperNumber}/${question.Chapter}/${question.questionName}`}
+                  alt='image'
+                  height={800}
+                  width={800}
+                />
+              </div>
+            </div>
+          ))}
         </div>
+      )}
+    </div>
         </>
          ):(
           <h1 className='mt-20 flex justify-center text-4xl text-white'>Hey, you {"don't"} seem to be a teacher</h1>
