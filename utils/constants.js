@@ -1,2 +1,2 @@
 export const GENERATE_PDF_ENDPOINT =
-  "http://makepdf.hopto.org:8000/generate-pdf/";
+  "http://teachmegcse.duckdns.org:8000/generate-pdf/";
