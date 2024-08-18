@@ -52,7 +52,7 @@ import { postData } from '../../../helpers/makePdf';
           <Link href={`/worksheet/${worksheetData[0].id}/${worksheetData[0].subject}/${worksheetData[0].level}/${worksheetData[0].type}/add`}>Add Questions</Link>
         </Button>
       </div>
-      <div className='flex gap-4 justify-center'>
+      <div className='flex gap-4 justify-center w-11/12 md:w-full'>
         {!questionsShown && worksheetData[0].questions && (
           <>
             <Button colorScheme='blue' onClick={() => setQuestionsShown(!questionsShown)} size='lg'>Show Questions</Button>

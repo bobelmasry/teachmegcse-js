@@ -181,7 +181,7 @@ export default function Dashboard({ session }) {
     
   return (
     <>
-    <div className="w-full m-auto">
+    <div className="w-10/12 m-auto">
       {username != null && 
       <div className="flex justify-start mb-6 ml-4">
         <h2 className='text-5xl dark:text-gray-100'>Hi <span className='text-blue-500 font-semibold capitalize'>{username}</span>,</h2>
@@ -208,7 +208,7 @@ export default function Dashboard({ session }) {
           <h2 className='text-4xl dark:text-gray-100 ml-4'>Your Classes:</h2>
         </div>
         <div className="flex justify-center items-center">
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 grid-cols-1 gap-10  w-7/12 md:w-10/12">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 grid-cols-1 gap-10  w-9/12 md:w-10/12">
         {classes.map((classItem) => (
           <div key={classItem.classID}>
             <ClassCard key={classItem.classID} level={classItem.level} header={classItem.name} linkSrc={`/class/${classItem.classID}`} studentNum={classItem.students ? classItem.students.length : 0} subject={classItem.subject}/>
@@ -222,7 +222,7 @@ export default function Dashboard({ session }) {
         <div className="flex mt-20 justify-start mb-12 ml-4">
           <h2 className='text-4xl dark:text-gray-100'>Your Worksheets:</h2>
         </div>
-        <div className="flex mt-12 justify-center items-center">
+        <div className="flex mt-12 justify-center items-center flex-col gap-8">
         {worksheets.map((worksheet) => (
           <div key={worksheet.id} className='flex no-wrap'>
             <WorksheetCard key={worksheet.id} level={worksheet.level} header={worksheet.name} linkSrc={`/worksheet/${worksheet.id}`} questionNum={worksheet.questions ? worksheet.questions.length : 0} subject={worksheet.subject}/>
@@ -230,10 +230,10 @@ export default function Dashboard({ session }) {
           </div>
           ))}
           </div>
-        <div className="flex flex-flow justify-center mt-32 ml-60 md:ml-96">
+        <div className="flex flex-flow justify-center mt-32 w-full ml-40">
           <CreateClass user={user} school={school} />
         </div>
-        <div className="flex flex-flow justify-center mt-6 ml-60 md:ml-96">
+        <div className="flex flex-flow justify-center mt-6 w-full ml-40">
           <CreateWorksheet user={user} />
         </div>
       </>
@@ -264,7 +264,7 @@ export default function Dashboard({ session }) {
           </div>
           }
 
-      <div className="flex m-4 mt-4">
+      <div className="ml-16 w-full mt-12 mb-8">
         <button className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-lg w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-700 dark:hover:bg-red-500 dark:focus:ring-red-800" onClick={() => supabase.auth.signOut()}>
           Sign Out
         </button>
