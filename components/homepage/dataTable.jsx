@@ -11,7 +11,7 @@ export default function DataTable({questionsSolved}) {
           Questions Solved
         </th>
         <th scope="col" className="sm:px-4 px-2 py-3">
-          Percentage
+          Percentage Correct
         </th>
       </tr>
     </thead>
@@ -21,7 +21,7 @@ export default function DataTable({questionsSolved}) {
           Biology
         </th>
         <td className="px-10 py-4">
-        {questionsSolved?.filter((question) => question.Subject == 'biology').length || 0}
+        {questionsSolved?.filter((question) => question.Subject == 'biology').length || 0} / 5700
         </td>
         <td className="sm:px-4 px-2 py-4">
         {`${Math.round(((questionsSolved?.filter((question) => (question.Subject == 'biology') && (question.Correct.toString() == 'true')).length/questionsSolved?.filter((question) => question.Subject == 'biology').length) * 10000)) / 100} %`}
@@ -32,7 +32,7 @@ export default function DataTable({questionsSolved}) {
           Chemistry
         </th>
         <td className="px-10 py-4">
-        {questionsSolved?.filter((question) => question.Subject == 'chemistry').length || 0}
+        {questionsSolved?.filter((question) => question.Subject == 'chemistry').length || 0} / 5489
         </td>
         <td className="sm:px-4 px-2 py-4">
         {`${Math.round(((questionsSolved?.filter((question) => (question.Subject == 'chemistry') && (question.Correct.toString() == 'true')).length/questionsSolved?.filter((question) => question.Subject == 'chemistry').length) * 10000)) / 100} %`}
@@ -43,7 +43,7 @@ export default function DataTable({questionsSolved}) {
           Physics
         </th>
         <td className="px-10 py-4">
-        {questionsSolved?.filter((question) => question.Subject == 'physics').length || 0}
+        {questionsSolved?.filter((question) => question.Subject == 'physics').length || 0} / 5860
         </td>
         <td className="sm:px-4 px-2 py-4">
         {`${Math.round(((questionsSolved?.filter((question) => (question.Subject == 'physics') && (question.Correct.toString() == 'true')).length/questionsSolved?.filter((question) => question.Subject == 'physics').length) * 10000)) / 100} %`}
@@ -54,7 +54,7 @@ export default function DataTable({questionsSolved}) {
           Economics
         </th>
         <td className="px-10 py-4">
-        {questionsSolved?.filter((question) => question.Subject == 'economics').length || 0}
+        {questionsSolved?.filter((question) => question.Subject == 'economics').length || 0} / 4123
         </td>
         <td className="sm:px-4 px-2 py-4">
         {`${Math.round(((questionsSolved?.filter((question) => (question.Subject == 'economics') && (question.Correct.toString() == 'true')).length/questionsSolved?.filter((question) => question.Subject == 'economics').length) * 10000)) / 100} %`}
