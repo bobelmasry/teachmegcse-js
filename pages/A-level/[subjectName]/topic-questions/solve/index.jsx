@@ -67,29 +67,36 @@ import data2 from "public/all.json"
         </div>
         }
       <div className="flex justify-center mt-28">
-        <h1 className="text-4xl sm:text-5xl font-bold dark:text-gray-100">Solve A-level {data.subjectName} Topic Questions</h1>
+        <h1 className="text-4xl text-center sm:text-5xl font-bold">Solve A-level {data.subjectName} Topic Questions</h1>
       </div>
-      <div className="flex justify-center items-center ">
-      <div className="grid grid-rows-4 gap-8 mt-16 mb-24 w-auto">
-        {chapters.map((topic) => { 
-          const solvedPaper = questionsSolved?.filter(question => ((question.Chapter.toString() === topic.id.toString()) && (question.Subject.toString() === str) && (question.Level?.toString() === ("AS") || question.Level?.toString() === "A2")));
-          const chapterQuestions = data2.filter(question => ((question.Chapter.toString() === topic.id.toString()) && (question.Subject.toString() === str) && (question.Level.toString() === ("AS") || question.Level.toString() === "A2")));
-          let amountSolved = Array.isArray(solvedPaper) ? solvedPaper.length : 0
+      <div className="flex justify-center mt-16 mb-24">
+        <div className="grid grid-cols-1 items-center gap-8 w-10/12 md:w-3/12">
+          {chapters.map((topic) => { 
+            const solvedPaper = questionsSolved?.filter(question => (
+              question.Chapter.toString() === topic.id.toString() && 
+              question.Subject.toString() === str && 
+              (question.Level?.toString() === "AS" || question.Level?.toString() === "A2")
+            ));
+            const chapterQuestions = data2.filter(question => (
+              question.Chapter.toString() === topic.id.toString() && 
+              question.Subject.toString() === str && 
+              (question.Level.toString() === "AS" || question.Level.toString() === "A2")
+            ));
+            
+            let amountSolved = Array.isArray(solvedPaper) ? solvedPaper.length : 0;
+            let totalAmount = chapterQuestions.length;
 
-          let totalAmount = chapterQuestions.length
-
-          if (session) {
-            return(
-              <TopicCard key={topic.id} amountSolved={amountSolved} totalAmount={totalAmount} header={topic.name} linkSrc={`/${topic.level}/${topic.subject}/topic-questions/solve/${topic.id}`} />
-        )
-          }
-          else {
-            return(
-              <TopicCard2 key={topic.id} hasSignIn={true} header={topic.name} linkSrc={`/${topic.level}/${topic.subject}/topic-questions/solve/${topic.id}`} />
-        )
-          }
-        })}
-      </div>
+              return (
+                <TopicCard 
+                  key={topic.id} 
+                  amountSolved={amountSolved} 
+                  totalAmount={totalAmount} 
+                  header={topic.name} 
+                  linkSrc={`/${topic.level}/${topic.subject}/topic-questions/solve/${topic.id}`} 
+                />
+              );
+          })}
+        </div>
       </div>
     </>
     );
