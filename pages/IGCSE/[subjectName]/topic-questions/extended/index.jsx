@@ -27,7 +27,7 @@ import path from 'path';
         </Head>
         <Navbar session={session} />
         <div className="flex justify-center mt-40">
-          <h1 className='text-3xl md:text-5xl font-bold dark:text-white'>{title}</h1>
+          <h1 className='text-center text-3xl md:text-5xl font-bold dark:text-white'>{title}</h1>
         </div>
         <div className="flex flex-col gap-8 items-center mt-24">
         <TopicCard2 header={"Search For A Question"} linkSrc={`/IGCSE/${data.subjectName}/topic-questions/extended/search`} />

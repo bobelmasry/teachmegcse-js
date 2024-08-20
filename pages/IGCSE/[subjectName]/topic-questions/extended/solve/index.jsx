@@ -58,7 +58,7 @@ import data2 from "public/all.json"
         </Head>
         <Navbar session={session} />
       <div className="flex justify-center mt-28">
-        <h1 className="text-4xl sm:text-5xl font-bold dark:text-gray-100">Solve IGCSE {data.subjectName} Topic Questions</h1>
+        <h1 className="text-center text-3xl sm:text-5xl font-bold dark:text-gray-100">Solve IGCSE {data.subjectName} Extended Topic Questions</h1>
       </div>
       <div className="flex justify-center items-center ">
       <div className="grid grid-rows-4 gap-8 mt-16 mb-24 w-auto">
@@ -69,16 +69,9 @@ import data2 from "public/all.json"
 
           let totalAmount = chapterQuestions.length
 
-          if (session) {
             return(
               <TopicCard key={topic.id} amountSolved={amountSolved} totalAmount={totalAmount} header={topic.name} linkSrc={`/${topic.level}/${topic.subject}/topic-questions/extended/solve/${topic.id}`} />
-        )
-          }
-          else {
-            return(
-              <TopicCard2 key={topic.id} hasSignIn={true} header={topic.name} linkSrc={`/${topic.level}/${topic.subject}/topic-questions/extended/solve/${topic.id}`} />
-        )
-          }
+            );
         })}
       </div>
       </div>
