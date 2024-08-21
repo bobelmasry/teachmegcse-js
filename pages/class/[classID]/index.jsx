@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useUser, useSession } from '@supabase/auth-helpers-react'
 import Head from 'next/head';
 import Navbar from "components/navbar.jsx"
@@ -11,22 +11,68 @@ import Image from 'next/image';
 import findStudentClasses from 'utils/findStudentClasses.js'
 import { Input, Button } from '@chakra-ui/react'
 import { format as timeagoFormat } from 'timeago.js';
+import {
+  Drawer,
+  DrawerBody,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+  Stack,
+  Box,
+  FormLabel,
+  InputGroup,
+  InputLeftAddon,
+  InputRightAddon,
+  Select,
+  Textarea,
+  useDisclosure
+} from '@chakra-ui/react'
 
  export default function ClassPage({ classData }) {
   const [classes, setClasses] = useState([])
 
-  function SideBarHome({isTeacher, studentAssignments, classData, assignments}) {
+  function SideBarHome() {
+    const { isOpen, onOpen, onClose } = useDisclosure()
+    const firstField = useRef()
+  
     return (
-      <div className="flex h-screen sm:w-1/4 md:w-1/6 lg:w-1/9 flex-col mt-12 justify-between border-e bg-slate-700">
-      <div className="px-4 py-6">
-        <ul className="space-y-1">
+      <>
+        <Button colorScheme='teal' marginTop={32} onClick={onOpen} className='sm:ml-8'>
+        <svg
+              className="w-6 h-6"
+              aria-hidden="true"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fillRule="evenodd"
+                d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                clipRule="evenodd"
+              />
+            </svg>
+
+        </Button>
+        <Drawer
+          isOpen={isOpen}
+          placement='left'
+          initialFocusRef={firstField}
+          onClose={onClose}
+        >
+          <DrawerOverlay />
+          <DrawerContent>
+            <DrawerCloseButton />
+            <DrawerHeader borderBottomWidth='1px'>
+            {classData[0].name}
+            </DrawerHeader>
+  
+            <DrawerBody>
+          <div>
+          <ul>
           <li>
-            <div className="flex justify-center">
-          <h1 className='text-2xl font-bold mb-4 text-white'>{classData[0].name}</h1>
-          </div>
-          </li>
-          <li>
-            <details className="group [&_summary::-webkit-details-marker]:hidden">
+            <details>
               <summary className="flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 bg-gray-100">
                 <span className="text-md font-medium text-black"> Other Classes </span>
                 <span className="shrink-0 transition duration-300 group-open:-rotate-180">
@@ -184,9 +230,12 @@ import { format as timeagoFormat } from 'timeago.js';
           }
         </ul>
       </div>
-    </div>
-  )
-  };
+    </DrawerBody>
+                </DrawerContent>
+        </Drawer>
+      </>
+    )
+  }
   
   function TopicCard3({header, score}) {
     return (
@@ -418,21 +467,21 @@ import { format as timeagoFormat } from 'timeago.js';
             <Headstuff />
         </Head>
         <Navbar session={session} />
-        <div className="flex">
-          <SideBarHome isTeacher={isTeacher} studentAssignments={studentAssignments} classData={classData} assignments={assignments} />
-          <div className="w-1/2 h-[calc(100vh-3rem)] ml-32 flex flex-col content-center justify-end">
-          <div className='flex flex-col mb-4 ' style={{ maxHeight: '35rem', overflowY: 'auto'}}>
+        <SideBarHome isTeacher={isTeacher} studentAssignments={studentAssignments} classData={classData} assignments={assignments} />
+        <div className="flex justify-center">
+          <div className="sm:w-1/2 w-10/12 h-[calc(100vh-12rem)] flex flex-col justify-end">
+          <div className='flex flex-col mb-4' style={{ maxHeight: '35rem', overflowY: 'auto'}}>
             {messages.map((message) => {
               const username = usernameDictionary[message.userID] || 'Loading';
               return (
-                <div key={message.id} className='bg-blue-500 mt-2 p-4 rounded rounded-xl'>
-                  <div className="flex gap-4">
-                    <p className='text-sm font-medium'>{username}</p>
-                    <p className='text-sm font-semibold'>{timeagoFormat(message.created_at)}</p>
-                  </div>
-                  <p className='text-xl font-bold'>{message.messageText}</p>
+                <div key={message.id} className="bg-blue-600 text-white mt-2 border-gray-200 border p-4 rounded-lg shadow-md">
+                <div className="flex justify-between items-start mb-2">
+                  <p className="text-md font-medium">{username}</p>
+                  <p className="text-sm font-medium">{timeagoFormat(message.created_at)}</p>
                 </div>
-              );
+                <p className="text-lg font-bold">{message.messageText}</p>
+              </div>
+                        );
             })}
           </div>
             <div className="flex">
