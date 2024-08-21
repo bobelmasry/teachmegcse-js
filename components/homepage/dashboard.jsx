@@ -12,6 +12,16 @@ import findStudentAssignments from 'utils/findStudentAssignments.js'
 import Image from 'next/image';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { useRouter } from 'next/router';
+import {
+  Table,
+  Thead,
+  Tbody,
+  Text,
+  Tr,
+  Th,
+  Td,
+  TableContainer,
+} from '@chakra-ui/react'
 
 
 export default function Dashboard({ session }) {
@@ -68,35 +78,15 @@ export default function Dashboard({ session }) {
     //for students
     function ClassCard2({linkSrc, header, subject, assignmentNum, level}) {
       return (
-        <div className='flex justify-center'>
+
         <Link href={`${linkSrc}`}>
-
-      <article className="md:hover:scale-[1.02] ease-out transition-all rounded-lg border border-gray-100 bg-slate-600 hover:bg-slate-500 border-gray-800 p-4 shadow-sm transition hover:shadow-lg sm:p-6" >
-        <span className="flex justify-center inline-block rounded bg-blue-600 p-4 text-white">
-          {subject == 'physics' &&
-          <Image src={'https://cdn-icons-png.flaticon.com/512/188/188802.png'} height={100} width={100} alt='' />
-          }
-          {subject == 'chemistry' &&
-          <Image src={'https://cdn-icons-png.flaticon.com/512/2802/2802825.png'} height={100} width={100} alt='' />
-          }
-          {subject == 'biology' &&
-          <Image src={'https://cdn-icons-png.flaticon.com/512/2784/2784428.png'} height={100} width={100} alt='' />
-          }
-        </span>
-
-          <h3 className="text-3xl mt-2 font-semibold text-gray-100"> {header} </h3>
-
-        <div className="mt-4 flex flex-wrap gap-1">
-          <span className="whitespace-nowrap font-semibold rounded-full bg-purple-300 px-2.5 py-0.5 text-sm text-purple-600">
-            {assignmentNum} Assignment(s)
-          </span>
-          <span className="whitespace-nowrap font-semibold rounded-full bg-green-300 px-2.5 py-0.5 text-sm text-purple-600">
-            {level}
-          </span>
-    </div>
-      </article>
+        <Tr>
+        <Td>{header}</Td>
+        <Td>{subject}</Td>
+        <Td isNumeric>{assignmentNum}</Td>
+        <Td>{level}</Td>
+      </Tr>
       </Link>
-        </div>
       )
     };
 
@@ -181,7 +171,7 @@ export default function Dashboard({ session }) {
     
   return (
     <>
-    <div className="w-10/12 m-auto">
+    <div className="w-8/12 md:w-full m-auto">
       {username != null && 
       <div className="flex justify-start mb-6 ml-4">
         <h2 className='text-5xl dark:text-gray-100'>Hi <span className='text-blue-500 font-semibold capitalize'>{username}</span>,</h2>
@@ -241,30 +231,70 @@ export default function Dashboard({ session }) {
   </>
 )}
           {(!isTeacher && school) && 
-          <div className='flex justify-center'>
           <div>
-          <h1 className='text-4xl mt-20 dark:text-gray-100'>My Classes:</h1>
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 grid-cols-1 gap-10 w-11/12 md:w-10/12 mb-20">
-          {studentClasses.map((classItem) => {
-            // Find the assignments that belong to the current class and are not completed by the user
-            const incompleteAssignmentsForClass = studentAssignments.filter((assignment) => (
-              assignment.classID === classItem.classID && assignment.questions != null &&
-              !assignment.completedBy?.some((completedByItem) => completedByItem.id === user?.id)
-            ));
+          <h1 className='text-4xl mt-20 mb-12 dark:text-gray-100'>My Classes:</h1>
+          <TableContainer backgroundColor="gray.800" borderRadius="lg" p={4} shadow="lg">
+            <Table variant="simple" colorScheme="teal">
+              <Thead>
+                <Tr>
+                  <Th color="teal.300" fontSize="lg">Class Name</Th>
+                  <Th color="teal.300" fontSize="lg">Subject</Th>
+                  <Th isNumeric color="teal.300" fontSize="lg">Assignments</Th>
+                  <Th color="teal.300" fontSize="lg">Level</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                {studentClasses.map((classItem) => {
+                  const incompleteAssignmentsForClass = studentAssignments.filter(
+                    (assignment) =>
+                      assignment.classID === classItem.classID &&
+                      assignment.questions != null &&
+                      !assignment.completedBy?.some(
+                        (completedByItem) => completedByItem.id === user?.id
+                      )
+                  );
 
-            return (
-              <div key={classItem.classID} className="flex mt-10">
-                {/* Pass the number of incomplete assignments as the assignmentNum prop */}
-                <ClassCard2 key={classItem.classID} level={classItem.level} subject={classItem.subject} header={classItem.name} linkSrc={`/class/${classItem.classID}`} assignmentNum={incompleteAssignmentsForClass.length} />
-              </div>
-            );
-          })}
-          </div>
-          </div>
+                  return (
+                    <Tr key={classItem.classID} _hover={{ bg: "gray.700" }}>
+                      <Td>
+                        <div className="flex gap-4 items-center">
+                          <Link href={`/class/${classItem.classID}`}>
+                            <Text
+                              color="blue.400"
+                              as="u"
+                              fontWeight="bold"
+                              _hover={{ color: "blue.300" }}
+                            >
+                              {classItem.name}
+                            </Text>
+                          </Link>
+                          <Image
+                            src={
+                              classItem.subject === "physics"
+                                ? "https://cdn-icons-png.flaticon.com/512/188/188802.png"
+                                : classItem.subject === "chemistry"
+                                ? "https://cdn-icons-png.flaticon.com/512/2802/2802825.png"
+                                : "https://cdn-icons-png.flaticon.com/512/2784/2784428.png"
+                            }
+                            height={40}
+                            width={40}
+                            alt={`${classItem.subject} icon`}
+                          />
+                        </div>
+                      </Td>
+                      <Td textTransform="capitalize">{classItem.subject}</Td>
+                      <Td isNumeric>{classItem.students ? classItem.students.length : 0}</Td>
+                      <Td textTransform="capitalize">{classItem.level}</Td>
+                    </Tr>
+                  );
+                })}
+              </Tbody>
+            </Table>
+          </TableContainer>
           </div>
           }
 
-      <div className="ml-16 w-full mt-12 mb-8">
+      <div className="ml-4 w-full mt-12 mb-8">
         <button className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-lg w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-700 dark:hover:bg-red-500 dark:focus:ring-red-800" onClick={() => supabase.auth.signOut()}>
           Sign Out
         </button>
