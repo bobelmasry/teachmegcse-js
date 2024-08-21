@@ -41,77 +41,64 @@ export default function Dashboard({ session }) {
       router.reload()
     }
       //for teachers
-    function ClassCard({linkSrc, header, studentNum, level, subject}) {
-      return (
-        <div className='flex justify-center'>
-        <Link href={`${linkSrc}`}>
+      function ClassCard({ linkSrc, header, studentNum, level, subject }) {
+        return (
+          <div className="flex justify-center my-4">
+            <Link href={linkSrc}>
+              <article className="md:hover:scale-[1.05] transition-transform ease-out rounded-lg border border-gray-200 bg-slate-700 hover:bg-slate-600 p-6 shadow-md hover:shadow-lg">
+                <div className="flex justify-center mb-4">
+                <Image
+                            src={
+                              subject === "physics"
+                                ? "https://cdn-icons-png.flaticon.com/512/188/188802.png"
+                                : subject === "chemistry"
+                                ? "https://cdn-icons-png.flaticon.com/512/2802/2802825.png"
+                                : "https://cdn-icons-png.flaticon.com/512/2784/2784428.png"
+                            }
+                            height={80}
+                            width={80}
+                            alt={`${subject} icon`}
+                          />
+                </div>
+                <h3 className="text-3xl font-semibold text-center text-gray-100 mb-4">
+                  {header}
+                </h3>
+                <div className="flex justify-around mt-4">
+                  <span className="whitespace-nowrap font-semibold rounded-full bg-purple-300 px-4 py-1 text-sm text-purple-600">
+                    {studentNum} Student(s)
+                  </span>
+                  <span className="whitespace-nowrap font-semibold rounded-full bg-green-300 px-4 py-1 text-sm text-green-600">
+                    {level}
+                  </span>
+                </div>
+              </article>
+            </Link>
+          </div>
+        );
+      }
 
-      <article className="md:hover:scale-[1.02] ease-out transition-all rounded-lg border border-gray-100 bg-slate-600 hover:bg-slate-500 border-gray-800 p-4 shadow-sm transition hover:shadow-lg sm:p-6" >
-        <span className="flex justify-center inline-block rounded bg-blue-600 p-2 text-white">
-          {subject == 'physics' &&
-          <Image src={'https://cdn-icons-png.flaticon.com/512/188/188802.png'} height={100} width={100} alt='' />
-          }
-          {subject == 'chemistry' &&
-          <Image src={'https://cdn-icons-png.flaticon.com/512/2802/2802825.png'} height={100} width={100} alt='' />
-          }
-          {subject == 'biology' &&
-          <Image src={'https://cdn-icons-png.flaticon.com/512/2784/2784428.png'} height={100} width={100} alt='' />
-          }
-        </span>
-
-          <h3 className="text-3xl mt-2 font-semibold text-gray-100"> {header} </h3>
-
-        <div className="mt-4 flex flex-wrap gap-1">
-          <span className="whitespace-nowrap font-semibold rounded-full bg-purple-300 px-2.5 py-0.5 text-sm text-purple-600">
-            {studentNum} Student(s)
-          </span>
-
-          <span className="whitespace-nowrap font-semibold rounded-full bg-green-300 px-2.5 py-0.5 text-sm text-purple-600">
-            {level}
-          </span>
-    </div>
-      </article>
-      </Link>
-        </div>
-      )
-    };
-    //for students
-    function ClassCard2({linkSrc, header, subject, assignmentNum, level}) {
-      return (
-
-        <Link href={`${linkSrc}`}>
-        <Tr>
-        <Td>{header}</Td>
-        <Td>{subject}</Td>
-        <Td isNumeric>{assignmentNum}</Td>
-        <Td>{level}</Td>
-      </Tr>
-      </Link>
-      )
-    };
-
-    function WorksheetCard({linkSrc, header, subject, questionNum, level}) {
-      return (
-        <div className='flex justify-center'>
-        <Link href={`${linkSrc}`}>
-
-      <article className="md:hover:scale-[1.02] ease-out transition-all rounded-lg border border-gray-100 bg-slate-600 hover:bg-slate-500 border-gray-800 p-4 shadow-sm transition hover:shadow-lg sm:p-6" >
-
-          <h3 className="text-3xl mt-2 font-semibold text-gray-100"> {header} - {subject} </h3>
-
-        <div className="mt-4 flex flex-wrap gap-1">
-          <span className="whitespace-nowrap font-semibold rounded-full bg-purple-300 px-2.5 py-0.5 text-sm text-purple-600">
-            {questionNum} Question (s)
-          </span>
-          <span className="whitespace-nowrap font-semibold rounded-full bg-green-300 px-2.5 py-0.5 text-sm text-purple-600">
-            {level}
-          </span>
-    </div>
-      </article>
-      </Link>
-        </div>
-      )
-    };
+      function WorksheetCard({ linkSrc, header, subject, questionNum, level }) {
+        return (
+          <div className='flex justify-center my-4'>
+            <Link href={linkSrc}>
+              <article className="group md:hover:scale-105 transition-transform ease-out rounded-lg border border-gray-200 bg-slate-700 hover:bg-slate-600 p-6 shadow-lg hover:shadow-xl">
+                <h3 className="text-2xl font-semibold text-gray-100 mb-2">
+                  {header} - <span className="text-blue-400">{subject}</span>
+                </h3>
+      
+                <div className="mt-4 flex gap-3">
+                  <span className="whitespace-nowrap font-medium rounded-full bg-purple-500 px-4 py-1 text-sm text-white">
+                    {questionNum} Question(s)
+                  </span>
+                  <span className="whitespace-nowrap font-medium rounded-full bg-green-500 px-4 py-1 text-sm text-white">
+                    {level}
+                  </span>
+                </div>
+              </article>
+            </Link>
+          </div>
+        );
+      }
 
 
     const [username, setUsername] = useState(null)
