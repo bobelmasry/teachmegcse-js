@@ -39,6 +39,7 @@ import Link from 'next/link';
         const [firstQuestion, setFirstQuestion] = useState(true)
         const [actualQuestionsSolved, setActualQuestionsSolved] = useState([])
         const [remainingQuestions, setRemainingQuestions] = useState([])
+        const [selectedExplanation, setSelectedExplanation] = useState("");
 
         const [randInt, setrandInt] = useState(Math.floor(Math.random() * remainingQuestions.length));
 
@@ -129,6 +130,11 @@ import Link from 'next/link';
         const subject = currentQuestion?.Subject;
         const paperNumber = currentQuestion?.paperNumber;
         const source = currentQuestion?.pdfName;
+        const explanationA = currentQuestion?.ExplanationA;
+        const explanationB = currentQuestion?.ExplanationB;
+        const explanationC = currentQuestion?.ExplanationC;
+        const explanationD = currentQuestion?.ExplanationD;
+        
 
         async function updateRemaining2() {
           const updatedArray = remainingQuestions.filter((obj) => obj.questionName !== questionName);
@@ -143,6 +149,14 @@ import Link from 'next/link';
             event.preventDefault();
             setnotalreadySolved(false)
             setFirstQuestion(false)
+            let explanation;
+            if (event.target.id === "A") explanation = currentQuestion?.ExplanationA;
+            if (event.target.id === "B") explanation = currentQuestion?.ExplanationB;
+            if (event.target.id === "C") explanation = currentQuestion?.ExplanationC;
+            if (event.target.id === "D") explanation = currentQuestion?.ExplanationD;
+          
+            setSelectedExplanation(explanation); // Set the explanation for the clicked answer
+          
             if (event.target.id === answer && !questionsFinished){
               setcorrect(true)
               const dataToUpdate = {
@@ -187,7 +201,7 @@ import Link from 'next/link';
             <>
             <div className="flex flex-col items-center gap-24 mt-32 mb-24">
                 <h1 className='text-3xl ml-8 md:ml-0 sm:text-5xl font-bold text-white mb-8'>{chapterString2} Topic Questions</h1>
-                <div className='border ml-2 md:ml-0 border-4  md:border-8 border-green-600 p-2 rounded rounded-2xl'>
+                <div className='border m-2 md:m-0 border-4  md:border-8 border-green-600 p-2 rounded rounded-2xl'>
                 <Image className='rounded rounded-md' src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/A-level/${subject}/p${paperNumber}/${chapter}/${questionName}`} alt='image' height={800} width={800} /> 
                 </div>
             </div>
@@ -199,18 +213,30 @@ import Link from 'next/link';
                     <AnswerButton name={"D"} />
                 </div>
                 }
-                <div className="flex ml-8 md:ml-0 flex-flow justify-center gap-8 mt-8">
-                {(correct && !notalreadySolved) && 
-                <>
-                <p className='dark:text-white text-lg sm:text-lg md:text-xl lg:text-2xl'><span className='text-green-400'>Correct</span>: the Answer is {answer} <br /> Explanation is coming soon! <br /> Source: {source}<br /><br /> Disclaimer: {"there's"} a 2% chance that the answer is incorrect <br />Disclaimer 2: {"there's"} a 5% chance that the question is not in the syllabus </p>
-                </>
-                }
-                {(!correct && !notalreadySolved) && 
-                <>
-                <p className='dark:text-white text-lg sm:text-lg md:text-xl lg:text-2xl'><span className='text-red-600'>Incorrect</span>: the Answer is {answer} <br /> Explanation is coming soon! <br /> Source: {source} <br /><br /> Disclaimer: {"there's"} a 2% chance that the answer is incorrect <br />Disclaimer 2: {"there's"} a 5% chance that the question is not in the syllabus </p>
-                </>
-                }
-            </div>
+                <div className="flex m-8 md:m-0 flex-wrap justify-center gap-8 mt-8">
+                    {(correct && !notalreadySolved) && (
+                      <div className="max-w-xl w-full mx-auto text-center">
+                        <p className="dark:text-white text-lg sm:text-lg md:text-xl lg:text-2xl">
+                          <span className="text-green-400">Correct</span>: the Answer is {answer}
+                          <br /> Explanation: {selectedExplanation} <br />
+                          Source: {source} <br />
+                          <br /> Disclaimer: {"there's"} a 2% chance that the answer is incorrect <br />
+                          Disclaimer 2: {"there's"} a 5% chance that the question is not in the syllabus
+                        </p>
+                      </div>
+                    )}
+                    {(!correct && !notalreadySolved) && (
+                      <div className="max-w-xl w-full mx-auto text-center">
+                        <p className="dark:text-white text-lg sm:text-lg md:text-xl lg:text-2xl">
+                          <span className="text-red-600">Incorrect</span>: the Answer is {answer}
+                          <br /> Explanation: {selectedExplanation} <br />
+                          Source: {source} <br />
+                          <br /> Disclaimer: {"there's"} a 2% chance that the answer is incorrect <br />
+                          Disclaimer 2: {"there's"} a 5% chance that the question is not in the syllabus
+                        </p>
+                      </div>
+                    )}
+                  </div>
             <div className="flex flex-flow justify-center mt-20 ml-60 md:ml-96">
             <button
                     id='Next'
