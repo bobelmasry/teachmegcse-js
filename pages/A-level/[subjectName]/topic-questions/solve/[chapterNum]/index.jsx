@@ -12,6 +12,8 @@ import { supabase } from 'utils/supabase';
 import { updateSupabase } from 'utils/updateSupabase'
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import 'katex/dist/katex.min.css';
+import Latex from 'react-latex-next';
 
     function SubjectPage({questionArray}) {
       const router = useRouter()
@@ -130,10 +132,6 @@ import Link from 'next/link';
         const subject = currentQuestion?.Subject;
         const paperNumber = currentQuestion?.paperNumber;
         const source = currentQuestion?.pdfName;
-        const explanationA = currentQuestion?.ExplanationA;
-        const explanationB = currentQuestion?.ExplanationB;
-        const explanationC = currentQuestion?.ExplanationC;
-        const explanationD = currentQuestion?.ExplanationD;
         
 
         async function updateRemaining2() {
@@ -216,24 +214,24 @@ import Link from 'next/link';
                 <div className="flex m-8 md:m-0 flex-wrap justify-center gap-8 mt-8">
                     {(correct && !notalreadySolved) && (
                       <div className="max-w-xl w-full mx-auto text-center">
-                        <p className="dark:text-white text-lg sm:text-lg md:text-xl lg:text-2xl">
+                        <div className="dark:text-white text-lg sm:text-lg md:text-xl lg:text-2xl">
                           <span className="text-green-400">Correct</span>: the Answer is {answer}
-                          <br /> Explanation: {selectedExplanation} <br />
+                          <br /> Explanation: <Latex>{selectedExplanation}</Latex> <br />
                           Source: {source} <br />
                           <br /> Disclaimer: {"there's"} a 2% chance that the answer is incorrect <br />
                           Disclaimer 2: {"there's"} a 5% chance that the question is not in the syllabus
-                        </p>
+                        </div>
                       </div>
                     )}
                     {(!correct && !notalreadySolved) && (
                       <div className="max-w-xl w-full mx-auto text-center">
-                        <p className="dark:text-white text-lg sm:text-lg md:text-xl lg:text-2xl">
+                        <div className="dark:text-white text-lg sm:text-lg md:text-xl lg:text-2xl">
                           <span className="text-red-600">Incorrect</span>: the Answer is {answer}
-                          <br /> Explanation: {selectedExplanation} <br />
+                          <br /> Explanation: <Latex>{selectedExplanation}</Latex> <br />
                           Source: {source} <br />
                           <br /> Disclaimer: {"there's"} a 2% chance that the answer is incorrect <br />
                           Disclaimer 2: {"there's"} a 5% chance that the question is not in the syllabus
-                        </p>
+                        </div>
                       </div>
                     )}
                   </div>
