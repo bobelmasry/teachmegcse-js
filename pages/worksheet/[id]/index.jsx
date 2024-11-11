@@ -28,6 +28,11 @@ import { postData } from '../../../helpers/makePdf';
 
     const title = `${worksheetData[0].name} | exceed`
     const header = `${worksheetData[0].name} - worksheet`
+        console.log(worksheetData[0].level);
+        let level2 = ""
+        if (worksheetData[0].level == "AS" || worksheetData[0].level == "A2" ){
+           level2 = "A-level"
+        }
         
     return (
         <>
@@ -77,7 +82,7 @@ import { postData } from '../../../helpers/makePdf';
               <div className='border border-8 border-green-600 p-2 rounded rounded-2xl'>
                 <Image
                   className='rounded rounded-md'
-                  src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/${question.Level}/${question.Subject}/p${question.paperNumber}/${question.Chapter}/${question.questionName}`}
+                  src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/${level2}/${question.Subject}/p${question.paperNumber}/${question.Chapter}/${question.questionName}`}
                   alt='image'
                   height={800}
                   width={800}
