@@ -14,6 +14,8 @@ import {
   Input,
   FormLabel,
   Select,
+  FormControl,
+  FormErrorMessage
 } from '@chakra-ui/react';
 
 export default function CreateWorksheet({ user }) {
@@ -41,6 +43,9 @@ export default function CreateWorksheet({ user }) {
 
   async function createWorksheet(event) {
     event.preventDefault();
+    if (subjectValue === '' || levelValue === '' || worksheetName === '' || type === '') {
+      return;
+    }
     try {
       const { data, error } = await supabase
         .from('worksheets')
@@ -82,15 +87,14 @@ export default function CreateWorksheet({ user }) {
       </Button>
 
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
-        <ModalOverlay />
-        <ModalContent bg="gray.800" color="white">
-          <ModalHeader>Create a Worksheet</ModalHeader>
-          <ModalCloseButton color="white" />
-          <ModalBody>
-            <form className="space-y-4 md:space-y-5 p-8">
-              <div>
-                <FormLabel>Worksheet Name</FormLabel>
-              </div>
+      <ModalOverlay />
+      <ModalContent bg="gray.800" color="white">
+        <ModalHeader>Create a Worksheet</ModalHeader>
+        <ModalCloseButton color="white" />
+        <ModalBody>
+          <form className="space-y-4 md:space-y-5 p-8">
+            <FormControl isInvalid={worksheetName === ''} isRequired>
+              <FormLabel>Worksheet Name</FormLabel>
               <Input
                 variant="outline"
                 onChange={(e) => setWorksheetName(e.target.value)}
@@ -98,52 +102,66 @@ export default function CreateWorksheet({ user }) {
                 size="md"
                 placeholder="Year 12 Physics"
               />
-              <div>
-                <FormLabel>Subject</FormLabel>
-                <Select
-                  backgroundColor="gray.700"
-                  placeholder="Choose a subject"
-                  onChange={handleSelect}
-                >
-                  <option value="biology">Biology</option>
-                  <option value="chemistry">Chemistry</option>
-                  <option value="physics">Physics</option>
-                  <option value="economics">Economics</option>
-                </Select>
-              </div>
-              <div>
-                <FormLabel>Level</FormLabel>
-                <Select
-                marginTop={2}
-                  backgroundColor="gray.700"
-                  placeholder="Choose a Level"
-                  onChange={handleSelect2}
-                >
-                  <option value="IGCSE">IGCSE</option>
-                  <option value="AS">AS</option>
-                  <option value="A2">A2</option>
-                </Select>
-                <FormLabel marginTop={3}>Type (MCQ or Long Answer)</FormLabel>
-                <Select
-                  marginTop={3}
-                  backgroundColor="gray.700"
-                  placeholder="Choose a Type"
-                  onChange={handleSelect3}
-                >
-                  <option value="MCQ">MCQ</option>
-                  <option value="LongAnswer">Long Answer</option>
-                </Select>
-              </div>
-            </form>
-          </ModalBody>
+              {worksheetName === '' && <FormErrorMessage>Worksheet name can{"'"}t be empty.</FormErrorMessage>}
+            </FormControl>
 
-          <ModalFooter>
-            <Button onClick={event => createWorksheet(event)} colorScheme="blue">
-              Create a Worksheet
-            </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+            <FormControl isInvalid={subjectValue === ''} isRequired>
+              <FormLabel>Subject</FormLabel>
+              <Select
+                backgroundColor="gray.700"
+                placeholder="Choose a subject"
+                onChange={handleSelect}
+                value={subjectValue}
+              >
+                <option value="biology">Biology</option>
+                <option value="chemistry">Chemistry</option>
+                <option value="physics">Physics</option>
+                <option value="economics">Economics</option>
+              </Select>
+              {subjectValue === '' && <FormErrorMessage>Subject is required.</FormErrorMessage>}
+            </FormControl>
+
+            <FormControl isInvalid={levelValue === ''} isRequired>
+              <FormLabel>Level</FormLabel>
+              <Select
+                marginTop={2}
+                backgroundColor="gray.700"
+                placeholder="Choose a Level"
+                onChange={handleSelect2}
+                value={levelValue}
+              >
+                <option value="IGCSE">IGCSE</option>
+                <option value="AS">AS</option>
+                <option value="A2">A2</option>
+              </Select>
+              {levelValue === '' && <FormErrorMessage>Level is required.</FormErrorMessage>}
+            </FormControl>
+
+            <FormControl isInvalid={type === ''} isRequired>
+              <FormLabel>Type (MCQ or Long Answer)</FormLabel>
+              <Select
+                marginTop={3}
+                backgroundColor="gray.700"
+                placeholder="Choose a Type"
+                onChange={handleSelect3}
+                value={type}
+              >
+                <option value="MCQ">MCQ</option>
+                <option value="LongAnswer">Long Answer</option>
+              </Select>
+              {type == '' && <FormErrorMessage>Type is required.</FormErrorMessage>}
+            </FormControl>
+          </form>
+        </ModalBody>
+
+        <ModalFooter>
+          <Button onClick={createWorksheet} colorScheme="blue">
+            Create a Worksheet
+          </Button>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
+
     </>
   );
 }
