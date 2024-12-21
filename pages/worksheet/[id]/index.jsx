@@ -54,7 +54,7 @@ import { postData } from '../../../helpers/makePdf';
       <div className='flex flex-col sm:flex-row justify-center items-center'>
         <h1 className='text-3xl font-bold mt-20 text-white text-center'>Questions({worksheetData[0].questions?.length ? worksheetData[0].questions.length : 0})</h1>
         <Button colorScheme='blue' margin={20} size='md'>
-          <Link href={`/worksheet/${worksheetData[0].id}/${worksheetData[0].subject}/${worksheetData[0].level}/${worksheetData[0].type}/add`}>Add Questions</Link>
+          <Link href={`/worksheet/${worksheetData[0].id}/${worksheetData[0].subject}/${worksheetData[0].level}/add`}>Add Questions</Link>
         </Button>
       </div>
       <div className='flex gap-4 justify-center w-11/12 md:w-full'>
@@ -77,19 +77,24 @@ import { postData } from '../../../helpers/makePdf';
       </div>
       {questionsShown && (
         <div className='w-full flex flex-col items-center gap-20 mt-20 mb-20'>
-          {worksheetData[0].questions.map((question) => (
-            <div key={question.questionName} className='flex justify-center w-full'>
-              <div className='border border-8 border-green-600 p-2 rounded rounded-2xl'>
-                <Image
-                  className='rounded rounded-md'
-                  src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/${level2}/${question.Subject}/p${question.paperNumber}/${question.Chapter}/${question.questionName}`}
-                  alt='image'
-                  height={800}
-                  width={800}
-                />
+          {worksheetData[0].questions.map((question) => {
+            const paperNumber = question.questionNumber ? "long" : `p${question.paperNumber}`;
+            const imageUrl = `https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/${level2}/${question.Subject}/${paperNumber}/${question.Chapter}/${question.questionName}`;
+
+            return (
+              <div key={question.questionName} className='flex justify-center w-full'>
+                <div className='border border-8 border-green-600 p-2 rounded rounded-2xl'>
+                  <Image
+                    className='rounded rounded-md'
+                    src={imageUrl}
+                    alt='image'
+                    height={800}
+                    width={800}
+                  />
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
     </div>

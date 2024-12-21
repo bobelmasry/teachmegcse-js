@@ -24,7 +24,6 @@ export default function CreateWorksheet({ user }) {
   const [subjectValue, setSubjectValue] = useState('');
   const [levelValue, setLevelValue] = useState('');
   const [worksheetName, setWorksheetName] = useState('');
-  const [type, setType] = useState('');
 
   async function handleSelect(event) {
     event.preventDefault();
@@ -36,14 +35,9 @@ export default function CreateWorksheet({ user }) {
     setLevelValue(event.target.value);
   }
 
-  async function handleSelect3(event) {
-    event.preventDefault();
-    setType(event.target.value);
-  }
-
   async function createWorksheet(event) {
     event.preventDefault();
-    if (subjectValue === '' || levelValue === '' || worksheetName === '' || type === '') {
+    if (subjectValue === '' || levelValue === '' || worksheetName === '') {
       return;
     }
     try {
@@ -53,7 +47,6 @@ export default function CreateWorksheet({ user }) {
           user_id: user.id,
           name: worksheetName.trim(),
           subject: subjectValue,
-          type: type,
           level: levelValue,
           questions: [],
         })
@@ -76,7 +69,6 @@ export default function CreateWorksheet({ user }) {
       setLevelValue('');
       setWorksheetName('');
       setSubjectValue('');
-      setType('');
     }
   }
 
@@ -137,20 +129,6 @@ export default function CreateWorksheet({ user }) {
               {levelValue === '' && <FormErrorMessage>Level is required.</FormErrorMessage>}
             </FormControl>
 
-            <FormControl isInvalid={type === ''} isRequired>
-              <FormLabel>Type (MCQ or Long Answer)</FormLabel>
-              <Select
-                marginTop={3}
-                backgroundColor="gray.700"
-                placeholder="Choose a Type"
-                onChange={handleSelect3}
-                value={type}
-              >
-                <option value="MCQ">MCQ</option>
-                <option value="LongAnswer">Long Answer</option>
-              </Select>
-              {type == '' && <FormErrorMessage>Type is required.</FormErrorMessage>}
-            </FormControl>
           </form>
         </ModalBody>
 

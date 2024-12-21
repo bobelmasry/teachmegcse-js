@@ -76,7 +76,7 @@ import { useRouter } from 'next/router';
 
         // Update the state with the filtered questions
         setquestionArray(tempFilteredQuestions);
-      }, [questionText, chapterValue, paperValue]);
+      }, [questionText, chapterValue, paperValue, searchArray]);
 
       async function reset() {
         setChapterValue(0)
@@ -161,28 +161,54 @@ import { useRouter } from 'next/router';
                 </div>
                 </div>
                 <div className="flex flex-col items-center gap-32 mt-32 mb-20">
-                {questionArray.map((question) => (
-                <div key={question.questionName}>
-                  <div key={question.questionName} className='border border-8 border-green-600 p-2 rounded rounded-2xl'>
-                      <Image key={question.questionName} className='rounded rounded-md' src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/A-level/${question.Subject}/p${question.paperNumber}/${question.Chapter}/${question.questionName}`} alt='image' height={800} width={800} />
-                  </div>
-                  <button onClick={() => handleToggleAnswer(question.questionName)} className="mt-4 text-xl text-white transition-all ease-out bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-500 dark:focus:ring-green-800">
-                    {question.showAnswer ? 'Hide Answer' : 'Show Answer'}
-                  </button>
-                  {question.showAnswer && (
-                    <div className="mt-2 flex text-white">
-                      <div>
-                        <p className="text-xl font-bold text-white">Answer:</p>
-                        <p className='text-white text-xl'>{question.Answer}</p>
-                      </div>
-                      <div className='ml-8'>
-                        <p className="text-xl font-bold text-white">Source:</p>
-                        <p className='text-white text-xl'>{question.pdfName}</p>
-                      </div>
+                {questionArray.map((question) => {
+                const paperNumber = question.questionNumber ? "long" : `p${question.paperNumber}`;
+                const questionImageUrl = `https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/A-level/${question.Subject}/${paperNumber}/${question.Chapter}/${question.questionName}`;
+                const answerImageUrl = `https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/A-level/${question.Subject}/${paperNumber}/${question.Chapter}/${question.MSName}`;
+
+                return (
+                  <div key={question.questionName}>
+                    <div className='border border-8 border-green-600 p-2 rounded rounded-2xl'>
+                      <Image
+                        key={question.questionName}
+                        className='rounded rounded-md'
+                        src={questionImageUrl}
+                        alt='image'
+                        height={800}
+                        width={800}
+                      />
                     </div>
-                  )}
-                </div>
-              ))}
+                    <button
+                      onClick={() => handleToggleAnswer(question.questionName)}
+                      className="mt-4 text-xl text-white transition-all ease-out bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-500 dark:focus:ring-green-800"
+                    >
+                      {question.showAnswer ? 'Hide Answer' : 'Show Answer'}
+                    </button>
+                    {question.showAnswer && (
+                      <div className="mt-2 flex text-white">
+                        <div>
+                          <p className="text-xl font-bold text-white">Answer:</p>
+                          {question.questionNumber ? (
+                            <Image
+                              className='rounded rounded-md'
+                              src={answerImageUrl}
+                              alt='answer image'
+                              height={800}
+                              width={800}
+                            />
+                          ) : (
+                            <p className='text-white text-xl'>{question.Answer}</p>
+                          )}
+                        </div>
+                        <div className='ml-8'>
+                          <p className="text-xl font-bold text-white">Source:</p>
+                          <p className='text-white text-xl'>{question.pdfName}</p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
         </div>
         </div>
       </>

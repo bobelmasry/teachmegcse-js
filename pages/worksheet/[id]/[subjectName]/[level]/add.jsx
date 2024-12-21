@@ -110,7 +110,7 @@ import Link from 'next/link';
             }
           getInitial()
           getQuestions(); // Call the function
-        }, [worksheetID, session, user]);
+        }, [worksheetID, session, user, questionsAvailable]);
   
       if (filteredData.length === 0) {
         throw new Error('chapters not found');
@@ -138,6 +138,7 @@ import Link from 'next/link';
           "name":"Paper 1",
           "subject": "biology",
           "level" : "A-level",
+          "level2" : "AS"
 
         },
         {
@@ -259,7 +260,7 @@ import Link from 'next/link';
 
               // Update the state with the filtered questions
               setquestionArray(tempFilteredQuestions);
-            }, [questionText, chapterValue, paperValue, questionsAvailable]);
+            }, [questionText, chapterValue, paperValue]);
     return (
       <>
         <Head>
@@ -349,14 +350,31 @@ import Link from 'next/link';
                 </div>
                 </div>
                 <div className="flex flex-col items-center gap-32 mt-32 mb-20">
-        {questionArray.map((question) => (
-        <div key={question.questionName} className='flex'>
-            <div className='border border-8 border-green-600 p-2 rounded rounded-2xl'>
-                <Image key={question.questionName} className='rounded rounded-md' src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/${level2}/${question.Subject}/p${question.paperNumber}/${question.Chapter}/${question.questionName}`} alt='image' height={800} width={800} />
-            </div>
-            <AddIcon onClick={() => addAQuestion(question)} key={question.questionName} fontSize="large" className='ml-4 md:ml-8 mt-24 cursor-pointer ease-out transition-all hover:bg-gray-200 bg-gray-400 rounded rounded-xl'/>
-        </div>
-        ))}
+                {questionArray.map((question) => {
+                  const paperNumber = question.questionNumber ? "long" : `p${question.paperNumber}`;
+                  const imageUrl = `https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/${level2}/${question.Subject}/${paperNumber}/${question.Chapter}/${question.questionName}`;
+
+                  return (
+                    <div key={question.questionName} className='flex'>
+                      <div className='border border-8 border-green-600 p-2 rounded rounded-2xl'>
+                        <Image
+                          key={question.questionName}
+                          className='rounded rounded-md'
+                          src={imageUrl}
+                          alt='image'
+                          height={800}
+                          width={800}
+                        />
+                      </div>
+                      <AddIcon
+                        onClick={() => addAQuestion(question)}
+                        key={question.questionName}
+                        fontSize="large"
+                        className='ml-4 md:ml-8 mt-24 cursor-pointer ease-out transition-all hover:bg-gray-200 bg-gray-400 rounded rounded-xl'
+                      />
+                    </div>
+                  );
+                })}
         </div>
         </div>
         ) : (
