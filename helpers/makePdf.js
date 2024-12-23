@@ -1,8 +1,14 @@
-import { GENERATE_PDF_ENDPOINT } from "../utils/constants";
-
 export async function postData(questionData, filename) {
+  // Ensure Chapter is a string in each question data
+  const updatedQuestionData = questionData.map(question => {
+    if (typeof question.Chapter !== 'string') {
+      question.Chapter = String(question.Chapter); // Convert to string if it's not already
+    }
+    return question;
+  });
+
   const data = {
-    questionData,
+    questionData: updatedQuestionData,
   };
 
   try {

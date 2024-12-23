@@ -118,6 +118,16 @@ import Link from 'next/link';
   
       const chapters = filteredData;
 
+      const years = [
+        {id: 2017, name : "2017"},
+        {id: 2018, name : "2018"},
+        {id: 2019, name : "2019"},
+        {id: 2020, name : "2020"},
+        {id: 2021, name : "2021"},
+        {id: 2022, name : "2022"},
+        {id: 2023, name : "2023"},
+      ]
+
       const papers = [
         {
           "id" : 1,
@@ -147,6 +157,34 @@ import Link from 'next/link';
           "subject": "chemistry",
           "level" : "A-level",
           "level2" : "AS"
+        },
+        {
+          "id" : 2,
+          "name":"Paper 2",
+          "subject": "chemistry",
+          "level" : "A-level",
+          "level2" : "AS"
+        },
+        {
+          "id" : 3,
+          "name":"Paper 3",
+          "subject": "chemistry",
+          "level" : "A-level",
+          "level2" : "A2"
+        },
+        {
+          "id" : 4,
+          "name":"Paper 4",
+          "subject": "chemistry",
+          "level" : "A-level",
+          "level2" : "A2"
+        },
+        {
+          "id" : 5,
+          "name":"Paper 5",
+          "subject": "chemistry",
+          "level" : "A-level",
+          "level2" : "A2"
         },
         {
           "id" : 1,
@@ -211,6 +249,8 @@ import Link from 'next/link';
         const [chapterValue, setChapterValue] = useState(0);
         const [paperValue, setPaperValue] = useState(0);
         const [questionText, setQuestionText] = useState('')
+        const [yearValue, setYearValue] = useState(0);
+
 
         async function addAQuestion(question) {
           setBannerShown(true)        
@@ -233,6 +273,7 @@ import Link from 'next/link';
             setPaperValue(0)
             setquestionArray([])
             setQuestionText('')
+            setYearValue(0)
             }
             const filteredQuestionsRef = useRef();
 
@@ -249,7 +290,11 @@ import Link from 'next/link';
               }
 
               if (chapterValue !== 0) {
-                tempFilteredQuestions = tempFilteredQuestions.filter(question => question.Chapter === chapterValue);
+                tempFilteredQuestions = tempFilteredQuestions.filter(question => question.Chapter.toString() === chapterValue);
+              }
+
+              if (yearValue !== 0){
+                tempFilteredQuestions = tempFilteredQuestions.filter(question => question.year.toString() == yearValue.toString());
               }
 
               // Limit the results to the first 100 items
@@ -260,7 +305,7 @@ import Link from 'next/link';
 
               // Update the state with the filtered questions
               setquestionArray(tempFilteredQuestions);
-            }, [questionText, chapterValue, paperValue]);
+            }, [questionText, chapterValue, paperValue, yearValue]);
     return (
       <>
         <Head>
@@ -323,7 +368,7 @@ import Link from 'next/link';
                     <select value={chapterValue} onChange={(event) => setChapterValue(event.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                       <option id='0' value={0} defaultValue={true}>All Chapters</option>
                       {chapters.map((chapter) => (
-                        <option key={chapter.id} value={chapter.id}>{chapter.name}</option>
+                        <option key={chapter.id} value={chapter.id}>{chapter.name} ({chapter.level2})</option>
                     ))}
                     </select>
                   </div>
@@ -336,6 +381,15 @@ import Link from 'next/link';
                     ))}
                     </select>
                   </div>
+                  <div className="w-4/6 sm:w-3/6 md:w-2/6 lg:w-1/8">
+                <label htmlFor="years" className="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white">Choose a Year</label>
+                <select id="years" value={yearValue} onChange={(event) => setYearValue(event.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                  <option id='0' value={0} defaultValue={true}>All Years</option>
+                  {years.map((year) => (
+                    <option key={year.id} value={year.id}>{year.name}</option>
+                ))}
+                </select>
+                </div>
                 </div>
                 <div className="flex justify-around flex-col sm:flex-row flex-wrap mt-12 gap-4">
                 <button onClick={reset} className="text-white transition-all ease-out bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-500 dark:focus:ring-green-800">

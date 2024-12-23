@@ -154,6 +154,103 @@
       "level2" : "AS"
     },
     {
+      "id" : 23,
+      "name":"23: Chemical energetics",
+      "subject": "chemistry",
+      "level" : "A-level",
+      "level2" : "A2"
+    },
+    {
+      "id" : 24,
+      "name":"24: Electrochemistry",
+      "subject": "chemistry",
+      "level" : "A-level",
+      "level2" : "A2"
+    },
+    {
+      "id" : 25,
+      "name":"25: Equilibria",
+      "subject": "chemistry",
+      "level" : "A-level",
+      "level2" : "A2"
+    },
+    {
+      "id" : 26,
+      "name":"26: Reaction kinetics",
+      "subject": "chemistry",
+      "level" : "A-level",
+      "level2" : "A2"
+    },
+    {
+      "id" : 27,
+      "name":"27: Group 2",
+      "subject": "chemistry",
+      "level" : "A-level",
+      "level2" : "A2"
+    },{
+      "id" : 28,
+      "name":"28: Chemistry of transition elements",
+      "subject": "chemistry",
+      "level" : "A-level",
+      "level2" : "A2"
+    },{
+      "id" : 29,
+      "name":"29: An introduction to A Level organic chemistry",
+      "subject": "chemistry",
+      "level" : "A-level",
+      "level2" : "A2"
+    },
+    {
+      "id" : 30,
+      "name":"30: Hydrocarbons",
+      "subject": "chemistry",
+      "level" : "A-level",
+      "level2" : "A2"
+    },
+    {
+      "id" : 31,
+      "name":"31: Halogen compounds",
+      "subject": "chemistry",
+      "level" : "A-level",
+      "level2" : "A2"
+    },{
+      "id" : 32,
+      "name":"32: Hydroxy compounds",
+      "subject": "chemistry",
+      "level" : "A-level",
+      "level2" : "A2"
+    },{
+      "id" : 33,
+      "name":"33: Carboxylic acids and derivatives",
+      "subject": "chemistry",
+      "level" : "A-level",
+      "level2" : "A2"
+    },{
+      "id" : 34,
+      "name":"34: Nitrogen compounds",
+      "subject": "chemistry",
+      "level" : "A-level",
+      "level2" : "A2"
+    },{
+      "id" : 35,
+      "name":"35: Polymerisation",
+      "subject": "chemistry",
+      "level" : "A-level",
+      "level2" : "A2"
+    },{
+      "id" : 36,
+      "name":"36: Organic synthesis",
+      "subject": "chemistry",
+      "level" : "A-level",
+      "level2" : "A2"
+    },{
+      "id" : 37,
+      "name":"37: Analytical techniques",
+      "subject": "chemistry",
+      "level" : "A-level",
+      "level2" : "A2"
+    },
+    {
       "id" : 1,
       "name":"1: Scarcity, choice and opportunity cost, Factors of production",
       "subject": "economics",

@@ -15,6 +15,7 @@ import { useRouter } from 'next/router';
         const [questionArray, setquestionArray] = useState(searchArray);
         const [chapterValue, setChapterValue] = useState(0);
         const [paperValue, setPaperValue] = useState(0);
+        const [yearValue, setYearValue] = useState(0);
         const [questionText, setQuestionText] = useState('')
         const router = useRouter();
         const data2 = router.query;
@@ -45,8 +46,21 @@ import { useRouter } from 'next/router';
         { id: 3, name: "Paper 3", subject: "economics", level: "A-level" },
         { id: 1, name: "Paper 1", subject: "biology", level: "A-level" },
         { id: 1, name: "Paper 1", subject: "chemistry", level: "A-level" },
+        { id: 2, name: "Paper 2", subject: "chemistry", level: "A-level" },
+        { id: 3, name: "Paper 3", subject: "chemistry", level: "A-level" },
+        { id: 4, name: "Paper 4", subject: "chemistry", level: "A-level" },
+        { id: 5, name: "Paper 5", subject: "chemistry", level: "A-level" },
         { id: 1, name: "Paper 1", subject: "physics", level: "A-level" }
       ];
+      const years = [
+        {id: 2017, name : "2017"},
+        {id: 2018, name : "2018"},
+        {id: 2019, name : "2019"},
+        {id: 2020, name : "2020"},
+        {id: 2021, name : "2021"},
+        {id: 2022, name : "2022"},
+        {id: 2023, name : "2023"},
+      ]
       const filteredPapers = papers.filter(item => item.subject === subject);
 
       const filteredQuestionsRef = useRef();
@@ -67,6 +81,10 @@ import { useRouter } from 'next/router';
         if (chapterValue !== 0) {
           tempFilteredQuestions = tempFilteredQuestions.filter(question => question.Chapter.toString() == chapterValue.toString());
         }
+        
+        if (yearValue !== 0){
+          tempFilteredQuestions = tempFilteredQuestions.filter(question => question.year.toString() == yearValue.toString());
+        }
 
         // Limit the results to the first 100 items
         tempFilteredQuestions = tempFilteredQuestions.slice(0, 100);
@@ -76,11 +94,12 @@ import { useRouter } from 'next/router';
 
         // Update the state with the filtered questions
         setquestionArray(tempFilteredQuestions);
-      }, [questionText, chapterValue, paperValue, searchArray]);
+      }, [questionText, chapterValue, paperValue, searchArray, yearValue]);
 
       async function reset() {
         setChapterValue(0)
         setPaperValue(0)
+        setYearValue(0)
         setquestionArray(searchArray)
         setQuestionText('')
         }
@@ -97,8 +116,7 @@ import { useRouter } from 'next/router';
         <Navbar session={session} />
         <div className="mt-40 mb-20">
             <div className='flex justify-center'>
-                <div className="w-5/6 sm:w-4/6 md:w-3/6 lg:w-2/6">
-                  <div className=""></div>
+                <div className="w-5/6 sm:w-4/6 md:w-3/6 lg:w-5/12">
                     <h1 className='text-3xl mb-12 font-bold text-white'>Search for a question or a keyword</h1>
                 <label
                     htmlFor="searchbar"
@@ -149,6 +167,15 @@ import { useRouter } from 'next/router';
                   <option id='0' value={0} defaultValue={true}>All Papers</option>
                   {filteredPapers.map((paper) => (
                     <option key={paper.id} value={paper.id}>{paper.name}</option>
+                ))}
+                </select>
+                </div>
+                <div className="w-4/6 sm:w-3/6 md:w-2/6 lg:w-1/8">
+                <label htmlFor="years" className="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white">Choose a Year</label>
+                <select id="years" value={yearValue} onChange={(event) => setYearValue(event.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                  <option id='0' value={0} defaultValue={true}>All Years</option>
+                  {years.map((year) => (
+                    <option key={year.id} value={year.id}>{year.name}</option>
                 ))}
                 </select>
                 </div>
