@@ -241,6 +241,34 @@ import Link from 'next/link';
           "subject": "economics",
           "level" : "IGCSE",
           "level2" : "IGCSE"
+        },
+        {
+          "id" : 3,
+          "name":"Paper 3 (Core)",
+          "subject": "chemistry",
+          "level" : "IGCSE",
+          "level2" : "IGCSE"
+        },
+        {
+          "id" : 4,
+          "name":"Paper 4 (Extended)",
+          "subject": "chemistry",
+          "level" : "IGCSE",
+          "level2" : "IGCSE"
+        },
+        {
+          "id" : 5,
+          "name":"Paper 5",
+          "subject": "chemistry",
+          "level" : "IGCSE",
+          "level2" : "IGCSE"
+        },
+        {
+          "id" : 6,
+          "name":"Paper 6",
+          "subject": "chemistry",
+          "level" : "IGCSE",
+          "level2" : "IGCSE"
         }
       ]
       const filteredPapers = papers.filter(item => (item.subject === subject) && (item.level2 === level));
