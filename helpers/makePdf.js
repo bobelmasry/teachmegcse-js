@@ -25,7 +25,7 @@ export async function postData(questionData, filename) {
     }
 
     // Add a 5-second delay before proceeding with the response
-    await new Promise(resolve => setTimeout(resolve, 5000)); // 5000ms = 5 seconds
+    await new Promise(resolve => setTimeout(resolve, 10000)); // 5000ms = 5 seconds
 
     // Handle the response here (e.g., download the PDF)
     const pdfBlob = await response.blob();
