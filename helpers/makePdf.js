@@ -12,6 +12,7 @@ export async function postData(questionData, filename) {
   };
 
   try {
+    // Send the POST request
     const response = await fetch("/api/generatePdf", {
       method: "POST",
       headers: {
@@ -19,23 +20,20 @@ export async function postData(questionData, filename) {
       },
       body: JSON.stringify(data),
     });
-    
-    console.log('Response status:', response.status); // Ensure status is OK
     if (!response.ok) {
-      throw new Error(`Failed to generate PDF: ${response.status}`);
+      throw new Error("Request failed");
     }
-    
+    // Handle the response here (e.g., download the PDF)
     const pdfBlob = await response.blob();
+    // Example: Create a link to download the PDF
     const pdfUrl = window.URL.createObjectURL(pdfBlob);
-    console.log('PDF Blob URL:', pdfUrl); // Log the generated URL
-    
+    console.log(pdfUrl);
     const a = document.createElement("a");
     a.href = pdfUrl;
     a.download = `${filename}.zip`;
     document.body.appendChild(a);
     a.click();
     window.URL.revokeObjectURL(pdfUrl);
-    
   } catch (error) {
     console.error("Error:", error);
   }
