@@ -67,7 +67,7 @@ const Table = ({ papers, letter, type }) => {
                   {paper.name}
                   <div className="flex gap-2 md:gap-0">
                     {((paper.hasSolve.toString() == 'True') && (alreadySolved === false)) && (
-                      <Link href={`/${type}/${paper.subjectName}/${paper.year}/${paper.slug}/solve`}>
+                      <Link href={`/${type}/${paper.subjectName}/past-papers/${paper.year}/${paper.slug}/solve`}>
                         <button
                           id='Submit'
                           className="md:ml-8 ml-4 rounded border border-blue-500 bg-blue-600 px-8 md:px-10 py-1 text-sm md:text-lg lg:text-xl font-medium text-white hover:bg-blue-500 focus:outline-none focus:ring active:text-slate-300"
@@ -84,7 +84,7 @@ const Table = ({ papers, letter, type }) => {
                           >
                             {isSolved[0].Score} / {isSolved[0].numOfQuestions}
                           </button>
-                      <Link href={`/${type}/${paper.subjectName}/${paper.year}/${paper.slug}/solve`}>
+                      <Link href={`/${type}/${paper.subjectName}/past-papers/${paper.year}/${paper.slug}/solve`}>
                       <button
                         id='Submit'
                         className="md:ml-8 mt-2 sm:mt-0 rounded border border-purple-500 bg-purple-600 px-8 md:px-10 py-1 text-sm md:text-lg lg:text-xl font-medium text-white hover:bg-purple-500 focus:outline-none focus:ring active:text-slate-300"

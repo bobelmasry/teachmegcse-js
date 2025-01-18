@@ -1,0 +1,128 @@
+[
+    {
+      "slug": "math",
+      "name" : "Maths (0580)",
+      "years": {"actualYears" : [2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011]} ,
+      "level": "IGCSE"
+    },
+    {
+      "slug": "business",
+      "name" : "Business (0450)",
+      "years": {"actualYears" : [2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011]} ,
+      "level": "IGCSE"
+    },
+    {
+      "slug": "chemistry",
+      "name" : "Chemistry (0620)",
+      "years": {"actualYears" : [2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011]} ,
+      "level": "IGCSE"
+    },
+    {
+      "slug": "computer-science",
+      "name" : "Computer Science (0478)",
+      "years": {"actualYears" : [2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015]} ,
+      "level": "IGCSE"
+    },
+    {
+      "slug": "economics",
+      "name" : "Economics (0455)",
+      "years": {"actualYears" : [2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011]} ,
+      "level": "IGCSE"
+    },
+    {
+      "slug": "english-language",
+      "name" : "English as a First Language (0500)",
+      "years": {"actualYears" : [2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014]} ,
+      "level": "IGCSE"
+    },
+    {
+      "slug": "history",
+      "name" : "History (0470)",
+      "years": {"actualYears" : [2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011]} ,
+      "level": "IGCSE"
+    },
+    {
+      "slug": "physics",
+      "name" : "Physics (0625)",
+      "years": {"actualYears" : [2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011]} ,
+      "level": "IGCSE"
+    },
+    {
+      "slug": "biology",
+      "name" : "Biology (0610)",
+      "years": {"actualYears" : [2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011]},
+      "level": "IGCSE"
+    },
+    {
+      "slug": "math",
+      "name" : "Maths (9709)",
+      "years": {"actualYears" : [2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011]} ,
+      "level": "A-level"
+    },
+    {
+      "slug": "accounting",
+      "name" : "Accounting (9706)",
+      "years": {"actualYears" : [2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011]} ,
+      "level": "A-level"
+    },
+    {
+      "slug": "arabic",
+      "name" : "Arabic (9680)",
+      "years": {"actualYears" : [2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013]} ,
+      "level": "A-level"
+    },
+    {
+      "slug": "business",
+      "name" : "Business (9609)",
+      "years": {"actualYears" : [2022, 2021, 2020, 2019, 2018, 2017, 2016]} ,
+      "level": "A-level"
+    },
+    {
+      "slug": "chemistry",
+      "name" : "Chemistry (9701)",
+      "years": {"actualYears" : [2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011]} ,
+      "level": "A-level"
+    },
+    {
+      "slug": "computer-science",
+      "name" : "Computer Science (9618)",
+      "years": {"actualYears" : [2022, 2021]} ,
+      "level": "A-level"
+    },
+    {
+      "slug": "economics",
+      "name" : "Economics (9708)",
+      "years": {"actualYears" : [2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011]} ,
+      "level": "A-level"
+    },
+    {
+      "slug": "english-language",
+      "name" : "English Language (9093)",
+      "years": {"actualYears" : [2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014]} ,
+      "level": "A-level"
+    },
+    {
+      "slug": "geography",
+      "name" : "Geography (9696)",
+      "years": {"actualYears" : [2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011]} ,
+      "level": "A-level"
+    },
+    {
+      "slug": "history",
+      "name" : "History (9489)",
+      "years": {"actualYears" : [2022, 2021, 2020]} ,
+      "level": "A-level"
+    },
+    {
+      "slug": "physics",
+      "name" : "Physics (9702)",
+      "years": {"actualYears" : [2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011]} ,
+      "level": "A-level"
+    },
+    {
+      "slug": "biology",
+      "name" : "Biology (9700)",
+      "years": {"actualYears" : [2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011]},
+      "level": "A-level"
+    }
+  ]
