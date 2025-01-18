@@ -252,27 +252,36 @@ import papers from "public/paperNumbers.json"
   }
 
   export async function getStaticPaths() {
-      const filePath = path.join(process.cwd(), 'public', 'chapters.json');
-      const fileData = await fs.readFile(filePath, 'utf-8');
-      let data = JSON.parse(fileData);
-      let IGData = data.filter(question => question.level == 'IGCSE')
-      let A_data = data.filter(question => question.level == 'A-level')
+    const filePath = path.join(process.cwd(), 'public', 'chapters.json');
+    const fileData = await fs.readFile(filePath, 'utf-8');
+    let data = JSON.parse(fileData);
   
+    // Filter data by level
+    let IGData = data.filter(question => question.level === 'IGCSE');
+    let A_data = data.filter(question => question.level === 'A-level');
   
-      let finaljsonData = IGData.map(question => ({
-        params: { subjectName: question.subject.toString(), level : question.level.toString(), type : "core" }
-      }))
-      let finaljsonData2 = IGData.map(question => ({
-        params: { subjectName: question.subject.toString(), level : question.level.toString(), type : "extended" }
-      }))
-      let finaljsonData3 = A_data.map(question => ({
-        params: { subjectName: question.subject.toString(), level : question.level.toString(), type : "a" }
-      }))
-      const finaljsonData4 = finaljsonData.concat(finaljsonData2)
-      .concat(finaljsonData3)
+    // Create paths for "core" type
+    let finaljsonData = IGData.map(question => ({
+      params: { subjectName: question.subject.toString(), level: question.level.toString(), type: 'core' }
+    }));
   
-      const paths = finaljsonData4;
-      return { paths, fallback: false };
-    }
+    // Create paths for "extended" type, excluding IGCSE Economics
+    let finaljsonData2 = IGData
+      .filter(question => question.subject.toLowerCase() !== 'economics') // Exclude Economics
+      .map(question => ({
+        params: { subjectName: question.subject.toString(), level: question.level.toString(), type: 'extended' }
+      }));
+  
+    // Create paths for "A-level" type
+    let finaljsonData3 = A_data.map(question => ({
+      params: { subjectName: question.subject.toString(), level: question.level.toString(), type: 'a' }
+    }));
+  
+    // Combine all paths
+    const finaljsonData4 = finaljsonData.concat(finaljsonData2).concat(finaljsonData3);
+  
+    return { paths: finaljsonData4, fallback: false };
+  }
+  
   
 export default SubjectPage
