@@ -361,8 +361,8 @@ import Latex from 'react-latex-next';
     const data = JSON.parse(fileData);
   
     // Filter data for IGCSE and A-level
-    const IGData = data.filter(question => question.level === 'IGCSE');
-    const A_data = data.filter(question => question.level === 'A-level');
+    const IGData = data.filter(question => (question.level === 'IGCSE') && (question.hasSolve === true));
+    const A_data = data.filter(question => (question.level === 'A-level') && (question.hasSolve === true));
   
     // Map paths for IGCSE Core with chapterNum
     const IGCorePaths = IGData.map(question => ({
@@ -401,5 +401,5 @@ import Latex from 'react-latex-next';
   
     return { paths, fallback: false };
   }
-  
+
 export default SubjectPage

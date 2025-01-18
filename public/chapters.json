@@ -1,970 +1,1074 @@
 [
-    {
-      "id" : 1,
-      "name":"1: Atomic structure",
+  {
+      "id": 1,
+      "name": "1: Atomic structure",
       "subject": "chemistry",
-      "level" : "A-level",
-      "level2" : "AS"
-    },
-    {
-      "id" : 2,
-      "name":"2: Atoms, molecules and stoichiometry",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 2,
+      "name": "2: Atoms, molecules and stoichiometry",
       "subject": "chemistry",
-      "level" : "A-level",
-      "level2" : "AS"
-    },
-    {
-      "id" : 3,
-      "name":"3: Chemical bonding",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 3,
+      "name": "3: Chemical bonding",
       "subject": "chemistry",
-      "level" : "A-level",
-      "level2" : "AS"
-    },
-    {
-      "id" : 4,
-      "name":"4: States of matter",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 4,
+      "name": "4: States of matter",
       "subject": "chemistry",
-      "level" : "A-level",
-      "level2" : "AS"
-    },
-    {
-      "id" : 5,
-      "name":"5: Chemical energetics",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 5,
+      "name": "5: Chemical energetics",
       "subject": "chemistry",
-      "level" : "A-level",
-      "level2" : "AS"
-    },
-    {
-      "id" : 6,
-      "name":"6: Electrochemistry",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 6,
+      "name": "6: Electrochemistry",
       "subject": "chemistry",
-      "level" : "A-level",
-      "level2" : "AS"
-    },
-    {
-      "id" : 7,
-      "name":"7: Equilibria",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 7,
+      "name": "7: Equilibria",
       "subject": "chemistry",
-      "level" : "A-level",
-      "level2" : "AS"
-    },
-    {
-      "id" : 8,
-      "name":"8: Reaction kinetics",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 8,
+      "name": "8: Reaction kinetics",
       "subject": "chemistry",
-      "level" : "A-level",
-      "level2" : "AS"
-    },
-    {
-      "id" : 9,
-      "name":"9: The Periodic Table: chemical periodicity",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 9,
+      "name": "9: The Periodic Table: chemical periodicity",
       "subject": "chemistry",
-      "level" : "A-level",
-      "level2" : "AS"
-    },
-    {
-      "id" : 10,
-      "name":"10: Group 2",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 10,
+      "name": "10: Group 2",
       "subject": "chemistry",
-      "level" : "A-level",
-      "level2" : "AS"
-    },
-    {
-      "id" : 11,
-      "name":"11: Group 17",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 11,
+      "name": "11: Group 17",
       "subject": "chemistry",
-      "level" : "A-level",
-      "level2" : "AS"
-    },
-    {
-      "id" : 12,
-      "name":"12: Nitrogen and sulfur",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 12,
+      "name": "12: Nitrogen and sulfur",
       "subject": "chemistry",
-      "level" : "A-level",
-      "level2" : "AS"
-    },
-    {
-      "id" : 13,
-      "name":"13: An introduction to AS Level organic chemistry",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 13,
+      "name": "13: An introduction to AS Level organic chemistry",
       "subject": "chemistry",
-      "level" : "A-level",
-      "level2" : "AS"
-    },
-    {
-      "id" : 14,
-      "name":"14: Hydrocarbons",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 14,
+      "name": "14: Hydrocarbons",
       "subject": "chemistry",
-      "level" : "A-level",
-      "level2" : "AS"
-    },
-    {
-      "id" : 15,
-      "name":"15: Halogen compounds",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 15,
+      "name": "15: Halogen compounds",
       "subject": "chemistry",
-      "level" : "A-level",
-      "level2" : "AS"
-    },
-    {
-      "id" : 16,
-      "name":"16: Hydroxy compounds",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 16,
+      "name": "16: Hydroxy compounds",
       "subject": "chemistry",
-      "level" : "A-level",
-      "level2" : "AS"
-    },
-    {
-      "id" : 17,
-      "name":"17: Carbonyl compounds",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 17,
+      "name": "17: Carbonyl compounds",
       "subject": "chemistry",
-      "level" : "A-level",
-      "level2" : "AS"
-    },
-    {
-      "id" : 18,
-      "name":"18: Carboxylic acids and derivatives",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 18,
+      "name": "18: Carboxylic acids and derivatives",
       "subject": "chemistry",
-      "level" : "A-level",
-      "level2" : "AS"
-    },
-    {
-      "id" : 19,
-      "name":"19: Nitrogen compounds",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 19,
+      "name": "19: Nitrogen compounds",
       "subject": "chemistry",
-      "level" : "A-level",
-      "level2" : "AS"
-    },
-    {
-      "id" : 20,
-      "name":"20: Polymerisation",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 20,
+      "name": "20: Polymerisation",
       "subject": "chemistry",
-      "level" : "A-level",
-      "level2" : "AS"
-    },
-    {
-      "id" : 21,
-      "name":"21: Organic synthesis",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 21,
+      "name": "21: Organic synthesis",
       "subject": "chemistry",
-      "level" : "A-level",
-      "level2" : "AS"
-    },
-    {
-      "id" : 22,
-      "name":"22: Analytical techniques",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 22,
+      "name": "22: Analytical techniques",
       "subject": "chemistry",
-      "level" : "A-level",
-      "level2" : "AS"
-    },
-    {
-      "id" : 23,
-      "name":"23: Chemical energetics",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 23,
+      "name": "23: Chemical energetics",
       "subject": "chemistry",
-      "level" : "A-level",
-      "level2" : "A2"
-    },
-    {
-      "id" : 24,
-      "name":"24: Electrochemistry",
+      "level": "A-level",
+      "level2": "A2",
+      "hasSolve": false
+  },
+  {
+      "id": 24,
+      "name": "24: Electrochemistry",
       "subject": "chemistry",
-      "level" : "A-level",
-      "level2" : "A2"
-    },
-    {
-      "id" : 25,
-      "name":"25: Equilibria",
+      "level": "A-level",
+      "level2": "A2",
+      "hasSolve": false
+  },
+  {
+      "id": 25,
+      "name": "25: Equilibria",
       "subject": "chemistry",
-      "level" : "A-level",
-      "level2" : "A2"
-    },
-    {
-      "id" : 26,
-      "name":"26: Reaction kinetics",
+      "level": "A-level",
+      "level2": "A2",
+      "hasSolve": false
+  },
+  {
+      "id": 26,
+      "name": "26: Reaction kinetics",
       "subject": "chemistry",
-      "level" : "A-level",
-      "level2" : "A2"
-    },
-    {
-      "id" : 27,
-      "name":"27: Group 2",
+      "level": "A-level",
+      "level2": "A2",
+      "hasSolve": false
+  },
+  {
+      "id": 27,
+      "name": "27: Group 2",
       "subject": "chemistry",
-      "level" : "A-level",
-      "level2" : "A2"
-    },{
-      "id" : 28,
-      "name":"28: Chemistry of transition elements",
+      "level": "A-level",
+      "level2": "A2",
+      "hasSolve": false
+  },
+  {
+      "id": 28,
+      "name": "28: Chemistry of transition elements",
       "subject": "chemistry",
-      "level" : "A-level",
-      "level2" : "A2"
-    },{
-      "id" : 29,
-      "name":"29: An introduction to A Level organic chemistry",
+      "level": "A-level",
+      "level2": "A2",
+      "hasSolve": false
+  },
+  {
+      "id": 29,
+      "name": "29: An introduction to A Level organic chemistry",
       "subject": "chemistry",
-      "level" : "A-level",
-      "level2" : "A2"
-    },
-    {
-      "id" : 30,
-      "name":"30: Hydrocarbons",
+      "level": "A-level",
+      "level2": "A2",
+      "hasSolve": false
+  },
+  {
+      "id": 30,
+      "name": "30: Hydrocarbons",
       "subject": "chemistry",
-      "level" : "A-level",
-      "level2" : "A2"
-    },
-    {
-      "id" : 31,
-      "name":"31: Halogen compounds",
+      "level": "A-level",
+      "level2": "A2",
+      "hasSolve": false
+  },
+  {
+      "id": 31,
+      "name": "31: Halogen compounds",
       "subject": "chemistry",
-      "level" : "A-level",
-      "level2" : "A2"
-    },{
-      "id" : 32,
-      "name":"32: Hydroxy compounds",
+      "level": "A-level",
+      "level2": "A2",
+      "hasSolve": false
+  },
+  {
+      "id": 32,
+      "name": "32: Hydroxy compounds",
       "subject": "chemistry",
-      "level" : "A-level",
-      "level2" : "A2"
-    },{
-      "id" : 33,
-      "name":"33: Carboxylic acids and derivatives",
+      "level": "A-level",
+      "level2": "A2",
+      "hasSolve": false
+  },
+  {
+      "id": 33,
+      "name": "33: Carboxylic acids and derivatives",
       "subject": "chemistry",
-      "level" : "A-level",
-      "level2" : "A2"
-    },{
-      "id" : 34,
-      "name":"34: Nitrogen compounds",
+      "level": "A-level",
+      "level2": "A2",
+      "hasSolve": false
+  },
+  {
+      "id": 34,
+      "name": "34: Nitrogen compounds",
       "subject": "chemistry",
-      "level" : "A-level",
-      "level2" : "A2"
-    },{
-      "id" : 35,
-      "name":"35: Polymerisation",
+      "level": "A-level",
+      "level2": "A2",
+      "hasSolve": false
+  },
+  {
+      "id": 35,
+      "name": "35: Polymerisation",
       "subject": "chemistry",
-      "level" : "A-level",
-      "level2" : "A2"
-    },{
-      "id" : 36,
-      "name":"36: Organic synthesis",
+      "level": "A-level",
+      "level2": "A2",
+      "hasSolve": false
+  },
+  {
+      "id": 36,
+      "name": "36: Organic synthesis",
       "subject": "chemistry",
-      "level" : "A-level",
-      "level2" : "A2"
-    },{
-      "id" : 37,
-      "name":"37: Analytical techniques",
+      "level": "A-level",
+      "level2": "A2",
+      "hasSolve": false
+  },
+  {
+      "id": 37,
+      "name": "37: Analytical techniques",
       "subject": "chemistry",
-      "level" : "A-level",
-      "level2" : "A2"
-    },
-    {
-      "id" : 1,
-      "name":"1: Scarcity, choice and opportunity cost, Factors of production",
+      "level": "A-level",
+      "level2": "A2",
+      "hasSolve": false
+  },
+  {
+      "id": 1,
+      "name": "1: Scarcity, choice and opportunity cost, Factors of production",
       "subject": "economics",
-      "level" : "A-level",
-      "level2" : "AS"
-    },
-    {
-      "id" : 2,
-      "name":"2: Resource allocation, PPC, goods and services",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 2,
+      "name": "2: Resource allocation, PPC, goods and services",
       "subject": "economics",
-      "level" : "A-level",
-      "level2" : "AS"
-    },
-    {
-      "id" : 3,
-      "name":"3: Demand and Supply, elasticities",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 3,
+      "name": "3: Demand and Supply, elasticities",
       "subject": "economics",
-      "level" : "A-level",
-      "level2" : "AS"
-    },
-    {
-      "id" : 4,
-      "name":"4: The interaction of demand and supply, Surpluses",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 4,
+      "name": "4: The interaction of demand and supply, Surpluses",
       "subject": "economics",
-      "level" : "A-level",
-      "level2" : "AS"
-    },
-    {
-      "id" : 5,
-      "name":"5: Government microeconomic intervention",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 5,
+      "name": "5: Government microeconomic intervention",
       "subject": "economics",
-      "level" : "A-level",
-      "level2" : "AS"
-    },
-    {
-      "id" : 6,
-      "name":"6: National income, Circular Flow",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 6,
+      "name": "6: National income, Circular Flow",
       "subject": "economics",
-      "level" : "A-level",
-      "level2" : "AS"
-    },
-    {
-      "id" : 7,
-      "name":"7: Aggregate Demand and Aggregate Supply",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 7,
+      "name": "7: Aggregate Demand and Aggregate Supply",
       "subject": "economics",
-      "level" : "A-level",
-      "level2" : "AS"
-    },
-    {
-      "id" : 8,
-      "name":"8: Economic Growth, Unemployment and Price stability",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 8,
+      "name": "8: Economic Growth, Unemployment and Price stability",
       "subject": "economics",
-      "level" : "A-level",
-      "level2" : "AS"
-    },
-    {
-      "id" : 9,
-      "name":"9: Government Policies",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 9,
+      "name": "9: Government Policies",
       "subject": "economics",
-      "level" : "A-level",
-      "level2" : "AS"
-    },
-    {
-      "id" : 10,
-      "name":"10: International trade and Protectionism",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 10,
+      "name": "10: International trade and Protectionism",
       "subject": "economics",
-      "level" : "A-level",
-      "level2" : "AS"
-    },
-    {
-      "id" : 11,
-      "name":"11: Balance of Payments and Exchange rates",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 11,
+      "name": "11: Balance of Payments and Exchange rates",
       "subject": "economics",
-      "level" : "A-level",
-      "level2" : "AS"
-    },
-      {
-        "id" : 12,
-        "name":"12: Utility",
-        "subject": "economics",
-        "level" : "A-level",
-        "level2" : "A2"
-      },
-      {
-        "id" : 13,
-        "name":"13: Indifference curves and budget lines",
-        "subject": "economics",
-        "level" : "A-level",
-        "level2" : "A2"
-      },
-      {
-        "id" : 14,
-        "name":"14: Efficiency and market failure",
-        "subject": "economics",
-        "level" : "A-level",
-        "level2" : "A2"
-      },
-      {
-        "id" : 15,
-        "name":"15: Private costs and benefits, externalities and social costs and benefits",
-        "subject": "economics",
-        "level" : "A-level",
-        "level2" : "A2"
-      },
-      {
-        "id" : 16,
-        "name":"16: Types of cost, revenue and profit, short-run and long-run production",
-        "subject": "economics",
-        "level" : "A-level",
-        "level2" : "A2"
-      },
-      {
-        "id" : 17,
-        "name":"17: Market structures",
-        "subject": "economics",
-        "level" : "A-level",
-        "level2" : "A2"
-      },
-      {
-        "id" : 18,
-        "name":"18: Growth and survival of firms",
-        "subject": "economics",
-        "level" : "A-level",
-        "level2" : "A2"
-      },
-      {
-        "id" : 19,
-        "name":"19: Objectives and policies of firms",
-        "subject": "economics",
-        "level" : "A-level",
-        "level2" : "A2"
-      },
-      {
-        "id" : 20,
-        "name":"20: Government policies to achieve efficient resource allocation",
-        "subject": "economics",
-        "level" : "A-level",
-        "level2" : "A2"
-      },
-      {
-        "id" : 21,
-        "name":"21: Equity and redistribution of income and wealth",
-        "subject": "economics",
-        "level" : "A-level",
-        "level2" : "A2"
-      },
-      {
-        "id" : 22,
-        "name":"22: Labour market forces and government intervention",
-        "subject": "economics",
-        "level" : "A-level",
-        "level2" : "A2"
-      },
-      {
-        "id" : 23,
-        "name":"23: The circular flow of income",
-        "subject": "economics",
-        "level" : "A-level",
-        "level2" : "A2"
-      },
-      {
-        "id" : 24,
-        "name":"24: Economic growth and sustainability",
-        "subject": "economics",
-        "level" : "A-level",
-        "level2" : "A2"
-      },
-      {
-        "id" : 25,
-        "name":"25: Employment/unemployment",
-        "subject": "economics",
-        "level" : "A-level",
-        "level2" : "A2"
-      },
-      {
-        "id" : 26,
-        "name":"26: Money and banking",
-        "subject": "economics",
-        "level" : "A-level",
-        "level2" : "A2"
-      },
-      {
-        "id" : 27,
-        "name":"27: Government macroeconomic policy objectives",
-        "subject": "economics",
-        "level" : "A-level",
-        "level2" : "A2"
-      },
-      {
-        "id" : 28,
-        "name":"28: Balance of payments",
-        "subject": "economics",
-        "level" : "A-level",
-        "level2" : "A2"
-      },
-      {
-        "id" : 29,
-        "name":"29: Economic development",
-        "subject": "economics",
-        "level" : "A-level",
-        "level2" : "A2"
-      },
-      {
-        "id" : 30,
-        "name":"30: Levels of development",
-        "subject": "economics",
-        "level" : "A-level",
-        "level2" : "A2"
-      },
-      {
-        "id" : 1,
-        "name":"1: Physical quantities and units",
-        "subject": "physics",
-        "level" : "A-level",
-        "level2" : "AS"
-      },
-      {
-        "id" : 2,
-        "name":"2: Kinematics",
-        "subject": "physics",
-        "level" : "A-level",
-        "level2" : "AS"
-      },
-      {
-        "id" : 3,
-        "name":"3: Dynamics",
-        "subject": "physics",
-        "level" : "A-level",
-        "level2" : "AS"
-      },
-      {
-        "id" : 4,
-        "name":"4: Forces, density and pressure",
-        "subject": "physics",
-        "level" : "A-level",
-        "level2" : "AS"
-      },
-      {
-        "id" : 5,
-        "name":"5: Work, energy and power",
-        "subject": "physics",
-        "level" : "A-level",
-        "level2" : "AS"
-      },
-      {
-        "id" : 6,
-        "name":"6: Deformation of solids",
-        "subject": "physics",
-        "level" : "A-level",
-        "level2" : "AS"
-      },
-      {
-        "id" : 7,
-        "name":"7: Waves",
-        "subject": "physics",
-        "level" : "A-level",
-        "level2" : "AS"
-      },
-      {
-        "id" : 8,
-        "name":"8: Superposition",
-        "subject": "physics",
-        "level" : "A-level",
-        "level2" : "AS"
-      },
-      {
-        "id" : 9,
-        "name":"9: Electricity",
-        "subject": "physics",
-        "level" : "A-level",
-        "level2" : "AS"
-      },
-      {
-        "id" : 10,
-        "name":"10: D.C. circuits",
-        "subject": "physics",
-        "level" : "A-level",
-        "level2" : "AS"
-      },
-      {
-        "id" : 11,
-        "name":"11: Particle physics",
-        "subject": "physics",
-        "level" : "A-level",
-        "level2" : "AS"
-      },
-      {
-        "id" : 1,
-        "name":"1: Cell structure",
-        "subject": "biology",
-        "level" : "A-level",
-        "level2" : "AS"
-      },
-      {
-        "id" : 2,
-        "name":"2: Biological molecules",
-        "subject": "biology",
-        "level" : "A-level",
-        "level2" : "AS"
-      },
-      {
-        "id" : 3,
-        "name":"3: Enzymes",
-        "subject": "biology",
-        "level" : "A-level",
-        "level2" : "AS"
-      },
-      {
-        "id" : 4,
-        "name":"4: Cell membranes and transport",
-        "subject": "biology",
-        "level" : "A-level",
-        "level2" : "AS"
-      },
-      {
-        "id" : 5,
-        "name":"5: The mitotic cell cycle",
-        "subject": "biology",
-        "level" : "A-level",
-        "level2" : "AS"
-      },
-      {
-        "id" : 6,
-        "name":"6: Nucleic acids and protein synthesis",
-        "subject": "biology",
-        "level" : "A-level",
-        "level2" : "AS"
-      },
-      {
-        "id" : 7,
-        "name":"7: Transport in plants",
-        "subject": "biology",
-        "level" : "A-level",
-        "level2" : "AS"
-      },
-      {
-        "id" : 8,
-        "name":"8: Transport in mammals",
-        "subject": "biology",
-        "level" : "A-level",
-        "level2" : "AS"
-      },
-      {
-        "id" : 9,
-        "name":"9: Gas exchange",
-        "subject": "biology",
-        "level" : "A-level",
-        "level2" : "AS"
-      },
-      {
-        "id" : 10,
-        "name":"10: Infectious diseases",
-        "subject": "biology",
-        "level" : "A-level",
-        "level2" : "AS"
-      },
-      {
-        "id" : 11,
-        "name":"11: Immunity",
-        "subject": "biology",
-        "level" : "A-level",
-        "level2" : "AS"
-      },
-      {
-        "id" : 1,
-        "name":"1: Characteristics and classification of living organisms",
-        "subject": "biology",
-        "level" : "IGCSE",
-        "level2" : "IGCSE"
-      },
-      {
-        "id" : 2,
-        "name":"2: Organisation of the organism",
-        "subject": "biology",
-        "level" : "IGCSE",
-        "level2" : "IGCSE"
-      }
-      ,
-      {
-        "id" : 3,
-        "name":"3: Movement into and out of cells",
-        "subject": "biology",
-        "level" : "IGCSE",
-        "level2" : "IGCSE"
-      }
-      ,
-      {
-        "id" : 4,
-        "name":"4: Biological molecules",
-        "subject": "biology",
-        "level" : "IGCSE",
-        "level2" : "IGCSE"
-      }
-      ,
-      {
-        "id" : 5,
-        "name":"5: Enzymes",
-        "subject": "biology",
-        "level" : "IGCSE",
-        "level2" : "IGCSE"
-      }
-      ,
-      {
-        "id" : 6,
-        "name":"6: Plant nutrition",
-        "subject": "biology",
-        "level" : "IGCSE",
-        "level2" : "IGCSE"
-      }
-      ,
-      {
-        "id" : 7,
-        "name":"7: Human nutrition",
-        "subject": "biology",
-        "level" : "IGCSE",
-        "level2" : "IGCSE"
-      }
-      ,
-      {
-        "id" : 8,
-        "name":"8: Transport in plants",
-        "subject": "biology",
-        "level" : "IGCSE",
-        "level2" : "IGCSE"
-      }
-      ,
-      {
-        "id" : 9,
-        "name":"9: Transport in animals",
-        "subject": "biology",
-        "level" : "IGCSE",
-        "level2" : "IGCSE"
-      }
-      ,
-      {
-        "id" : 10,
-        "name":"10: Diseases and immunity",
-        "subject": "biology",
-        "level" : "IGCSE",
-        "level2" : "IGCSE"
-      }
-      ,
-      {
-        "id" : 11,
-        "name":"11: Gas exchange in humans",
-        "subject": "biology",
-        "level" : "IGCSE",
-        "level2" : "IGCSE"
-      }
-      ,
-      {
-        "id" : 12,
-        "name":"12: Respiration",
-        "subject": "biology",
-        "level" : "IGCSE",
-        "level2" : "IGCSE"
-      }
-      ,
-      {
-        "id" : 13,
-        "name":"13: Excretion in humans",
-        "subject": "biology",
-        "level" : "IGCSE",
-        "level2" : "IGCSE"
-      }
-      ,
-      {
-        "id" : 14,
-        "name":"14: Coordination and response",
-        "subject": "biology",
-        "level" : "IGCSE",
-        "level2" : "IGCSE"
-      }
-      ,
-      {
-        "id" : 15,
-        "name":"15: Drugs",
-        "subject": "biology",
-        "level" : "IGCSE",
-        "level2" : "IGCSE"
-      }
-      ,
-      {
-        "id" : 16,
-        "name":"16: Reproduction",
-        "subject": "biology",
-        "level" : "IGCSE",
-        "level2" : "IGCSE"
-      }
-      ,
-      {
-        "id" : 17,
-        "name":"17: Inheritance",
-        "subject": "biology",
-        "level" : "IGCSE",
-        "level2" : "IGCSE"
-      }
-      ,
-      {
-        "id" : 18,
-        "name":"18: Variation and selection",
-        "subject": "biology",
-        "level" : "IGCSE",
-        "level2" : "IGCSE"
-      }
-      ,
-      {
-        "id" : 19,
-        "name":"19: Organisms and their environment",
-        "subject": "biology",
-        "level" : "IGCSE",
-        "level2" : "IGCSE"
-      }
-      ,
-      {
-        "id" : 20,
-        "name":"20: Human influences on ecosystems",
-        "subject": "biology",
-        "level" : "IGCSE",
-        "level2" : "IGCSE"
-      }
-      ,
-      {
-        "id" : 21,
-        "name":"21: Biotechnology and genetic modification",
-        "subject": "biology",
-        "level" : "IGCSE",
-        "level2" : "IGCSE"
-      }
-      ,
-      {
-        "id" : 1,
-        "name":"1: States of matter",
-        "subject": "chemistry",
-        "level" : "IGCSE",
-        "level2" : "IGCSE"
-      }
-      ,
-      {
-        "id" : 2,
-        "name":"2: Atoms, elements and compounds",
-        "subject": "chemistry",
-        "level" : "IGCSE",
-        "level2" : "IGCSE"
-      }
-      ,
-      {
-        "id" : 3,
-        "name":"3: Stoichiometry",
-        "subject": "chemistry",
-        "level" : "IGCSE",
-        "level2" : "IGCSE"
-      }
-      ,
-      {
-        "id" : 4,
-        "name":"4: Electrochemistry",
-        "subject": "chemistry",
-        "level" : "IGCSE",
-        "level2" : "IGCSE"
-      }
-      ,
-      {
-        "id" : 5,
-        "name":"5: Chemical energetics",
-        "subject": "chemistry",
-        "level" : "IGCSE",
-        "level2" : "IGCSE"
-      }
-      ,
-      {
-        "id" : 6,
-        "name":"6: Chemical reactions",
-        "subject": "chemistry",
-        "level" : "IGCSE",
-        "level2" : "IGCSE"
-      }
-      ,
-      {
-        "id" : 7,
-        "name":"7: Acids, bases and salts",
-        "subject": "chemistry",
-        "level" : "IGCSE",
-        "level2" : "IGCSE"
-      }
-      ,
-      {
-        "id" : 8,
-        "name":"8: The Periodic Table",
-        "subject": "chemistry",
-        "level" : "IGCSE",
-        "level2" : "IGCSE"
-      }
-      ,
-      {
-        "id" : 9,
-        "name":"9: Metals",
-        "subject": "chemistry",
-        "level" : "IGCSE",
-        "level2" : "IGCSE"
-      }
-      ,
-      {
-        "id" : 10,
-        "name":"10: Chemistry of the environment",
-        "subject": "chemistry",
-        "level" : "IGCSE",
-        "level2" : "IGCSE"
-      }
-      ,
-      {
-        "id" : 11,
-        "name":"11: Organic chemistry",
-        "subject": "chemistry",
-        "level" : "IGCSE",
-        "level2" : "IGCSE"
-      }
-      ,
-      {
-        "id" : 12,
-        "name":"12: Experimental techniques and chemical analysis",
-        "subject": "chemistry",
-        "level" : "IGCSE",
-        "level2" : "IGCSE"
-      }
-      ,
-      {
-        "id" : 1,
-        "name":"1: The basic economic problem",
-        "subject": "economics",
-        "level" : "IGCSE",
-        "level2" : "IGCSE"
-      }
-      ,
-      {
-        "id" : 2,
-        "name":"2: The allocation of resources",
-        "subject": "economics",
-        "level" : "IGCSE",
-        "level2" : "IGCSE"
-      }
-      ,
-      {
-        "id" : 3,
-        "name":"3: Microeconomic decision makers",
-        "subject": "economics",
-        "level" : "IGCSE",
-        "level2" : "IGCSE"
-      }
-      ,
-      {
-        "id" : 4,
-        "name":"4: Government and the macroeconomy",
-        "subject": "economics",
-        "level" : "IGCSE",
-        "level2" : "IGCSE"
-      }
-      ,
-      {
-        "id" : 5,
-        "name":"5: Economic development",
-        "subject": "economics",
-        "level" : "IGCSE",
-        "level2" : "IGCSE"
-      }
-      ,
-      {
-        "id" : 6,
-        "name":"6: International trade and globalisation",
-        "subject": "economics",
-        "level" : "IGCSE",
-        "level2" : "IGCSE"
-      }
-      ,
-      {
-        "id" : 1,
-        "name":"1: Motion, forces and energy",
-        "subject": "physics",
-        "level" : "IGCSE",
-        "level2" : "IGCSE"
-      },
-      {
-        "id" : 2,
-        "name":"2: Thermal physics",
-        "subject": "physics",
-        "level" : "IGCSE",
-        "level2" : "IGCSE"
-      },
-      {
-        "id" : 3,
-        "name":"3: Waves",
-        "subject": "physics",
-        "level" : "IGCSE",
-        "level2" : "IGCSE"
-      },
-      {
-        "id" : 4,
-        "name":"4: Electricity and magnetism",
-        "subject": "physics",
-        "level" : "IGCSE",
-        "level2" : "IGCSE"
-      },
-      {
-        "id" : 5,
-        "name":"5: Nuclear physics",
-        "subject": "physics",
-        "level" : "IGCSE",
-        "level2" : "IGCSE"
-      },
-      {
-        "id" : 6,
-        "name":"6: Space physics",
-        "subject": "physics",
-        "level" : "IGCSE",
-        "level2" : "IGCSE"
-      }
-  ]
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 12,
+      "name": "12: Utility",
+      "subject": "economics",
+      "level": "A-level",
+      "level2": "A2",
+      "hasSolve": true
+  },
+  {
+      "id": 13,
+      "name": "13: Indifference curves and budget lines",
+      "subject": "economics",
+      "level": "A-level",
+      "level2": "A2",
+      "hasSolve": true
+  },
+  {
+      "id": 14,
+      "name": "14: Efficiency and market failure",
+      "subject": "economics",
+      "level": "A-level",
+      "level2": "A2",
+      "hasSolve": true
+  },
+  {
+      "id": 15,
+      "name": "15: Private costs and benefits, externalities and social costs and benefits",
+      "subject": "economics",
+      "level": "A-level",
+      "level2": "A2",
+      "hasSolve": true
+  },
+  {
+      "id": 16,
+      "name": "16: Types of cost, revenue and profit, short-run and long-run production",
+      "subject": "economics",
+      "level": "A-level",
+      "level2": "A2",
+      "hasSolve": true
+  },
+  {
+      "id": 17,
+      "name": "17: Market structures",
+      "subject": "economics",
+      "level": "A-level",
+      "level2": "A2",
+      "hasSolve": true
+  },
+  {
+      "id": 18,
+      "name": "18: Growth and survival of firms",
+      "subject": "economics",
+      "level": "A-level",
+      "level2": "A2",
+      "hasSolve": true
+  },
+  {
+      "id": 19,
+      "name": "19: Objectives and policies of firms",
+      "subject": "economics",
+      "level": "A-level",
+      "level2": "A2",
+      "hasSolve": true
+  },
+  {
+      "id": 20,
+      "name": "20: Government policies to achieve efficient resource allocation",
+      "subject": "economics",
+      "level": "A-level",
+      "level2": "A2",
+      "hasSolve": true
+  },
+  {
+      "id": 21,
+      "name": "21: Equity and redistribution of income and wealth",
+      "subject": "economics",
+      "level": "A-level",
+      "level2": "A2",
+      "hasSolve": true
+  },
+  {
+      "id": 22,
+      "name": "22: Labour market forces and government intervention",
+      "subject": "economics",
+      "level": "A-level",
+      "level2": "A2",
+      "hasSolve": true
+  },
+  {
+      "id": 23,
+      "name": "23: The circular flow of income",
+      "subject": "economics",
+      "level": "A-level",
+      "level2": "A2",
+      "hasSolve": true
+  },
+  {
+      "id": 24,
+      "name": "24: Economic growth and sustainability",
+      "subject": "economics",
+      "level": "A-level",
+      "level2": "A2",
+      "hasSolve": true
+  },
+  {
+      "id": 25,
+      "name": "25: Employment/unemployment",
+      "subject": "economics",
+      "level": "A-level",
+      "level2": "A2",
+      "hasSolve": true
+  },
+  {
+      "id": 26,
+      "name": "26: Money and banking",
+      "subject": "economics",
+      "level": "A-level",
+      "level2": "A2",
+      "hasSolve": true
+  },
+  {
+      "id": 27,
+      "name": "27: Government macroeconomic policy objectives",
+      "subject": "economics",
+      "level": "A-level",
+      "level2": "A2",
+      "hasSolve": true
+  },
+  {
+      "id": 28,
+      "name": "28: Balance of payments",
+      "subject": "economics",
+      "level": "A-level",
+      "level2": "A2",
+      "hasSolve": true
+  },
+  {
+      "id": 29,
+      "name": "29: Economic development",
+      "subject": "economics",
+      "level": "A-level",
+      "level2": "A2",
+      "hasSolve": true
+  },
+  {
+      "id": 30,
+      "name": "30: Levels of development",
+      "subject": "economics",
+      "level": "A-level",
+      "level2": "A2",
+      "hasSolve": true
+  },
+  {
+      "id": 1,
+      "name": "1: Physical quantities and units",
+      "subject": "physics",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 2,
+      "name": "2: Kinematics",
+      "subject": "physics",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 3,
+      "name": "3: Dynamics",
+      "subject": "physics",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 4,
+      "name": "4: Forces, density and pressure",
+      "subject": "physics",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 5,
+      "name": "5: Work, energy and power",
+      "subject": "physics",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 6,
+      "name": "6: Deformation of solids",
+      "subject": "physics",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 7,
+      "name": "7: Waves",
+      "subject": "physics",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 8,
+      "name": "8: Superposition",
+      "subject": "physics",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 9,
+      "name": "9: Electricity",
+      "subject": "physics",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 10,
+      "name": "10: D.C. circuits",
+      "subject": "physics",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 11,
+      "name": "11: Particle physics",
+      "subject": "physics",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 1,
+      "name": "1: Cell structure",
+      "subject": "biology",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 2,
+      "name": "2: Biological molecules",
+      "subject": "biology",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 3,
+      "name": "3: Enzymes",
+      "subject": "biology",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 4,
+      "name": "4: Cell membranes and transport",
+      "subject": "biology",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 5,
+      "name": "5: The mitotic cell cycle",
+      "subject": "biology",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 6,
+      "name": "6: Nucleic acids and protein synthesis",
+      "subject": "biology",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 7,
+      "name": "7: Transport in plants",
+      "subject": "biology",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 8,
+      "name": "8: Transport in mammals",
+      "subject": "biology",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 9,
+      "name": "9: Gas exchange",
+      "subject": "biology",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 10,
+      "name": "10: Infectious diseases",
+      "subject": "biology",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 11,
+      "name": "11: Immunity",
+      "subject": "biology",
+      "level": "A-level",
+      "level2": "AS",
+      "hasSolve": true
+  },
+  {
+      "id": 1,
+      "name": "1: Characteristics and classification of living organisms",
+      "subject": "biology",
+      "level": "IGCSE",
+      "level2": "IGCSE",
+      "hasSolve": true
+  },
+  {
+      "id": 2,
+      "name": "2: Organisation of the organism",
+      "subject": "biology",
+      "level": "IGCSE",
+      "level2": "IGCSE",
+      "hasSolve": true
+  },
+  {
+      "id": 3,
+      "name": "3: Movement into and out of cells",
+      "subject": "biology",
+      "level": "IGCSE",
+      "level2": "IGCSE",
+      "hasSolve": true
+  },
+  {
+      "id": 4,
+      "name": "4: Biological molecules",
+      "subject": "biology",
+      "level": "IGCSE",
+      "level2": "IGCSE",
+      "hasSolve": true
+  },
+  {
+      "id": 5,
+      "name": "5: Enzymes",
+      "subject": "biology",
+      "level": "IGCSE",
+      "level2": "IGCSE",
+      "hasSolve": true
+  },
+  {
+      "id": 6,
+      "name": "6: Plant nutrition",
+      "subject": "biology",
+      "level": "IGCSE",
+      "level2": "IGCSE",
+      "hasSolve": true
+  },
+  {
+      "id": 7,
+      "name": "7: Human nutrition",
+      "subject": "biology",
+      "level": "IGCSE",
+      "level2": "IGCSE",
+      "hasSolve": true
+  },
+  {
+      "id": 8,
+      "name": "8: Transport in plants",
+      "subject": "biology",
+      "level": "IGCSE",
+      "level2": "IGCSE",
+      "hasSolve": true
+  },
+  {
+      "id": 9,
+      "name": "9: Transport in animals",
+      "subject": "biology",
+      "level": "IGCSE",
+      "level2": "IGCSE",
+      "hasSolve": true
+  },
+  {
+      "id": 10,
+      "name": "10: Diseases and immunity",
+      "subject": "biology",
+      "level": "IGCSE",
+      "level2": "IGCSE",
+      "hasSolve": true
+  },
+  {
+      "id": 11,
+      "name": "11: Gas exchange in humans",
+      "subject": "biology",
+      "level": "IGCSE",
+      "level2": "IGCSE",
+      "hasSolve": true
+  },
+  {
+      "id": 12,
+      "name": "12: Respiration",
+      "subject": "biology",
+      "level": "IGCSE",
+      "level2": "IGCSE",
+      "hasSolve": true
+  },
+  {
+      "id": 13,
+      "name": "13: Excretion in humans",
+      "subject": "biology",
+      "level": "IGCSE",
+      "level2": "IGCSE",
+      "hasSolve": true
+  },
+  {
+      "id": 14,
+      "name": "14: Coordination and response",
+      "subject": "biology",
+      "level": "IGCSE",
+      "level2": "IGCSE",
+      "hasSolve": true
+  },
+  {
+      "id": 15,
+      "name": "15: Drugs",
+      "subject": "biology",
+      "level": "IGCSE",
+      "level2": "IGCSE",
+      "hasSolve": true
+  },
+  {
+      "id": 16,
+      "name": "16: Reproduction",
+      "subject": "biology",
+      "level": "IGCSE",
+      "level2": "IGCSE",
+      "hasSolve": true
+  },
+  {
+      "id": 17,
+      "name": "17: Inheritance",
+      "subject": "biology",
+      "level": "IGCSE",
+      "level2": "IGCSE",
+      "hasSolve": true
+  },
+  {
+      "id": 18,
+      "name": "18: Variation and selection",
+      "subject": "biology",
+      "level": "IGCSE",
+      "level2": "IGCSE",
+      "hasSolve": true
+  },
+  {
+      "id": 19,
+      "name": "19: Organisms and their environment",
+      "subject": "biology",
+      "level": "IGCSE",
+      "level2": "IGCSE",
+      "hasSolve": true
+  },
+  {
+      "id": 20,
+      "name": "20: Human influences on ecosystems",
+      "subject": "biology",
+      "level": "IGCSE",
+      "level2": "IGCSE",
+      "hasSolve": true
+  },
+  {
+      "id": 21,
+      "name": "21: Biotechnology and genetic modification",
+      "subject": "biology",
+      "level": "IGCSE",
+      "level2": "IGCSE",
+      "hasSolve": true
+  },
+  {
+      "id": 1,
+      "name": "1: States of matter",
+      "subject": "chemistry",
+      "level": "IGCSE",
+      "level2": "IGCSE",
+      "hasSolve": true
+  },
+  {
+      "id": 2,
+      "name": "2: Atoms, elements and compounds",
+      "subject": "chemistry",
+      "level": "IGCSE",
+      "level2": "IGCSE",
+      "hasSolve": true
+  },
+  {
+      "id": 3,
+      "name": "3: Stoichiometry",
+      "subject": "chemistry",
+      "level": "IGCSE",
+      "level2": "IGCSE",
+      "hasSolve": true
+  },
+  {
+      "id": 4,
+      "name": "4: Electrochemistry",
+      "subject": "chemistry",
+      "level": "IGCSE",
+      "level2": "IGCSE",
+      "hasSolve": true
+  },
+  {
+      "id": 5,
+      "name": "5: Chemical energetics",
+      "subject": "chemistry",
+      "level": "IGCSE",
+      "level2": "IGCSE",
+      "hasSolve": true
+  },
+  {
+      "id": 6,
+      "name": "6: Chemical reactions",
+      "subject": "chemistry",
+      "level": "IGCSE",
+      "level2": "IGCSE",
+      "hasSolve": true
+  },
+  {
+      "id": 7,
+      "name": "7: Acids, bases and salts",
+      "subject": "chemistry",
+      "level": "IGCSE",
+      "level2": "IGCSE",
+      "hasSolve": true
+  },
+  {
+      "id": 8,
+      "name": "8: The Periodic Table",
+      "subject": "chemistry",
+      "level": "IGCSE",
+      "level2": "IGCSE",
+      "hasSolve": true
+  },
+  {
+      "id": 9,
+      "name": "9: Metals",
+      "subject": "chemistry",
+      "level": "IGCSE",
+      "level2": "IGCSE",
+      "hasSolve": true
+  },
+  {
+      "id": 10,
+      "name": "10: Chemistry of the environment",
+      "subject": "chemistry",
+      "level": "IGCSE",
+      "level2": "IGCSE",
+      "hasSolve": true
+  },
+  {
+      "id": 11,
+      "name": "11: Organic chemistry",
+      "subject": "chemistry",
+      "level": "IGCSE",
+      "level2": "IGCSE",
+      "hasSolve": true
+  },
+  {
+      "id": 12,
+      "name": "12: Experimental techniques and chemical analysis",
+      "subject": "chemistry",
+      "level": "IGCSE",
+      "level2": "IGCSE",
+      "hasSolve": true
+  },
+  {
+      "id": 1,
+      "name": "1: The basic economic problem",
+      "subject": "economics",
+      "level": "IGCSE",
+      "level2": "IGCSE",
+      "hasSolve": true
+  },
+  {
+      "id": 2,
+      "name": "2: The allocation of resources",
+      "subject": "economics",
+      "level": "IGCSE",
+      "level2": "IGCSE",
+      "hasSolve": true
+  },
+  {
+      "id": 3,
+      "name": "3: Microeconomic decision makers",
+      "subject": "economics",
+      "level": "IGCSE",
+      "level2": "IGCSE",
+      "hasSolve": true
+  },
+  {
+      "id": 4,
+      "name": "4: Government and the macroeconomy",
+      "subject": "economics",
+      "level": "IGCSE",
+      "level2": "IGCSE",
+      "hasSolve": true
+  },
+  {
+      "id": 5,
+      "name": "5: Economic development",
+      "subject": "economics",
+      "level": "IGCSE",
+      "level2": "IGCSE",
+      "hasSolve": true
+  },
+  {
+      "id": 6,
+      "name": "6: International trade and globalisation",
+      "subject": "economics",
+      "level": "IGCSE",
+      "level2": "IGCSE",
+      "hasSolve": true
+  },
+  {
+      "id": 1,
+      "name": "1: Motion, forces and energy",
+      "subject": "physics",
+      "level": "IGCSE",
+      "level2": "IGCSE",
+      "hasSolve": true
+  },
+  {
+      "id": 2,
+      "name": "2: Thermal physics",
+      "subject": "physics",
+      "level": "IGCSE",
+      "level2": "IGCSE",
+      "hasSolve": true
+  },
+  {
+      "id": 3,
+      "name": "3: Waves",
+      "subject": "physics",
+      "level": "IGCSE",
+      "level2": "IGCSE",
+      "hasSolve": true
+  },
+  {
+      "id": 4,
+      "name": "4: Electricity and magnetism",
+      "subject": "physics",
+      "level": "IGCSE",
+      "level2": "IGCSE",
+      "hasSolve": true
+  },
+  {
+      "id": 5,
+      "name": "5: Nuclear physics",
+      "subject": "physics",
+      "level": "IGCSE",
+      "level2": "IGCSE",
+      "hasSolve": true
+  },
+  {
+      "id": 6,
+      "name": "6: Space physics",
+      "subject": "physics",
+      "level": "IGCSE",
+      "level2": "IGCSE",
+      "hasSolve": true
+  }
+]
