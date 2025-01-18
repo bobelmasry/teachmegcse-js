@@ -355,25 +355,29 @@ import Latex from 'react-latex-next';
   }
   
 
-    export async function getStaticPaths() {
-      const filePath = path.join(process.cwd(), 'public', 'chapters.json');
-      const fileData = await fs.readFile(filePath, 'utf-8');
-      const data = JSON.parse(fileData);
-    
-      // Filter data for IGCSE and A-level
-      const IGData = data.filter(question => question.level === 'IGCSE');
-      const A_data = data.filter(question => question.level === 'A-level');
-    
-      // Map paths for IGCSE Core and Extended with chapterNum
-      const IGCorePaths = IGData.map(question => ({
-        params: {
-          subjectName: question.subject.toString(),
-          level: question.level.toString(),
-          type: 'core',
-          chapterNum: question.id?.toString() || 'unknown'
-        }
-      }));
-      const IGExtendedPaths = IGData.map(question => ({
+  export async function getStaticPaths() {
+    const filePath = path.join(process.cwd(), 'public', 'chapters.json');
+    const fileData = await fs.readFile(filePath, 'utf-8');
+    const data = JSON.parse(fileData);
+  
+    // Filter data for IGCSE and A-level
+    const IGData = data.filter(question => question.level === 'IGCSE');
+    const A_data = data.filter(question => question.level === 'A-level');
+  
+    // Map paths for IGCSE Core with chapterNum
+    const IGCorePaths = IGData.map(question => ({
+      params: {
+        subjectName: question.subject.toString(),
+        level: question.level.toString(),
+        type: 'core',
+        chapterNum: question.id?.toString() || 'unknown'
+      }
+    }));
+  
+    // Map paths for IGCSE Extended, excluding Economics
+    const IGExtendedPaths = IGData
+      .filter(question => question.subject.toLowerCase() !== 'economics') // Exclude Economics
+      .map(question => ({
         params: {
           subjectName: question.subject.toString(),
           level: question.level.toString(),
@@ -381,20 +385,21 @@ import Latex from 'react-latex-next';
           chapterNum: question.id?.toString() || 'unknown'
         }
       }));
-    
-      // Map paths for A-level with chapterNum
-      const ALevelPaths = A_data.map(question => ({
-        params: {
-          subjectName: question.subject.toString(),
-          level: question.level.toString(),
-          type: 'a',
-          chapterNum: question.id?.toString() || 'unknown'
-        }
-      }));
-    
-      // Combine all paths
-      const paths = [...IGCorePaths, ...IGExtendedPaths, ...ALevelPaths];
-    
-      return { paths, fallback: false };
-    }
+  
+    // Map paths for A-level with chapterNum
+    const ALevelPaths = A_data.map(question => ({
+      params: {
+        subjectName: question.subject.toString(),
+        level: question.level.toString(),
+        type: 'a',
+        chapterNum: question.id?.toString() || 'unknown'
+      }
+    }));
+  
+    // Combine all paths
+    const paths = [...IGCorePaths, ...IGExtendedPaths, ...ALevelPaths];
+  
+    return { paths, fallback: false };
+  }
+  
 export default SubjectPage
