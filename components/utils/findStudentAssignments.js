@@ -1,5 +1,5 @@
-import { supabase } from 'utils/supabase';
-import findStudentClasses from 'utils/findStudentClasses.js'
+import { supabase } from '../utils/supabase';
+import findStudentClasses from './findStudentClasses'
 
 
 export default async function findStudentAssignments(studentId) {

@@ -1,8 +1,8 @@
 import "flowbite";
-import SubjectCard from "components/subjectCard.jsx"
+import SubjectCard from "../../components/subjectCard.jsx"
 import Head from 'next/head';
-import Navbar from "components/navbar.jsx"
-import Headstuff from "components/headstuff.jsx"
+import Navbar from "../../components/navbar.jsx"
+import Headstuff from "../../components/headstuff.jsx"
 import { useSession } from '@supabase/auth-helpers-react'
 
 export default function Home({ level }) {

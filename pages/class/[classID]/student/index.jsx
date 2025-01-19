@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react'
 import { useUser, useSession } from '@supabase/auth-helpers-react'
 import Head from 'next/head';
-import Navbar from "components/navbar.jsx"
-import Headstuff from "components/headstuff.jsx"
+import Navbar from "../../../../components/navbar.jsx"
+import Headstuff from "../../../../components/headstuff.jsx"
 import "flowbite"
-import { supabase } from 'utils/supabase';
+import { supabase } from '../../../../components/utils/supabase';
 import { useRouter } from 'next/router';
 import { Button } from '@chakra-ui/react'
 import Link from 'next/link';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-import AddStudents from 'components/modals/addStudents.jsx'
+import AddStudents from '../../../../components/modals/addStudents.jsx'
 
 export default function ClassPage({ classData }) {
 

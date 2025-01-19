@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from "next/link"
 import { useState, useEffect } from 'react';
-import { supabase } from 'utils/supabase';
+import { supabase } from './utils/supabase';
 import { useUser } from '@supabase/auth-helpers-react'
 
 const Table = ({ papers, letter, type }) => {

@@ -1,5 +1,5 @@
 import { DatePicker, Modal } from 'antd';
-import { supabase } from 'utils/supabase'
+import { supabase } from '../utils/supabase'
 import { useState } from 'react'
 import { useRouter } from 'next/router';
 import {Button} from '@chakra-ui/react'

@@ -1,14 +1,14 @@
 import Head from 'next/head';
-import Navbar from "components/navbar.jsx"
+import Navbar from "../../../../../components/navbar.jsx"
 import "flowbite"
-import Headstuff from "components/headstuff.jsx"
+import Headstuff from "../../../../../components/headstuff.jsx"
 import { useSession } from '@supabase/auth-helpers-react'
 import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
 import fs from 'fs/promises';
 import path from 'path';
-import data from "public/chapters.json"
-import papers from "public/paperNumbers.json"
+import data from "../../../../../public/chapters.json"
+import papers from "../../../../../public/paperNumbers.json"
 
     function SubjectPage({searchArray, level, subjectName, type}) {
         const session = useSession()

@@ -1,18 +1,18 @@
 import Head from 'next/head';
-import Navbar from "components/navbar.jsx"
+import Navbar from "../../../../../components/navbar.jsx"
 import "flowbite"
-import Headstuff from "components/headstuff.jsx"
+import Headstuff from "../../../../../components/headstuff.jsx"
 import { useSession, useUser } from '@supabase/auth-helpers-react'
 import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
-import { supabase } from 'utils/supabase';
-import data from "public/chapters.json"
+import { supabase } from '../../../../../components/utils/supabase';
+import data from "../../../../../public/chapters.json"
 import { useRouter } from 'next/router';
 import AddIcon from '@mui/icons-material/Add';
 import path from 'path';
 import { promises as fs } from 'fs';
 import Link from 'next/link';
-import papers from "public/paperNumbers.json"
+import papers from "../../../../../public/paperNumbers.json"
 
  async function updateSupabase(object, table, field, worksheetID) {
 
@@ -30,7 +30,6 @@ import papers from "public/paperNumbers.json"
   const data2 = newData[field] || [];
 
     newData[field] = [...data2, object];
-    console.log(newData);
   const { data, error } = await supabase
     .from(table)
     .update(newData)

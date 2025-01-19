@@ -1,4 +1,4 @@
-import { supabase } from 'utils/supabase';
+import { supabase } from '../utils/supabase';
 
 export default async function findStudentClasses( studentId ) {
   try {

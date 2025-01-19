@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -27,29 +27,25 @@
     "@supabase/supabase-js": "^2.21.0",
     "@tailwindcss/typography": "^0.5.9",
     "@types/node": "18.15.11",
-    "@types/react": "18.0.34",
-    "@types/react-dom": "18.0.11",
+    "@types/react": "19.0.7",
+    "@types/react-dom": "19.0.3",
     "antd": "^5.7.0",
     "autoprefixer": "10.4.14",
     "date-fns": "^2.30.0",
     "dayjs": "^1.11.9",
     "devcert": "^1.2.2",
     "eslint": "8.38.0",
-    "eslint-config-next": "13.3.0",
     "flowbite": "^1.6.5",
     "flowbite-react": "^0.4.3",
     "formik": "^2.4.2",
     "framer-motion": "^10.12.18",
     "gray-matter": "^4.0.3",
     "katex": "^0.16.11",
-    "next": "13.3.0",
     "next-mdx-remote": "^4.4.1",
     "next-sitemap": "^4.0.7",
     "next-transpile-modules": "^10.0.0",
     "postcss": "8.4.21",
-    "react": "18.2.0",
     "react-chat-elements": "^12.0.10",
-    "react-dom": "18.2.0",
     "react-katex": "^3.0.1",
     "react-latex-next": "^3.0.0",
     "styled-components": "^5.3.11",
@@ -58,5 +54,15 @@
     "typescript": "5.0.4",
     "uuid": "^9.0.0",
     "yup": "^1.2.0"
+  },
+  "devDependencies": {
+    "eslint-config-next": "15.1.5",
+    "next": "15.1.5",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "overrides": {
+    "@types/react": "19.0.7",
+    "@types/react-dom": "19.0.3"
   }
 }

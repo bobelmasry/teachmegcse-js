@@ -1,15 +1,15 @@
 import Head from 'next/head';
-import Navbar from "components/navbar.jsx"
+import Navbar from "../../../../../../../components/navbar.jsx"
 import "flowbite"
-import Headstuff from "components/headstuff.jsx"
+import Headstuff from "../../../../../../../components/headstuff.jsx"
 import Image from 'next/image';
 import { useSession, useUser } from '@supabase/auth-helpers-react'
-import chapters from "public/chapters.json"
+import chapters from "../../../../../../../public/chapters.json"
 import fs from 'fs/promises';
 import path from 'path';
 import { useState, useEffect} from 'react';
-import { supabase } from 'utils/supabase';
-import { updateSupabase } from 'utils/updateSupabase'
+import { supabase } from '../../../../../../../components/utils/supabase';
+import { updateSupabase } from '../../../../../../../components/utils/updateSupabase'
 import Link from 'next/link';
 import 'katex/dist/katex.min.css';
 import Latex from 'react-latex-next';

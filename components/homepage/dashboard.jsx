@@ -2,13 +2,13 @@ import { useState, useEffect } from 'react'
 import { useUser } from '@supabase/auth-helpers-react'
 import "flowbite"
 import Link from 'next/link';
-import DataTable from "components/homepage/dataTable.jsx"
-import { supabase } from 'utils/supabase'
-import CreateClass from 'components/modals/createClass.jsx'
-import CreateWorksheet from 'components/modals/createWorksheet.jsx'
-import UpdateClass from 'components/modals/updateClass.jsx'
-import findStudentClasses from 'utils/findStudentClasses.js'
-import findStudentAssignments from 'utils/findStudentAssignments.js'
+import DataTable from "./dataTable.jsx"
+import { supabase } from '../utils/supabase'
+import CreateClass from '../modals/createClass.jsx'
+import CreateWorksheet from '../modals/createWorksheet.jsx'
+import UpdateClass from '../modals/updateClass.jsx'
+import findStudentClasses from '../utils/findStudentClasses.js'
+import findStudentAssignments from '../utils/findStudentAssignments.js'
 import Image from 'next/image';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { useRouter } from 'next/router';

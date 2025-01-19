@@ -13,7 +13,7 @@ export async function postData(questionData, filename) {
 
   try {
     // Send the POST request
-    const response = await fetch("/api/generatePdf", {
+    const response = await fetch("../api/generatePdf", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -27,7 +27,6 @@ export async function postData(questionData, filename) {
     const pdfBlob = await response.blob();
     // Example: Create a link to download the PDF
     const pdfUrl = window.URL.createObjectURL(pdfBlob);
-    console.log(pdfUrl);
     const a = document.createElement("a");
     a.href = pdfUrl;
     a.download = `${filename}.zip`;

@@ -1,15 +1,15 @@
 import Head from 'next/head';
-import Navbar from "components/navbar.jsx"
+import Navbar from "../../../../../../components/navbar.jsx"
 import "flowbite"
-import Headstuff from "components/headstuff.jsx"
-import TopicCard from "components/topicCard.jsx"
+import Headstuff from "../../../../../../components/headstuff.jsx"
+import TopicCard from "../../../../../../components/topicCard.jsx"
 import { useSession } from '@supabase/auth-helpers-react'
 import { useState, useEffect } from 'react';
-import { supabase } from 'utils/supabase';
+import { supabase } from '../../../../../../components/utils/supabase';
 import { useUser } from '@supabase/auth-helpers-react'
 import fs from 'fs/promises';
 import path from 'path';
-import data2 from "public/all.json"
+import data2 from "../../../../../../public/all.json"
 
     function SubjectPage({chapters, type}) {
       const session = useSession()

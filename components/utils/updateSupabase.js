@@ -1,4 +1,4 @@
-import { supabase } from 'utils/supabase';
+import { supabase } from '../utils/supabase';
 
 export async function updateSupabase(object, table, field, user, field2Filter, field2Filter2, hasFilter, isUserId) {
   const userIdKey = isUserId ? 'user_id' : 'id';

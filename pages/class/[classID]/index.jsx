@@ -1,14 +1,14 @@
 import { useState, useEffect, useRef } from 'react'
 import { useUser, useSession } from '@supabase/auth-helpers-react'
 import Head from 'next/head';
-import Navbar from "components/navbar.jsx"
-import Headstuff from "components/headstuff.jsx"
+import Navbar from "../../../components/navbar.jsx"
+import Headstuff from "../../../components/headstuff.jsx"
 import "flowbite"
-import { supabase } from 'utils/supabase';
+import { supabase } from '../../../components/utils/supabase';
 import Link from 'next/link';
-import AssignmentModal from 'components/modals/createAssignment.jsx'
+import AssignmentModal from '../../../components/modals/createAssignment.jsx'
 import Image from 'next/image';
-import findStudentClasses from 'utils/findStudentClasses.js'
+import findStudentClasses from '../../../components/utils/findStudentClasses.js'
 import { Input, Button } from '@chakra-ui/react'
 import { format as timeagoFormat } from 'timeago.js';
 import {

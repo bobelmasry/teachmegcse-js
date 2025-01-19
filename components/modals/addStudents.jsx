@@ -1,4 +1,4 @@
-import { supabase } from 'utils/supabase'
+import { supabase } from '../utils/supabase'
 import { useRouter } from 'next/router';
 import AddIcon from '@mui/icons-material/Add';
 
