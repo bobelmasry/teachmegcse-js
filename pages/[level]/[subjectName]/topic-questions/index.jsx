@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Navbar from "../../../../components/navbar.jsx"
 import "flowbite"
-import Headstuff from "../../../components/headstuff.jsx"
+import Headstuff from "../../../../components/headstuff.jsx"
 import TopicCard2 from "../../../../components/topicCard2.jsx"
 import { useSession } from '@supabase/auth-helpers-react'
 import fs from 'fs/promises';

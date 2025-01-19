@@ -1,12 +1,12 @@
 import Head from 'next/head';
-import Navbar from "components/navbar.jsx"
+import Navbar from "../../../../../../components/navbar.jsx"
 import "flowbite"
-import Headstuff from "components/headstuff.jsx"
+import Headstuff from "../../../../../../components/headstuff.jsx"
 import { useSession, useUser } from '@supabase/auth-helpers-react'
 import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
-import { supabase } from 'utils/supabase';
-import data from "public/chapters.json"
+import { supabase } from '../../../../../../components/utils/supabase';
+import data from "../../../../../../public/chapters.json"
 import { useRouter } from 'next/router';
 import AddIcon from '@mui/icons-material/Add';
 import path from 'path';

@@ -1,14 +1,13 @@
 import { useSession, useUser } from '@supabase/auth-helpers-react'
 import Head from 'next/head';
-import Navbar from "components/navbar.jsx"
-import Headstuff from "components/headstuff.jsx"
+import Navbar from "../../../../../components/navbar.jsx"
+import Headstuff from "../../../../../components/headstuff.jsx"
 import "flowbite"
-import { supabase } from 'utils/supabase';
+import { supabase } from '../../../../../components/utils/supabase';
 import { Button } from '@chakra-ui/react'
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { postData } from '../../../../../helpers/makePdf';
 
  export default function ClassPage({ assignmentData }) {
     const session = useSession()
