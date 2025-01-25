@@ -1,16 +1,16 @@
 import { MDXRemote } from "next-mdx-remote";
-import getPost from "../../../../components/helpers/getPost";
-import getPosts from "../../../../components/helpers/getPosts";
+import getPost from "@/components/helpers/getPost";
+import getPosts from "@/components/helpers/getPosts";
 import { serialize } from "next-mdx-remote/serialize";
 import Head from 'next/head';
-import Navbar from "../../../../components/navbar.jsx"
-import Headstuff from "../../../../components/headstuff.jsx"
+import Navbar from "@/components/navbar.jsx"
+import Headstuff from "@/components/headstuff.jsx"
 import { useSession, useUser } from '@supabase/auth-helpers-react'
-import { supabase } from '../../../../components/utils/supabase';
+import { supabase } from '@/components/utils/supabase';
 import { useState, useEffect } from "react";
-import { updateSupabase } from '../../../../components/utils/updateSupabase'
+import { updateSupabase } from '@/components/utils/updateSupabase'
 import Link from "next/link";
-import data from "../../../../public/subjects.json"
+import data from "@/public/subjects.json"
 
 function Post({ noteData,  content }) {
   const session = useSession()

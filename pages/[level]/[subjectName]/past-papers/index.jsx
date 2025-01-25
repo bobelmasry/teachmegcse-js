@@ -1,9 +1,9 @@
 import Head from 'next/head';
-import Navbar from "../../../../components/navbar.jsx"
-import YearCard from "../../../../components/yearCard.jsx"
-import Headstuff from "../../../../components/headstuff.jsx"
+import Navbar from "@/components/navbar.jsx"
+import YearCard from "@/components/yearCard.jsx"
+import Headstuff from "@/components/headstuff.jsx"
 import { useSession } from '@supabase/auth-helpers-react'
-import data from "../../../../public/subjects.json"
+import data from "@/public/subjects.json"
 
 export async function getStaticPaths() {
   const paths = data.flatMap(subject => 

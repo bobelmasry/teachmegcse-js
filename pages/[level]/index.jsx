@@ -1,8 +1,8 @@
 import "flowbite";
-import SubjectCard from "../../components/subjectCard.jsx"
+import SubjectCard from "@/components/subjectCard.jsx"
 import Head from 'next/head';
-import Navbar from "../../components/navbar.jsx"
-import Headstuff from "../../components/headstuff.jsx"
+import Navbar from "@/components/navbar.jsx"
+import Headstuff from "@/components/headstuff.jsx"
 import { useSession } from '@supabase/auth-helpers-react'
 
 export default function Home({ level }) {
@@ -10,7 +10,7 @@ export default function Home({ level }) {
   return (
   <div>
     <Head>
-      <title>{level} Resources | exceed</title>
+      <title>{`${String(level)} Resources | exceed`}</title>
       <meta name="description" content={`CAIE Past Papers for Cambridge ${level}`}></meta>
       <meta name="keywords" content={`exceed, teach me gcse, ${level} revision notes, ${level} past papers, ${level} topic questions, 
       ${level} math past papers, ${level} physics past papers, ${level} chemistry past papers`}></meta>

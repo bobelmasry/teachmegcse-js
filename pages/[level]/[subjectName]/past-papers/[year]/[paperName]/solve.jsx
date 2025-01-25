@@ -1,15 +1,15 @@
 import Head from 'next/head';
-import Navbar from "../../../../../../components/navbar.jsx"
+import Navbar from "@/components/navbar.jsx"
 import "flowbite"
-import Headstuff from "../../../../../../components/headstuff.jsx"
+import Headstuff from "@/components/headstuff.jsx"
 import Image from 'next/image';
 import { useSession, useUser } from '@supabase/auth-helpers-react'
 import { useState } from 'react';
-import data from "../../../../../../public/all.json"
-import papers from "../../../../../../public/papers.json"
+import data from "@/public/all.json"
+import papers from "@/public/papers.json"
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { supabase } from '../../../../../../components/utils/supabase';
+import { supabase } from '@/components/utils/supabase';
 
     function SubjectPage({questionArray}) {
 

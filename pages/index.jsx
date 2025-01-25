@@ -1,14 +1,14 @@
 import "flowbite";
-import Dashboard from '../components/homepage/dashboard.jsx'
-import Banner from "../components/homepage/banner.jsx"
-import Cta from "../components/homepage/cta.jsx"
-import Special_home from "../components/homepage/special-home.jsx"
-import SplitSection from "../components/homepage/split-section.jsx"
-import Pricing from "../components/homepage/pricing.jsx"
-import Footer from "../components/homepage/footer.jsx"
+import Dashboard from '@/components/homepage/dashboard.jsx'
+import Banner from "@/components/homepage/banner.jsx"
+import Cta from "@/components/homepage/cta.jsx"
+import Special_home from "@/components/homepage/special-home.jsx"
+import SplitSection from "@/components/homepage/split-section.jsx"
+import Pricing from "@/components/homepage/pricing.jsx"
+import Footer from "@/components/homepage/footer.jsx"
 import Head from 'next/head';
-import Navbar from "../components/navbar.jsx"
-import Headstuff from "../components/headstuff.jsx"
+import Navbar from "@/components/navbar.jsx"
+import Headstuff from "@/components/headstuff.jsx"
 import { useSession } from '@supabase/auth-helpers-react'
 
 export default function Home () {

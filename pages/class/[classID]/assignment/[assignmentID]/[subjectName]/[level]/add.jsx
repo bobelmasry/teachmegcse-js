@@ -12,28 +12,29 @@ import AddIcon from '@mui/icons-material/Add';
 import path from 'path';
 import { promises as fs } from 'fs';
 import Link from 'next/link';
-import papers from "@/public/paperNumbers.json"
 
- async function updateSupabase(object, table, field, worksheetID) {
+ async function updateSupabase(object, table, field, assignmentID) {
 
   const { data: existingData, error: existingError } = await supabase
     .from(table)
     .select(field)
-    .eq('id', worksheetID)
+    .eq('assignmentID', assignmentID)
     .single();
 
   if (existingError) {
     console.error(`Error retrieving existing ${field}:`, existingError);
     return;
   }
+
   const newData = { ...existingData };
   const data2 = newData[field] || [];
 
     newData[field] = [...data2, object];
+
   const { data, error } = await supabase
     .from(table)
     .update(newData)
-    .eq('id', worksheetID)
+    .eq('assignmentID', assignmentID)
 
   if (error) {
     console.error(`Error updating ${field}:`, error);
@@ -54,7 +55,8 @@ import papers from "@/public/paperNumbers.json"
         const router = useRouter()
         const data2 = router.query;
         const subject = data2.subjectName
-        const worksheetID = data2.id
+        const classID = data2.classID
+        const assignmentID = data2.assignmentID
         const level = data2.level
         let level2 = ''
         if (level === 'AS' || level === 'A2'){
@@ -70,9 +72,9 @@ import papers from "@/public/paperNumbers.json"
             if (session) {
               // Check if user and user.id are defined
               let { data, error, status } = await supabase
-                .from('worksheets')
+                .from('assignments')
                 .select(`questions`)
-                .eq('id', worksheetID)
+                .eq('assignmentID', assignmentID)
                 //.single();
       
               if (error && status !== 406) {
@@ -110,7 +112,7 @@ import papers from "@/public/paperNumbers.json"
             }
           getInitial()
           getQuestions(); // Call the function
-        }, [worksheetID, session, user, questionsAvailable]);
+        }, [classID, session, user]);
   
       if (filteredData.length === 0) {
         throw new Error('chapters not found');
@@ -118,14 +120,91 @@ import papers from "@/public/paperNumbers.json"
   
       const chapters = filteredData;
 
-      const years = [
-        {id: 2017, name : "2017"},
-        {id: 2018, name : "2018"},
-        {id: 2019, name : "2019"},
-        {id: 2020, name : "2020"},
-        {id: 2021, name : "2021"},
-        {id: 2022, name : "2022"},
-        {id: 2023, name : "2023"},
+      const papers = [
+        {
+          "id" : 1,
+          "name":"Paper 1",
+          "subject": "economics",
+          "level" : "A-level",
+          "level2" : "AS"
+        },
+        {
+          "id" : 3,
+          "name":"Paper 3",
+          "subject": "economics",
+          "level" : "A-level",
+          "level2" : "A2"
+        },
+        {
+          "id" : 1,
+          "name":"Paper 1",
+          "subject": "biology",
+          "level" : "A-level",
+
+        },
+        {
+          "id" : 1,
+          "name":"Paper 1",
+          "subject": "chemistry",
+          "level" : "A-level",
+          "level2" : "AS"
+        },
+        {
+          "id" : 1,
+          "name":"Paper 1",
+          "subject": "physics",
+          "level" : "A-level",
+          "level2" : "AS"
+        },
+        {
+          "id" : 1,
+          "name":"Paper 1 (core)",
+          "subject": "physics",
+          "level" : "IGCSE",
+          "level2" : "IGCSE"
+        },
+        {
+          "id" : 2,
+          "name":"Paper 2 (extended)",
+          "subject": "physics",
+          "level" : "IGCSE",
+          "level2" : "IGCSE"
+        },
+        {
+          "id" : 1,
+          "name":"Paper 1 (core)",
+          "subject": "chemistry",
+          "level" : "IGCSE",
+          "level2" : "IGCSE"
+        },
+        {
+          "id" : 2,
+          "name":"Paper 2 (extended)",
+          "subject": "chemistry",
+          "level" : "IGCSE",
+          "level2" : "IGCSE"
+        },
+        {
+          "id" : 1,
+          "name":"Paper 1 (core)",
+          "subject": "biology",
+          "level" : "IGCSE",
+          "level2" : "IGCSE"
+        },
+        {
+          "id" : 2,
+          "name":"Paper 2 (extended)",
+          "subject": "biology",
+          "level" : "IGCSE",
+          "level2" : "IGCSE"
+        },
+        {
+          "id" : 1,
+          "name":"Paper 1",
+          "subject": "economics",
+          "level" : "IGCSE",
+          "level2" : "IGCSE"
+        }
       ]
       const filteredPapers = papers.filter(item => (item.subject === subject) && (item.level2 === level));
 
@@ -133,12 +212,10 @@ import papers from "@/public/paperNumbers.json"
         const [chapterValue, setChapterValue] = useState(0);
         const [paperValue, setPaperValue] = useState(0);
         const [questionText, setQuestionText] = useState('')
-        const [yearValue, setYearValue] = useState(0);
-
 
         async function addAQuestion(question) {
           setBannerShown(true)        
-          await updateSupabase(question, 'worksheets', 'questions', worksheetID);
+          await updateSupabase(question, 'assignments', 'questions', assignmentID);
         
           const updatedAvailableArray = questionsAvailable.filter((obj) => obj.questionName !== question.questionName);
           setQuestionsAvailable(updatedAvailableArray);
@@ -157,7 +234,6 @@ import papers from "@/public/paperNumbers.json"
             setPaperValue(0)
             setquestionArray([])
             setQuestionText('')
-            setYearValue(0)
             }
             const filteredQuestionsRef = useRef();
 
@@ -174,11 +250,7 @@ import papers from "@/public/paperNumbers.json"
               }
 
               if (chapterValue !== 0) {
-                tempFilteredQuestions = tempFilteredQuestions.filter(question => question.Chapter.toString() === chapterValue);
-              }
-
-              if (yearValue !== 0){
-                tempFilteredQuestions = tempFilteredQuestions.filter(question => question.year.toString() == yearValue.toString());
+                tempFilteredQuestions = tempFilteredQuestions.filter(question => question.Chapter === chapterValue);
               }
 
               // Limit the results to the first 100 items
@@ -189,7 +261,7 @@ import papers from "@/public/paperNumbers.json"
 
               // Update the state with the filtered questions
               setquestionArray(tempFilteredQuestions);
-            }, [questionText, chapterValue, paperValue, yearValue]);
+            }, [questionText, chapterValue, paperValue, questionsAvailable]);
     return (
       <>
         <Head>
@@ -247,16 +319,16 @@ import papers from "@/public/paperNumbers.json"
                     />
                 </div>
                 <div className="flex gap-4">
-                  <div className="w-4/6 sm:w-3/6">
+                  <div className="w-4/6 sm:w-3/6 md:w-2/6 lg:w-1/8">
                     <label htmlFor="chapters" className="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white">Choose a Chapter</label>
                     <select value={chapterValue} onChange={(event) => setChapterValue(event.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                       <option id='0' value={0} defaultValue={true}>All Chapters</option>
                       {chapters.map((chapter) => (
-                        <option key={chapter.id} value={chapter.id}>{chapter.name} ({chapter.level2})</option>
+                        <option key={chapter.id} value={chapter.id}>{chapter.name}</option>
                     ))}
                     </select>
                   </div>
-                  <div className="w-4/6 sm:w-3/6">
+                  <div className="w-4/6 sm:w-3/6 md:w-2/6 lg:w-1/8">
                     <label htmlFor="chapters" className="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white">Choose a Paper number</label>
                     <select value={paperValue} onChange={(event) => setPaperValue(event.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                       <option id='0' value={0} defaultValue={true}>All Papers</option>
@@ -265,54 +337,30 @@ import papers from "@/public/paperNumbers.json"
                     ))}
                     </select>
                   </div>
-                  <div className="w-4/6 sm:w-3/6 md:w-2/6 lg:w-1/8">
-                <label htmlFor="years" className="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white">Choose a Year</label>
-                <select id="years" value={yearValue} onChange={(event) => setYearValue(event.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                  <option id='0' value={0} defaultValue={true}>All Years</option>
-                  {years.map((year) => (
-                    <option key={year.id} value={year.id}>{year.name}</option>
-                ))}
-                </select>
                 </div>
-                </div>
-                <div className="flex justify-around flex-col sm:flex-row flex-wrap mt-12 gap-4">
+                <div className="flex justify-around flex-col sm:flex-row flex-wrap mt-4">
+                <div className="mt-10">
                 <button onClick={reset} className="text-white transition-all ease-out bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-500 dark:focus:ring-green-800">
                   Reset
                 </button>
-                <button className="text-white transition-all ease-out bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-500 dark:focus:ring-blue-800">
-                  <Link href={`/worksheet/${worksheetID}`}>
+                <button className="text-white ml-8 transition-all ease-out bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-500 dark:focus:ring-blue-800">
+                  <Link href={`/class/${classID}`}>
                   Save and Quit
                   </Link>
                 </button>
                 </div>
                 </div>
                 </div>
+                </div>
                 <div className="flex flex-col items-center gap-32 mt-32 mb-20">
-                {questionArray.map((question) => {
-                  const paperNumber = question.questionNumber ? "long" : `p${question.paperNumber}`;
-                  const imageUrl = `https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/${level2}/${question.Subject}/${paperNumber}/${question.Chapter}/${question.questionName}`;
-
-                  return (
-                    <div key={question.questionName} className='flex'>
-                      <div className='border border-8 border-green-600 p-2 rounded rounded-2xl'>
-                        <Image
-                          key={question.questionName}
-                          className='rounded rounded-md'
-                          src={imageUrl}
-                          alt='image'
-                          height={800}
-                          width={800}
-                        />
-                      </div>
-                      <AddIcon
-                        onClick={() => addAQuestion(question)}
-                        key={question.questionName}
-                        fontSize="large"
-                        className='ml-4 md:ml-8 mt-24 cursor-pointer ease-out transition-all hover:bg-gray-200 bg-gray-400 rounded rounded-xl'
-                      />
-                    </div>
-                  );
-                })}
+        {questionArray.map((question) => (
+        <div key={question.questionName} className='flex'>
+            <div className='border border-8 border-green-600 p-2 rounded rounded-2xl'>
+                <Image key={question.questionName} className='rounded rounded-md' src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/${level2}/${question.Subject}/p${question.paperNumber}/${question.Chapter}/${question.questionName}`} alt='image' height={800} width={800} />
+            </div>
+            <AddIcon onClick={() => addAQuestion(question)} key={question.questionName} fontSize="large" className='ml-8 mt-24 cursor-pointer ease-out transition-all hover:bg-gray-200 bg-gray-400 rounded rounded-xl'/>
+        </div>
+        ))}
         </div>
         </div>
         ) : (

@@ -1,13 +1,13 @@
-import getPosts from "../../../../components/helpers/getPosts.js";
+import getPosts from "@/components/helpers/getPosts.js";
 import Head from 'next/head';
-import Navbar from "../../../../components/navbar.jsx"
-import Headstuff from "../../../../components/headstuff.jsx"
+import Navbar from "@/components/navbar.jsx"
+import Headstuff from "@/components/headstuff.jsx"
 import { useSession, useUser } from '@supabase/auth-helpers-react'
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import { supabase } from '../../../../components/utils/supabase';
-import data from "../../../../public/subjects.json"
+import { supabase } from '@/components/utils/supabase';
+import data from "@/public/subjects.json"
 
 function NoteCard({ linkSrc, header, hasGrey, hasGreen }) {
   return (

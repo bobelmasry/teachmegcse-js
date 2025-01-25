@@ -1,4 +1,4 @@
-import { GENERATE_PDF_ENDPOINT } from "../../components/utils/constants";
+import { GENERATE_PDF_ENDPOINT } from "@/components/utils/constants";
 
 export default async function handler(req, res) {
   const endpoint = GENERATE_PDF_ENDPOINT;
