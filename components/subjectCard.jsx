@@ -4,8 +4,8 @@ import Link from "next/link";
 export default function SubjectCard({ header, revisionNotes, topicQuestions, link1, link2, link3 }) {
   return (
     <div className="flex justify-center items-center py-6">
-      <div className="w-full max-w-sm p-6 bg-white border border-gray-200 rounded-2xl shadow-lg transform transition duration-500 sm:hover:scale-105 dark:bg-gray-800 dark:border-gray-700">
-        <h5 className="mb-6 font-bold text-gray-900 text-4xl text-center dark:text-white">
+      <div className="w-full max-w-sm p-6 border rounded-2xl shadow-lg bg-gray-800 border-gray-700">
+        <h5 className="mb-6 font-bold text-4xl text-center dark:text-white">
           {header}
         </h5>
         <ul className="space-y-6">

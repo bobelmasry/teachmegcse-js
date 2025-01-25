@@ -46,10 +46,10 @@ const Table = ({ papers, letter, type }) => {
   return (
     <div className="mt-10 md:w-3/5 lg:w-1/4 w-10/16">
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 dark:bg-gray-500">
-          <thead className="text-xs text-gray-700 bg-gray-50 dark:bg-slate-800 dark:text-gray-200">
+        <table className="w-full text-sm text-left text-gray-400 bg-gray-500">
+          <thead className="text-xs bg-slate-800 text-gray-200">
             <tr>
-              <th scope="col" className="px-6 py-3 dark:bg-slate-600 text-2xl lg:text-3xl">
+              <th scope="col" className="px-6 py-3 bg-slate-600 text-2xl lg:text-3xl">
                 Paper Name
               </th>
             </tr>
@@ -63,7 +63,7 @@ const Table = ({ papers, letter, type }) => {
           return (
             ((paper.slug.toString().charAt(5) === letter) && (paper.isMs.toString() === 'False')) && (paper.hasSolve.toString() == 'True') && (
               <tr key={paper.slug}>
-                <td className="flex flex-wrap px-2 text-xl md:text-3xl lg:text-3xl py-4 text-gray-900 whitespace-nowrap dark:text-white font-bold">
+                <td className="flex flex-wrap px-2 text-xl md:text-3xl lg:text-3xl py-4 whitespace-nowrap text-white font-bold">
                   {paper.name}
                   <div className="flex gap-2 md:gap-0">
                     {((paper.hasSolve.toString() == 'True') && (alreadySolved === false)) && (
@@ -80,14 +80,14 @@ const Table = ({ papers, letter, type }) => {
                       <>
                           <button
                             id='Submit'
-                            className="md:ml-8 ml-4 rounded border border-blue-500 bg-blue-600 px-8 md:px-10 py-1 text-sm md:text-lg lg:text-xl font-medium text-white focus:outline-none"
+                            className="md:ml-8 mt-4 ml-4 rounded border border-blue-500 bg-blue-600 px-8 md:px-10 py-1 text-sm md:text-lg lg:text-xl font-medium text-white focus:outline-none"
                           >
                             {isSolved[0].Score} / {isSolved[0].numOfQuestions}
                           </button>
                       <Link href={`/${type}/${paper.subjectName}/past-papers/${paper.year}/${paper.slug}/solve`}>
                       <button
                         id='Submit'
-                        className="md:ml-8 mt-2 sm:mt-0 rounded border border-purple-500 bg-purple-600 px-8 md:px-10 py-1 text-sm md:text-lg lg:text-xl font-medium text-white hover:bg-purple-500 focus:outline-none focus:ring active:text-slate-300"
+                        className="md:ml-8 mt-4 rounded border border-purple-500 bg-purple-600 px-8 md:px-10 py-1 text-sm md:text-lg lg:text-xl font-medium text-white hover:bg-purple-500 focus:outline-none focus:ring active:text-slate-300"
                       >
                         Retry
                       </button>
