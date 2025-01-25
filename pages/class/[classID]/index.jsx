@@ -7,7 +7,7 @@ import Navbar from "@/components/navbar.jsx"
 import Headstuff from "@/components/headstuff.jsx"
 import "flowbite"
 import { supabase } from '@/components/utils/supabase';
-import SideBarHome from "@/components/classes/sideBar.jsx"
+import SideBarHome from "@/components/classes/SideBarHome.tsx"
 import findStudentClasses from '@/components/utils/findStudentClasses.js'
 import { Input, Button } from '@chakra-ui/react'
 import { format as timeagoFormat } from 'timeago.js';
