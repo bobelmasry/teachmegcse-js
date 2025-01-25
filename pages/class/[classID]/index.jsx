@@ -1,3 +1,5 @@
+"use client"
+
 import { useState, useEffect, useRef } from 'react'
 import { useUser, useSession } from '@supabase/auth-helpers-react'
 import Head from 'next/head';
