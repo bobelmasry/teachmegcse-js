@@ -1,4 +1,4 @@
-import React from "react"
+import {React, useState } from "react"
 import {
   Modal,
   ModalOverlay,
@@ -12,19 +12,32 @@ import {
   VStack,
   FormLabel,
   Input,
-  Textarea,
 } from "@chakra-ui/react"
 
+import { supabase } from '@/components/utils/supabase';
+import Router from "next/router";
+
 export default function AssignmentModal({ subject, level, userID, classID }) {
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const [name, setName] = React.useState("")
-  const [description, setDescription] = React.useState("")
-  const [dueDate, setDueDate] = React.useState("")
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [name, setName] = useState("");
+  const [dueDate, setDueDate] = useState("");
+
+  let router = Router
+
+  function formatDateTime(dateString) {
+    const date = new Date(dateString);
+  
+    // Set the time to 11:59 PM (23:59)
+    date.setHours(23, 59, 0, 0);
+  
+    // Return the formatted ISO string
+    return date.toISOString();
+  }
 
   async function createAssignment(event) {
     event.preventDefault()
     try {
-      const { error } = await supabase.from('assignments').insert({ user_id: userID, name: class_Name.trim(), classID: classID, dueDate : dueDate2, subject : subject, level : level });
+      const { error } = await supabase.from('assignments').insert({ user_id: userID, name: name.trim(), classID: classID, dueDate : formatDateTime(dueDate), subject : subject, level : level });
       if (error) {
         throw error;
       }
@@ -32,9 +45,8 @@ export default function AssignmentModal({ subject, level, userID, classID }) {
       console.log(error);
     }
     finally {
-      setIsModalOpen(false)
       setDueDate(null)
-      SetClass_Name('')
+      setName('')
       router.reload();
     }
   }
@@ -59,17 +71,22 @@ export default function AssignmentModal({ subject, level, userID, classID }) {
               <VStack spacing={4}>
                 <div>
                   <FormLabel>Assignment Name</FormLabel>
-                  <Input value={name} onChange={(e) => setName(e.target.value)} />
-                </div>
-
-                <div>
-                  <FormLabel>Description</FormLabel>
-                  <Textarea value={description} onChange={(e) => setDescription(e.target.value)} />
+                  <Input
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Enter assignment name"
+                    required
+                  />
                 </div>
 
                 <div>
                   <FormLabel>Due Date</FormLabel>
-                  <Input type="date" value={dueDate} onChange={(e) => setDueDate(e.target.value)} />
+                  <Input
+                    type="date"
+                    value={dueDate}
+                    onChange={(e) => setDueDate(e.target.value)}
+                    required
+                  />
                 </div>
 
                 <Button mt={4} colorScheme="blue" type="submit">
@@ -85,6 +102,5 @@ export default function AssignmentModal({ subject, level, userID, classID }) {
         </ModalContent>
       </Modal>
     </>
-  )
+  );
 }
-
