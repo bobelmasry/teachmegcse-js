@@ -43,6 +43,9 @@ import { format as timeagoFormat } from 'timeago.js';
       }
     }
     getInitial()
+  }, [classData, user]);
+
+  useEffect(() => {
     async function getClasses(){
       if (session && session.user){
       const userId = session.user.id
@@ -61,7 +64,8 @@ import { format as timeagoFormat } from 'timeago.js';
     }
   }
     getClasses()
-  }, [classData, isTeacher, session, user, studentAssignments]);
+  }, [classData, assignments] 
+)
 
   const [messages, setMessages] = useState([]);
   const [usernameDictionary, setUsernameDictionary] = useState({});  // Initialize username dictionary state
@@ -97,7 +101,9 @@ import { format as timeagoFormat } from 'timeago.js';
         }
       )
       .subscribe();
-  
+  }, [user, assignments]);
+
+  useEffect(() => {
     // Fetch usernames for messages
     async function fetchUsernamesForMessages() {
       for (let i = 0; i < messages.length; i++) {
@@ -125,10 +131,11 @@ import { format as timeagoFormat } from 'timeago.js';
         }
       }
     }
-  
+
     // Call the function to fetch usernames
     fetchUsernamesForMessages();
-  }, [studentAssignments, messages]);
+  }, [assignments, messages]
+)
 
   async function updateMessages(message) {
     if (message != ''){

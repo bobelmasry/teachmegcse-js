@@ -11,7 +11,7 @@ export default function Banner() {
           <span className="sm:block"> Save Tons of Time. </span>
           <span className="sm:block"> all while having FUN </span>
         </h1>
-        <p className="mx-auto mt-8 max-w-xl sm:text-xl/relaxed">
+        <p className="mx-auto mt-8 max-w-xl sm:text-xl/relaxed text-white">
           With exceed get access to 10,000+ Questions that are sorted by
           topic along with our well known Revision Notes.
         </p>
