@@ -76,7 +76,7 @@ export default function SideBarHome({
             <div>
               <ul>
                 <li>
-                  <details>
+                  <details className="group mt-2 [&_summary::-webkit-details-marker]:hidden" open={false}>
                     <summary className="flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 bg-gray-100">
                       <span className="text-md font-medium text-black">Other Classes</span>
                       <span className="shrink-0 transition duration-300 group-open:-rotate-180">

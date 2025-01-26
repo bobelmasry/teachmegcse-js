@@ -12,6 +12,7 @@ import AddIcon from '@mui/icons-material/Add';
 import path from 'path';
 import { promises as fs } from 'fs';
 import Link from 'next/link';
+import papers from "@/public/paperNumbers.json"
 
  async function updateSupabase(object, table, field, assignmentID) {
 
@@ -67,6 +68,16 @@ import Link from 'next/link';
         }
         const filteredData = data.filter(item => (item.subject === subject) && (item.level2 === level));
 
+        const years = [
+          {id: 2017, name : "2017"},
+          {id: 2018, name : "2018"},
+          {id: 2019, name : "2019"},
+          {id: 2020, name : "2020"},
+          {id: 2021, name : "2021"},
+          {id: 2022, name : "2022"},
+          {id: 2023, name : "2023"},
+        ]
+
         useEffect(() => {
           async function getQuestions() {
             if (session) {
@@ -119,99 +130,13 @@ import Link from 'next/link';
       }
   
       const chapters = filteredData;
-
-      const papers = [
-        {
-          "id" : 1,
-          "name":"Paper 1",
-          "subject": "economics",
-          "level" : "A-level",
-          "level2" : "AS"
-        },
-        {
-          "id" : 3,
-          "name":"Paper 3",
-          "subject": "economics",
-          "level" : "A-level",
-          "level2" : "A2"
-        },
-        {
-          "id" : 1,
-          "name":"Paper 1",
-          "subject": "biology",
-          "level" : "A-level",
-
-        },
-        {
-          "id" : 1,
-          "name":"Paper 1",
-          "subject": "chemistry",
-          "level" : "A-level",
-          "level2" : "AS"
-        },
-        {
-          "id" : 1,
-          "name":"Paper 1",
-          "subject": "physics",
-          "level" : "A-level",
-          "level2" : "AS"
-        },
-        {
-          "id" : 1,
-          "name":"Paper 1 (core)",
-          "subject": "physics",
-          "level" : "IGCSE",
-          "level2" : "IGCSE"
-        },
-        {
-          "id" : 2,
-          "name":"Paper 2 (extended)",
-          "subject": "physics",
-          "level" : "IGCSE",
-          "level2" : "IGCSE"
-        },
-        {
-          "id" : 1,
-          "name":"Paper 1 (core)",
-          "subject": "chemistry",
-          "level" : "IGCSE",
-          "level2" : "IGCSE"
-        },
-        {
-          "id" : 2,
-          "name":"Paper 2 (extended)",
-          "subject": "chemistry",
-          "level" : "IGCSE",
-          "level2" : "IGCSE"
-        },
-        {
-          "id" : 1,
-          "name":"Paper 1 (core)",
-          "subject": "biology",
-          "level" : "IGCSE",
-          "level2" : "IGCSE"
-        },
-        {
-          "id" : 2,
-          "name":"Paper 2 (extended)",
-          "subject": "biology",
-          "level" : "IGCSE",
-          "level2" : "IGCSE"
-        },
-        {
-          "id" : 1,
-          "name":"Paper 1",
-          "subject": "economics",
-          "level" : "IGCSE",
-          "level2" : "IGCSE"
-        }
-      ]
       const filteredPapers = papers.filter(item => (item.subject === subject) && (item.level2 === level));
 
         const [questionArray, setquestionArray] = useState([]);
         const [chapterValue, setChapterValue] = useState(0);
         const [paperValue, setPaperValue] = useState(0);
         const [questionText, setQuestionText] = useState('')
+        const [yearValue, setYearValue] = useState(0);
 
         async function addAQuestion(question) {
           setBannerShown(true)        
@@ -234,6 +159,7 @@ import Link from 'next/link';
             setPaperValue(0)
             setquestionArray([])
             setQuestionText('')
+            setYearValue(0)
             }
             const filteredQuestionsRef = useRef();
 
@@ -253,6 +179,10 @@ import Link from 'next/link';
                 tempFilteredQuestions = tempFilteredQuestions.filter(question => question.Chapter === chapterValue);
               }
 
+              if (yearValue !== 0){
+                tempFilteredQuestions = tempFilteredQuestions.filter(question => question.year.toString() == yearValue.toString());
+              }
+
               // Limit the results to the first 100 items
               tempFilteredQuestions = tempFilteredQuestions.slice(0, 100);
 
@@ -261,7 +191,7 @@ import Link from 'next/link';
 
               // Update the state with the filtered questions
               setquestionArray(tempFilteredQuestions);
-            }, [questionText, chapterValue, paperValue, questionsAvailable]);
+            }, [questionText, chapterValue, paperValue, questionsAvailable, yearValue]);
     return (
       <>
         <Head>
@@ -287,7 +217,7 @@ import Link from 'next/link';
                     <h1 className='text-3xl mb-12 font-bold text-white'>Search for a question or a keyword</h1>
                 <label
                     htmlFor="searchbar"
-                    className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
+                    className="mb-2 text-sm font-medium sr-only text-white"
                 >
                     Search
                 </label>
@@ -295,7 +225,7 @@ import Link from 'next/link';
                     <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                     <svg
                         aria-hidden="true"
-                        className="w-5 h-5 text-gray-500 dark:text-gray-300"
+                        className="w-5 h-5 text-gray-300"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -312,7 +242,7 @@ import Link from 'next/link';
                     <input
                     type="search"
                     id="searchbar"
-                    className="block text-md w-full p-4 pl-10 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="block text-md w-full p-4 pl-10 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
                     placeholder="eg : chlorine"
                     onChange={(event) => setQuestionText(event.target.value)}
                     value={questionText}
@@ -320,8 +250,8 @@ import Link from 'next/link';
                 </div>
                 <div className="flex gap-4">
                   <div className="w-4/6 sm:w-3/6 md:w-2/6 lg:w-1/8">
-                    <label htmlFor="chapters" className="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white">Choose a Chapter</label>
-                    <select value={chapterValue} onChange={(event) => setChapterValue(event.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <label htmlFor="chapters" className="block mb-2 mt-4 text-sm font-medium text-gray-900 text-white">Choose a Chapter</label>
+                    <select value={chapterValue} onChange={(event) => setChapterValue(event.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
                       <option id='0' value={0} defaultValue={true}>All Chapters</option>
                       {chapters.map((chapter) => (
                         <option key={chapter.id} value={chapter.id}>{chapter.name}</option>
@@ -329,14 +259,23 @@ import Link from 'next/link';
                     </select>
                   </div>
                   <div className="w-4/6 sm:w-3/6 md:w-2/6 lg:w-1/8">
-                    <label htmlFor="chapters" className="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white">Choose a Paper number</label>
-                    <select value={paperValue} onChange={(event) => setPaperValue(event.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <label htmlFor="chapters" className="block mb-2 mt-4 text-sm font-medium text-gray-900 text-white">Choose a Paper number</label>
+                    <select value={paperValue} onChange={(event) => setPaperValue(event.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
                       <option id='0' value={0} defaultValue={true}>All Papers</option>
                       {filteredPapers.map((paper) => (
                         <option key={paper.id} value={paper.id}>{paper.name}</option>
                     ))}
                     </select>
                   </div>
+                  <div className="w-4/6 sm:w-3/6 md:w-2/6 lg:w-1/8">
+                <label htmlFor="years" className="block mb-2 mt-4 text-sm font-medium text-white">Choose a Year</label>
+                <select id="years" value={yearValue} onChange={(event) => setYearValue(event.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
+                  <option id='0' value={0} defaultValue={true}>All Years</option>
+                  {years.map((year) => (
+                    <option key={year.id} value={year.id}>{year.name}</option>
+                ))}
+                </select>
+                </div>
                 </div>
                 <div className="flex justify-around flex-col sm:flex-row flex-wrap mt-4">
                 <div className="mt-10">
@@ -344,7 +283,7 @@ import Link from 'next/link';
                   Reset
                 </button>
                 <button className="text-white ml-8 transition-all ease-out bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-500 dark:focus:ring-blue-800">
-                  <Link href={`/class/${classID}`}>
+                  <Link href={`/class/${classID}/assignment/${assignmentID}`}>
                   Save and Quit
                   </Link>
                 </button>
@@ -377,7 +316,7 @@ import Link from 'next/link';
       const fileData = await fs.readFile(filePath, 'utf-8');
       const data = JSON.parse(fileData);
   
-      const filteredData = data.filter((question) => (question.Subject === params.subjectName) && (question.Level === params.level));
+      const filteredData = data.filter((question) => (question.Subject === params.subjectName) && (question.Level === params.level) && (!question.MSName));
   
       if (filteredData.length === 0) {
         throw new Error('Chapters not found');

@@ -119,17 +119,18 @@ import Image from 'next/image';
             <h1 className='text-3xl font-bold mt-20 text-white'>Questions({assignmentData[0].questions?.length ? assignmentData[0].questions.length : 0})</h1>
             <Button colorScheme='blue' margin={20} size='md'><Link href={`/class/${assignmentData[0].classID}/assignment/${assignmentData[0].assignmentID}/${assignmentData[0].subject}/${assignmentData[0].level}/add`}>Add Questions </Link> </Button>
           </div>
+          <div className='flex justify-start'>
+            {!questionsShown && assignmentData[0].questions &&
+            <>
+            <Button colorScheme='blue' onClick={() => setQuestionsShown(!questionsShown)} size='lg'>Show Questions</Button>
+            </>
+            }
+            {questionsShown && assignmentData[0].questions &&
+            <Button colorScheme='blue' onClick={() => setQuestionsShown(!questionsShown)} size='lg'>Hide Questions</Button>
+            }
+          </div>
         </div>
-        <div className='flex justify-start'>
-        {!questionsShown && assignmentData[0].questions &&
-        <>
-        <Button colorScheme='blue' onClick={() => setQuestionsShown(!questionsShown)} className='ml-96 mb-20' size='lg'>Show Questions</Button>
-        </>
-        }
-        {questionsShown && assignmentData[0].questions &&
-        <Button colorScheme='blue' onClick={() => setQuestionsShown(!questionsShown)} className='ml-96 mb-20' size='lg'>Hide Questions</Button>
-        }
-        </div>
+        
               {questionsShown && (
         <div className='flex flex-col items-center gap-20 mt-12 mb-20'>
           {assignmentData[0].questions.map((question) => (

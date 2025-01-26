@@ -61,7 +61,7 @@ import { format as timeagoFormat } from 'timeago.js';
     }
   }
     getClasses()
-  }, [classData, isTeacher, session, user]);
+  }, [classData, isTeacher, session, user, studentAssignments]);
 
   const [messages, setMessages] = useState([]);
   const [usernameDictionary, setUsernameDictionary] = useState({});  // Initialize username dictionary state
@@ -128,7 +128,7 @@ import { format as timeagoFormat } from 'timeago.js';
   
     // Call the function to fetch usernames
     fetchUsernamesForMessages();
-  }, [studentAssignments]);
+  }, [studentAssignments, messages]);
 
   async function updateMessages(message) {
     if (message != ''){
@@ -178,7 +178,7 @@ import { format as timeagoFormat } from 'timeago.js';
                   <p className="text-md font-medium">{username}</p>
                   <p className="text-sm font-medium">{timeagoFormat(message.created_at)}</p>
                 </div>
-                <p className="text-lg font-bold">{message.messageText}</p>
+                <p className="text-lg font-bold text-white">{message.messageText}</p>
               </div>
                         );
             })}
