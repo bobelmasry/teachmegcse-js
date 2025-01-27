@@ -240,7 +240,7 @@ import papers from "@/public/paperNumbers.json"
                     <input
                     type="search"
                     id="searchbar"
-                    className="block text-md w-full p-4 pl-10 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="block text-md w-full p-4 pl-10 border rounded-lg bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
                     placeholder="eg : chlorine"
                     onChange={(event) => setQuestionText(event.target.value)}
                     value={questionText}
@@ -248,8 +248,8 @@ import papers from "@/public/paperNumbers.json"
                 </div>
                 <div className="flex gap-4">
                   <div className="w-4/6 sm:w-3/6">
-                    <label htmlFor="chapters" className="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white">Choose a Chapter</label>
-                    <select value={chapterValue} onChange={(event) => setChapterValue(event.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <label htmlFor="chapters" className="block mb-2 mt-4 text-sm font-medium text-white">Choose a Chapter</label>
+                    <select value={chapterValue} onChange={(event) => setChapterValue(event.target.value)} className="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
                       <option id='0' value={0} defaultValue={true}>All Chapters</option>
                       {chapters.map((chapter) => (
                         <option key={chapter.id} value={chapter.id}>{chapter.name} ({chapter.level2})</option>
@@ -257,8 +257,8 @@ import papers from "@/public/paperNumbers.json"
                     </select>
                   </div>
                   <div className="w-4/6 sm:w-3/6">
-                    <label htmlFor="chapters" className="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white">Choose a Paper number</label>
-                    <select value={paperValue} onChange={(event) => setPaperValue(event.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <label htmlFor="chapters" className="block mb-2 mt-4 text-sm font-medium text-white">Choose a Paper number</label>
+                    <select value={paperValue} onChange={(event) => setPaperValue(event.target.value)} className="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
                       <option id='0' value={0} defaultValue={true}>All Papers</option>
                       {filteredPapers.map((paper) => (
                         <option key={paper.id} value={paper.id}>{paper.name}</option>
@@ -266,8 +266,8 @@ import papers from "@/public/paperNumbers.json"
                     </select>
                   </div>
                   <div className="w-4/6 sm:w-3/6 md:w-2/6 lg:w-1/8">
-                <label htmlFor="years" className="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white">Choose a Year</label>
-                <select id="years" value={yearValue} onChange={(event) => setYearValue(event.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <label htmlFor="years" className="block mb-2 mt-4 text-sm font-medium text-white">Choose a Year</label>
+                <select id="years" value={yearValue} onChange={(event) => setYearValue(event.target.value)} className="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
                   <option id='0' value={0} defaultValue={true}>All Years</option>
                   {years.map((year) => (
                     <option key={year.id} value={year.id}>{year.name}</option>

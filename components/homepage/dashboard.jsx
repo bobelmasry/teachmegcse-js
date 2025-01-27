@@ -232,15 +232,6 @@ export default function Dashboard({ session }) {
               </Thead>
               <Tbody>
                 {studentClasses.map((classItem) => {
-                  const incompleteAssignmentsForClass = studentAssignments.filter(
-                    (assignment) =>
-                      assignment.classID === classItem.classID &&
-                      assignment.questions != null &&
-                      !assignment.completedBy?.some(
-                        (completedByItem) => completedByItem.id === user?.id
-                      )
-                  );
-
                   return (
                     <Tr key={classItem.classID} _hover={{ bg: "gray.700" }}>
                       <Td>

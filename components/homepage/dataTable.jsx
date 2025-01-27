@@ -1,8 +1,8 @@
 export default function DataTable({ questionsSolved }) {
   return (
-    <div className="relative overflow-x-auto shadow-lg rounded-lg">
+    <div className="relative overflow-x-auto shadow-lg rounded-lg ">
       <table className="w-full text-lg text-left text-gray-500 dark:text-gray-400">
-        <thead className="text-lg text-gray-800 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-300">
+        <thead className="text-lg uppercase bg-gray-700 text-gray-300">
           <tr>
             <th scope="col" className="sm:px-6 px-4 py-4">
               Subject
@@ -38,16 +38,16 @@ export default function DataTable({ questionsSolved }) {
               <tr
                 key={subject}
                 className={`${
-                  index % 2 === 0 ? 'bg-white dark:bg-gray-900' : 'bg-gray-50 dark:bg-gray-800'
+                  index % 2 === 0 ? 'bg-gray-900' : 'bg-gray-800'
                 } border-b dark:border-gray-700 transition-colors`}
               >
                 <th
                   scope="row"
-                  className="sm:px-6 px-4 py-4 font-semibold text-gray-900 dark:text-white whitespace-nowrap"
+                  className="sm:px-6 px-4 py-4 font-semibold text-white whitespace-nowrap"
                 >
                   {subject}
                 </th>
-                <td className="sm:px-6 px-4 py-4 text-right">
+                <td className="sm:px-6 px-4 py-4 text-white text-right">
                   {questionsSolvedForSubject.length} / {maxQuestions}
                 </td>
                 <td
