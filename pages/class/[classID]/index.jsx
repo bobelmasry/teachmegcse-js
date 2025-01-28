@@ -21,7 +21,6 @@ import { format as timeagoFormat } from 'timeago.js';
   const [isTeacher, setIsTeacher] = useState(false)
   const [inputValue, setInputValue] = useState('')
   const handleChange = (event) => setInputValue(event.target.value)
-  const [studentAssignments, setStudentAssignments] = useState([])
 
   useEffect(() => {
 
@@ -32,7 +31,6 @@ import { format as timeagoFormat } from 'timeago.js';
         .eq('classID', classData[0].classID)
 
         setAssignments(data);
-        setStudentAssignments(data);  
   }
     getAssignments()
     async function getInitial() {
@@ -173,7 +171,7 @@ import { format as timeagoFormat } from 'timeago.js';
             <Headstuff />
         </Head>
         <Navbar session={session} />
-        <SideBarHome isTeacher={isTeacher} studentAssignments={studentAssignments} classData={classData} assignments={assignments} classes={classes} user={user} />
+        <SideBarHome isTeacher={isTeacher} classData={classData} assignments={assignments} classes={classes} user={user} />
         <div className="flex justify-center">
           <div className="sm:w-1/2 w-10/12 h-[calc(100vh-12rem)] flex flex-col justify-end">
           <div className='flex flex-col mb-4' style={{ maxHeight: '35rem', overflowY: 'auto'}}>

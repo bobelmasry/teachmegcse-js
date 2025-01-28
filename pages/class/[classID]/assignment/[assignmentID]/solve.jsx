@@ -133,6 +133,7 @@ async function updateSupabase(object, table, field, assignmentID) {
         }, [assignmentData.assignmentID, assignmentData.classID, assignmentData.user_id, user])
 
      const title = `${assignmentData.name} - exceed`
+     console.log(assignmentData.questions)
     return (
         <>
         <Head>
@@ -149,7 +150,14 @@ async function updateSupabase(object, table, field, assignmentID) {
         {assignmentData.questions.map((question, index) => (
         <div key={question.questionName}>
             <div key={question.questionName} className='border border-4 md:border-8 border-green-600 p-2 rounded rounded-2xl'>
-                <Image key={question.questionName} className='rounded rounded-md' src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/${question.Level}/${question.Subject}/p${question.paperNumber}/${question.Chapter}/${question.questionName}`} alt='image' height={800} width={800} />
+            <Image 
+              key={question.questionName} 
+              className='rounded rounded-md' 
+              src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/${question.Level === 'AS' ? 'A-level' : question.Level}/${question.Subject}/p${question.paperNumber}/${question.Chapter}/${question.questionName}`}
+              alt='image' 
+              height={800} 
+              width={800} 
+            />
             </div>
             <div className="flex mt-12 md:ml-0 flex-wrap justify-center gap-8">
             {!solved && 

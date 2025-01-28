@@ -33,7 +33,6 @@ interface Assignment {
 interface SideBarHomeProps {
   classData: Class[]
   isTeacher: boolean
-  studentAssignments: Assignment[]
   assignments: Assignment[]
   classes: Class[]
   user: { id: string }
@@ -42,7 +41,6 @@ interface SideBarHomeProps {
 export default function SideBarHome({
   classData,
   isTeacher,
-  studentAssignments,
   assignments,
   classes,
   user,
@@ -122,11 +120,11 @@ export default function SideBarHome({
                             </svg>
                           </span>
                         </summary>
-                        {studentAssignments.length > 0 &&
-                          studentAssignments.map((assignment) => {
-                            const isCompleted =
-                              assignment.completedBy &&
-                              assignment.completedBy.some((completedByUser) => completedByUser.id === user?.id)
+                        {assignments.length > 0 &&
+                          assignments.map((assignment) => {
+                            const isCompleted = 
+                              assignment.completedBy?.some((completedByUser) => completedByUser.id === user?.id) ?? false;
+                            
                             if (!isCompleted && assignment.questions != null) {
                               return (
                                 <TopicCard
@@ -134,6 +132,7 @@ export default function SideBarHome({
                                   dueDate={assignment.dueDate}
                                   header={assignment.name}
                                   linkSrc={`/class/${classData[0]?.classID}/assignment/${assignment.assignmentID}/solve`}
+                                  questions={assignment.questions.length}
                                 />
                               )
                             }
@@ -160,7 +159,7 @@ export default function SideBarHome({
                             </svg>
                           </span>
                         </summary>
-                        {studentAssignments
+                        {assignments
                           .filter(
                             (studentAssignment) =>
                               studentAssignment.completedBy &&
@@ -178,6 +177,7 @@ export default function SideBarHome({
                                 key={studentAssignment.assignmentID}
                                 header={studentAssignment.name}
                                 score={score}
+                                questions={studentAssignment.questions.length}
                               />
                             )
                           })}
@@ -213,6 +213,7 @@ export default function SideBarHome({
                             dueDate={assignment.dueDate}
                             header={assignment.name}
                             linkSrc={`/class/${classData[0].classID}/assignment/${assignment.assignmentID}`}
+                            questions={assignment.questions ? assignment.questions?.length : 0}
                           />
                         ))}
                       </details>

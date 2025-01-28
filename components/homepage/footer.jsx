@@ -16,7 +16,7 @@ export default function Footer () {
         height={50}
         width={50}
       />
-      <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+      <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">
       exceed
       </span>
     </Link>

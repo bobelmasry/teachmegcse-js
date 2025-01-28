@@ -9,8 +9,8 @@ export default function Pricing () {
       Pricing Plan
     </h1>
     <div className="flex justify-center gap-8 mt-6 xl:mt-12 xl:gap-12">
-      <div className="w-11/12 dark:bg-slate-800/70 md:w-3/6 lg:w-5/12 p-8 space-y-8 text-center border border-gray-200 rounded-lg dark:border-gray-700">
-        <p className="font-medium text-gray-500 uppercase dark:text-gray-300">
+      <div className="w-11/12 bg-gray-800 md:w-3/6 lg:w-5/12 p-8 space-y-8 text-center border rounded-lg border-gray-700">
+        <p className="font-medium uppercase text-gray-300">
           Premium
         </p>
         <h2 className="text-4xl font-semibold uppercase text-gray-100">

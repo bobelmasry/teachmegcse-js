@@ -4,7 +4,7 @@ export default function Cta() {
     return (
       <section>
     <div className="flex flex-col justify-center mb-8 mt-32 text-center">
-        <h2 className="max-w-2xl mx-auto text-4xl font-semibold tracking-tight text-gray-800 xl:text-5xl dark:text-white">
+        <h2 className="max-w-2xl mx-auto text-4xl font-semibold tracking-tight xl:text-5xl text-white">
             Ready to Get Started ?
         </h2>
 

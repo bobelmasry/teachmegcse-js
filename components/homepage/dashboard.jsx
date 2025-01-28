@@ -155,6 +155,8 @@ export default function Dashboard({ session }) {
   
       fetchData();
     }, [session, initialGotten]);
+
+    //console.log(studentAssignments)
     
   return (
     <>
@@ -232,6 +234,8 @@ export default function Dashboard({ session }) {
               </Thead>
               <Tbody>
                 {studentClasses.map((classItem) => {
+                  let classAssignments = studentAssignments.filter(assignment => assignment.classID === classItem.classID).length
+                  console.log(`${classItem.name} - ${classAssignments}`)
                   return (
                     <Tr key={classItem.classID} _hover={{ bg: "gray.700" }}>
                       <Td>
@@ -261,7 +265,7 @@ export default function Dashboard({ session }) {
                         </div>
                       </Td>
                       <Td textTransform="capitalize">{classItem.subject}</Td>
-                      <Td isNumeric>{classItem.students ? classItem.students.length : 0}</Td>
+                      <Td isNumeric>{classAssignments}</Td>
                       <Td textTransform="capitalize">{classItem.level}</Td>
                     </Tr>
                   );
