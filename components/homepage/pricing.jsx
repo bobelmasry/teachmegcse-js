@@ -5,7 +5,7 @@ export default function Pricing () {
         <>
         <div>
   <div className="container px-6 py-8 mx-auto mt-24">
-    <h1 className="text-3xl sm:text-5xl font-semibold text-center text-gray-800 capitalize dark:text-white">
+    <h1 className="text-3xl sm:text-5xl font-semibold text-center capitalize text-white">
       Pricing Plan
     </h1>
     <div className="flex justify-center gap-8 mt-6 xl:mt-12 xl:gap-12">
@@ -13,10 +13,10 @@ export default function Pricing () {
         <p className="font-medium text-gray-500 uppercase dark:text-gray-300">
           Premium
         </p>
-        <h2 className="text-4xl font-semibold text-gray-800 uppercase dark:text-gray-100">
+        <h2 className="text-4xl font-semibold uppercase text-gray-100">
           $Free
         </h2>
-        <p className="font-medium text-gray-500 dark:text-gray-300">
+        <p className="font-medium text-gray-300">
           Until November
         </p>
       <Link href="/login-or-signup">

@@ -4,7 +4,7 @@ export default function Special_home() {
         <section className="dark:text-white text-black">
   <div className="mx-auto w-11/12 md:w-4/6 lg:w-4/6 mb-24">
     <div className="mx-auto max-w-lg text-center">
-      <h2 className="text-4xl font-bold sm:text-5xl">What makes us Special:</h2>
+      <h2 className="text-4xl font-bold sm:text-5xl text-gray-100">What makes us Special:</h2>
     </div>
     <section>
       <div className="mx-auto max-w-screen-xl px-4 py-12 sm:px-6 md:py-16 lg:px-8">

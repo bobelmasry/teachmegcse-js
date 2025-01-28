@@ -27,21 +27,21 @@ export default function Navbar({ session }) {
             height={50}
             width={50}
           />
-          <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+          <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">
             exceed
           </span>
         </Link>
         <div className="flex md:order-2 gap-4">
           {!session ? (
             <Link
-              className="ml-2 text-white transition-all ease-out bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-500 dark:focus:ring-green-800"
+              className="ml-2 text-white transition-all ease-out focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center bg-green-600 hover:bg-green-500 focus:ring-green-800"
               href={"/login-or-signup"}
             >
               Sign In
             </Link>
           ) : (
             <Link
-              className="text-white transition-all ease-out bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-500 dark:focus:ring-red-800"
+              className="text-white transition-all ease-out focus:ring-4 focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center bg-red-600 hover:bg-red-500 focus:ring-red-800"
               href={"/login-or-signup"}
             >
               Sign Out
@@ -51,7 +51,7 @@ export default function Navbar({ session }) {
             onClick={handleToggleMenu}
             data-collapse-toggle="navbar-sticky"
             type="button"
-            className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:bg-gray-600 dark:hover:bg-gray-500 dark:focus:ring-gray-600"
+            className="inline-flex items-center p-2 text-sm rounded-lg md:hidden focus:outline-none focus:ring-2 focus:ring-gray-200 text-gray-400 bg-gray-600 hover:bg-gray-500 focus:ring-gray-600"
             aria-controls="navbar-sticky"
             aria-expanded={isMenuOpen}
           >
@@ -81,11 +81,11 @@ export default function Navbar({ session }) {
           <ul
             className={`${
               isMenuOpen ? "flex" : "hidden"
-            } flex flex-col text-xl p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0 dark:border-gray-600`}
+            } flex flex-col text-xl p-4 md:p-0 mt-4 font-medium border rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0 border-gray-600`}
           >
             <li>
               <Link
-                className="block py-2 pl-3 pr-4 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0 md:dark:hover:text-blue-500 transition-all text-white dark:hover:bg-gray-700 md:dark:hover:bg-transparent dark:border-gray-700"
+                className="block py-2 pl-3 pr-4 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0 transition-all text-white hover:bg-gray-700 md:hover:bg-transparent border-gray-700"
                 onClick={() => handleNavigate("/IGCSE")}
                 href="/IGCSE"
               >
@@ -94,14 +94,14 @@ export default function Navbar({ session }) {
             </li>
             <li>
               <Link
-                className="block transition-all py-2 pl-3 pr-4 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0 md:dark:hover:text-blue-500 text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                className="block py-2 pl-3 pr-4 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0 transition-all text-white hover:bg-gray-700 md:hover:bg-transparent border-gray-700"
                 onClick={() => handleNavigate("/A-level")}
                 href="/A-level"
               >
                 A-level
               </Link>
               <Link
-                className="block transition-all py-2 pl-3 pr-4 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0 md:dark:hover:text-blue-500 text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                className="block py-2 pl-3 pr-4 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0 transition-all text-white hover:bg-gray-700 md:hover:bg-transparent border-gray-700"
                 onClick={() => handleNavigate("/contact")}
                 href="/contact"
               >
