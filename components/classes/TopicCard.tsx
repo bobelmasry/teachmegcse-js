@@ -8,9 +8,11 @@ interface TopicCardProps {
   score?: string
   studentNum?: number
   questions? : number
+  status? : string
+  isTeacher? : boolean
 }
 
-export function TopicCard({ linkSrc, header, dueDate, score, studentNum, questions }: TopicCardProps) {
+export function TopicCard({ linkSrc, header, dueDate, score, studentNum, questions, status, isTeacher }: TopicCardProps) {
   const cardContent = (
     <div className="btn md:hover:scale-[1.02] ease-out transition-all rounded p-6 border rounded-lg shadow bg-slate-600 border-gray-600 md:hover:bg-slate-500">
       <h5 className="text-md font-semibold text-white">{header}</h5>
@@ -20,6 +22,9 @@ export function TopicCard({ linkSrc, header, dueDate, score, studentNum, questio
         <h5 className="text-sm text-white">Completed by: {studentNum}</h5>
       )}
       <p>Questions: {questions}</p>
+      {isTeacher &&
+      <p>Status: {status}</p>
+      }
     </div>
   )
 

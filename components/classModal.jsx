@@ -5,7 +5,6 @@ import { useSupabaseClient } from '@supabase/auth-helpers-react'
 export default function Modal ({user, school}) {
   const supabase = useSupabaseClient()
   const [modalShown, setModelShown] = useState(true)
-  console.log(school);
   const chapters = [
       {
           "id" : 1,

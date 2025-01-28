@@ -28,7 +28,6 @@ import { postData } from '@/components/helpers/makePdf.js';
 
     const title = `${worksheetData[0].name} | exceed`
     const header = `${worksheetData[0].name} - worksheet`
-        console.log(worksheetData[0].level);
         let level2 = "IGCSE"
         if (worksheetData[0].level == "AS" || worksheetData[0].level == "A2" ){
            level2 = "A-level"

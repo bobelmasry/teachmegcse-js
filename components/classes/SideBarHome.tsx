@@ -28,6 +28,7 @@ interface Assignment {
   dueDate: string
   questions: any
   completedBy?: { id: string; Score: number; numOfQuestions: number }[]
+  isLocked? : boolean
 }
 
 interface SideBarHomeProps {
@@ -125,7 +126,7 @@ export default function SideBarHome({
                             const isCompleted = 
                               assignment.completedBy?.some((completedByUser) => completedByUser.id === user?.id) ?? false;
                             
-                            if (!isCompleted && assignment.questions != null) {
+                            if (!isCompleted && assignment.questions != null && assignment.isLocked === false) {
                               return (
                                 <TopicCard
                                   key={assignment.assignmentID}
@@ -163,7 +164,7 @@ export default function SideBarHome({
                           .filter(
                             (studentAssignment) =>
                               studentAssignment.completedBy &&
-                              studentAssignment.completedBy.some((completedByItem) => completedByItem.id === user?.id),
+                              studentAssignment.completedBy.some((completedByItem) => completedByItem.id === user?.id) && studentAssignment.isLocked === false,
                           )
                           .map((studentAssignment) => {
                             const completedByUser = studentAssignment.completedBy?.find(
@@ -214,7 +215,9 @@ export default function SideBarHome({
                             header={assignment.name}
                             linkSrc={`/class/${classData[0].classID}/assignment/${assignment.assignmentID}`}
                             questions={assignment.questions ? assignment.questions?.length : 0}
-                          />
+                            status={assignment.isLocked ? "Locked" : "Unlocked"}
+                            isTeacher={true}
+                            />
                         ))}
                       </details>
                     </li>

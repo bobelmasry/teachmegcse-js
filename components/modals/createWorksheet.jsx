@@ -57,9 +57,6 @@ export default function CreateWorksheet({ user }) {
       }
 
       if (data && data.length > 0) {
-        console.log(data);
-        
-        // Redirect to the newly created worksheet's page
         router.push(`/worksheet/${data[0].id}`);
       }
     } catch (error) {

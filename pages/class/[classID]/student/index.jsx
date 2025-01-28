@@ -98,8 +98,8 @@ export default function ClassPage({ classData }) {
             <div className="flex mt-20 justify-center">
             {(classData[0].students && classData[0].students.length != 0) &&
           <div className="flex justify-center">
-                <table className="w-full text-lg text-left text-gray-500 dark:text-gray-400">
-                    <thead className="text-lg text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <table className="w-full text-lg text-left text-gray-400">
+                    <thead className="text-lg uppercase bg-gray-700 text-gray-300">
                       <tr>
                       <th scope="col" className="sm:px-4 px-2 py-3">
                           username
@@ -123,7 +123,7 @@ export default function ClassPage({ classData }) {
           {studentData.map((student) => (
               <>
                     <tbody key={student.id}>
-                      <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                      <tr className="border-b bg-gray-900 border-gray-700">
                       <td className="px-10 py-4">
                       {isTeacher &&
                         <Link href={`/class/${classData[0].classID}/student/${student.id}`} className='text-blue-600 font-semibold text-xl underline hover:no-underline'>

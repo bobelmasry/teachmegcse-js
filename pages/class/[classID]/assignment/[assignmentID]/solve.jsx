@@ -133,7 +133,6 @@ async function updateSupabase(object, table, field, assignmentID) {
         }, [assignmentData.assignmentID, assignmentData.classID, assignmentData.user_id, user])
 
      const title = `${assignmentData.name} - exceed`
-     console.log(assignmentData.questions)
     return (
         <>
         <Head>

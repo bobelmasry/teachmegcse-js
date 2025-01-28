@@ -30,7 +30,6 @@ export default function Dashboard({ session }) {
     const router = useRouter()
 
     async function removeAWorksheet(worksheetID) {
-      console.log(worksheetID);
       const { error } = await supabase
       .from('worksheets')
       .delete()
@@ -155,8 +154,6 @@ export default function Dashboard({ session }) {
   
       fetchData();
     }, [session, initialGotten]);
-
-    //console.log(studentAssignments)
     
   return (
     <>
@@ -235,7 +232,6 @@ export default function Dashboard({ session }) {
               <Tbody>
                 {studentClasses.map((classItem) => {
                   let classAssignments = studentAssignments.filter(assignment => assignment.classID === classItem.classID).length
-                  console.log(`${classItem.name} - ${classAssignments}`)
                   return (
                     <Tr key={classItem.classID} _hover={{ bg: "gray.700" }}>
                       <Td>

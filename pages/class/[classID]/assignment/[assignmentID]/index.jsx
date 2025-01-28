@@ -14,6 +14,7 @@ import Image from 'next/image';
     const [questionsShown, setQuestionsShown] = useState(false)
     const user = useUser()
     const [isTeacher, setIsTeacher] = useState(false)
+    const [assignmentLocked, setIsAssignmentLocked] = useState(true)
     const [studentUsernames, setStudentUsernames] = useState([])
     
     useEffect(() => {
@@ -21,6 +22,7 @@ import Image from 'next/image';
         if (user && user.id) {
           if (user.id === assignmentData[0].user_id) {
             setIsTeacher(true)
+            setIsAssignmentLocked(assignmentData[0].isLocked)
           }
         }
       }
@@ -63,6 +65,38 @@ import Image from 'next/image';
       
       getCompletedBy();
     }, [assignmentData, session, user]);
+
+    async function unlockAssignment(event) {
+      event.preventDefault();
+    
+      // Get the assignmentID from the assignmentData
+      const assignmentID = assignmentData[0]?.assignmentID;
+    
+      if (!assignmentID) {
+        console.error("Assignment ID not found.");
+        return;
+      }
+    
+      try {
+        // Use Supabase's `update` method to set `isLocked` to false
+        const { data, error } = await supabase
+          .from('assignments')
+          .update({ isLocked: false })
+          .eq('assignmentID', assignmentID);
+    
+        if (error) {
+          console.error("Error unlocking assignment:", error.message);
+          return;
+        }
+    
+        console.log("Assignment unlocked successfully:", data);
+
+        window.location.reload()
+      } catch (error) {
+        console.error("Unexpected error:", error);
+      }
+    }
+    
 
     const title = `${assignmentData[0].name} | exceed`
     const date = new Date(assignmentData[0].dueDate);
@@ -115,10 +149,20 @@ import Image from 'next/image';
           </table>            
           </div>
           }
-          <div className='flex'>
+          <div className='block'>
+            <div className="flex">
             <h1 className='text-3xl font-bold mt-20 text-white'>Questions({assignmentData[0].questions?.length ? assignmentData[0].questions.length : 0})</h1>
             <Button colorScheme='blue' margin={20} size='md'><Link href={`/class/${assignmentData[0].classID}/assignment/${assignmentData[0].assignmentID}/${assignmentData[0].subject}/${assignmentData[0].level}/add`}>Add Questions </Link> </Button>
+            </div>
           </div>
+          <div className="flex">
+            {assignmentLocked &&
+            <>
+              <h1 className='text-3xl mr-20 font-bold text-white'>This assignment is Locked (students can{"'"}t see it)</h1>
+              <Button colorScheme='green' onClick={(event) => unlockAssignment(event)} size='md'>Unlock</Button>
+            </>
+            }
+            </div>
           <div className='flex justify-start'>
             {!questionsShown && assignmentData[0].questions &&
             <>
