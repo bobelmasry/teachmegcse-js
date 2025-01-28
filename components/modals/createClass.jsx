@@ -68,12 +68,12 @@ export default function CreateClass({user, school}) {
                     Class Name
                   </FormLabel>
                 </div>
-                <Input variant='outline' onChange={(e) => SetClass_Name(e.target.value)} value={class_Name} size='md' placeholder="Year 12 Physics" />
+                <Input variant='outline' backgroundColor='gray.700' onChange={(e) => SetClass_Name(e.target.value)} value={class_Name} size='md' placeholder="Year 12 Physics" />
                 <div>
                 <FormLabel>
                 Subject
                   </FormLabel>
-                <Select color='black' backgroundColor='gray.700' placeholder={'Choose a subject'} onChange={handleSelect}>
+                <Select color='white' backgroundColor='gray.700' placeholder={'Choose a subject'} onChange={handleSelect}>
                   <option value='biology'>biology</option>
                   <option value='chemistry'>chemistry</option>
                   <option value='physics'>physics</option>
@@ -84,7 +84,7 @@ export default function CreateClass({user, school}) {
                 <FormLabel>
                     Level
                   </FormLabel>
-                <Select color='black' backgroundColor='gray.700' placeholder={'Choose a Level'} onChange={handleSelect2}>
+                <Select color='white' backgroundColor='gray.700' placeholder={'Choose a Level'} onChange={handleSelect2}>
                   <option value='IGCSE'>IGCSE</option>
                   <option value='AS'>AS</option>
                   <option value='A2'>A2</option>

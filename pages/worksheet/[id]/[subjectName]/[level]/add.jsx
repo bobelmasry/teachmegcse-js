@@ -127,6 +127,18 @@ import papers from "@/public/paperNumbers.json"
         {id: 2022, name : "2022"},
         {id: 2023, name : "2023"},
       ]
+
+      const handleToggleAnswer = (questionName) => {
+        setquestionArray((prevQuestions) =>
+          prevQuestions.map((question) =>
+            question.questionName === questionName
+              ? { ...question, showAnswer: !question.showAnswer }
+              : question
+          )
+        );
+      };
+
+
       const filteredPapers = papers.filter(item => (item.subject === subject) && (item.level2 === level));
 
         const [questionArray, setquestionArray] = useState([]);
@@ -291,10 +303,12 @@ import papers from "@/public/paperNumbers.json"
                 {questionArray.map((question) => {
                   const paperNumber = question.questionNumber ? "long" : `p${question.paperNumber}`;
                   const imageUrl = `https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/${level2}/${question.Subject}/${paperNumber}/${question.Chapter}/${question.questionName}`;
+                  const answerImageUrl = `https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/${level2}/${question.Subject}/${paperNumber}/${question.Chapter}/${question.MSName}`;
 
                   return (
                     <div key={question.questionName} className='flex'>
-                      <div className='border border-8 border-green-600 p-2 rounded rounded-2xl'>
+                      <div >
+                        <div className='border border-8 border-green-600 p-2 rounded rounded-2xl'>
                         <Image
                           key={question.questionName}
                           className='rounded rounded-md'
@@ -303,7 +317,35 @@ import papers from "@/public/paperNumbers.json"
                           height={800}
                           width={800}
                         />
+                        </div>
+                        <button
+                      onClick={() => handleToggleAnswer(question.questionName)}
+                      className="mt-4 text-xl text-white transition-all ease-out bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-500 dark:focus:ring-green-800"
+                    >
+                      {question.showAnswer ? 'Hide Answer' : 'Show Answer'}
+                    </button>
+                    {question.showAnswer ? (
+                        <div className="mt-2 flex text-white">
+                          <div>
+                            <p className="text-xl font-bold text-white">Answer:</p>
+                            {question.questionNumber ? (
+                              <Image
+                                className="rounded rounded-md"
+                                src={answerImageUrl}
+                                alt="answer image"
+                                height={800}
+                                width={800}
+                              />
+                            ) : (
+                              <p className="text-white text-xl">{question.Answer}</p>
+                            )}
+                          </div>
+                        </div>
+                      ) : (
+                        <p className='text-white text-xl'></p>
+                      )}
                       </div>
+                      
                       <AddIcon
                         onClick={() => addAQuestion(question)}
                         key={question.questionName}

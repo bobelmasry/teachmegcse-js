@@ -92,7 +92,7 @@ export default function CreateWorksheet({ user }) {
                 onChange={(e) => setWorksheetName(e.target.value)}
                 value={worksheetName}
                 size="md"
-                placeholder="Year 12 Physics"
+                placeholder="Year 12 Physics Homework"
               />
               {worksheetName === '' && <FormErrorMessage>Worksheet name can{"'"}t be empty.</FormErrorMessage>}
             </FormControl>

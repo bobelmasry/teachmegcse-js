@@ -176,7 +176,7 @@ export default function Dashboard({ session }) {
   <>
     {classes.length === 0 ? (
       <>
-        <h2 className='text-3xl mt-8 dark:text-gray-100'>Huh, you {"don't"} seem to have any classes</h2>
+        <h2 className='text-3xl mt-8 mb-8 dark:text-gray-100'>Huh, you {"don't"} seem to have any classes</h2>
         <CreateClass user={user} school={school} />
       </>
     ) : (
