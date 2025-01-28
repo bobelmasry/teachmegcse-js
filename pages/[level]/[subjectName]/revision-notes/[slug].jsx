@@ -63,10 +63,10 @@ function Post({ noteData,  content }) {
     </Head>
       <Navbar session={session} />
     <div className="flex justify-center">
-        <h1 className="text-4xl sm:text-5xl mt-20 font-bold dark:text-gray-100">{noteData.title}</h1>
+        <h1 className="text-4xl sm:text-5xl mt-20 font-bold text-gray-100">{noteData.title}</h1>
     </div>
     <div className="flex justify-center">
-      <div className="prose p-6 text-gray-300 sm:p-12 m-6 sm:m-12 prose-lg bg-white border border-gray-200 rounded-2xl shadow-lg dark:bg-gray-800 dark:border-gray-700">
+      <div className="prose p-6 text-gray-300 sm:p-12 m-6 sm:m-12 prose-lg border rounded-2xl shadow-lg bg-gray-800 border-gray-700">
         <style>{`
           .prose h2 {
             color: #0286c2; /* Bright blue */

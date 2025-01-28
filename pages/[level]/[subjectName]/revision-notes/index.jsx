@@ -13,8 +13,8 @@ function NoteCard({ linkSrc, header, hasGrey, hasGreen }) {
   return (
     <div>
       <Link href={linkSrc}>
-        <div className="btn flex justify-between items-center gap-8 shadow-[0_7px_0_0px_rgb(3,105,161)] md:hover:scale-[1.05] transition-transform ease-out rounded-lg p-6 bg-gray-50 border border-gray-200 shadow md:hover:bg-gray-100 dark:bg-slate-600 dark:border-gray-600 md:dark:hover:bg-gray-500">
-          <h5 className="text-3xl font-semibold text-gray-900 dark:text-white">{header}</h5>
+        <div className="btn flex justify-between items-center gap-8 shadow-[0_7px_0_0px_rgb(3,105,161)] md:hover:scale-[1.05] transition-transform ease-out rounded-lg p-6 border shadow bg-slate-600 border-gray-600 md:hover:bg-gray-500">
+          <h5 className="text-3xl font-semibold text-white">{header}</h5>
           <div className="relative w-14 h-10 flex justify-center items-center">
             {hasGrey && (
               <Image
