@@ -115,7 +115,7 @@ import Image from 'next/image';
         <Navbar session={session} />
         {isTeacher ? (
           <>
-        <div className="flex flex-col items-center mb-20">
+        <div className="flex flex-col items-center mb-20 ml-20 sm:ml-0">
           <h1 className='text-5xl font-bold mt-20 text-white'>{assignmentData[0].name}</h1>
           <h1 className='text-3xl font-bold mt-20 text-white'>Due : {formattedDate}</h1>
           <h1 className='text-4xl font-bold mt-20 text-white'>Completed by : {assignmentData[0].completedBy?.length ? assignmentData[0].completedBy.length : 0} Student(s)</h1>
@@ -150,12 +150,12 @@ import Image from 'next/image';
           </div>
           }
           <div className='block'>
-            <div className="flex">
+            <div className='flex'>
             <h1 className='text-3xl font-bold mt-20 text-white'>Questions({assignmentData[0].questions?.length ? assignmentData[0].questions.length : 0})</h1>
             <Button colorScheme='blue' margin={20} size='md'><Link href={`/class/${assignmentData[0].classID}/assignment/${assignmentData[0].assignmentID}/${assignmentData[0].subject}/${assignmentData[0].level}/add`}>Add Questions </Link> </Button>
             </div>
           </div>
-          <div className="flex">
+          <div className="flex max-w-2xl flex-col items-center gap-20 mt-12 mb-20">
             {assignmentLocked &&
             <>
               <h1 className='text-3xl mr-20 font-bold text-white'>This assignment is Locked (students can{"'"}t see it)</h1>
@@ -177,19 +177,23 @@ import Image from 'next/image';
         
               {questionsShown && (
         <div className='flex flex-col items-center gap-20 mt-12 mb-20'>
-          {assignmentData[0].questions.map((question) => (
+          {assignmentData[0].questions.map((question) => {
+            const paperNumber = question.questionNumber ? "long" : `p${question.paperNumber}`;
+            let level = question.Level?.toUpperCase() === 'AS' ? 'A-level' : 'IGCSE';
+            
+            return (
             <div key={question.questionName} className='flex'>
               <div className='border border-8 border-green-600 p-2 rounded rounded-2xl'>
                 <Image
                   className='rounded rounded-md'
-                  src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/${question.Level}/${question.Subject}/p${question.paperNumber}/${question.Chapter}/${question.questionName}`}
+                  src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/${level}/${question.Subject}/${paperNumber}/${question.Chapter}/${question.questionName}`}
                   alt='image'
                   height={800}
                   width={800}
                 />
               </div>
             </div>
-          ))}
+        )})}
         </div>
       )}
       </>

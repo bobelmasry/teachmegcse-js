@@ -292,14 +292,17 @@ import papers from "@/public/paperNumbers.json"
                 </div>
                 </div>
                 <div className="flex flex-col items-center gap-32 mt-32 mb-20">
-        {questionArray.map((question) => (
+        {questionArray.map((question) => {
+            const paperNumber = question.questionNumber ? "long" : `p${question.paperNumber}`;
+
+          return (
         <div key={question.questionName} className='flex'>
             <div className='border border-8 border-green-600 p-2 rounded rounded-2xl'>
-                <Image key={question.questionName} className='rounded rounded-md' src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/${level2}/${question.Subject}/p${question.paperNumber}/${question.Chapter}/${question.questionName}`} alt='image' height={800} width={800} />
+                <Image key={question.questionName} className='rounded rounded-md' src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/${level2}/${question.Subject}/${paperNumber}/${question.Chapter}/${question.questionName}`} alt='image' height={800} width={800} />
             </div>
             <AddIcon onClick={() => addAQuestion(question)} key={question.questionName} fontSize="large" className='ml-8 mt-24 cursor-pointer ease-out transition-all hover:bg-gray-200 bg-gray-400 rounded rounded-xl'/>
         </div>
-        ))}
+    )})}
         </div>
         </div>
         ) : (
@@ -316,7 +319,7 @@ import papers from "@/public/paperNumbers.json"
       const fileData = await fs.readFile(filePath, 'utf-8');
       const data = JSON.parse(fileData);
   
-      const filteredData = data.filter((question) => (question.Subject === params.subjectName) && (question.Level === params.level) && (!question.MSName));
+      const filteredData = data.filter((question) => (question.Subject === params.subjectName) && (question.Level === params.level));
   
       if (filteredData.length === 0) {
         throw new Error('Chapters not found');
