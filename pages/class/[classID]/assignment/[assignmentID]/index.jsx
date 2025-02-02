@@ -115,14 +115,14 @@ import Image from 'next/image';
         <Navbar session={session} />
         {isTeacher ? (
           <>
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center mb-20">
           <h1 className='text-5xl font-bold mt-20 text-white'>{assignmentData[0].name}</h1>
           <h1 className='text-3xl font-bold mt-20 text-white'>Due : {formattedDate}</h1>
           <h1 className='text-4xl font-bold mt-20 text-white'>Completed by : {assignmentData[0].completedBy?.length ? assignmentData[0].completedBy.length : 0} Student(s)</h1>
           {studentUsernames && assignmentData[0].completedBy &&
           <div className="flex mt-10 justify-center">
-                <table className="w-full text-lg text-left text-gray-500 dark:text-gray-400">
-                    <thead className="text-xl text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <table className="w-full text-lg text-left text-gray-400 rounded rounded-lg overflow-hidden">
+                    <thead className="text-xl uppercase bg-gray-700 text-gray-400">
                       <tr>
                       <th scope="col" className="sm:px-4 px-2 py-3">
                           username
@@ -135,7 +135,7 @@ import Image from 'next/image';
           {studentUsernames.map((student) => (
               <>
                     <tbody key={student.id}>
-                      <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                      <tr className="bg-gray-800 border-gray-700">
                       <td className="px-10 py-4">
                         {student.username}
                       </td>
