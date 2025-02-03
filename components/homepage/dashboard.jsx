@@ -231,7 +231,7 @@ export default function Dashboard({ session }) {
               </Thead>
               <Tbody>
                 {studentClasses.map((classItem) => {
-                  let classAssignments = studentAssignments.filter(assignment => assignment.classID === classItem.classID).length
+                  let classAssignments = studentAssignments.filter(assignment => (assignment.classID === classItem.classID) && (assignment.isLocked === false)).length
                   return (
                     <Tr key={classItem.classID} _hover={{ bg: "gray.700" }}>
                       <Td>

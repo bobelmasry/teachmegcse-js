@@ -7,7 +7,6 @@ import { supabase } from '@/components/utils/supabase';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 
-
 async function updateSupabase(object, table, field, assignmentID) {
 
   const { data: existingData, error: existingError } = await supabase
@@ -60,17 +59,37 @@ async function updateSupabase(object, table, field, assignmentID) {
 
     async function handleSubmit() {
         let correctAnswers = 0
-        for (let i = 0; i < arrayLength; i++) {  // Fix loop condition: i < arrayLength
+        let hasLongQuestions = false
+        let marksInAssignment = 0
+        for (let i = 0; i < arrayLength; i++) {
           if (activeOptions[assignmentData.questions[i].questionName] === assignmentData.questions[i].Answer) {  // Use strict equality (===) for comparison
             correctAnswers ++;
           }
+          if (assignmentData.questions[i].MSName) {
+            hasLongQuestions = true
+            marksInAssignment += assignmentData.questions[i].Marks
+          }
+          else {
+            marksInAssignment += 1
+          }
           setQuestionsCorrect(correctAnswers)
         }
-        const dataToUpdate = {
+        let dataToUpdate = {}
+        if (hasLongQuestions) {
+          dataToUpdate = {
+            id: user.id,
+            Score: correctAnswers,
+            totalMarks: marksInAssignment,
+            fullyGraded: false
+          }
+        } else {
+         dataToUpdate = {
           id: user.id,
           Score: correctAnswers,
-          numOfQuestions: arrayLength 
+          totalMarks: marksInAssignment,
+          fullyGraded: true
         }
+      }
         updateSupabase(dataToUpdate, 'assignments', 'completedBy', assignmentData.assignmentID)
         setSolved(true);
       }
@@ -146,20 +165,22 @@ async function updateSupabase(object, table, field, assignmentID) {
         {((studentInClass) && (!solvedPreviously)) && (!isTeacher) && 
         <div className="flex flex-col items-center gap-32 mt-32 mb-20">
         <h1 className='text-5xl font-bold mt-20 text-white'>{assignmentData.name} - ({assignmentData.questions.length}) Questions</h1>
-        {assignmentData.questions.map((question, index) => (
+        {assignmentData.questions.map((question, index) => {
+          const paperNumber = question.questionNumber ? "long" : `p${question.paperNumber}`;
+          return (
         <div key={question.questionName}>
             <div key={question.questionName} className='border border-4 md:border-8 border-green-600 p-2 rounded rounded-2xl'>
             <Image 
               key={question.questionName} 
               className='rounded rounded-md' 
-              src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/${question.Level === 'AS' ? 'A-level' : question.Level}/${question.Subject}/p${question.paperNumber}/${question.Chapter}/${question.questionName}`}
+              src={`https://teachmegcse-api2.s3.eu-central-1.amazonaws.com/${question.Level === 'AS' ? 'A-level' : question.Level}/${question.Subject}/${paperNumber}/${question.Chapter}/${question.questionName}`}
               alt='image' 
               height={800} 
               width={800} 
             />
             </div>
             <div className="flex mt-12 md:ml-0 flex-wrap justify-center gap-8">
-            {!solved && 
+            {!solved &&  paperNumber !== 'long' &&
             <>
                 <button
                 onClick={() => handleAnswer(question.questionName, 'A')}
@@ -196,6 +217,13 @@ async function updateSupabase(object, table, field, assignmentID) {
                 </button>
                 </>
                 }
+                {paperNumber === 'long' &&
+                <div>
+                <label class="block mb-2 text-sm font-medium text-white" for="file_input">Upload file</label>
+                <input class="block w-full text-sm border border-gray-300 rounded-lg cursor-pointer text-gray-400 focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400" id="file_input" type="file" />
+                <p class="mt-1 text-sm text-gray-300" id="file_input_help">JPG, JPEG or PNG only.</p>
+                </div>
+                }
                 <div>
                 {solved && (
                 <>
@@ -211,7 +239,7 @@ async function updateSupabase(object, table, field, assignmentID) {
         </div>
         </div>
         
-        ))}
+        )})}
         <div className="flex flex-flow justify-center mt-20 ml-60 md:ml-96">
         {!solved && !isTeacher &&
         <button

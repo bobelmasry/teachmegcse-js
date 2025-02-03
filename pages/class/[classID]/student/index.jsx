@@ -19,7 +19,6 @@ export default function ClassPage({ classData }) {
     const classID = routerData.classID
     const user = useUser()
     const session = useSession()
-
     const [studentData, setStudentData] = useState([])
     const [isTeacher, setIsTeacher] = useState(false)
     const [studentsAvailable, setStudentsAvailable] = useState([])
@@ -33,43 +32,49 @@ export default function ClassPage({ classData }) {
         router.reload()
       }
 
-    useEffect(() => {
-    async function getInitial() {
-      if (user && user.id) {
-        if (user.id === classData[0]?.user_id) {
-          setIsTeacher(true)
+      useEffect(() => {
+        async function getInitial() {
+          if (user && user.id && classData[0]) {
+            if (user.id === classData[0].user_id) {
+              setIsTeacher(true);
+            }
+          }
         }
-      }
-    }
-    getInitial()
-    async function addStudents() {
       
-        let { data, error, status } = await supabase
-          .from('profiles')
-          .select(`*`)
-          .eq('school', classData[0].school)
-          .eq('isTeacher', false);
+        async function addStudents() {
+          if (!classData) return;
       
-        const studentsNotInClass = data.filter((student) => {
-          if (classData[0].students) {
-            return !classData[0].students.includes(student.id);
-          }
-          return true;
-        });
-        const studentsInClass = data.filter((student) => {
-          if (classData[0].students) {
-            return classData[0].students.includes(student.id);
-          }
-          return true;
-        });
+          let { data, error } = await supabase
+            .from('profiles')
+            .select(`*`)
+            .eq('school', classData[0].school)
+            .eq('isTeacher', false);
       
-        setStudentsAvailable(studentsNotInClass);
-        setStudentData(studentsInClass);
-      }
-      addStudents()
-    },[classData, classID, studentID, user]
-    )
+          if (!data) return;
+      
+          const studentsNotInClass = data.filter(
+            (student) => !classData[0].students?.includes(student.id)
+          );
+          const studentsInClass = data.filter(
+            (student) => classData[0].students?.includes(student.id)
+          );
+      
+          setStudentsAvailable(studentsNotInClass);
+          setStudentData(studentsInClass);
+        }
+      
+        getInitial();
+        addStudents();
+      }, [classData, classID, studentID, user]);
+    
     const title = ` ${classData[0]?.name} - Students`
+    if (!classData || !classData[0]) {
+      return (
+          <div className="flex mt-20 justify-center">
+              <h1 className="text-3xl text-white">Class data is loading or not found.</h1>
+          </div>
+      );
+  }
     return (
         <>
         <Head>
@@ -80,12 +85,12 @@ export default function ClassPage({ classData }) {
             <Headstuff />
         </Head>
         <Navbar session={session} />
-            {classData[0].students.length === 0 &&
+            {(classData[0]?.students && classData[0].students?.length === 0) && (
             <div className="flex mt-20 justify-center"> 
             <h1 className='text-3xl text-white'>Hey, you need to have students to see their !</h1>
             </div>
-            }
-            {classData[0].students.length != 0 &&
+            )}
+            {classData[0]?.students?.length != 0 &&
             <>
             <div className="flex mt-20 justify-center">
             {isTeacher &&
@@ -96,7 +101,7 @@ export default function ClassPage({ classData }) {
             }
             </div>
             <div className="flex mt-20 justify-center">
-            {(classData[0].students && classData[0].students.length != 0) &&
+            {(classData[0]?.students) && (
           <div className="flex justify-center">
                 <table className="w-full text-lg text-left text-gray-400">
                     <thead className="text-lg uppercase bg-gray-700 text-gray-300">
@@ -137,13 +142,13 @@ export default function ClassPage({ classData }) {
                       }
                       </td>
                         <td className="px-10 ml-8 py-4">
-                        {student.questionsSolved?.filter((question) => question.Subject == classData[0].subject).length || 0}
+                        {student.questionsSolved?.filter((question) => question.Subject == classData[0].subject)?.length || 0}
                         </td>
                         <td className="px-10 ml-8 py-4">
-                        {student.questionsSolved?.filter((question) => question.Subject == classData[0].subject && (question.Correct.toString() == 'true')).length || 0}
+                        {student.questionsSolved?.filter((question) => question.Subject == classData[0].subject && (question.Correct.toString() == 'true'))?.length || 0}
                         </td>
                         <td className="sm:px-4 px-2 py-4">
-                        {`${Math.round(((student.questionsSolved?.filter((question) => (question.Subject == classData[0].subject) && (question.Correct.toString() == 'true')).length/student.questionsSolved?.filter((question) => question.Subject == classData[0].subject).length) * 10000)) / 100} %`}
+                        {`${Math.round(((student.questionsSolved?.filter((question) => (question.Subject == classData[0].subject) && (question.Correct.toString() == 'true'))?.length/student.questionsSolved?.filter((question) => question.Subject == classData[0].subject)?.length) * 10000)) / 100} %`}
                         </td>
                         {isTeacher &&
                         <td className="sm:px-4 px-2 py-4">
@@ -156,7 +161,7 @@ export default function ClassPage({ classData }) {
           ))}
           </table>            
           </div>
-          }
+          )}
             </div>
           <div className='flex flex-col ml-96'>
           {isTeacher &&
@@ -174,18 +179,18 @@ export default function ClassPage({ classData }) {
 }
 
 export async function getServerSideProps({ params }) {
-    let { data } = await supabase
-      .from('classes')
-      .select(`*`)
-      .eq('classID', params.classID);
-  
-    if (data.length === 0) {
-      throw new Error('Class not found');
-    }
-    
-    const classData = data;
-  
+  let { data, error } = await supabase
+    .from('classes')
+    .select(`*`)
+    .eq('classID', params.classID);
+
+  if (!data || data.length === 0) {
     return {
-      props: { classData },
+      notFound: true,
     };
   }
+  
+  return {
+    props: { classData: data ?? [] }, // Ensure classData is always an array
+  };
+}
